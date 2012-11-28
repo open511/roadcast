@@ -1,0 +1,55 @@
+body {
+	overflow: hidden;
+}
+.header {
+	height: 50px;
+	padding: 1px 10px;
+	background-color: #AFF59F;
+	border-bottom: 2px solid #5bb053;
+}
+.header .logo {
+	padding: 6px 20px 0 8px;
+}
+.infopane {
+	width: 300px;
+	overflow: auto;
+	padding: 5px 15px;
+}
+.infopane h2 {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	line-height: 30px;
+	margin: 10px 0;
+}
+.infopane h2 a i {
+	vertical-align: middle;
+	margin: 0 0 3px 3px;
+	opacity: 0.7;
+}
+.infopane h2 a i:hover {
+	opacity: 1.0;
+}
+.infopane div.date {
+	font-size: 14px;
+	font-weight: bold;
+	color: #777777;
+	margin-bottom: 5px;
+}
+.infopane h4 {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	border-bottom: 1px dotted #aaaaaa;
+	margin: 10px 0 5px 0;
+}
+.mappane {
+	position: absolute;
+	overflow: hidden;
+}
+
+.editor .field input, .editor .field textarea {
+	width: 90%;
+	resize: none;
+}
+.editor .field label {
+	font-weight: 300;
+	font-size: 15px;
+	color: #777777;
+}
