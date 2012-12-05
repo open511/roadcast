@@ -2,8 +2,12 @@
 	O5.views = O5.views || {};
 
 	var BaseWidget = Backbone.View.extend({
+		addLabel: true,
 		setVal: function(val) {
 			this.$el.val(val);
+		},
+		getVal: function() {
+			return this.$el.val();
 		}
 	});
 
@@ -24,8 +28,55 @@
 			initialize: function() {
 				var $el = this.$el;
 				_.each(this.options.field.choices, function(choice) {
-					$el.append($('<option />').attr('name', choice[0]).text(choice[1]));
+					$el.append($('<option />').val(choice[0]).text(choice[1]));
 				});
+			}
+		}),
+
+		map: BaseWidget.extend({
+			tagName: 'div',
+			geom: null,
+			geomType: function() {
+				if (!this.geom) {
+					return null;
+				}
+				return this.geom.type;
+			},
+			initialize: function() {
+				// Event handlers
+				var self = this;
+				this.$el.on('click', '.draw-clear', function(e) {
+					e.preventDefault();
+					self.geom = null;
+					self.render();
+				}).on('click', '.draw-point', function(e) {
+					e.preventDefault();
+					self.startDrawing('point');
+				}).on('click', '.draw-line', function(e) {
+					e.preventDefault();
+					self.startDrawing('line');
+				});
+				this.render();
+			},
+			startDrawing: function(type) {
+				O5.map.startDrawing(type);
+				O5.map.off('draw', this.saveDrawing);
+				O5.map.on('draw', this.saveDrawing, this);
+			},
+			saveDrawing: function(gj) {
+				this.geom = gj;
+				O5.map.stopDrawing();
+				this.render();
+			},
+			render: function() {
+				this.$el.html(JST.map_edit_widget(this));
+			},
+			setVal: function(val) {
+				this.geom = val;
+				this.render();
+			},
+			getVal: function() {
+				return this.geom;
 			}
 		})
 	};
@@ -65,6 +116,7 @@
 
 		initialize: function() {
 			var $el = this.$el;
+			var self = this;
 			// Tab navigation
 			$el.on('click', 'li[data-tab]', function(e) {
 				e.preventDefault();
@@ -82,6 +134,16 @@
 				});
 			});
 
+			$el.on('click', '.close-button', function(e) {
+				e.preventDefault();
+				self.roadEvent.select();
+			}).on('click', '.save-button', function(e) {
+				e.preventDefault();
+				self.updateEvent(function() {
+					self.roadEvent.select();
+				});
+			});
+
 		},
 
 		render: function() {
@@ -92,8 +154,10 @@
 			_.each(O5.RoadEventFields, function(field) {
 				var $field_el = $('<div class="field" />');
 				var widget = getWidget(field);
-				$field_el.attr('data-tab', field.tab)
-					.append($('<label for="' + widget.id + '" />').text(field.label));
+				$field_el.attr('data-tab', field.tab);
+				if (widget.addLabel) {
+					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));
+				}
 				self.widgets.push(widget);
 				$field_el.append(widget.el);
 				if (self.roadEvent && self.roadEvent.get(field.name)) {
@@ -103,6 +167,22 @@
 			});
 			self.$el.empty().append($e);
 			$e.find('ul.nav li[data-tab="basics"]').click();
+		},
+
+		getUpdates: function() {
+			var updates = {};
+			_.each(this.widgets, function (widget) {
+				var field = widget.options.field;
+				updates[field.name] = widget.getVal();
+			});
+			return updates;
+		},
+
+		updateEvent: function(success) {
+			var updates = this.getUpdates();
+			if (_.size(updates)) {
+				this.roadEvent.update(updates, {success: success});
+			}
 		}
 
 	});

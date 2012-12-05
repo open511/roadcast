@@ -1,0 +1,11 @@
+<% if (geomType() === null) { %>
+	<a class="btn draw-point">Draw point</a> <a class="btn draw-line">Draw line</a>
+<% }
+if (geomType() === 'Point') { %>
+	<strong>Point</strong> <em><%- geom.coordinates[0] %>, <%- geom.coordinates[1] %></em>
+	<br><a class="btn draw-clear">Clear point</a>
+<% }
+if (geomType() === 'LineString') { %>
+	<strong>LineString</strong>
+	<br><a class="btn draw-clear">Clear line</a>
+<% } %>

@@ -43,6 +43,7 @@ css_main = Bundle(
 jst_main = Bundle(
     'o5ui/jst/event_editor.html',
     'o5ui/jst/event_info.html',
+    'o5ui/jst/map_edit_widget.html',
     filters=[jst_filter],
     output='gen/jst.js'
 )

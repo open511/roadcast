@@ -1,4 +1,6 @@
 (function() {
+	var markerURL = O5.staticURL + 'o5ui/img/cone-small-1.png';
+
 	var Map = Backbone.View.extend({
 
 		initialize: function() {
@@ -7,7 +9,7 @@
 				startLng: -73.61512,
 				startZoom: 10,
 				markerOpts: {
-					icon: O5.staticURL + 'o5ui/img/cone-small-1.png'
+					icon: markerURL
 				},
 				polylineOpts: {
 					strokeColor: "#FF0000"
@@ -35,13 +37,51 @@
 
 		},
 
-		initializeDrawing: function() {
-			this.drawingManager = new google.maps.drawing.DrawingManager({
-		//		drawingControl: false
-			});
-			this.drawingManager.setMap(this.gmap);
+		overlayToGeoJSON: function(type, overlay) {
+			if (type === 'marker') {
+				var latlng = overlay.getPosition();
+				return {
+					type: "Point",
+					coordinates: [latlng.lng(), latlng.lat()]
+				};
+			}
 		},
-	
+
+		initializeDrawing: function() {
+			if (!this.drawingManager) {
+				var self = this;
+				this.drawingManager = new google.maps.drawing.DrawingManager({
+					drawingControl: false,
+					markerOptions: {
+						icon: new google.maps.MarkerImage(markerURL)
+					}
+				});
+				this.drawingManager.setMap(this.gmap);
+				google.maps.event.addListener(this.drawingManager, 'overlaycomplete', function(e) {
+					console.log(e);
+					var gj = self.overlayToGeoJSON(e.type, e.overlay);
+					console.log(gj);
+					self.trigger('draw', gj);
+				});
+			}
+		},
+
+		startDrawing: function(mode, options) {
+			var gModes = {
+				point: google.maps.drawing.OverlayType.MARKER,
+				line: google.maps.drawing.OverlayType.POLYLINE,
+				polygon: google.maps.drawing.OverlayType.POLYGON
+			};
+			this.initializeDrawing();
+			// clear existing points?
+			this.drawingManager.setDrawingMode(gModes[mode]);
+		},
+
+		stopDrawing: function() {
+			this.initializeDrawing();
+			this.drawingManager.setDrawingMode(null);
+		},
+
 		/**
 		* Returns an array of overlays to add to the map based on the provided GeoJSON object. 
 		*/
@@ -82,10 +122,11 @@
 	
 		addRoadEvent: function(rdev) {
 			var self = this;
-			_.each(self.getOverlaysFromGeoJSON(rdev.get('geometry')), function(overlay) {
+			var overlays = this.getOverlaysFromGeoJSON(rdev.get('geometry'));
+			_.each(overlays, function(overlay) {
 				overlay.setMap(self.gmap);
 				google.maps.event.addListener(overlay, 'click', function() {
-					rdev.navigateTo();
+					rdev.select();
 				});
 			});
 		}

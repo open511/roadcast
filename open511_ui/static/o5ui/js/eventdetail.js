@@ -5,7 +5,11 @@
 		roadEvent: null,
 
 		displayEvent: function(event) {
+			if (this.roadEvent) {
+				this.roadEvent.off('change', this.render, this);
+			}
 			this.roadEvent = event;
+			this.roadEvent.on('change', this.render, this);
 			this.render();
 		},
 

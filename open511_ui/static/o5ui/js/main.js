@@ -35,7 +35,7 @@ $(function() {
 
     events.on('selection', function(event) {
       O5.detailViewer.displayEvent(event);
-      //editor.selectEvent(event);
+      event.navigateTo();
     });
 
     events.on('edit', function(event) {

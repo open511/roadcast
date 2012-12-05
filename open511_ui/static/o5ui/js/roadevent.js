@@ -15,8 +15,35 @@
       return resp;
     },
 
-    navigateTo: function() {
-      O5.router.navigate('events/' + this.id, {trigger: true});
+    navigateTo: function(opts) {
+      O5.router.navigate('events/' + this.id, opts || {});
+    },
+
+    url: function() {
+      return this.get('url');
+    },
+
+    update: function(updates, opts) {
+      var self = this;
+      opts = opts || {};
+      $.ajax({
+        url: this.url(),
+        data: JSON.stringify(updates),
+        type: 'POST',
+        contentType: 'application/json',
+        processData: false,
+        success: function() {
+          console.log('success!');
+          self.fetch();
+          if (_.isFunction(opts.success)) {
+            opts.success();
+          }
+        }
+      });
+    },
+
+    sync: function(method, model, opts) {
+      this.collection.sync(method, model, opts);
     }
   
   });
@@ -25,7 +52,7 @@
   O5.RoadEvents = Backbone.Collection.extend({
     model: O5.RoadEvent,
     url: function() {
-      return O5.apiURL + '/events';
+      return O5.apiURL + '/events/';
     },
     sync: function(method, model, opts) {
       if (method === 'read') {
@@ -58,8 +85,9 @@
           }
         });
       }
-      return resp.content;
+      return resp.objects;
     }
+
   });
 
   O5.RoadEventFields = [
@@ -82,8 +110,8 @@
         tab: 'basics',
         choices: [
           ['construction', 'Construction'],
-          ['weather', 'Weather'],
-          ['unplanned', 'Unplanned Event']
+          ['event', 'Special event'],
+          ['incident', 'Incident (accident, unplanned roadwork...)']
         ]
       },
       {
@@ -96,6 +124,13 @@
           ['major', 'Major'],
           ['apocalyptic', 'Apocalyptic']
         ]
+      },
+      {
+        name: 'geometry',
+        label: 'Geography',
+        type: 'geom',
+        widget: 'map',
+        tab: 'map'
       }
   ];
 
