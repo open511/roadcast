@@ -67,6 +67,7 @@
 				this.geom = gj;
 				O5.map.stopDrawing();
 				this.render();
+				this.options.roadEvent.set('geometry', gj)
 			},
 			render: function() {
 				this.$el.html(JST.map_edit_widget(this));
@@ -81,7 +82,7 @@
 		})
 	};
 
-	var getWidget = function(field) {
+	var getWidget = function(field, roadEvent) {
 		var wc;
 
 		var field_id = 'field_' + field.name + '_' + Math.floor(Math.random() * 99999);
@@ -101,7 +102,8 @@
 		
 		return new wc({
 			id: field_id,
-			field: field
+			field: field,
+			roadEvent: roadEvent
 		});
 	};
 
@@ -153,7 +155,7 @@
 			this.widgets = [];
 			_.each(O5.RoadEventFields, function(field) {
 				var $field_el = $('<div class="field" />');
-				var widget = getWidget(field);
+				var widget = getWidget(field, self.roadEvent);
 				$field_el.attr('data-tab', field.tab);
 				if (widget.addLabel) {
 					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));

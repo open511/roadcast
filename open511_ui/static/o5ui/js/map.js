@@ -45,6 +45,13 @@
 					coordinates: [latlng.lng(), latlng.lat()]
 				};
 			}
+			if (type === 'polyline') {
+				var latlngs = overlay.getPath().getArray();
+				return {
+					type: "LineString",
+					coordinates: _.map(latlngs, function(ll) { return [ll.lng(), ll.lat()]; })
+				};
+			}
 		},
 
 		initializeDrawing: function() {
@@ -58,9 +65,9 @@
 				});
 				this.drawingManager.setMap(this.gmap);
 				google.maps.event.addListener(this.drawingManager, 'overlaycomplete', function(e) {
-					console.log(e);
 					var gj = self.overlayToGeoJSON(e.type, e.overlay);
-					console.log(gj);
+					// Delete the overlay once drawn
+					e.overlay.setMap(null);
 					self.trigger('draw', gj);
 				});
 			}
@@ -119,16 +126,27 @@
 					alert("Invalid geometry type: " + gj.type);
 			}	
 		},
-	
-		addRoadEvent: function(rdev) {
+
+		updateRoadEvent: function(rdev) {
 			var self = this;
-			var overlays = this.getOverlaysFromGeoJSON(rdev.get('geometry'));
-			_.each(overlays, function(overlay) {
+			if (rdev.mapOverlays) {
+				// Delete any existing overlays
+				_.each(rdev.mapOverlays, function(overlay) {
+					overlay.setMap(null);
+				});
+			}
+			rdev.mapOverlays = this.getOverlaysFromGeoJSON(rdev.get('geometry'));
+			_.each(rdev.mapOverlays, function(overlay) {
 				overlay.setMap(self.gmap);
 				google.maps.event.addListener(overlay, 'click', function() {
 					rdev.select();
 				});
 			});
+		},
+	
+		addRoadEvent: function(rdev) {
+			rdev.on('change:geometry', this.updateRoadEvent, this);
+			this.updateRoadEvent(rdev);
 		}
 	});
 
