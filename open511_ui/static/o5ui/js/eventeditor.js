@@ -67,7 +67,7 @@
 				this.geom = gj;
 				O5.map.stopDrawing();
 				this.render();
-				this.options.roadEvent.set('geometry', gj)
+				this.options.roadEvent.set('geometry', gj);
 			},
 			render: function() {
 				this.$el.html(JST.map_edit_widget(this));

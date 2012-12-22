@@ -76,7 +76,7 @@
     },
 
     parse: function(resp, xhr) {
-      if (resp.pagination.next) {
+      if (resp.pagination.next_url) {
         var collection = this;
         this.sync('read', this, {
           offset: resp.pagination.offset + resp.pagination.limit,
