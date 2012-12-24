@@ -32,8 +32,8 @@
   <script type="text/javascript">
   window.O5 = {
     rootURL: '{% url "o5ui_home" %}',
-    //apiURL: 'http://dev.open511.ca',
-    apiURL: '',
+    //apiURL: 'http://dev.open511.ca/api/',
+    apiURL: '{% url "open511_discovery" %}',
     staticURL: '{{ STATIC_URL|escapejs }}',
     utils: {},
     views: {},
