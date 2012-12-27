@@ -11,6 +11,9 @@
     },
 
     parse: function(resp) {
+      if (resp.content && resp.meta) {
+        resp = resp.content;
+      }
       resp.id = resp.url.replace(/\/$/, '').split('/').slice(-2).join('/');
       return resp;
     },
@@ -85,7 +88,7 @@
           }
         });
       }
-      return resp.objects;
+      return resp.content;
     }
 
   });
