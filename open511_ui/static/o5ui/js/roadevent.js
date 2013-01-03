@@ -112,6 +112,17 @@
         required: true
       },
       {
+        name: 'status',
+        label: 'Status',
+        type: 'enum',
+        tab: 'basics',
+        choices: [
+          ['active', 'Active'],
+          ['archived', 'Archived']
+        ],
+        required: true
+      },
+      {
         name: 'description',
         label: 'Description',
         type: 'text',
@@ -162,6 +173,12 @@
         label: 'End date',
         type: 'date',
         tab: 'schedule'
+      },
+      {
+        name: 'detour',
+        label: 'Detour',
+        type: 'text',
+        tab: 'details'
       }
   ];
 
