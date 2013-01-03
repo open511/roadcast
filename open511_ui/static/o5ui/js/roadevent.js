@@ -43,7 +43,9 @@
     },
 
     navigateTo: function(opts) {
-      O5.router.navigate('events/' + this.id, opts || {});
+      if (this.get('id')) {
+        O5.router.navigate('events/' + this.get('id'), opts || {});
+      }
     },
 
     url: function() {

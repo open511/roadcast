@@ -7,6 +7,8 @@ js_libs = Bundle(
     'vendor/jquery.js',
     'vendor/lodash.js',
     'vendor/backbone.js',
+    'vendor/bootstrap/js/bootstrap-alert.js',
+    'vendor/bootstrap/js/bootstrap-transition.js',
 )
 
 js_gmaps = Bundle(
@@ -44,6 +46,7 @@ jst_main = Bundle(
     'o5ui/jst/event_editor.html',
     'o5ui/jst/event_info.html',
     'o5ui/jst/map_edit_widget.html',
+    'o5ui/jst/notification.html',
     filters=[jst_filter],
     output='gen/jst.js'
 )

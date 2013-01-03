@@ -9,6 +9,10 @@ window.O5.init = function(opts) {
     });
     _.extend(O5, opts);
 
+    $(document).ajaxError(function(e, xhr, settings, exception) {
+      O5.utils.notify(xhr.responseText, 'error');
+    });
+
     var drawPage = function() {
       var topOffset = $('.header').outerHeight();
       var leftOffset = $('.infopane').outerWidth();
