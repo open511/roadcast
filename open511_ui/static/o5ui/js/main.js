@@ -58,7 +58,7 @@ window.O5.init = function(opts) {
       });
     }
 
-    events.fetch();
+    events.fetch({ update: true });
 
     O5.router = new O5.prototypes.Router();
 

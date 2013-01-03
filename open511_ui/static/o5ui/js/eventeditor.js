@@ -46,7 +46,7 @@
 			},
 
 			initialize: function() {
-				this.$el.attr('rows', 1);
+				this.$el.attr('rows', 2);
 				this.on('change changeActivity', this.resize, this);
 			},
 
