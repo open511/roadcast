@@ -6,8 +6,32 @@
 		setVal: function(val) {
 			this.$el.val(val);
 		},
+
 		getVal: function() {
 			return this.$el.val();
+		},
+
+		validate: function() {
+			if (this.options.field.validate) {
+				return this.options.field.validate(this.getVal());
+			}
+			if (this.options.field.required && !this.getVal()) {
+				return "This field is required";
+			}
+			return true;
+		},
+
+		events: {
+			"change": "onChange",
+			"keydown": "onChangeActivity"
+		},
+
+		onChange: function() {
+			this.trigger('change');
+		},
+
+		onChangeActivity: function() {
+			this.trigger('changeActivity');
 		}
 	});
 
@@ -82,6 +106,7 @@
 				O5.map.stopDrawing();
 				this.render();
 				this.options.roadEvent.set('geometry', gj);
+				this.onChange();
 			},
 			render: function() {
 				this.$el.html(JST.map_edit_widget(this));
@@ -163,6 +188,9 @@
 				// self.updateEvent(function() {
 				// 	self.roadEvent.select();
 				// });
+				if (!self.validate()) {
+					return O5.utils.notify("Looks like something's not valid.");
+				}
 				self.updateEvent();
 				self.roadEvent.select();
 			});
@@ -186,13 +214,15 @@
 			var $fields = $e.find('.fields');
 			this.widgets = [];
 			_.each(O5.RoadEventFields, function(field) {
-				var $field_el = $('<div class="field" />');
+				var $field_el = $('<div class="field control-group" />');
 				var widget = getWidget(field, self.roadEvent);
 				$field_el.attr('data-tab', field.tab);
 				if (widget.addLabel) {
 					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));
 				}
 				self.widgets.push(widget);
+				widget.on('change', function() { self.validateWidget(widget); });
+				// widget.on('changeActivity', function() { $field_el.removeClass('error'); });
 				$field_el.append(widget.el);
 				var val = self._getRoadEventValue(field.name);
 				if (val) {
@@ -231,6 +261,34 @@
 				// this.roadEvent.update(updates, {success: success});
 				this.roadEvent.save(updates, {patch: true, wait: true});
 			}
+		},
+
+		validateWidget: function(widget) {
+			var fieldValid = widget.validate();
+			var $control = widget.$el.closest('.control-group');
+			if (fieldValid === true) {
+				$control.removeClass('error');
+				$control.find('.validation-error').remove();
+				return true;
+			}
+			else {
+				$control.addClass('error');
+				var $msg = $('<span class="help-inline validation-error" />');
+				$msg.text(fieldValid);
+				$control.append($msg);
+				return false;
+			}
+		},
+
+		validate: function() {
+			var self = this;
+			var valid = true;
+			_.each(this.widgets, function(widget) {
+				if (!self.validateWidget(widget)) {
+					valid = false;
+				}
+			});
+			return valid;
 		}
 
 	});

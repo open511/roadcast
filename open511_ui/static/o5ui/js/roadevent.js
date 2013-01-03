@@ -108,13 +108,15 @@
         name: 'headline',
         label: 'Headline',
         type: 'text',
-        tab: 'basics'
+        tab: 'basics',
+        required: true
       },
       {
         name: 'description',
         label: 'Description',
         type: 'text',
-        tab: 'details'
+        tab: 'details',
+        required: true
       },
       {
         name: 'eventType',
@@ -125,7 +127,8 @@
           ['construction', 'Construction'],
           ['event', 'Special event'],
           ['incident', 'Incident (accident, unplanned roadwork...)']
-        ]
+        ],
+        required: true
       },
       {
         name: 'severity',
@@ -136,20 +139,23 @@
           ['minor', 'Minor'],
           ['major', 'Major'],
           ['apocalyptic', 'Apocalyptic']
-        ]
+        ],
+        required: true
       },
       {
         name: 'geometry',
         label: 'Geography',
         type: 'geom',
         widget: 'map',
-        tab: 'map'
+        tab: 'map',
+        required: true
       },
       {
         name: 'schedule/startDate',
         label: 'Start date',
         type: 'date',
-        tab: 'schedule'
+        tab: 'schedule',
+        required: true
       },
       {
         name: 'schedule/endDate',
