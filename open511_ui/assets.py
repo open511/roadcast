@@ -11,6 +11,10 @@ js_libs = Bundle(
     'vendor/bootstrap/js/bootstrap-transition.js',
 )
 
+js_editor_libs = Bundle(
+    'vendor/datepicker.js'
+)
+
 js_gmaps = Bundle(
     'o5ui/js/geojson-to-google.js',
     'o5ui/js/map.js'
@@ -20,15 +24,22 @@ js_app = Bundle(
     'o5ui/js/main.js',
     'o5ui/js/roadevent.js',
     'o5ui/js/eventdetail.js',
-    'o5ui/js/eventeditor.js',
     'o5ui/js/roadevent.js',
     'o5ui/js/router.js',
     js_gmaps,
     'o5ui/js/utils.js'
 )
 
+js_editor_app = Bundle(
+    'o5ui/js/eventeditor.js'
+)
+
 css_libs = Bundle(
     'vendor/bootstrap/css/bootstrap.css'
+)
+
+css_editor_libs = Bundle(
+    'vendor/datepicker.css'
 )
 
 css_app = Bundle(
@@ -43,12 +54,17 @@ css_main = Bundle(
 )
 
 jst_main = Bundle(
-    'o5ui/jst/event_editor.html',
     'o5ui/jst/event_info.html',
-    'o5ui/jst/map_edit_widget.html',
     'o5ui/jst/notification.html',
     filters=[jst_filter],
     output='gen/jst.js'
+)
+
+jst_editor = Bundle(
+    'o5ui/jst/event_editor.html',
+    'o5ui/jst/map_edit_widget.html',
+    filters=[jst_filter],
+    output='gen/editor_jst.js'
 )
 
 js_main = Bundle(
@@ -59,5 +75,15 @@ js_main = Bundle(
     output='gen/main.js'
 )
 
+js_editor = Bundle(
+    js_editor_libs,
+    js_editor_app,
+    jst_editor,
+    filters='rjsmin',
+    output='gen/editor.js'
+)
+
 register('css_main', css_main)
 register('js_main', js_main)
+register('css_editor', css_editor_libs)
+register('js_editor', js_editor)

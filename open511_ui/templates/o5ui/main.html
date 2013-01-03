@@ -9,11 +9,13 @@
 
   <title>Open511</title>
 
-  <!-- Application styles. -->
   <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
   {% assets "css_main" %}
   <link rel="stylesheet" href="{{ ASSET_URL }}">
   {% endassets %}
+  {% if enable_editing %}{% assets "css_editor" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
+  {% endassets %}{% endif %}
 </head>
 
 <body>
@@ -35,6 +37,9 @@
   {% assets "js_main" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
+    {% if enable_editing %}{% assets "js_editor" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}{% endif %}
 
   <script type="text/javascript">
   $(function() {
