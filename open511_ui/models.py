@@ -1,1 +1,1 @@
-# Django wants this empty file here
+from open511_ui import conf

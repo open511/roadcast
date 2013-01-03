@@ -45,7 +45,7 @@
   $(function() {
     O5.init({
       rootURL: '{% url "o5ui_home" %}',
-      apiURL: '{% url "open511_discovery" %}',
+      apiURL: '{{ api_url|escapejs }}',
       staticURL: '{{ STATIC_URL|escapejs }}',
       enableEditing: {% if enable_editing %}true{% else %}false{% endif %}
     });

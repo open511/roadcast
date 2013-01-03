@@ -10,5 +10,6 @@ setup(
     ],
     install_requires = [
         'webassets>=0.7.1',
+        'django-appconf==0.5',
     ]
 )
