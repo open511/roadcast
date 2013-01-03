@@ -37,7 +37,23 @@
 
 	var widgets = {
 		textarea: BaseWidget.extend({
-			tagName: 'textarea'
+			tagName: 'textarea',
+
+			resize: function() {
+				var val = this.getVal();
+				var rows = Math.min((val.length / 40) + val.split('\n').length - 1, 12) + 1;
+				this.$el.attr('rows', rows);
+			},
+
+			initialize: function() {
+				this.$el.attr('rows', 1);
+				this.on('change changeActivity', this.resize, this);
+			},
+
+			setVal: function() {
+				BaseWidget.prototype.setVal.apply(this, arguments);
+				this.resize();
+			}
 		}),
 
 		text: BaseWidget.extend({
@@ -250,7 +266,19 @@
 			var updates = {};
 			_.each(this.widgets, function (widget) {
 				var field = widget.options.field;
-				updates[field.name] = widget.getVal();
+				var val = widget.getVal();
+				if (val === '') val = null;
+				// This is done so that 'schedule/startDate' goes to {'schedule': {'startDate': x }}
+				var name_bits = field.name.split('/');
+				var base = updates;
+				while (name_bits.length > 1) {
+					var bit = name_bits.shift();
+					if (!base[bit]) {
+						base[bit] = {};
+					}
+					base = base[bit];
+				}
+				base[name_bits[0]] = val;
 			});
 			return updates;
 		},
