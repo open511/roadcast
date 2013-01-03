@@ -33,6 +33,20 @@
 			}
 		}),
 
+		date: BaseWidget.extend({
+			tagName: 'input',
+			initialize: function() {
+				this.$el.attr('type', 'text');
+				this.$el.datepicker({
+					format: 'yyyy-mm-dd'
+				});
+			},
+			setVal: function(val) {
+				this.$el.val(val);
+				this.$el.datepicker('update');
+			}
+		}),
+
 		map: BaseWidget.extend({
 			tagName: 'div',
 			geom: null,
@@ -82,10 +96,12 @@
 		})
 	};
 
+	var fieldCounter = 1;
+
 	var getWidget = function(field, roadEvent) {
 		var wc;
 
-		var field_id = 'field_' + field.name + '_' + Math.floor(Math.random() * 99999);
+		var field_id = 'field_' + fieldCounter++;
 
 		if (field.widget) {
 			wc = widgets[field.widget];
@@ -95,6 +111,9 @@
 		}
 		else if (field.type === 'enum' && field.choices) {
 			wc = widgets.select;
+		}
+		else if (field.type === 'date') {
+			wc = widgets.date;
 		}
 		else {
 			wc = widgets.text;
@@ -175,13 +194,26 @@
 				}
 				self.widgets.push(widget);
 				$field_el.append(widget.el);
-				if (self.roadEvent && self.roadEvent.get(field.name)) {
-					widget.setVal(self.roadEvent.get(field.name));
+				var val = self._getRoadEventValue(field.name);
+				if (val) {
+					widget.setVal(val);
 				}
 				$fields.append($field_el);
 			});
 			self.$el.empty().append($e);
 			$e.find('ul.nav li[data-tab="basics"]').click();
+		},
+
+		_getRoadEventValue: function(name) {
+			if (!this.roadEvent) {
+				return null;
+			}
+			var name_bits = name.split('/');
+			var base = this.roadEvent.get(name_bits.shift());
+			while (base && name_bits.length) {
+				base = base[name_bits.shift()];
+			}
+			return base;
 		},
 
 		getUpdates: function() {

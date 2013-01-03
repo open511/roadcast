@@ -144,6 +144,18 @@
         type: 'geom',
         widget: 'map',
         tab: 'map'
+      },
+      {
+        name: 'schedule/startDate',
+        label: 'Start date',
+        type: 'date',
+        tab: 'schedule'
+      },
+      {
+        name: 'schedule/endDate',
+        label: 'End date',
+        type: 'date',
+        tab: 'schedule'
       }
   ];
 
