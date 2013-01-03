@@ -5,7 +5,8 @@ window.O5.prototypes = {};
 window.O5.init = function(opts) {
 
     _.defaults(opts, {
-      enableEditing: false
+      enableEditing: false,
+      elementSelector: '#main'
     });
     _.extend(O5, opts);
 
@@ -13,18 +14,18 @@ window.O5.init = function(opts) {
       O5.utils.notify(xhr.responseText, 'error');
     });
 
-    var drawPage = function() {
-      var topOffset = $('.header').outerHeight();
-      var leftOffset = $('.infopane').outerWidth();
-      $('.infopane,.mappane').height($(window).height() - topOffset);
-      $('.mappane').width($(window).width() - leftOffset).css({left: leftOffset, top: topOffset});
-    };
-    drawPage();
-    $(window).resize(drawPage);
+    O5.layout = new O5.prototypes.Layout($(O5.elementSelector));
+    O5.layout.draw();
 
-    O5.detailViewer = new O5.views.EventDetailView({
-      el: $('.infopane')[0]
+    var $window = $(window);
+    $window.resize(function() {
+      O5.layout.change({
+        height: $window.height(),
+        width: $window.width()
+      });
     });
+
+    O5.detailViewer = new O5.views.EventDetailView();
     O5.map = new O5.views.MapView({
       el: $('.mappane')[0]
     });
@@ -46,19 +47,19 @@ window.O5.init = function(opts) {
 
     events.on('selection', function(event) {
       O5.detailViewer.displayEvent(event);
+      O5.layout.setLeftPane(O5.detailViewer);
       event.navigateTo();
     });
 
     if (O5.enableEditing) {
-      O5.editor = new O5.views.EventEditorView({
-        el: $('.infopane')[0]
-      });
+      O5.editor = new O5.views.EventEditorView();
       events.on('edit', function(event) {
         O5.editor.selectEvent(event);
+        O5.layout.setLeftPane(O5.editor);
       });
     }
 
-    events.fetch({ update: true });
+    events.fetch({ update: true, remove: false });
 
     O5.router = new O5.prototypes.Router();
 

@@ -18,8 +18,12 @@ body {
 	font-size: 20px;
 }
 .infopane {
-	width: 300px;
 	overflow: auto;
+	z-index: 5;
+	position: relative;
+	background-color: white;
+}
+.infopane > div {
 	padding: 5px 15px;
 }
 .infopane h2 {
