@@ -53,6 +53,12 @@ css_main = Bundle(
     output='gen/main.css'
 )
 
+css_editor = Bundle(
+    css_editor_libs,
+    filters='cssrewrite',
+    output='gen/editor.css'
+)
+
 jst_main = Bundle(
     'o5ui/jst/event_info.html',
     'o5ui/jst/notification.html',
@@ -85,5 +91,5 @@ js_editor = Bundle(
 
 register('css_main', css_main)
 register('js_main', js_main)
-register('css_editor', css_editor_libs)
+register('css_editor', css_editor)
 register('js_editor', js_editor)
