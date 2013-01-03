@@ -1,5 +1,6 @@
 <% if (r.headline) { %><h2><%- r.headline %>
-<a href="" class="edit-roadevent"><i class="icon-pencil"></i></a></h2><% } %>
+<% if (O5.enableEditing) { print('<a href="" class="edit-roadevent"><i class="icon-pencil"></i>'); } %>
+	</a></h2><% } %>
 <% if (r.schedule) { %><div class="date"><%- r.schedule.startDate %> &#8211; <%- r.schedule.endDate %></div><% } %>
 <% if (r.description) { %><h4>Details</h4><%= O5.utils.nlToBR(r.description) %><% } %>
 <% if (r.trafficRestrictions) { %><h4>Traffic restrictions</h4><%- r.trafficRestrictions %><% } %>

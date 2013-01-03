@@ -10,6 +10,13 @@ body {
 .header .logo {
 	padding: 6px 20px 0 8px;
 }
+.header div.add-event {
+	display: block;
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	font-size: 20px;
+}
 .infopane {
 	width: 300px;
 	overflow: auto;

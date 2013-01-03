@@ -15,13 +15,13 @@ js_gmaps = Bundle(
 )
 
 js_app = Bundle(
+    'o5ui/js/main.js',
     'o5ui/js/roadevent.js',
     'o5ui/js/eventdetail.js',
     'o5ui/js/eventeditor.js',
     'o5ui/js/roadevent.js',
     'o5ui/js/router.js',
     js_gmaps,
-    'o5ui/js/main.js',
     'o5ui/js/utils.js'
 )
 

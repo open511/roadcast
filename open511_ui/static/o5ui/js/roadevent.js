@@ -1,5 +1,29 @@
 (function(){
 
+  var sync =  function(method, model, opts) {
+    if (method === 'read') {
+      params = {
+        type: 'GET',
+        dataType: 'json'
+      };
+      if (!params.url) { params.url = model.url(); }
+      params.url += '?format=json&accept-language=en,fr;q=0.1';
+      if (params.url.substring(0, 4) === 'http') {
+        // JSONP
+        params.url += '&callback=?';
+      }
+      if (opts.offset) {
+        params.url += '&offset=' + opts.offset;
+        delete opts.offset;
+      }
+      _.defaults(params, opts);
+      $.ajax(params);
+    }
+    else {
+      Backbone.sync(method, model, opts);
+    }
+  };
+
   O5.RoadEvent = Backbone.Model.extend({
 
     select: function() {
@@ -23,7 +47,11 @@
     },
 
     url: function() {
-      return this.get('url');
+      var url = this.get('url');
+      if (url) {
+        return url;
+      }
+      return Backbone.Model.prototype.url.call(this);
     },
 
     update: function(updates, opts) {
@@ -45,9 +73,7 @@
       });
     },
 
-    sync: function(method, model, opts) {
-      this.collection.sync(method, model, opts);
-    }
+    sync: sync
   
   });
 
@@ -57,26 +83,8 @@
     url: function() {
       return O5.apiURL + 'events/';
     },
-    sync: function(method, model, opts) {
-      if (method === 'read') {
-        params = {
-          type: 'GET',
-          dataType: 'json'
-        };
-        if (!params.url) { params.url = model.url(); }
-        params.url += '?format=json&accept-language=en,fr;q=0.1';
-        if (params.url.substring(0, 4) === 'http') {
-          // JSONP
-          params.url += '&callback=?';
-        }
-        if (opts.offset) {
-          params.url += '&offset=' + opts.offset;
-          delete opts.offset;
-        }
-        _.defaults(params, opts);
-        $.ajax(params);
-      }
-    },
+
+    sync: sync,
 
     parse: function(resp, xhr) {
       if (resp.pagination.next_url) {

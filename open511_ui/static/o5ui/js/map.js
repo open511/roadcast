@@ -1,9 +1,10 @@
 (function() {
-	var markerURL = O5.staticURL + 'o5ui/img/cone-small-1.png';
+	var markerURL = null;
 
 	var Map = Backbone.View.extend({
 
 		initialize: function() {
+			markerURL = O5.staticURL + 'o5ui/img/cone-small-1.png';
 			_.defaults(this.options, {
 				startLat: 45.532411,
 				startLng: -73.61512,
@@ -135,13 +136,16 @@
 					overlay.setMap(null);
 				});
 			}
-			rdev.mapOverlays = this.getOverlaysFromGeoJSON(rdev.get('geometry'));
-			_.each(rdev.mapOverlays, function(overlay) {
-				overlay.setMap(self.gmap);
-				google.maps.event.addListener(overlay, 'click', function() {
-					rdev.select();
+			var geom = rdev.get('geometry');
+			if (geom) {
+				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom);
+				_.each(rdev.mapOverlays, function(overlay) {
+					overlay.setMap(self.gmap);
+					google.maps.event.addListener(overlay, 'click', function() {
+						rdev.select();
+					});
 				});
-			});
+			}
 		},
 	
 		addRoadEvent: function(rdev) {

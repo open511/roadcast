@@ -1,4 +1,14 @@
-$(function() {
+window.O5 = window.O5 || {};
+window.O5.utils = {};
+window.O5.views = {};
+window.O5.prototypes = {};
+window.O5.init = function(opts) {
+
+    _.defaults(opts, {
+      enableEditing: false
+    });
+    _.extend(O5, opts);
+
     var drawPage = function() {
       var topOffset = $('.header').outerHeight();
       var leftOffset = $('.infopane').outerWidth();
@@ -9,9 +19,6 @@ $(function() {
     $(window).resize(drawPage);
 
     O5.detailViewer = new O5.views.EventDetailView({
-      el: $('.infopane')[0]
-    });
-    O5.editor = new O5.views.EventEditorView({
       el: $('.infopane')[0]
     });
     O5.map = new O5.views.MapView({
@@ -38,9 +45,14 @@ $(function() {
       event.navigateTo();
     });
 
-    events.on('edit', function(event) {
-      O5.editor.selectEvent(event);
-    });
+    if (O5.enableEditing) {
+      O5.editor = new O5.views.EventEditorView({
+        el: $('.infopane')[0]
+      });
+      events.on('edit', function(event) {
+        O5.editor.selectEvent(event);
+      });
+    }
 
     events.fetch();
 
@@ -48,4 +60,4 @@ $(function() {
 
     Backbone.history.start({ pushState: true, root: O5.rootURL });
 
-});
+};

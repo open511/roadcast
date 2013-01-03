@@ -141,9 +141,22 @@
 				self.roadEvent.select();
 			}).on('click', '.save-button', function(e) {
 				e.preventDefault();
-				self.updateEvent(function() {
-					self.roadEvent.select();
+				// self.updateEvent(function() {
+				// 	self.roadEvent.select();
+				// });
+				self.updateEvent();
+				self.roadEvent.select();
+			});
+
+			$('body').on('click', '.create-new-event', function(e) {
+				e.preventDefault();
+				var event = new O5.RoadEvent({
+					jurisdiction_url: 'test' // FIXME
 				});
+				// event.once('sync', function() {
+					O5.events.add(event);
+				// });
+				self.selectEvent(event);
 			});
 
 		},
@@ -183,7 +196,8 @@
 		updateEvent: function(success) {
 			var updates = this.getUpdates();
 			if (_.size(updates)) {
-				this.roadEvent.update(updates, {success: success});
+				// this.roadEvent.update(updates, {success: success});
+				this.roadEvent.save(updates, {patch: true, wait: true});
 			}
 		}
 
