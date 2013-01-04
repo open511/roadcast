@@ -34,7 +34,7 @@
 			};
 			this.gmap = new google.maps.Map(this.el, mapOptions);
 			// DEBUG ONLY
-			window.gmap = this.gmap;
+			// window.gmap = this.gmap;
 
 		},
 
@@ -91,7 +91,7 @@
 		},
 
 		/**
-		* Returns an array of overlays to add to the map based on the provided GeoJSON object. 
+		* Returns an array of overlays to add to the map based on the provided GeoJSON object.
 		*/
 		getOverlaysFromGeoJSON: function(gj) {
 			switch (gj.type) {
@@ -125,7 +125,7 @@
 					return [gon, marker];
 				default:
 					alert("Invalid geometry type: " + gj.type);
-			}	
+			}
 		},
 
 		updateRoadEvent: function(rdev) {
