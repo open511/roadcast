@@ -29,7 +29,7 @@
         ].join("")
       }).addTo(this.lmap);
 
-      window.lmap = this.lmap;
+      // window.lmap = this.lmap;
     },
 
     geoJSONToVector: function(gj) {
