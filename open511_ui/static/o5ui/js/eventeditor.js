@@ -198,6 +198,10 @@
 
 			$el.on('click', '.close-button', function(e) {
 				e.preventDefault();
+				if (!self.roadEvent.id) {
+					// Never saved, we shouldn't display it
+					return O5.layout.setLeftPane(null);
+				}
 				self.roadEvent.select();
 			}).on('click', '.save-button', function(e) {
 				e.preventDefault();
@@ -220,6 +224,7 @@
 					O5.events.add(event);
 				// });
 				self.selectEvent(event);
+				O5.layout.setLeftPane(self);
 			});
 
 		},
