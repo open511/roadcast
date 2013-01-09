@@ -136,7 +136,7 @@
 					overlay.setMap(null);
 				});
 			}
-			var geom = rdev.get('geometry');
+			var geom = rdev.get('geography');
 			if (geom) {
 				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom);
 				_.each(rdev.mapOverlays, function(overlay) {
@@ -149,7 +149,7 @@
 		},
 	
 		addRoadEvent: function(rdev) {
-			rdev.on('change:geometry', this.updateRoadEvent, this);
+			rdev.on('change:geography', this.updateRoadEvent, this);
 			this.updateRoadEvent(rdev);
 		}
 	});

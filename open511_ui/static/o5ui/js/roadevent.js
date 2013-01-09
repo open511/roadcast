@@ -130,14 +130,14 @@
         required: true
       },
       {
-        name: 'eventType',
+        name: 'event_type',
         label: 'Event type',
         type: 'enum',
         tab: 'basics',
         choices: [
-          ['construction', 'Construction'],
-          ['event', 'Special event'],
-          ['incident', 'Incident (accident, unplanned roadwork...)']
+          ['CONSTRUCTION', 'Construction'],
+          ['EVENT', 'Special event'],
+          ['INCIDENT', 'Incident (accident, unplanned roadwork...)']
         ],
         required: true
       },
@@ -154,7 +154,7 @@
         required: true
       },
       {
-        name: 'geometry',
+        name: 'geography',
         label: 'Geography',
         type: 'geom',
         widget: 'map',
@@ -162,14 +162,14 @@
         required: true
       },
       {
-        name: 'schedule/startDate',
+        name: 'schedule/start_date',
         label: 'Start date',
         type: 'date',
         tab: 'schedule',
         required: true
       },
       {
-        name: 'schedule/endDate',
+        name: 'schedule/end_date',
         label: 'End date',
         type: 'date',
         tab: 'schedule'
