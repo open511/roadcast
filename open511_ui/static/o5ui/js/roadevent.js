@@ -158,7 +158,7 @@
         label: 'Geography',
         type: 'geom',
         widget: 'map',
-        tab: 'map',
+        tab: 'basics',
         required: true
       },
       {
