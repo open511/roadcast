@@ -1,7 +1,7 @@
 O5.utils = O5.utils || {};
 _.extend(O5.utils, {
 	nlToBR: function(txt) {
-		return _.escape(txt).replace('\n', '<br>');
+		return _.escape(txt).replace(/\n/g, '<br>');
 	},
 
 	notify: function(message, tag, opts) {
