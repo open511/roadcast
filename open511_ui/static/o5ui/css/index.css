@@ -63,7 +63,12 @@ body {
 	position: absolute;
 	overflow: hidden;
 }
-
+.mappane .mappane-selector {
+	position: absolute;
+	top: 12px;
+	right: 20px;
+	z-index: 10;
+}
 .editor .field input, .editor .field textarea {
 	width: 90%;
 	resize: none;
