@@ -1,11 +1,19 @@
 body {
 	overflow: hidden;
+	font-size: 13px;
+	line-height: 18px;
 }
 .header {
 	height: 50px;
 	padding: 1px 10px;
 	background-color: #AFF59F;
 	border-bottom: 2px solid #5bb053;
+}
+.header h1 {
+	margin: 0;
+}
+.header small {
+	font-size: 18px;
 }
 .header .logo {
 	padding: 6px 20px 0 8px;
@@ -30,6 +38,7 @@ body {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	line-height: 30px;
 	margin: 10px 0;
+	font-size: 24px;
 }
 .infopane h2 a i {
 	vertical-align: middle;

@@ -13,6 +13,7 @@ js_libs = [
     'vendor/backbone.js',
     'vendor/bootstrap/js/bootstrap-alert.js',
     'vendor/bootstrap/js/bootstrap-transition.js',
+    'vendor/bootstrap/js/bootstrap-dropdown.js',
 ]
 if leaflet:
     js_libs.append('vendor/leaflet/leaflet.js')
