@@ -1,5 +1,4 @@
 {% load assets %}
-{% load url from future %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +21,13 @@
   <!-- Main container. -->
   <div role="main" id="main">
     <div class="header"><h1><img class="logo" src="{{ STATIC_URL }}o5ui/img/logotype.png"> <small>Development preview</small></h1>
-      {% if enable_editing %}<div class="add-event"><a href="" class="create-new-event btn">Create event</a></div>{% endif %}
+      <div class="add-event single" style="display:none">
+        <a href="#" class="btn create-new-event">Create event</a>
+      </div>
+      <div class="add-event multiple btn-group" style="display:none">
+        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Create event <span class="caret"></span></a>
+        <ul class="dropdown-menu create-new-event" role="menu"></ul>
+      </div>
     </div>
     <div class="infopane">
     </div>
@@ -39,12 +44,7 @@
 
   <script type="text/javascript">
   $(function() {
-    O5.init({
-      rootURL: '{% url "o5ui_home" %}',
-      apiURL: '{{ api_url|escapejs }}',
-      staticURL: '{{ STATIC_URL|escapejs }}',
-      enableEditing: {% if enable_editing %}true{% else %}false{% endif %}
-    });
+    O5.init({{ opts|safe }});
   });
   </script>
 

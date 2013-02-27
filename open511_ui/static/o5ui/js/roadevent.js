@@ -34,6 +34,14 @@
       this.collection.trigger('edit', this);
     },
 
+    canEdit: function() {
+      return O5.enableEditing && _.indexOf(O5.editableJurisdictionSlugs, this.jurisdictionSlug()) !== -1;
+    },
+
+    jurisdictionSlug: function() {
+      return this.get('jurisdiction_url').replace(/\/$/, '').split('/').slice(-1)[0];
+    },
+
     parse: function(resp) {
       if (resp.content && resp.meta) {
         resp = resp.content;

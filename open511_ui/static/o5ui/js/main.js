@@ -57,6 +57,23 @@ window.O5.init = function(opts) {
         O5.editor.selectEvent(event);
         O5.layout.setLeftPane(O5.editor);
       });
+      O5.editableJurisdictionSlugs = _.pluck(O5.editableJurisdictions, 'slug');
+      if (O5.editableJurisdictionSlugs.length && $('.add-event .dropdown-menu').length) {
+        if (O5.editableJurisdictionSlugs.length === 1) {
+          // No need for a dropdown
+          $('.add-event.single').show();
+          $('.add-event.single .create-new-event').attr('data-slug', O5.editableJurisdictionSlugs[0]);
+        }
+        else {
+          _.each(O5.editableJurisdictions, function(j) {
+            var $link = $('<a href="#" tabindex="-1"/>');
+            $link.text(j.slug).attr('data-slug', j.slug);
+            var $li = $('<li />').append($link);
+            $('.add-event.multiple .dropdown-menu').append($li);
+          });
+          $('.add-event.multiple').show();
+        }
+      }
     }
 
     events.fetch({ update: true, remove: false });

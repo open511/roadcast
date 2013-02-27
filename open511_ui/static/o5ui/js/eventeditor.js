@@ -218,7 +218,7 @@
 			$('body').on('click', '.create-new-event', function(e) {
 				e.preventDefault();
 				var event = new O5.RoadEvent({
-					jurisdiction_url: 'test' // FIXME
+					jurisdiction_url: $(e.target).attr('data-slug')
 				});
 				// event.once('sync', function() {
 					O5.events.add(event);

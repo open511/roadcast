@@ -25,7 +25,10 @@
 			var self = this;
 			if (self.roadEvent !== null) {
 				self.$el.html(
-					JST.event_info({r: self.roadEvent.attributes})
+					JST.event_info({
+						r: self.roadEvent.attributes,
+						editable: self.roadEvent.canEdit()
+					})
 				);
 			}
 		}
