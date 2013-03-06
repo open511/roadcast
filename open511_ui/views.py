@@ -30,6 +30,7 @@ def main(request, event_slug=None):
     ctx = {
         'opts': json.dumps(opts),
         'enable_editing': enable_editing,
+        'gmaps': settings.OPEN511_UI_MAP_TYPE == 'google',
     }
 
     return render(request, "o5ui/main.html", ctx)

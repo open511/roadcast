@@ -25,21 +25,21 @@
         <a href="#" class="btn create-new-event">Create event</a>
       </div>
       <div class="add-event multiple btn-group" style="display:none">
-        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Create event <span class="caret"></span></a>
+        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Create event &nbsp;<span class="caret"></span></a>
         <ul class="dropdown-menu create-new-event" role="menu"></ul>
       </div>
     </div>
     <div class="infopane">
     </div>
     <div class="mappane">
-{#       <div class="mappane-selector btn-group" data-toggle="buttons-radio">
+<!--      <div class="mappane-selector btn-group" data-toggle="buttons-radio">
         <button class="btn btn-small active">Map</button>
         <button class="btn btn-small">List</button>
-      </div> #}
+      </div> -->
     </div>
   </div>
 
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>
+  {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% assets "js_main" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
