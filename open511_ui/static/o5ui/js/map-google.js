@@ -111,6 +111,10 @@
       _.each(events || {}, function(callback, event) {
         google.maps.event.addListener(overlay, event, callback);
       });
+    },
+
+    setOverlayVisibility: function(overlay, visible) {
+      overlay.setVisible(visible);
     }
 
   });

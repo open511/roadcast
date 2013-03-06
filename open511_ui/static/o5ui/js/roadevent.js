@@ -26,6 +26,12 @@
 
   O5.RoadEvent = Backbone.Model.extend({
 
+    initialize: function() {
+      if (!this.has('visible')) {
+        this.set('visible', true);
+      }
+    },
+
     select: function() {
       this.collection.trigger('selection', this);
     },
@@ -74,7 +80,6 @@
         contentType: 'application/json',
         processData: false,
         success: function() {
-          console.log('success!');
           self.fetch();
           if (_.isFunction(opts.success)) {
             opts.success();

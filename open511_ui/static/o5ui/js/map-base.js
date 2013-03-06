@@ -42,7 +42,7 @@
           return [gon, marker];
         default:
           alert("Invalid geometry type: " + gj.type);
-      } 
+      }
     },
 
     updateRoadEvent: function(rdev) {
@@ -65,8 +65,17 @@
       }
     },
 
+    updateRoadEventVisibility: function(rdev) {
+      var visible = rdev.get('visible'),
+        self = this;
+      _.each(rdev.mapOverlays, function(overlay) {
+        self.setOverlayVisibility(overlay, visible);
+      });
+    },
+
     addRoadEvent: function(rdev) {
       rdev.on('change:geography', this.updateRoadEvent, this);
+      rdev.on('change:visible', this.updateRoadEventVisibility, this);
       this.updateRoadEvent(rdev);
     }
 

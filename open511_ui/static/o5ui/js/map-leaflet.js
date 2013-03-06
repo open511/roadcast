@@ -54,6 +54,15 @@
       });
     },
 
+    setOverlayVisibility: function(overlay, visible) {
+      if (visible) {
+        this.addOverlay(overlay);
+      }
+      else {
+        this.removeOverlay(overlay);
+      }
+    },
+
     initializeDrawing: function() {
       if (!this.drawingHandlers) {
         this.drawingHandlers = {
