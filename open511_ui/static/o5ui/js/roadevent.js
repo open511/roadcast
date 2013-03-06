@@ -143,8 +143,8 @@
         type: 'enum',
         tab: 'basics',
         choices: [
-          ['CONSTRUCTION', 'Construction'],
-          ['EVENT', 'Special event'],
+          ['CONSTRUCTION', 'Planned road work'],
+          ['SPECIAL_EVENT', 'Special event'],
           ['INCIDENT', 'Incident (accident, unplanned roadwork...)']
         ],
         required: true
@@ -155,9 +155,10 @@
         type: 'enum',
         tab: 'basics',
         choices: [
-          ['minor', 'Minor'],
-          ['major', 'Major'],
-          ['apocalyptic', 'Apocalyptic']
+          ['1', 'Minor'],
+          ['2', 'Moderate'],
+          ['3', 'Major'],
+          ['9', 'Undefined']
         ],
         required: true
       },
