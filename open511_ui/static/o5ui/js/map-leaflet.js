@@ -5,7 +5,8 @@
     render: function() {
       var mapOptions = {
         center: [this.options.startLat, this.options.startLng],
-        zoom: this.options.startZoom
+        zoom: this.options.startZoom,
+        zoomControl: false
       };
       this.lmap = L.map(this.el, mapOptions);
 
@@ -110,6 +111,10 @@
         this.currentDrawingHandler.disable();
         this.currentDrawingHandler = null;
       }
+    },
+
+    zoom: function(delta) {
+      this.lmap.setZoom(this.lmap.getZoom() + delta);
     }
 
   });

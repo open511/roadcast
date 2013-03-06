@@ -18,6 +18,16 @@
           fillColor: "#c23e3e"
         }
       });
+      this.$el.css('width', '100%').css('height', '100%');
+      var self = this;
+      $('.mappane-zoom-in').click(function(e) {
+        e.preventDefault();
+        self.zoom(1);
+      });
+      $('.mappane-zoom-out').click(function(e) {
+        e.preventDefault();
+        self.zoom(-1);
+      });
     },
 
     /**
@@ -62,6 +72,9 @@
             click: function() { rdev.select(); }
           });
         });
+      }
+      if (!rdev.get('visible')) {
+        this.updateRoadEventVisibility(rdev);
       }
     },
 

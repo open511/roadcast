@@ -8,9 +8,15 @@
         center: new google.maps.LatLng(this.options.startLat, this.options.startLng),
         zoom: this.options.startZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        panControl: false,
+        zoomControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        overviewMapControl: false,
         zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.SMALL
+           style: google.maps.ZoomControlStyle.SMALL
         }
+
       };
       this.gmap = new google.maps.Map(this.el, mapOptions);
 
@@ -115,6 +121,10 @@
 
     setOverlayVisibility: function(overlay, visible) {
       overlay.setVisible(visible);
+    },
+
+    zoom: function(delta) {
+      this.gmap.setZoom(this.gmap.getZoom() + delta);
     }
 
   });

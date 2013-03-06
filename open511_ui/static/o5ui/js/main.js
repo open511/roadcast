@@ -26,9 +26,8 @@ window.O5.init = function(opts) {
     });
 
     O5.detailViewer = new O5.views.EventDetailView();
-    O5.map = new O5.views.MapView({
-      el: $('.mappane')[0]
-    });
+    O5.map = new O5.views.MapView();
+    $('.mappane').append(O5.map.el);
 
     O5.map.render();
 

@@ -63,12 +63,54 @@ body {
 	position: absolute;
 	overflow: hidden;
 }
-.mappane .mappane-selector {
+.mappane-control {
 	position: absolute;
-	top: 12px;
-	right: 20px;
 	z-index: 10;
 }
+.mappane .mappane-selector {
+	top: 12px;
+	right: 20px;
+}
+.mappane-zoom {
+	left: 13px;
+	top: 12px;
+	box-shadow: 0 0 8px rgba(0,0,0,0.4);
+	border: 1px solid #888;
+	-webkit-border-radius: 5px;
+	        border-radius: 5px;
+}
+.mappane-zoom a {
+	width: 22px;
+	height: 22px;
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+}
+.mappane-zoom a:hover {
+	background-color: #fff;
+	color: #777;
+}
+.mappane-zoom-in {
+	border-bottom: 1px solid #aaa;
+	font: bold 18px/24px Arial, Helvetica, sans-serif;
+	-webkit-border-radius: 5px 5px 0 0;
+	        border-radius: 5px 5px 0 0;
+}
+.mappane-zoom-out {
+	font: bold 23px/20px Tahoma, Verdana, sans-serif;
+	-webkit-border-radius: 0 0 5px 5px;
+	        border-radius: 0 0 5px 5px;
+}
+.mappane-zoom a.disabled {
+	cursor: default;
+	background-color: rgba(255, 255, 255, 0.8);
+	color: #bbb;
+}
+
 .editor .field input, .editor .field textarea {
 	width: 90%;
 	resize: none;
