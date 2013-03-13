@@ -1,6 +1,6 @@
+(function() {
 window.O5 = window.O5 || {};
 window.O5.utils = {};
-window.O5.views = {};
 window.O5.prototypes = {};
 window.O5.init = function(opts) {
 
@@ -9,6 +9,8 @@ window.O5.init = function(opts) {
       elementSelector: '#main'
     });
     _.extend(O5, opts);
+
+    var app = {};
 
     $(document).ajaxError(function(e, xhr, settings, exception) {
       O5.utils.notify(xhr.responseText, 'error');
@@ -28,19 +30,28 @@ window.O5.init = function(opts) {
     O5.detailViewer = new O5.views.EventDetailView();
     O5.map = new O5.views.MapView();
     $('.mappane').append(O5.map.el);
-
     O5.map.render();
+
+    var filterWidget = new O5.views.FilterView({app:app});
+    $('.mappane-buttons').prepend(filterWidget.el);
+    filterWidget.render();
+
+    app.activeFilter = new O5.prototypes.FilteredSet({
+      app: app
+    });
 
     var events = new O5.RoadEvents();
     O5.events = events;
 
     events.on('reset', function() {
       events.each(function(event) {
+        app.activeFilter.evaluateEvent(event);
         O5.map.addRoadEvent(event);
       });
     });
 
     events.on('add', function(event) {
+      app.activeFilter.evaluateEvent(event);
       O5.map.addRoadEvent(event);
     });
 
@@ -79,6 +90,16 @@ window.O5.init = function(opts) {
 
     O5.router = new O5.prototypes.Router();
 
+    O5.app = app;
+
     Backbone.history.start({ pushState: true, root: O5.rootURL });
 
 };
+window.O5.views = {
+  BaseView: Backbone.View.extend({
+    initialize: function() {
+      this.app = this.options.app;
+    }
+  })
+};
+})();

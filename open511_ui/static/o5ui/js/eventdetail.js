@@ -1,5 +1,4 @@
 (function() {
-	O5.views = O5.views || {};
 	O5.views.EventDetailView = Backbone.View.extend({
 
 		roadEvent: null,

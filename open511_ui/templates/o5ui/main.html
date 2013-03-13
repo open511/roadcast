@@ -21,20 +21,24 @@
   <!-- Main container. -->
   <div role="main" id="main">
     <div class="header"><h1><img class="logo" src="{{ STATIC_URL }}o5ui/img/logotype.png"> <small>Development preview</small></h1>
-      <div class="add-event single" style="display:none">
-        <a href="#" class="btn create-new-event">Create event</a>
-      </div>
-      <div class="add-event multiple btn-group" style="display:none">
-        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Create event &nbsp;<span class="caret"></span></a>
-        <ul class="dropdown-menu create-new-event" role="menu"></ul>
+      <div class="header-buttons">
+        <div class="add-event single" style="display:none">
+          <a href="#" class="btn create-new-event">Create event</a>
+        </div>
+        <div class="add-event multiple btn-group" style="display:none">
+          <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Create event &nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu create-new-event" role="menu"></ul>
+        </div>
       </div>
     </div>
     <div class="infopane">
     </div>
     <div class="mappane">
-        <div class="mappane-selector mappane-control btn-group" data-toggle="buttons-radio">
-          <button class="btn btn-small active">Map</button>
-          <button class="btn btn-small">List</button>
+        <div class="mappane-control mappane-buttons">
+          <div class="mappane-selector btn-group" data-toggle="buttons-radio">
+            <button class="btn btn-small active">Map</button>
+            <button class="btn btn-small">List</button>
+          </div>
         </div>
         <div class="mappane-control mappane-zoom">
           <a class="mappane-zoom-in" href="#" title="Zoom in">+</a>

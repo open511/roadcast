@@ -15,6 +15,7 @@ js_libs = [
     'vendor/bootstrap/js/bootstrap-transition.js',
     'vendor/bootstrap/js/bootstrap-dropdown.js',
     'vendor/bootstrap/js/bootstrap-button.js',
+    'vendor/bootstrap/js/bootstrap-modal.js',
 ]
 if leaflet:
     js_libs.append('vendor/leaflet/leaflet.js')
@@ -46,6 +47,8 @@ js_app = Bundle(
     'o5ui/js/router.js',
     'o5ui/js/map-base.js',
     js_leaflet if leaflet else js_gmaps,
+    'o5ui/js/filterset.js',
+    'o5ui/js/filterwidget.js',
     'o5ui/js/utils.js'
 )
 
@@ -83,6 +86,9 @@ css_editor = Bundle(
 jst_main = Bundle(
     'o5ui/jst/event_info.html',
     'o5ui/jst/notification.html',
+    'o5ui/jst/filter_widget.html',
+    'o5ui/jst/filter_widget_dialog.html',
+    'o5ui/jst/filter_widget_item.html',
     filters=[jst_filter],
     output='gen/jst.js'
 )

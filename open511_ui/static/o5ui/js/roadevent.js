@@ -111,6 +111,12 @@
           }
         });
       }
+
+      // Add the URL each event was loaded from as an attribute
+      var source_url = resp.meta.url;
+      _.each(resp.content, function(eventSource) {
+        eventSource.source_url = source_url;
+      });
       return resp.content;
     }
 

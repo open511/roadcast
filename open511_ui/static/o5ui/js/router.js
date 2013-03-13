@@ -1,6 +1,5 @@
 (function(){
 
-  // Defining the application router, you can attach sub routers here.
   O5.prototypes.Router = Backbone.Router.extend({
     routes: {
       "": "index",

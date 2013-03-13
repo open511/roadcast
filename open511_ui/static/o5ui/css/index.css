@@ -18,7 +18,7 @@ body {
 .header .logo {
 	padding: 6px 20px 0 8px;
 }
-.header div.add-event {
+.header div.header-buttons {
 	display: block;
 	position: absolute;
 	top: 12px;
@@ -67,7 +67,7 @@ body {
 	position: absolute;
 	z-index: 10;
 }
-.mappane .mappane-selector {
+.mappane .mappane-buttons {
 	top: 12px;
 	right: 20px;
 }
@@ -109,6 +109,25 @@ body {
 	cursor: default;
 	background-color: rgba(255, 255, 255, 0.8);
 	color: #bbb;
+}
+
+.mappane-filter {
+	display: inline-block;
+}
+
+tr.empty td.closecol {
+	visibility: hidden;
+}
+
+.badged-button {
+	position: relative;
+	padding-right: 20px;
+}
+
+.badged-button .badge {
+	position: absolute;
+	top: -4px;
+	right: 10px;
 }
 
 .editor .field input, .editor .field textarea {
