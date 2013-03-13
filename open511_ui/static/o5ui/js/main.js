@@ -43,17 +43,18 @@ window.O5.init = function(opts) {
     var events = new O5.RoadEvents();
     O5.events = events;
 
+    var addToMap = function(event) {
+      if (!app.activeFilter.evaluateEvent(event)) {
+        event.set('visible', false);
+      }
+      O5.map.addRoadEvent(event);
+    };
+
     events.on('reset', function() {
-      events.each(function(event) {
-        app.activeFilter.evaluateEvent(event);
-        O5.map.addRoadEvent(event);
-      });
+      events.each(addToMap);
     });
 
-    events.on('add', function(event) {
-      app.activeFilter.evaluateEvent(event);
-      O5.map.addRoadEvent(event);
-    });
+    events.on('add', addToMap);
 
     events.on('selection', function(event) {
       O5.detailViewer.displayEvent(event);
@@ -67,7 +68,12 @@ window.O5.init = function(opts) {
         O5.editor.selectEvent(event);
         O5.layout.setLeftPane(O5.editor);
       });
-      O5.editableJurisdictionSlugs = _.pluck(O5.editableJurisdictions, 'slug');
+      O5.editableJurisdictionSlugs = [];
+      _.each(O5.jurisdictions, function(jur) {
+        if (jur.editable) {
+          O5.editableJurisdictionSlugs.push(jur.slug);
+        }
+      });
       if (O5.editableJurisdictionSlugs.length && $('.add-event .dropdown-menu').length) {
         if (O5.editableJurisdictionSlugs.length === 1) {
           // No need for a dropdown
@@ -75,9 +81,9 @@ window.O5.init = function(opts) {
           $('.add-event.single .create-new-event').attr('data-slug', O5.editableJurisdictionSlugs[0]);
         }
         else {
-          _.each(O5.editableJurisdictions, function(j) {
+          _.each(O5.editableJurisdictionSlugs, function(js) {
             var $link = $('<a href="#" tabindex="-1"/>');
-            $link.text(j.slug).attr('data-slug', j.slug);
+            $link.text(js).attr('data-slug', js);
             var $li = $('<li />').append($link);
             $('.add-event.multiple .dropdown-menu').append($li);
           });
@@ -93,6 +99,8 @@ window.O5.init = function(opts) {
     O5.app = app;
 
     Backbone.history.start({ pushState: true, root: O5.rootURL });
+
+    return app;
 
 };
 window.O5.views = {

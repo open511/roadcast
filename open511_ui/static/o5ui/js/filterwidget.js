@@ -24,24 +24,33 @@
 			}
 		},
 
-		renderWidget: function(type, initialValue) {
-			var $widget = $('<input type="text">'); // for now
-			if (initialValue) {
-				$widget.val(initialValue);
+		renderWidget: function($row, type, initialValue) {
+			var filter = O5.FILTERS[type],
+				wc = O5.widgets.text;
+			if (filter.widget) {
+				wc = O5.widgets[filter.widget];
 			}
-			return $widget;
+			var widget = new wc({
+				filterType: type,
+				field: filter
+			});
+			if (initialValue) {
+				widget.setVal(initialValue);
+			}
+			$row.find('td.value').empty().data('widget', widget).append(widget.el);
+			return widget;
 		},
 
 		renderRow: function(type, initialValue) {
 			var $row = $(JST.filter_widget_item());
 			if (type) {
-				$row.find('th.name').text(O5.FILTERS[type].name);
-				$row.find('td.value').append(this.renderWidget(type, initialValue));
+				$row.find('th.name').text(O5.FILTERS[type].label).attr('data-filtertype', type);
+				this.renderWidget($row, type, initialValue);
 			}
 			else {
 				var $select = $('<select><option /></select>');
 				_.each(O5.FILTERS, function(f, key) {
-					$select.append($('<option />').attr('value', key).text(f.name));
+					$select.append($('<option />').attr('value', key).text(f.label));
 				});
 				$row.find('th.name').append($select);
 				$row.addClass('empty');
@@ -59,7 +68,7 @@
 				if (!$table.find('tr.empty').length) {
 					$table.append(self.renderRow());
 				}
-				$row.find('td.value').empty().append(self.renderWidget(val));
+				self.renderWidget($row, val);
 			})
 				.on('click', 'tr .close', function(e) {
 					e.preventDefault();
@@ -78,11 +87,14 @@
 
 		getDialogFilters: function() {
 			var filters = {};
-			_.each(this.$dialog.find('tr'), function(tr) {
-				var key = $(tr).find('.name select').val();
-				var val = $(tr).find('.value input').val();
-				if (key && val && key.length && val.length) {
-					filters[key] = val;
+			_.each(this.$dialog.find('td.value'), function(td) {
+				var widget = $(td).data('widget');
+				if (widget) {
+					var key = widget.options.filterType;
+					var val = widget.getVal();
+					if (val && val.length) {
+						filters[key] = val;
+					}
 				}
 			});
 			return filters;

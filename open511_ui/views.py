@@ -21,11 +21,15 @@ def main(request, event_slug=None):
         'enableEditing': enable_editing,
     }
 
-    if enable_editing and Jurisdiction is not None:
-        opts['editableJurisdictions'] = list(
-            Jurisdiction.objects.filter(permitted_users=request.user).values('slug')
-        )
+    if Jurisdiction is not None:
+        opts['jurisdictions'] = list(Jurisdiction.objects.all().values('slug'))
 
+        if enable_editing:
+            editable_jurisdictions = Jurisdiction.objects.filter(
+                permitted_users=request.user).values_list('slug', flat=True)
+            for j in opts['jurisdictions']:
+                if j['slug'] in editable_jurisdictions:
+                    j['editable'] = True
 
     ctx = {
         'opts': json.dumps(opts),

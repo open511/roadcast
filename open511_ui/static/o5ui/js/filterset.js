@@ -10,21 +10,42 @@
 
     var FILTERS = {
         jurisdiction: {
-            name: "Jurisdiction",
+            label: "Jurisdiction",
 
             local: function(key, value, rdev) {
                 return rdev.jurisdictionSlug() === value;
             },
 
-            remote: defaultRemote
+            remote: defaultRemote,
+
+            choices: function() {
+                return _.map(O5.jurisdictions, function(jur) {
+                    return [jur.slug, jur.slug];
+                });
+            },
+
+            widget: 'select'
+
         },
 
         severity: {
-            name: "Severity",
+            label: "Severity",
 
             local: filterExactValue,
 
-            remote: defaultRemote
+            remote: defaultRemote,
+
+            widget: 'select',
+
+            choices: O5.RoadEventFieldsLookup.severity.choices
+        },
+
+        event_type: {
+            label: O5.RoadEventFieldsLookup.event_type.label,
+            local: filterExactValue,
+            remote: defaultRemote,
+            widget: 'select',
+            choices: O5.RoadEventFieldsLookup.event_type.choices
         }
     };
 
@@ -94,9 +115,9 @@
                 return false;
             }
 
-            // Set its visibility property?
             // If it matches, add to our list of events
             this.events[event.id] = event;
+            return true;
         },
 
         addFilters: function(newState) {

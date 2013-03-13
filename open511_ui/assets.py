@@ -49,6 +49,7 @@ js_app = Bundle(
     js_leaflet if leaflet else js_gmaps,
     'o5ui/js/filterset.js',
     'o5ui/js/filterwidget.js',
+    'o5ui/js/editwidgets.js',
     'o5ui/js/utils.js'
 )
 
