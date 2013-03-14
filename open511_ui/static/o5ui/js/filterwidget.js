@@ -1,4 +1,7 @@
 (function() {
+	/**
+	 * The UI -- button and dialog box -- for filtering events.
+	 */
 	var FilterView = O5.views.BaseView.extend({
 
 		className: "mappane-filter",
@@ -11,11 +14,10 @@
 				self.openDialog();
 			});
 
-			this.filterHistory = [this.app.activeFilter];
 		},
 
 		renderBadge: function() {
-			var count = _.keys(this.app.activeFilter.filterState).length;
+			var count = _.keys(this.app.filterManager.getCurrentFilters()).length;
 			if (count) {
 				this.$el.find('.filter-count').text(count);
 			}
@@ -101,14 +103,7 @@
 		},
 
 		updateFilters: function(newState) {
-			// we're gonna cheat here for now
-			var filteredSet = new O5.prototypes.FilteredSet({
-				app: this.app,
-				events: O5.events.models
-			});
-			filteredSet.addFilters(newState);
-			filteredSet.setVisibility();
-			this.app.activeFilter = filteredSet;
+			this.app.filterManager.setFilters(newState);
 			this.renderBadge();
 		},
 
@@ -120,7 +115,7 @@
 				this.initializeDialogEvents();
 			}
 			this.$dialog.html(JST.filter_widget_dialog());
-			_.each(this.app.activeFilter.filterState, function(val, type) {
+			_.each(this.app.filterManager.getCurrentFilters(), function(val, type) {
 				self.$dialog.find('table').append(self.renderRow(type, val));
 			});
 			self.$dialog.find('table').append(self.renderRow());
