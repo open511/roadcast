@@ -17,7 +17,12 @@
 		},
 
 		renderBadge: function() {
-			var count = _.keys(this.app.filterManager.getCurrentFilters()).length;
+			var filters = this.app.filterManager.getCurrentFilters();
+			var count = _.keys(filters).length;
+			if (filters.status === 'ACTIVE') {
+				// We consider this the default, don't show a badge
+				count -= 1;
+			}
 			if (count) {
 				this.$el.find('.filter-count').text(count);
 			}
@@ -48,6 +53,9 @@
 			if (type) {
 				$row.find('th.name').text(O5.FILTERS[type].label).attr('data-filtertype', type);
 				this.renderWidget($row, type, initialValue);
+				if (type === 'status') {
+					$row.find('.closecol').hide();
+				}
 			}
 			else {
 				var $select = $('<select><option /></select>');

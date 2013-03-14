@@ -79,8 +79,8 @@
 		},
 
 		updateRoadEventVisibility: function(rdev) {
-			var visible = rdev.get('visible'),
-				self = this;
+			var visible = rdev.get('visible');
+			var self = this;
 			_.each(rdev.mapOverlays, function(overlay) {
 				self.setOverlayVisibility(overlay, visible);
 			});

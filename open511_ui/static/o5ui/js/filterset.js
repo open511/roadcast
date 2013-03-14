@@ -14,44 +14,54 @@
 	var FILTERS = {
 		jurisdiction: {
 			label: "Jurisdiction",
-
-			glocal: function(key, value, rdev) {
+			local: function(key, value, rdev) {
 				return rdev.jurisdictionSlug() === value;
 			},
-
 			remote: defaultRemote,
-
 			choices: function() {
 				return _.map(O5.jurisdictions, function(jur) {
 					return [jur.slug, jur.slug];
 				});
 			},
-
 			widget: 'select'
 
 		},
 
 		severity: {
 			label: "Severity",
-
 			local: filterExactValue,
-
 			remote: defaultRemote,
-
 			widget: 'select',
-
 			choices: O5.RoadEventFieldsLookup.severity.choices
 		},
 
 		event_type: {
 			label: O5.RoadEventFieldsLookup.event_type.label,
-			glocal: filterExactValue,
+			local: filterExactValue,
 			remote: defaultRemote,
 			widget: 'select',
 			choices: O5.RoadEventFieldsLookup.event_type.choices
+		},
+
+		status: {
+			label: 'Status',
+			local: function(key, value, rdev) {
+				value = value.toUpperCase();
+				return value === 'ALL' || value === rdev.get('status');
+			},
+			remote: defaultRemote,
+			widget: 'select',
+			choices: [
+				['ACTIVE', 'Active'],
+				['ARCHIVED', 'Archived'],
+				['ALL', 'All']
+			]
 		}
 	};
 
+	/**
+	 * Split a list of filters into remote/local.
+	 */
 	var analyzeFilters = function(filters) {
 		var r = {
 			localFilters: {},
@@ -80,11 +90,14 @@
 		this.app = opts.app;
 		this.history = [];
 
+		// Hook into events on the RoadEvents collection
 		var self = this;
 		this.app.events.on('add', function(event, collection, options) {
-			if (options && options.sourceFilteredSet) {
-				options.sourceFilteredSet.forceAdd(event);
-				if (options.sourceFilteredSet !== self.activeSet && !self.activeSet.evaluateEvent(event)) {
+			var fs = null;
+			if (options) fs = options.sourceFilteredSet;
+			if (fs) {
+				fs.forceAdd(event);
+				if (fs !== self.activeSet && !self.activeSet.evaluateEvent(event, false, fs)) {
 					event.set('visible', false);
 				}
 			}
@@ -95,15 +108,34 @@
 			}
 			for (var i = 0; i < self.history.length; i ++) {
 				if (self.history[i] !== self.activeSet) {
-					self.history[i].evaluateEvent(event);
+					self.history[i].evaluateEvent(event, false, fs);
 				}
 			}
 		});
-		this.app.events.on('remove', function() {
-			// FIXME
+		this.app.events.on('remove', function(event) {
+			self.activeSet.forceRemove(event);
+			_.each(self.history, function(fs) {
+				fs.forceRemove(event);
+			});
 		});
-		this.app.events.on('change', function() {
-			// FIXME
+		this.app.events.on('change', function(event) {
+			if (event.changed.hasOwnProperty('visible') && _.keys(event.changed).length === 1) {
+				// The only change is to visibility; ignore
+				return;
+			}
+			// If an event changes, test it against the active FilteredSet
+			// to see if it should still be visible.
+			var vis = self.activeSet.evaluateEvent(event, true);
+			if (vis !== event.get('visible')) {
+				event.set('visible', vis);
+			}
+			// And test it against the history, so those sets remain up-to-date
+			// if we want to reuse them later.
+			for (var i = 0; i < self.history.length; i ++) {
+				if (self.history[i] !== self.activeSet) {
+					self.history[i].evaluateEvent(event, true);
+				}
+			}
 		});
 	};
 
@@ -111,13 +143,6 @@
 
 		_addToHistory: function(fs) {
 			this.history.push(fs);
-		},
-
-		/**
-		 * Delegates to evaluateEvent on the active FilteredSet.
-		 */
-		evaluateEvent: function() {
-			return this.activeSet.evaluateEvent.apply(this.activeSet, arguments);
 		},
 
 		getCurrentFilters: function() {
@@ -133,6 +158,11 @@
 		 */
 		setFilters: function(filters) {
 
+			_.defaults(filters, {
+				// Require an explicit value for the status filter
+				'status': 'ACTIVE'
+			});
+
 			var self = this;
 			// Can we derive the new FilteredSet locally, based on a complete
 			// FilteredSet stored in our history list?
@@ -141,9 +171,11 @@
 					return false;
 				}
 
-				// Which filters, if any, are new?
-				var newFilters = _.difference(_.keys(filters), _.keys(fs.filterState));
-				return _.every(newFilters, function(f) { return FILTERS[f] && FILTERS[f].local; });
+				// Can all new filters be calculated locally?
+				return _.every(
+					_.keys(fs.diff(filters)),
+					function(f) { return FILTERS[f] && FILTERS[f].local; }
+				);
 			});
 
 			if (parentSet) {
@@ -187,6 +219,8 @@
 			filterState: {}
 		});
 		if (_.isArray(opts.events)) {
+			// We store events in object keyed by ID.
+			// But you can pass in an array if you want.
 			this.events = {};
 			for (var i = 0; i < opts.events.length; i++) {
 				this.events[opts.events[i].id] = opts.events[i];
@@ -201,30 +235,48 @@
 
 	_.extend(FilteredSet.prototype, {
 
-
-		filterRemote: function() {
-			this.events = {};
-			this.fetchEvents();
-		},
-
+		/**
+		 * Does a given event pass the given list of local filters?
+		 */
 		testLocalFilters: function(event, filters) {
 			return _.all(filters, function(val, type) {
 				return FILTERS[type].local(type, val, event);
 			});
 		},
 
-		evaluateEvent: function(event) {
+		/**
+		 * Try and determine whether an event belongs in this set,
+		 * and add it if it does. Returns true if the event belongs.
+		 *
+		 * onChange should be true if this is being called following a change
+		 *		to the RoadEvent -- if so, we'll test only against local filters,
+		 *		and we'll also remove the event if it no longer matches.
+		 * sourceFilteredSet (optional) is the FilterSet object that queried
+		 *		the server to get the object
+		 */
+		evaluateEvent: function(event, onChange, sourceFilteredSet) {
 			// Do we already have the event?
-			if (this.events[event.id]) {
+			if (!onChange && this.events[event.id]) {
 				return true;
 			}
 
 			if (!this.testLocalFilters(event, this.localFilters)) {
+				if (onChange) this.forceRemove(event);
 				return false;
 			}
 			if (!this.filterableLocally) {
-				console.log('evaluateEvent needs to test against remote filters');
-				return false;
+				if (sourceFilteredSet && !onChange) {
+					if (_.any(this.remoteFilters, function(val, key) {
+						return sourceFilteredSet.filterState[key] !== val;
+					})) {
+						// If not all of our remote filters are the same in the source, no go.
+						return false;
+					}
+				}
+				else {
+					// If we don't know what remote filters this matched, we can't evaluate it.
+					return false;
+				}
 			}
 
 			// If it matches, add to our list of events
@@ -236,28 +288,27 @@
 			this.events[event.id] = event;
 		},
 
+		forceRemove: function(event) {
+			if (this.events.hasOwnProperty(event.id)) {
+				delete this.events[event.id];
+			}
+		},
+
 		/**
 		Replace the current set of filters with a new one.
 		filters: an object with key/val pairs representing filters
 		*/
 		replaceFilters: function(filters) {
-			// Find what's new
-			var newFilters = {};
 			var self = this;
-			_.each(filters, function(val, key) {
-				if (!self.filterState[key]) {
-					newFilters[key] = val;
-				}
-			});
-
-			var analysis = analyzeFilters(newFilters);
+			var analysis = analyzeFilters(this.diff(filters));
 
 			this.filterState = filters;
 			_.extend(this, analyzeFilters(filters));
 
 			// If necessary, send remote request
 			if (!analysis.filterableLocally) {
-				return this.filterRemote(filters);
+				this.events = {};
+				return this.fetchEvents();
 			}
 
 			// Run all local filters
@@ -269,20 +320,40 @@
 
 		},
 
+		/**
+		 * Return the subset of the provided filters that don't match
+		 * the object's current filterState.
+		 */
+		diff: function(filters) {
+			var r = {};
+			var self = this;
+			_.each(filters, function(val, key) {
+				if (val !== self.filterState[key]) {
+					r[key] = val;
+				}
+			});
+			return r;
+		},
+
 		/** 
 		Will the given filters match a subset of this FilterSet's events?
 		*/
 		isSubset: function(newState) {
 			var fs = this.filterState;
+			// The status filter is a special case: 'all' is the same
+			// as the null value for other filters.
+			if (fs.status.toUpperCase() === 'ALL') {
+				// All possible values are a subset of 'all'
+				// Ignore status keys for the rest of this function
+				fs = _.omit(fs, 'status');
+				newState = _.omit(newState, 'status');
+			}
 			if (_.difference(_.keys(fs), _.keys(newState)).length) {
 				// There are keys in the current state not present in the new state
 				return false;
 			}
-			return !_.any(newState, function(val, key) {
-				if (_.has(fs, key) && fs[key] !== val) {
-					// A new value for an existing filter
-					return true;
-				}
+			return _.all(newState, function(val, key) {
+				return (!_.has(fs, key) || fs[key] === val);
 			});
 		},
 
@@ -345,6 +416,9 @@
 			return Backbone.sync.call(this.app.events, 'read', this.app.events, opts);
 		},
 
+		/**
+		 * Populate this FilteredSet from the server.
+		 */
 		fetchEvents: function() {
 			var filter_params = {};
 			_.each(this.filterState, function(val, key) {
