@@ -59,27 +59,31 @@ body {
 	border-bottom: 1px dotted #aaaaaa;
 	margin: 10px 0 5px 0;
 }
-.mappane {
+.mainpane {
 	position: absolute;
 	overflow: hidden;
 }
-.mappane-control {
+.mainpane-control {
 	position: absolute;
 	z-index: 10;
 }
-.mappane .mappane-buttons {
+.mainpane .mainpane-buttons {
 	top: 12px;
 	right: 20px;
 }
-.mappane-zoom {
+.mainpane-zoom {
 	left: 13px;
 	top: 12px;
 	box-shadow: 0 0 8px rgba(0,0,0,0.4);
 	border: 1px solid #888;
 	-webkit-border-radius: 5px;
 	        border-radius: 5px;
+	visibility: hidden;
 }
-.mappane-zoom a {
+.map-active .mainpane-zoom {
+	visibility: visible;
+}
+.mainpane-zoom a {
 	width: 22px;
 	height: 22px;
 	background-color: rgba(255, 255, 255, 0.8);
@@ -90,28 +94,28 @@ body {
 	background-repeat: no-repeat;
 	display: block;
 }
-.mappane-zoom a:hover {
+.mainpane-zoom a:hover {
 	background-color: #fff;
 	color: #777;
 }
-.mappane-zoom-in {
+.mainpane-zoom-in {
 	border-bottom: 1px solid #aaa;
 	font: bold 18px/24px Arial, Helvetica, sans-serif;
 	-webkit-border-radius: 5px 5px 0 0;
 	        border-radius: 5px 5px 0 0;
 }
-.mappane-zoom-out {
+.mainpane-zoom-out {
 	font: bold 23px/20px Tahoma, Verdana, sans-serif;
 	-webkit-border-radius: 0 0 5px 5px;
 	        border-radius: 0 0 5px 5px;
 }
-.mappane-zoom a.disabled {
+.mainpane-zoom a.disabled {
 	cursor: default;
 	background-color: rgba(255, 255, 255, 0.8);
 	color: #bbb;
 }
 
-.mappane-filter {
+.mainpane-filter {
 	display: inline-block;
 }
 
@@ -150,4 +154,12 @@ tr.empty td.closecol {
 	width: 600px;
 /*	margin-left: auto;
 	margin-right: auto;*/
+}
+
+.roadevent-list {
+	overflow: auto;
+	height: 100%;
+}
+.roadevent-list ol {
+	margin: 40px 10px 50px 40px;
 }

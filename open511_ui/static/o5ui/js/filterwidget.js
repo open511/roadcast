@@ -4,7 +4,7 @@
 	 */
 	var FilterView = O5.views.BaseView.extend({
 
-		className: "mappane-filter",
+		className: "mainpane-filter",
 
 		render: function() {
 			this.$el.html(JST.filter_widget());

@@ -1,6 +1,8 @@
 (function() {
 	var BaseMap = Backbone.View.extend({
 
+		name: "map",
+
 		initialize: function() {
 			_.defaults(this.options, {
 				startLat: 45.532411,
@@ -20,11 +22,11 @@
 			});
 			this.$el.css('width', '100%').css('height', '100%');
 			var self = this;
-			$('.mappane-zoom-in').click(function(e) {
+			$('.mainpane-zoom-in').click(function(e) {
 				e.preventDefault();
 				self.zoom(1);
 			});
-			$('.mappane-zoom-out').click(function(e) {
+			$('.mainpane-zoom-out').click(function(e) {
 				e.preventDefault();
 				self.zoom(-1);
 			});

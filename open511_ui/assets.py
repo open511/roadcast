@@ -45,6 +45,7 @@ js_app = Bundle(
     'o5ui/js/eventdetail.js',
     'o5ui/js/roadevent.js',
     'o5ui/js/router.js',
+    'o5ui/js/listview.js',
     'o5ui/js/map-base.js',
     js_leaflet if leaflet else js_gmaps,
     'o5ui/js/filterset.js',
@@ -90,6 +91,7 @@ jst_main = Bundle(
     'o5ui/jst/filter_widget.html',
     'o5ui/jst/filter_widget_dialog.html',
     'o5ui/jst/filter_widget_item.html',
+    'o5ui/jst/event_list.html',
     filters=[jst_filter],
     output='gen/jst.js'
 )

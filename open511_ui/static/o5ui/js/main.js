@@ -16,8 +16,8 @@ window.O5.init = function(opts) {
 			O5.utils.notify(xhr.responseText, 'error');
 		});
 
-		O5.layout = new O5.prototypes.Layout($(O5.elementSelector));
-		O5.layout.draw();
+		app.layout = O5.layout = new O5.prototypes.Layout($(O5.elementSelector));
+		app.layout.draw();
 
 		var $window = $(window);
 		$window.resize(function() {
@@ -27,17 +27,39 @@ window.O5.init = function(opts) {
 			});
 		});
 
-		O5.detailViewer = new O5.views.EventDetailView();
-		O5.map = new O5.views.MapView();
-		$('.mappane').append(O5.map.el);
-		O5.map.render();
-
-		var filterWidget = new O5.views.FilterView({app:app});
-		$('.mappane-buttons').prepend(filterWidget.el);
-		filterWidget.render();
-
 		var events = new O5.RoadEvents();
 		O5.events = app.events = events;
+
+		O5.detailViewer = new O5.views.EventDetailView();
+		app.map = O5.map = new O5.views.MapView();
+		app.listview = new O5.views.ListView({app: app});
+
+		app.layout.addMainView(app.map);
+		app.layout.addMainView(app.listview);
+
+		app.layout.setMainView(app.map);
+
+		O5.map.render();
+		app.listview.render();
+
+		var filterWidget = new O5.views.FilterView({app:app});
+		$('.mainpane-buttons').prepend(filterWidget.el);
+		filterWidget.render();
+
+		$('.mainpane-selector').on('click', 'button', function(e) {
+			e.preventDefault();
+			var view, $this = $(e.target);
+			if ($this.hasClass('map-selector')) {
+				view = app.map;
+			}
+			else if ($this.hasClass('list-selector')) {
+				view = app.listview;
+			}
+			else { return; }
+			app.layout.setMainView(view);
+			$('.mainpane-selector button.active').removeClass('active');
+			$this.addClass('active');
+		});
 
 		app.filterManager = new O5.prototypes.FilterManager({
 			app: app
