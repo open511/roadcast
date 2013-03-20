@@ -3,7 +3,7 @@
 
 		className: "roadevent-list",
 		name: "list",
-		visibility: false,
+		visible: false,
 
 		render: function() {
 			var app = this.app, self = this;
@@ -16,7 +16,9 @@
 					}
 				});
 				this.app.events.on('add remove change:visible change:headline', function(rdev) {
-					self.renderSoon();
+					if (self.visible) {
+						self.renderSoon();
+					}
 				});
 				this.eventsInitialized = true;
 			}
@@ -37,7 +39,7 @@
 		},
 
 		setViewVisibility: function(visible) {
-			this.visibility = visible;
+			this.visible = visible;
 			if (visible) {
 				this.render();
 			}
