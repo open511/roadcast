@@ -413,7 +413,7 @@
 				}
 			};
 			opts.success = success;
-			return Backbone.sync.call(this.app.events, 'read', this.app.events, opts);
+			return Backbone.sync.call(this.app.events, 'read', this.app.events, _.clone(opts));
 		},
 
 		/**
