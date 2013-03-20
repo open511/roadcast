@@ -25,8 +25,8 @@
 		},
 
 		parse: function(resp) {
-			if (resp.content && resp.meta) {
-				resp = resp.content;
+			if (resp.meta) {
+				delete resp.meta;
 			}
 			resp.id = resp.url.replace(/\/$/, '').split('/').slice(-2).join('/');
 			return resp;
