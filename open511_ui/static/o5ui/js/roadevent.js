@@ -9,6 +9,11 @@
 		},
 
 		select: function() {
+			var self = this;
+			_.each(this.collection.where({'selected': true}), function(rdev) {
+				if (rdev !== self) rdev.set('selected', false);
+			});
+			this.set('selected', true);
 			this.collection.trigger('selection', this);
 		},
 

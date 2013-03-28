@@ -74,6 +74,7 @@
 			if (view.name) {
 				this.$main.addClass(view.name + '-active');
 			}
+			this.draw();
 		}
 
 	});

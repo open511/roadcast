@@ -15,7 +15,7 @@
 						event.select();
 					}
 				});
-				this.app.events.on('add remove change:visible change:headline', function(rdev) {
+				this.app.events.on('add remove change:visible change:headline change:selected', function(rdev) {
 					if (self.visible) {
 						self.renderSoon();
 					}
@@ -27,6 +27,12 @@
 			);
 		},
 
+		/**
+		 * Queues a re-render very shortly.
+		 * Called on add/change events; because these often occur in bunches, scheduling
+		 * the redraw in a few milliseconds means we can avoid doing tons of redraws
+		 * in quick succession.
+		 */
 		renderSoon: function() {
 			if (this.renderTimeout) {
 				return;

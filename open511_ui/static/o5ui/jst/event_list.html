@@ -1,7 +1,7 @@
 <ol>
 	<% if (events) { 
 		_.each(events, function(rdev) { %>
-		<li><a href="#" data-roadevent="<%- rdev.id %>" class="select-event"><%- rdev.get('headline') %></a></li>
+		<li <% if (rdev.get('selected')) { print('class="selected"'); } %>><a href="#" data-roadevent="<%- rdev.id %>" class="select-event"><%- rdev.get('headline') %></a></li>
 	<% }); 
 	}%>
 </ol>
