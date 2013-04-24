@@ -87,6 +87,7 @@ css_editor = Bundle(
 )
 
 jst_main = Bundle(
+    'o5ui/jst/main.html',
     'o5ui/jst/event_info.html',
     'o5ui/jst/notification.html',
     'o5ui/jst/filter_widget.html',
@@ -98,6 +99,7 @@ jst_main = Bundle(
 )
 
 jst_editor = Bundle(
+    'o5ui/jst/create_event.html',
     'o5ui/jst/event_editor.html',
     'o5ui/jst/map_edit_widget.html',
     filters=[jst_filter],

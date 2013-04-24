@@ -1,0 +1,16 @@
+<% if (jurisdiction_slugs.length == 1) { %>
+	<div class="add-event single">
+	  <a href="#" class="btn btn-small btn-primary create-new-event" data-slug="<%- jurisdiction_slugs[0] %>"><%- O5._t('Create event') %></a>
+	</div>
+<% }
+else if (jurisdiction_slugs.length > 1) { %>
+	<div class="add-event multiple btn-group">
+	  <a href="#" class="btn btn-small btn-primary dropdown-toggle" data-toggle="dropdown"><%- O5._t('Create event') %> &nbsp;<span class="caret"></span></a>
+	  <ul class="dropdown-menu create-new-event" role="menu">
+	  	<% _.each(jurisdiction_slugs, function(slug) {
+	  			%><li><a href="#" tabindex="-1" data-slug="<%- slug %>"><%- slug %></a></li><%
+	  		});
+  		%>
+	  </ul>
+	</div>
+<% } %>

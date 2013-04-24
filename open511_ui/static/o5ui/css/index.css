@@ -119,6 +119,10 @@ body {
 	display: inline-block;
 }
 
+.mainpane-buttons .add-event {
+	margin-right: 20px;
+}
+
 tr.empty td.closecol {
 	visibility: hidden;
 }

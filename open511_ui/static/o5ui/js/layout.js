@@ -9,6 +9,9 @@
 			mainViews: []
 		});
 		_.extend(this, opts);
+
+		$el.html($el.html() + JST.main());
+
 		this.$info = $el.find('.infopane');
 		this.$main = $el.find('.mainpane');
 		this.$info.width(0);

@@ -87,21 +87,10 @@ window.O5.init = function(opts) {
 					O5.editableJurisdictionSlugs.push(jur.slug);
 				}
 			});
-			if (O5.editableJurisdictionSlugs.length && $('.add-event .dropdown-menu').length) {
-				if (O5.editableJurisdictionSlugs.length === 1) {
-					// No need for a dropdown
-					$('.add-event.single').show();
-					$('.add-event.single .create-new-event').attr('data-slug', O5.editableJurisdictionSlugs[0]);
-				}
-				else {
-					_.each(O5.editableJurisdictionSlugs, function(js) {
-						var $link = $('<a href="#" tabindex="-1"/>');
-						$link.text(js).attr('data-slug', js);
-						var $li = $('<li />').append($link);
-						$('.add-event.multiple .dropdown-menu').append($li);
-					});
-					$('.add-event.multiple').show();
-				}
+			if (O5.editableJurisdictionSlugs.length && $('.mainpane-buttons').length) {
+				$('.mainpane-buttons').prepend(
+					JST.create_event({ jurisdiction_slugs: O5.editableJurisdictionSlugs })
+				);
 			}
 		}
 
