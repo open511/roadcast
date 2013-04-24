@@ -39,6 +39,7 @@ js_leaflet = Bundle(
 )
 
 js_app = Bundle(
+    'o5ui/js/no-i18n.js',
     'o5ui/js/main.js',
     'o5ui/js/layout.js',
     'o5ui/js/roadevent.js',
@@ -51,7 +52,7 @@ js_app = Bundle(
     'o5ui/js/filterset.js',
     'o5ui/js/filterwidget.js',
     'o5ui/js/editwidgets.js',
-    'o5ui/js/utils.js'
+    'o5ui/js/utils.js',
 )
 
 js_editor_app = Bundle(
@@ -119,7 +120,15 @@ js_editor = Bundle(
     output='gen/editor.js'
 )
 
+locale_fr = Bundle(
+    'vendor/jed.js',
+    'i18n/fr.js',
+    filters='rjsmin',
+    output='gen/fr.js'
+)
+
 register('css_main', css_main)
 register('js_main', js_main)
 register('css_editor', css_editor)
 register('js_editor', js_editor)
+register('locale_fr', locale_fr)

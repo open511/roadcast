@@ -1,11 +1,11 @@
 <% if (geomType() === null) { %>
-	<a class="btn draw-point">Draw point</a> <a class="btn draw-line">Draw line</a>
+	<a class="btn draw-point"><%- O5._t('Draw point') %></a> <a class="btn draw-line"><%- O5._t('Draw line') %></a>
 <% }
 if (geomType() === 'Point') { %>
-	<strong>Point</strong> <em><%- geom.coordinates[0] %>, <%- geom.coordinates[1] %></em>
-	<br><a class="btn draw-clear">Clear point</a>
+	<strong><%- O5._t('Point') %></strong> <em><%- geom.coordinates[0] %>, <%- geom.coordinates[1] %></em>
+	<br><a class="btn draw-clear"><%- O5._t('Clear point') %></a>
 <% }
 if (geomType() === 'LineString') { %>
-	<strong>LineString</strong>
-	<br><a class="btn draw-clear">Clear line</a>
+	<strong><%- O5._t('LineString') %></strong>
+	<br><a class="btn draw-clear"><%- O5._t('Clear line') %></a>
 <% } %>

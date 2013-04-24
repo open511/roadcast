@@ -1,5 +1,7 @@
 (function(){
 
+	var _t = O5._t;
+
 	O5.RoadEvent = Backbone.Model.extend({
 
 		initialize: function() {
@@ -100,57 +102,57 @@
 	O5.RoadEventFields = [
 			{
 				name: 'headline',
-				label: 'Headline',
+				label: _t('Headline'),
 				type: 'text',
 				tab: 'basics',
 				required: true
 			},
 			{
 				name: 'status',
-				label: 'Status',
+				label: _t('Status'),
 				type: 'enum',
 				tab: 'basics',
 				choices: [
-					['active', 'Active'],
-					['archived', 'Archived']
+					['active', _t('Active')],
+					['archived', _t('Archived')]
 				],
 				required: true
 			},
 			{
 				name: 'description',
-				label: 'Description',
+				label: _t('Description'),
 				type: 'text',
 				tab: 'details',
 				required: true
 			},
 			{
 				name: 'event_type',
-				label: 'Event type',
+				label: _t('Event type'),
 				type: 'enum',
 				tab: 'basics',
 				choices: [
-					['CONSTRUCTION', 'Planned road work'],
-					['SPECIAL_EVENT', 'Special event'],
-					['INCIDENT', 'Incident (accident, unplanned roadwork...)']
+					['CONSTRUCTION', _t('Planned road work')],
+					['SPECIAL_EVENT', _t('Special event')],
+					['INCIDENT', _t('Incident (accident, unplanned roadwork...)')]
 				],
 				required: true
 			},
 			{
 				name: 'severity',
-				label: 'Severity',
+				label: _t('Severity'),
 				type: 'enum',
 				tab: 'basics',
 				choices: [
-					['1', 'Minor'],
-					['2', 'Moderate'],
-					['3', 'Major'],
-					['9', 'Undefined']
+					['1', _t('Minor')],
+					['2', _t('Moderate')],
+					['3', _t('Major')],
+					['9', _t('Undefined')]
 				],
 				required: true
 			},
 			{
 				name: 'geography',
-				label: 'Geography',
+				label: _t('Geography'),
 				type: 'geom',
 				widget: 'map',
 				tab: 'basics',
@@ -158,20 +160,20 @@
 			},
 			{
 				name: 'schedule/start_date',
-				label: 'Start date',
+				label: _t('Start date'),
 				type: 'date',
 				tab: 'schedule',
 				required: true
 			},
 			{
 				name: 'schedule/end_date',
-				label: 'End date',
+				label: _t('End date'),
 				type: 'date',
 				tab: 'schedule'
 			},
 			{
 				name: 'detour',
-				label: 'Detour',
+				label: _t('Detour'),
 				type: 'text',
 				tab: 'details'
 			}

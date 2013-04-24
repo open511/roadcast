@@ -1,4 +1,5 @@
-{% load assets %}
+{% load assets i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +49,11 @@
   </div>
 
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
+  {% if LANGUAGE_CODE == "fr" %}
+    {% assets "locale_fr" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+  {% endif %}
   {% assets "js_main" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}

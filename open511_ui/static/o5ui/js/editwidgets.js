@@ -14,7 +14,7 @@
 				return this.options.field.validate(this.getVal());
 			}
 			if (this.options.field.required && !this.getVal()) {
-				return "This field is required";
+				return O5._t("This field is required");
 			}
 			return true;
 		},

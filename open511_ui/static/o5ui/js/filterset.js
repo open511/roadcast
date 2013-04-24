@@ -13,7 +13,7 @@
 	 */
 	var FILTERS = {
 		jurisdiction: {
-			label: "Jurisdiction",
+			label: O5._t("Jurisdiction"),
 			local: function(key, value, rdev) {
 				return rdev.jurisdictionSlug() === value;
 			},
@@ -28,7 +28,7 @@
 		},
 
 		severity: {
-			label: "Severity",
+			label: O5._t("Severity"),
 			local: filterExactValue,
 			remote: defaultRemote,
 			widget: 'select',
@@ -44,7 +44,7 @@
 		},
 
 		status: {
-			label: 'Status',
+			label: O5._t('Status'),
 			local: function(key, value, rdev) {
 				value = value.toUpperCase();
 				return value === 'ALL' || value === rdev.get('status');
@@ -52,8 +52,8 @@
 			remote: defaultRemote,
 			widget: 'select',
 			choices: [
-				['ACTIVE', 'Active'],
-				['ARCHIVED', 'Archived'],
+				['ACTIVE', O5._t('Active')],
+				['ARCHIVED', O5._t('Archived')],
 				['ALL', 'All']
 			]
 		}
