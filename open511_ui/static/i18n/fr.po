@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
 "POT-Creation-Date: 2013-04-24 17:08-0500\n"
-"PO-Revision-Date: 2013-04-24 17:08-0500\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2013-04-25 11:54-0500\n"
+"Last-Translator: Stéphane Guidoin <stephane.guidoin@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -17,97 +17,97 @@ msgstr ""
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editwidgets.js:17
 msgid "This field is required"
-msgstr ""
+msgstr "Ce champ est obligatoire"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:16
 msgid "Jurisdiction"
-msgstr ""
+msgstr "Juridiction"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:31
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:142
 msgid "Severity"
-msgstr ""
+msgstr "Sévérité"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:47
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:112
 msgid "Status"
-msgstr ""
+msgstr "État"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:55
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:116
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:56
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:117
 msgid "Archived"
-msgstr ""
+msgstr "Archivé"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:105
 msgid "Headline"
-msgstr ""
+msgstr "Titre"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:123
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:130
 msgid "Event type"
-msgstr ""
+msgstr "Type d'événement"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:134
 msgid "Planned road work"
-msgstr ""
+msgstr "Entrave planifiée (construction)"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:135
 msgid "Special event"
-msgstr ""
+msgstr "Événement spécial"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:136
 msgid "Incident (accident, unplanned roadwork...)"
-msgstr ""
+msgstr "Incident (accident, entrave non planifiée...)"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:146
 msgid "Minor"
-msgstr ""
+msgstr "Mineur"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:147
 msgid "Moderate"
-msgstr ""
+msgstr "Moyen"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:148
 msgid "Major"
-msgstr ""
+msgstr "Majeur"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:149
 msgid "Undefined"
-msgstr ""
+msgstr "Non défini"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:155
 msgid "Geography"
-msgstr ""
+msgstr "Géographie"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:163
 msgid "Start date"
-msgstr ""
+msgstr "Date de début"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:170
 msgid "End date"
-msgstr ""
+msgstr "Date de fin"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:176
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:6
 msgid "Detour"
-msgstr ""
+msgstr "Détour"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/create_event.html:3
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/create_event.html:8
 msgid "Create event"
-msgstr ""
+msgstr "Créer un événement"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:2
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:2
 msgid "Save"
@@ -115,20 +115,20 @@ msgstr "Sauvegarder"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:4
 msgid "Basics"
-msgstr ""
+msgstr "Base"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:5
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:5
 msgid "Details"
-msgstr ""
+msgstr "Détails"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:6
 msgid "Schedule"
-msgstr ""
+msgstr "Calendrier"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:7
 msgid "Roads"
-msgstr ""
+msgstr "Routes"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget.html:1
 msgid "Filter..."
@@ -136,48 +136,48 @@ msgstr "Filtrer..."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget_dialog.html:3
 msgid "Filter events"
-msgstr ""
+msgstr "Filtrer les événements"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget_dialog.html:10
 msgid "Update"
-msgstr ""
+msgstr "Appliquer"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:6
 msgid "Map"
-msgstr ""
+msgstr "Carte"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:7
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:11
 msgid "Zoom in"
-msgstr ""
+msgstr "Zoom"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:12
 msgid "Zoom out"
-msgstr ""
+msgstr "Dézoom"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:2
 msgid "Draw point"
-msgstr ""
+msgstr "Dessiner un point"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:2
 msgid "Draw line"
-msgstr ""
+msgstr "Dessiner une ligne"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:5
 msgid "Point"
-msgstr ""
+msgstr "Point"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:6
 msgid "Clear point"
-msgstr ""
+msgstr "Supprimer le point"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:9
 msgid "LineString"
-msgstr ""
+msgstr "Ligne"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:10
 msgid "Clear line"
-msgstr ""
+msgstr "Supprimer la ligne"
