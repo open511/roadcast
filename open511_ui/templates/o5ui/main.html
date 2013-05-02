@@ -21,9 +21,7 @@
 <body>
   <!-- Main container. -->
   <div role="main" id="main">
-    <div class="header">
-      <h1><img class="logo" src="{{ STATIC_URL }}o5ui/img/logotype.png"> <small>Development preview</small></h1>
-    </div>
+    {% include "o5ui/header.html" %}
   </div>
 
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
