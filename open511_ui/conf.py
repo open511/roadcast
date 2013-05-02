@@ -5,6 +5,11 @@ from appconf import AppConf
 
 class Open511UISettings(AppConf):
     API_URL = urlresolvers.reverse_lazy('open511_discovery')
+    HEADER_TITLE = 'Development preview'
+
+    REQUIRE_LOGIN = False
+    SHOW_LOGIN_BUTTON = False
+
     MAP_TYPE = 'leaflet'  # 'leaflet' or 'google'
     MAP_START_LAT = 45.532411
     MAP_START_LNG = -73.61512

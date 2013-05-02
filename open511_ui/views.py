@@ -1,6 +1,7 @@
 import json
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
 from django.shortcuts import render
 
@@ -44,6 +45,11 @@ def main(request, event_slug=None):
         'opts': json.dumps(opts),
         'enable_editing': enable_editing,
         'gmaps': settings.OPEN511_UI_MAP_TYPE == 'google',
+        'header_title': settings.OPEN511_UI_HEADER_TITLE,
+        'show_auth_buttons': settings.OPEN511_UI_SHOW_LOGIN_BUTTON,
     }
 
     return render(request, "o5ui/main.html", ctx)
+
+if settings.OPEN511_UI_REQUIRE_LOGIN:
+    main = login_required(main)
