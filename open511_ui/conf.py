@@ -8,6 +8,7 @@ class Open511UISettings(AppConf):
     MAP_TYPE = 'leaflet'  # 'leaflet' or 'google'
     MAP_START_LAT = 45.532411
     MAP_START_LNG = -73.61512
+    MAP_START_ZOOM = 10
 
     # Tile settings are used only if MAP_TYPE == 'leaflet'
     MAP_TILE_URL = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg'

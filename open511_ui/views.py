@@ -21,6 +21,7 @@ def main(request, event_slug=None):
         'enableEditing': enable_editing,
         'mapStartLat': settings.OPEN511_UI_MAP_START_LAT,
         'mapStartLng': settings.OPEN511_UI_MAP_START_LNG,
+        'mapStartZoom': settings.OPEN511_UI_MAP_START_ZOOM,
     }
 
     if settings.OPEN511_UI_MAP_TYPE == 'leaflet':
