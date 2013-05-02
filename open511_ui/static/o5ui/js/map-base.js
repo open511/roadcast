@@ -9,7 +9,7 @@
 			_.defaults(this.options, {
 				startLat: this.app.settings.mapStartLat || 45.532411,
 				startLng: this.app.settings.mapStartLng || -73.61512,
-				startZoom: 10,
+				startZoom: this.app.settings.mapStartZoom || 10,
 				markerOpts: {
 					icon: O5.staticURL + 'o5ui/img/cone-small-1.png',
 					iconAnchor: [11,29]
