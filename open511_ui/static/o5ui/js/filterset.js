@@ -255,6 +255,12 @@
 		 *		the server to get the object
 		 */
 		evaluateEvent: function(event, onChange, sourceFilteredSet) {
+
+			if (event.isNew()) {
+				// Events being created should always be displayed
+				return true;
+			}
+
 			// Do we already have the event?
 			if (!onChange && this.events[event.id]) {
 				return true;
