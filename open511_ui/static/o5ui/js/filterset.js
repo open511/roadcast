@@ -54,7 +54,7 @@
 			choices: [
 				['ACTIVE', O5._t('Active')],
 				['ARCHIVED', O5._t('Archived')],
-				['ALL', 'All']
+				['ALL', O5._t('All')]
 			]
 		}
 	};

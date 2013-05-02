@@ -1,5 +1,5 @@
 (function() {
-		var BaseWidget = Backbone.View.extend({
+	var BaseWidget = Backbone.View.extend({
 		addLabel: true,
 		setVal: function(val) {
 			this.$el.val(val);

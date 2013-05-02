@@ -10,13 +10,17 @@ window.O5.init = function(opts) {
 		});
 		_.extend(O5, opts);
 
-		var app = {};
+		var app = {
+			settings: {}
+		};
+
+		_.extend(app.settings, opts);
 
 		$(document).ajaxError(function(e, xhr, settings, exception) {
 			O5.utils.notify(xhr.responseText, 'error');
 		});
 
-		app.layout = O5.layout = new O5.prototypes.Layout($(O5.elementSelector));
+		app.layout = O5.layout = new O5.prototypes.Layout($(app.settings.elementSelector));
 		app.layout.draw();
 
 		var $window = $(window);
@@ -31,7 +35,7 @@ window.O5.init = function(opts) {
 		O5.events = app.events = events;
 
 		O5.detailViewer = new O5.views.EventDetailView();
-		app.map = O5.map = new O5.views.MapView();
+		app.map = O5.map = new O5.views.MapView({app: app});
 		app.listview = new O5.views.ListView({app: app});
 
 		app.layout.addMainView(app.map);
@@ -75,7 +79,7 @@ window.O5.init = function(opts) {
 			event.navigateTo();
 		});
 
-		if (O5.enableEditing) {
+		if (app.settings.enableEditing) {
 			O5.editor = new O5.views.EventEditorView();
 			events.on('edit', function(event) {
 				O5.editor.selectEvent(event);

@@ -4,9 +4,11 @@
 		name: "map",
 
 		initialize: function() {
+			this.app = this.options.app;
+			delete this.options['app'];
 			_.defaults(this.options, {
-				startLat: 45.532411,
-				startLng: -73.61512,
+				startLat: this.app.settings.mapStartLat || 45.532411,
+				startLng: this.app.settings.mapStartLng || -73.61512,
 				startZoom: 10,
 				markerOpts: {
 					icon: O5.staticURL + 'o5ui/img/cone-small-1.png',

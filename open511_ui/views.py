@@ -19,7 +19,15 @@ def main(request, event_slug=None):
         'apiURL': unicode(settings.OPEN511_UI_API_URL),
         'staticURL': settings.STATIC_URL,
         'enableEditing': enable_editing,
+        'mapStartLat': settings.OPEN511_UI_MAP_START_LAT,
+        'mapStartLng': settings.OPEN511_UI_MAP_START_LNG,
     }
+
+    if settings.OPEN511_UI_MAP_TYPE == 'leaflet':
+        opts.update(
+            mapTileURL=settings.OPEN511_UI_MAP_TILE_URL,
+            mapTileOptions=settings.OPEN511_UI_MAP_TILE_OPTIONS
+        )
 
     if Jurisdiction is not None:
         opts['jurisdictions'] = list(Jurisdiction.objects.all().values('slug'))

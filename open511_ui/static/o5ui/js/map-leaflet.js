@@ -18,7 +18,8 @@
 			}
 			this.markerIcon = L.icon(iconopts);
 
-			L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg', {
+			L.tileLayer(this.app.settings.mapTileURL || 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg',
+				this.app.settings.mapTileOptions || {
 				minZoom: 1,
 				maxZoom: 20,
 				subdomains: 'abcd',
