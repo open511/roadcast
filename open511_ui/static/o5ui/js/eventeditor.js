@@ -73,7 +73,7 @@
 				// 	self.roadEvent.select();
 				// });
 				if (!self.validate()) {
-					return O5.utils.notify("Looks like something's not valid.");
+					return O5.utils.notify(O5._t("Validation error. Please correct any problems and try again."));
 				}
 				self.updateEvent();
 				self.roadEvent.select();

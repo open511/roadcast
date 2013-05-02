@@ -5,8 +5,8 @@
 	O5.RoadEvent = Backbone.Model.extend({
 
 		initialize: function() {
-			if (!this.has('visible')) {
-				this.set('visible', true);
+			if (!this.has('_visible')) {
+				this.set('_visible', true);
 			}
 		},
 

@@ -98,12 +98,12 @@
 			if (fs) {
 				fs.forceAdd(event);
 				if (fs !== self.activeSet && !self.activeSet.evaluateEvent(event, false, fs)) {
-					event.set('visible', false);
+					event.set('_visible', false);
 				}
 			}
 			else {
 				if (!self.activeSet.evaluateEvent(event)) {
-					event.set('visible', false);
+					event.set('_visible', false);
 				}
 			}
 			for (var i = 0; i < self.history.length; i ++) {
@@ -119,15 +119,15 @@
 			});
 		});
 		this.app.events.on('change', function(event) {
-			if (event.changed.hasOwnProperty('visible') && _.keys(event.changed).length === 1) {
+			if (event.changed.hasOwnProperty('_visible') && _.keys(event.changed).length === 1) {
 				// The only change is to visibility; ignore
 				return;
 			}
 			// If an event changes, test it against the active FilteredSet
 			// to see if it should still be visible.
 			var vis = self.activeSet.evaluateEvent(event, true);
-			if (vis !== event.get('visible')) {
-				event.set('visible', vis);
+			if (vis !== event.get('_visible')) {
+				event.set('_visible', vis);
 			}
 			// And test it against the history, so those sets remain up-to-date
 			// if we want to reuse them later.
@@ -365,8 +365,8 @@
 			events = allEvents || this.app.events.models;
 			for (var i = 0; i < events.length; i++) {
 				var vis = this.events.hasOwnProperty(events[i].id);
-				if (events[i].get('visible') !== vis) {
-					events[i].set('visible', vis);
+				if (events[i].get('_visible') !== vis) {
+					events[i].set('_visible', vis);
 				}
 			}
 		},
@@ -397,7 +397,7 @@
 				var isActive = (filteredSet === filteredSet.manager.activeSet);
 				_.each(existing, function(ev) {
 					filteredSet.forceAdd(ev);
-					if (isActive) ev.set('visible', true);
+					if (isActive) ev.set('_visible', true);
 				});
 				if (resp.pagination.next_url) {
 					if (isActive) {

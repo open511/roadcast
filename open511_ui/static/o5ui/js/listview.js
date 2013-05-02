@@ -15,7 +15,7 @@
 						event.select();
 					}
 				});
-				this.app.events.on('add remove change:visible change:headline change:selected', function(rdev) {
+				this.app.events.on('add remove change:_visible change:headline change:selected', function(rdev) {
 					if (self.visible) {
 						self.renderSoon();
 					}
@@ -23,7 +23,7 @@
 				this.eventsInitialized = true;
 			}
 			this.$el.html(
-				JST.event_list({events: this.app.events.where({visible: true})})
+				JST.event_list({events: this.app.events.where({'_visible': true})})
 			);
 		},
 
