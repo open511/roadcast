@@ -2,5 +2,14 @@
 <% if (editable) { print('<a href="" class="edit-roadevent"><i class="icon-pencil"></i></a>'); } %>
 	</h2><% } %>
 <% if (r.schedule) { %><div class="date"><%- r.schedule.start_date %> &#8211; <%- r.schedule.end_date %></div><% } %>
+<% if (r.roads) { %>
+	<h4><%- O5._t('Roads') %></h4>
+	<% _.each(r.roads, function(road) { %>
+		<p><strong><%- road.road_name %></strong><% 
+			if (road.from) { print(', ' + O5._t('from') + ' '+ road.from); }
+			if (road.to) { print(' ' + O5._t('to') + ' ' + road.to); }
+		%></p>
+	<% });
+} %>
 <% if (r.description) { %><h4><%- O5._t('Details') %></h4><%= O5.utils.nlToBR(r.description) %><% } %>
 <% if (r.detour) { %><h4><%- O5._t('Detour') %></h4><%= O5.utils.nlToBR(r.detour) %><% } %>

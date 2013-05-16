@@ -149,6 +149,23 @@ tr.empty td.closecol {
 	color: #777777;
 }
 
+.editor .road-edit-widget .road-fields {
+	border-bottom: 1px dotted #aaaaaa;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+.editor .road-edit-widget .add-row {
+	display: block;
+	text-align: center;
+	cursor: pointer;
+	font-size: 23px;
+	font-weight: bold;
+}
+.editor .road-edit-widget a.add-row:hover {
+	text-decoration: none;
+}
+
 #notifications {
 	position: absolute;
 	z-index: 10;

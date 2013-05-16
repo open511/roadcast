@@ -176,8 +176,14 @@
 				label: _t('Detour'),
 				type: 'text',
 				tab: 'details'
+			},
+			{
+				name: 'roads',
+				label: _t('Roads'),
+				type: 'complex',
+				widget: 'roads',
+				tab: 'roads'
 			}
-
 	];
 
 	O5.RoadEventFieldsLookup = {};

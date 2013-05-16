@@ -102,6 +102,7 @@ jst_editor = Bundle(
     'o5ui/jst/create_event.html',
     'o5ui/jst/event_editor.html',
     'o5ui/jst/map_edit_widget.html',
+    'o5ui/jst/road_edit_widget_row.html',
     filters=[jst_filter],
     output='gen/editor_jst.js'
 )
