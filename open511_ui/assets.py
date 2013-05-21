@@ -26,7 +26,7 @@ js_editor_libs = [
     'vendor/datepicker.js'
 ]
 if leaflet:
-    js_editor_libs.append('vendor/leaflet/leaflet.draw.js')
+    js_editor_libs.append('o5ui/js/leaflet.draw.js')
 js_editor_libs = Bundle(*js_editor_libs)
 
 js_gmaps = Bundle(
