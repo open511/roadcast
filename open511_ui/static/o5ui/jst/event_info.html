@@ -6,7 +6,16 @@
 	<h4><%- O5._t('Roads') %></h4>
 	<% _.each(r.roads, function(road) { %>
 		<p><strong><%- road.road_name %></strong><% 
-			if (road.from) { print(', ' + O5._t('from') + ' '+ road.from); }
+			if (road.from) { 
+				print(', ');
+				if (road.to) {
+					print(O5._t('from'));
+				}
+				else {
+					print(O5._t('near'));
+				}
+				print(' ' + road.from);
+			 }
 			if (road.to) { print(' ' + O5._t('to') + ' ' + road.to); }
 		%></p>
 	<% });

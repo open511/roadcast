@@ -342,7 +342,7 @@
 		},
 
 		/** 
-		Will the given filters match a subset of this FilterSet's events?
+		* Will the given filters match a subset of this FilterSet's events?
 		*/
 		isSubset: function(newState) {
 			var fs = this.filterState;
