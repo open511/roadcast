@@ -69,13 +69,11 @@
 				self.roadEvent.select();
 			}).on('click', '.save-button', function(e) {
 				e.preventDefault();
-				// self.updateEvent(function() {
-				// 	self.roadEvent.select();
-				// });
-
-				if (!self.validate()) {
+				var invalidWidgets = self.getInvalidWidgets();
+				if (invalidWidgets.length > 0) {
 					return O5.utils.notify(
-						O5._t("Validation error. Please correct any problems and try again.")
+						O5._t("Validation error. Please verify: ") +
+						_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', ')
 					);
 				}
 				self.updateEvent();
@@ -191,15 +189,8 @@
 			}
 		},
 
-		validate: function() {
-			var self = this;
-			var valid = true;
-			_.each(this.widgets, function(widget) {
-				if (!self.validateWidget(widget)) {
-					valid = false;
-				}
-			});
-			return valid;
+		getInvalidWidgets: function() {
+			return _.reject(this.widgets, this.validateWidget);
 		}
 
 	});
