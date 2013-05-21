@@ -72,11 +72,25 @@
 				// self.updateEvent(function() {
 				// 	self.roadEvent.select();
 				// });
+
 				if (!self.validate()) {
-					return O5.utils.notify(O5._t("Validation error. Please correct any problems and try again."));
+					return O5.utils.notify(
+						O5._t("Validation error. Please correct any problems and try again.")
+					);
 				}
 				self.updateEvent();
 				self.roadEvent.select();
+			}).on('click', '.delete-button', function(e) {
+				e.preventDefault();
+				if (self.roadEvent.status === 'ARCHIVED' ||
+					window.confirm(O5._t("In general, you should set road events to archived status rather than deleting them. Are you sure you want to delete this?"))) {
+					self.roadEvent.destroy({
+						wait: true,
+						success: function() {
+							O5.layout.setLeftPane(null);
+						}
+					});
+				}
 			});
 
 			$('body').on('click', '.create-new-event', function(e) {

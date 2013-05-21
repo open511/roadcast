@@ -61,13 +61,7 @@
 
 		updateRoadEvent: function(rdev) {
 			var self = this;
-			if (rdev.mapOverlays && rdev.mapOverlays.length) {
-				// Delete any existing overlays
-				_.each(rdev.mapOverlays, function(overlay) {
-					self.removeOverlay(overlay);
-				});
-			}
-			rdev.mapOverlays = [];
+			this.removeRoadEventOverlays(rdev);
 			var geom = rdev.get('geography');
 			if (geom) {
 				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom);
@@ -82,6 +76,16 @@
 			}
 		},
 
+		removeRoadEventOverlays: function(rdev) {
+			var self = this;
+			if (rdev.mapOverlays && rdev.mapOverlays.length) {
+				_.each(rdev.mapOverlays, function(overlay) {
+					self.removeOverlay(overlay);
+				});
+			}
+			rdev.mapOverlays = [];
+		},
+
 		updateRoadEventVisibility: function(rdev) {
 			var visible = rdev.get('_visible');
 			var self = this;
@@ -93,6 +97,7 @@
 		addRoadEvent: function(rdev) {
 			rdev.on('change:geography', this.updateRoadEvent, this);
 			rdev.on('change:_visible', this.updateRoadEventVisibility, this);
+			rdev.on('destroy', this.removeRoadEventOverlays, this);
 			this.updateRoadEvent(rdev);
 		}
 
