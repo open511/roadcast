@@ -5,6 +5,13 @@
 */
 (function (window, undefined) {
 
+var _t = function(s) {
+	if (window.O5) {
+		return window.O5._t(s);
+	}
+	return s;
+};
+
 L.drawVersion = '0.1.5';
 
 L.Util.extend(L.LineUtil, {
@@ -225,7 +232,7 @@ L.Polyline.Draw = L.Handler.Draw.extend({
 		allowIntersection: true,
 		drawError: {
 			color: '#b00b00',
-			message: '<strong>Error:</strong> shape edges cannot cross!',
+			message: _t('Shape edges cannot cross'),
 			timeout: 2500
 		},
 		icon: new L.DivIcon({
@@ -474,7 +481,7 @@ L.Polyline.Draw = L.Handler.Draw.extend({
 
 		if (this._markers.length === 0) {
 			labelText = {
-				text: 'Click to start drawing line.'
+				text: _t('Click to start drawing line.')
 			};
 		} else {
 			// calculate the distance from the last fixed point to the mouse position
@@ -484,12 +491,12 @@ L.Polyline.Draw = L.Handler.Draw.extend({
 			
 			if (this._markers.length === 1) {
 				labelText = {
-					text: 'Click to continue drawing line.',
+					text: _t('Click to continue drawing line.'),
 					subtext: distanceStr
 				};
 			} else {
 				labelText = {
-					text: 'Click last point to finish line.',
+					text: _t('Click last point to finish line.'),
 					subtext: distanceStr
 				};
 			}
@@ -581,11 +588,11 @@ L.Polygon.Draw = L.Polyline.Draw.extend({
 	_getLabelText: function () {
 		var text;
 		if (this._markers.length === 0) {
-			text = 'Click to start drawing shape.';
+			text = _t('Click to start drawing shape.');
 		} else if (this._markers.length < 3) {
-			text = 'Click to continue drawing shape.';
+			text = _t('Click to continue drawing shape.');
 		} else {
-			text = 'Click first point to close this shape.';
+			text = _t('Click first point to close this shape.');
 		}
 		return {
 			text: text
@@ -663,7 +670,7 @@ L.SimpleShape.Draw = L.Handler.Draw.extend({
 
 		this._updateLabelPosition(layerPoint);
 		if (this._isDrawing) {
-			this._updateLabelText({ text: 'Release mouse to finish drawing.' });
+			this._updateLabelText({ text: _t('Release mouse to finish drawing.') });
 			this._drawShape(latlng);
 		}
 	},
@@ -728,7 +735,7 @@ L.Rectangle.Draw = L.SimpleShape.Draw.extend({
 		}
 	},
 	
-	_initialLabelText: 'Click and drag to draw rectangle.',
+	_initialLabelText: _t('Click and drag to draw rectangle.'),
 
 	_drawShape: function (latlng) {
 		if (!this._shape) {
@@ -759,7 +766,7 @@ L.Marker.Draw = L.Handler.Draw.extend({
 		L.Handler.Draw.prototype.addHooks.call(this);
 		
 		if (this._map) {
-			this._updateLabelText({ text: 'Click map to place marker.' });
+			this._updateLabelText({ text: _t('Click map to place marker.') });
 			this._map.on('mousemove', this._onMouseMove, this);
 		}
 	},
