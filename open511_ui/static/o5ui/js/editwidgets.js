@@ -104,6 +104,8 @@
 				this.$el.on('click', '.draw-clear', function(e) {
 					e.preventDefault();
 					self.geom = null;
+					// FIXME there should be some kinda undo here
+					self.options.roadEvent.set('geography', null)
 					self.render();
 				}).on('click', '.draw-point', function(e) {
 					e.preventDefault();
