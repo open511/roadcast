@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
 "POT-Creation-Date: 2013-05-21 16:26-0500\n"
-"PO-Revision-Date: 2013-05-21 16:26-0500\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2013-05-21 22:27-0500\n"
+"Last-Translator: Stéphane Guidoin <stephane.guidoin@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Fermer"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:3
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:4
 msgid "Save"
@@ -138,13 +138,15 @@ msgstr "Ce champ est obligatoire"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/eventeditor.js:75
 msgid "Validation error. Please verify: "
-msgstr ""
+msgstr "Erreur de validation. Merci de vérifier:"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/eventeditor.js:84
 msgid ""
 "In general, you should set road events to archived status rather than "
 "deleting them. Are you sure you want to delete this?"
 msgstr ""
+"Plutôt que de supprimer un événement, il est préférable de le mettre à "
+"l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:16
 msgid "Jurisdiction"
@@ -176,43 +178,43 @@ msgstr "Tous"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:235
 msgid "Shape edges cannot cross"
-msgstr ""
+msgstr "Les bordures d'une forme ne peuvent se croiser"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:484
 msgid "Click to start drawing line."
-msgstr ""
+msgstr "Cliquer pour commencer à dessiner une ligne."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:494
 msgid "Click to continue drawing line."
-msgstr ""
+msgstr "Cliquer pour continuer à dessiner une ligne"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:499
 msgid "Click last point to finish line."
-msgstr ""
+msgstr "Cliquer sur le dernier point pour terminer la ligne."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:591
 msgid "Click to start drawing shape."
-msgstr ""
+msgstr "Cliquer pour définir une forme."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:593
 msgid "Click to continue drawing shape."
-msgstr ""
+msgstr "Cliquer pour continuer à dessiner une forme."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:595
 msgid "Click first point to close this shape."
-msgstr ""
+msgstr "Cliquer le premier point pour ferme la forme."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:673
 msgid "Release mouse to finish drawing."
-msgstr ""
+msgstr "Relacher la sourie pour terminer le dessin."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:738
 msgid "Click and drag to draw rectangle."
-msgstr ""
+msgstr "Cliquer et déplacer pour dessiner un rectangle."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:769
 msgid "Click map to place marker."
-msgstr ""
+msgstr "Cliquer sur la carte pour placer une marqueur."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:105
 msgid "Headline"
