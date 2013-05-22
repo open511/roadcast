@@ -138,7 +138,7 @@ msgstr "Ce champ est obligatoire"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/eventeditor.js:75
 msgid "Validation error. Please verify: "
-msgstr "Erreur de validation. Merci de vérifier:"
+msgstr "Erreur de validation. Merci de vérifier: "
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/eventeditor.js:84
 msgid ""

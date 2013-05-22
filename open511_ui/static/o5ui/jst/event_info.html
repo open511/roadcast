@@ -2,7 +2,7 @@
 <% if (editable) { print('<a href="" class="edit-roadevent"><i class="icon-pencil"></i></a>'); } %>
 	</h2><% } %>
 <% if (r.schedule) { %><div class="date"><%- r.schedule.start_date %> &#8211; <%- r.schedule.end_date %></div><% } %>
-<% if (r.roads) { %>
+<% if (r.roads && r.roads.length) { %>
 	<h4><%- O5._t('Roads') %></h4>
 	<% _.each(r.roads, function(road) { %>
 		<p><strong><%- road.road_name %></strong><% 
