@@ -7,7 +7,7 @@
 		},
 
 		index: function() {
-
+			O5.layout.setLeftPane(null);
 		},
 
 		eventDetails: function(eventID) {

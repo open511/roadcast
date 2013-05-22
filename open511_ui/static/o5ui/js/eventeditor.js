@@ -76,7 +76,11 @@
 						_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', ')
 					);
 				}
-				self.updateEvent();
+				self.updateEvent({
+					success: function() {
+						self.roadEvent.select();
+					}
+				});
 				self.roadEvent.select();
 			}).on('click', '.delete-button', function(e) {
 				e.preventDefault();
@@ -86,6 +90,7 @@
 						wait: true,
 						success: function() {
 							O5.layout.setLeftPane(null);
+							O5.router.navigate('');
 						}
 					});
 				}
@@ -164,11 +169,15 @@
 			return updates;
 		},
 
-		updateEvent: function(success) {
+		updateEvent: function(opts) {
 			var updates = this.getUpdates();
+			opts = opts || {};
+			_.defaults(opts, {
+				patch: true,
+				wait: true
+			});
 			if (_.size(updates)) {
-				// this.roadEvent.update(updates, {success: success});
-				this.roadEvent.save(updates, {patch: true, wait: true});
+				this.roadEvent.save(updates, opts);
 			}
 		},
 
