@@ -23,6 +23,7 @@ def main(request, event_slug=None):
         'mapStartLat': settings.OPEN511_UI_MAP_START_LAT,
         'mapStartLng': settings.OPEN511_UI_MAP_START_LNG,
         'mapStartZoom': settings.OPEN511_UI_MAP_START_ZOOM,
+        'pushState': True,
     }
 
     if settings.OPEN511_UI_MAP_TYPE == 'leaflet':

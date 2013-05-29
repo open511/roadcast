@@ -6,7 +6,8 @@ window.O5.init = function(opts) {
 
 		_.defaults(opts, {
 			enableEditing: false,
-			elementSelector: '#main'
+			elementSelector: '#main',
+			pushState: true
 		});
 		_.extend(O5, opts);
 
@@ -105,7 +106,10 @@ window.O5.init = function(opts) {
 
 		O5.app = app;
 
-		Backbone.history.start({ pushState: true, root: O5.rootURL });
+		Backbone.history.start({
+			pushState: app.settings.pushState,
+			root: O5.rootURL
+		});
 
 		return app;
 
