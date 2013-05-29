@@ -113,8 +113,8 @@
 				type: 'enum',
 				tab: 'basics',
 				choices: [
-					['active', _t('Active')],
-					['archived', _t('Archived')]
+					['ACTIVE', _t('Active')],
+					['ARCHIVED', _t('Archived')]
 				],
 				required: true
 			},
