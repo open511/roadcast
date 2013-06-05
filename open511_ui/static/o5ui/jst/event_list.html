@@ -12,7 +12,7 @@
 		<tbody>
 		<% _.each(events, function(rdev) { %>
 			<tr <% if (rdev.get('selected')) { print('class="success"'); } %>>
-				<td><a href="#" data-roadevent="<%- rdev.id %>" class="select-event"><%- rdev.get('headline') %></a></td>
+				<td><a href="<%- rdev.get('url') %>" data-roadevent="<%- rdev.id %>" class="select-event"><%- rdev.get('headline') %></a></td>
 				<td><%- rdev.getEnum('severity') %></td>
 				<td><%- rdev.get('schedule').start_date %></td>
 				<td><%- rdev.get('schedule').end_date %></td>
