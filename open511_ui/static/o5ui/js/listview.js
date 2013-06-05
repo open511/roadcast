@@ -15,7 +15,7 @@
 						event.select();
 					}
 				});
-				this.app.events.on('add remove change:_visible change:headline change:selected', function(rdev) {
+				this.app.events.on('add remove change', function(rdev) {
 					if (self.visible) {
 						self.renderSoon();
 					}

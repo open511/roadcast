@@ -12,10 +12,10 @@
 
 		select: function() {
 			var self = this;
-			_.each(this.collection.where({'selected': true}), function(rdev) {
-				if (rdev !== self) rdev.set('selected', false);
+			_.each(this.collection.where({'_selected': true}), function(rdev) {
+				if (rdev !== self) rdev.set('_selected', false);
 			});
-			this.set('selected', true);
+			this.set('_selected', true);
 			this.collection.trigger('selection', this);
 		},
 
