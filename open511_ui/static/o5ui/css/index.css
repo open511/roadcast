@@ -182,9 +182,7 @@ tr.empty td.closecol {
 	overflow: auto;
 	height: 100%;
 }
-.roadevent-list ol, .roadevent-list ul {
-	margin: 40px 10px 50px 40px;
-}
-.roadevent-list li.selected {
-	font-weight: bold;
+.roadevent-list table {
+	margin: 60px 10px 50px 40px;
+	width: auto;
 }

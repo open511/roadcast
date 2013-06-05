@@ -31,6 +31,19 @@
 			return this.get('jurisdiction_url').replace(/\/$/, '').split('/').slice(-1)[0];
 		},
 
+		/**
+		 * Like event.get(key), but for Enum fields; returns the friendly,
+		 * multilingual name, not the internal key, e.g. "Special event" instead of SPECIAL_EVENT.
+		 */
+		getEnum: function(key) {
+			var val = this.get(key);
+			var spec = O5.RoadEventFieldsLookup[key];
+			if (!spec || !val || !spec.choices) return val;
+			var choice = _.findWhere(spec.choices, {0: val});
+			if (!choice) return val;
+			return choice[1];
+		},
+
 		parse: function(resp) {
 			if (resp.meta) {
 				delete resp.meta;
