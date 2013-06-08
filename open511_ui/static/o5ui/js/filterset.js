@@ -56,6 +56,17 @@
 				['ARCHIVED', O5._t('Archived')],
 				['ALL', O5._t('All')]
 			]
+		},
+
+		date: {
+			label: O5._t('Date'),
+			remote: function (key, value) {
+				return [
+					'in_effect_on',
+					value + 'T01:00' + O5.timezone + ',' + value + 'T10:59' +  O5.timezone
+				];
+			},
+			widget: 'date'
 		}
 	};
 
@@ -301,9 +312,9 @@
 		},
 
 		/**
-		Replace the current set of filters with a new one.
-		filters: an object with key/val pairs representing filters
-		*/
+		 * Replace the current set of filters with a new one.
+		 * filters: an object with key/val pairs representing filters
+		 */
 		replaceFilters: function(filters) {
 			var self = this;
 			var analysis = analyzeFilters(this.diff(filters));
@@ -391,20 +402,28 @@
 			var success = function(resp, status, xhr) {
 				var eventData = _.map(collection.parse(resp),
 					collection.model.prototype.parse);
+
+				// Put events we already have in existing
 				var x, existing = [];
 				for (var i = 0; i < eventData.length; i++) {
 					x = collection.get(eventData[i].id);
 					if (x) existing.push(x);
 				}
+
+				// Add/update the events we retrieved in the master events collection
 				collection.add(eventData, {
 					merge: true,
 					sourceFilteredSet: filteredSet
 				});
+
+				// Add all the events retrieved to the requesting filteredSet,
+				// and ensure they're visible if the filteredSet is active
 				var isActive = (filteredSet === filteredSet.manager.activeSet);
 				_.each(existing, function(ev) {
 					filteredSet.forceAdd(ev);
 					if (isActive) ev.set('_visible', true);
 				});
+
 				if (resp.pagination.next_url) {
 					if (isActive) {
 						// Only fetch more if this FilteredSet is still active
