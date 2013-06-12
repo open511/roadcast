@@ -388,16 +388,21 @@
 			}
 		},
 
-		_sync: function(url_params, opts) {
+		_sync: function(url_or_params, opts) {
 			var filteredSet = this;
-			url_params = url_params || {};
-			_.defaults(url_params, {
-				format: 'json',
-				'accept-language': 'en,fr',
-				'limit': 50
-			});
+			url_or_params = url_or_params || {};
 			opts = opts || {};
-			opts.url = this.app.events.url() + '?' + $.param(url_params);
+			if (_.isString(url_or_params)) {
+				opts.url = url_or_params;
+			}
+			else {
+				_.defaults(url_or_params, {
+					format: 'json',
+					'accept-language': 'en,fr',
+					'limit': 50
+				});
+				opts.url = this.app.events.url() + '?' + $.param(url_or_params);
+			}
 			var collection = filteredSet.app.events;
 			var success = function(resp, status, xhr) {
 				var eventData = _.map(collection.parse(resp),
@@ -427,8 +432,7 @@
 				if (resp.pagination.next_url) {
 					if (isActive) {
 						// Only fetch more if this FilteredSet is still active
-						filteredSet._sync(_.extend(url_params, {
-							offset: resp.pagination.offset + resp.pagination.limit}), opts);
+						filteredSet._sync(resp.pagination.next_url, opts);
 					}
 				}
 				else {
