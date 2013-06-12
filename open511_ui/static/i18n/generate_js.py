@@ -13,12 +13,13 @@ O5.i18n = new Jed({
         messages: %s
     }
 });
-O5._t = function(s) { return O5.i18n.gettext(s); };
+O5.language = "%s";
 """
 
 I18N_DIR = os.path.dirname(os.path.realpath(__file__))
 
 for po_filename in glob(I18N_DIR + "/*.po"):
     json = subprocess.check_output(["po2json", po_filename])
-    with open(re.sub(r'\.po$', '.js', po_filename), 'w') as f:
-        f.write(JS_TEMPLATE % json)
+    lang = os.path.basename(po_filename).split('.')[0]
+    with open(lang + '.js', 'w') as f:
+        f.write(JS_TEMPLATE % (json, lang))
