@@ -135,8 +135,7 @@
 				name: 'description',
 				label: _t('Description'),
 				type: 'text',
-				tab: 'details',
-				required: true
+				tab: 'details'
 			},
 			{
 				name: 'event_type',
