@@ -5,9 +5,13 @@ from open511_ui.conf import settings
 
 jst_filter = JST(template_function='_.template')
 
+JS_FILTER = 'rjsmin'
+
 leaflet = (settings.OPEN511_UI_MAP_TYPE == 'leaflet')
 
 js_libs = [
+    'vendor/curl/curl.js',
+    'vendor/curl/curl-plugin-js.js',
     'vendor/jquery.js',
     'vendor/lodash.js',
     'vendor/backbone.js',
@@ -28,6 +32,14 @@ js_editor_libs = [
 if leaflet:
     js_editor_libs.append('o5ui/js/leaflet.draw.js')
 js_editor_libs = Bundle(*js_editor_libs)
+
+js_file_upload = Bundle(
+    'vendor/jquery/jquery.ui.widget.js',
+    'vendor/fileupload/iframe-transport.js',
+    'vendor/fileupload/jquery.fileupload.js',
+    filters=JS_FILTER,
+    output='gen/fileupload.js',
+)
 
 js_gmaps = Bundle(
     'o5ui/js/geojson-to-google.js',
@@ -51,12 +63,15 @@ js_app = Bundle(
     js_leaflet if leaflet else js_gmaps,
     'o5ui/js/filterset.js',
     'o5ui/js/filterwidget.js',
-    'o5ui/js/editwidgets.js',
+    'o5ui/js/widgets.js',
     'o5ui/js/utils.js',
 )
 
 js_editor_app = Bundle(
-    'o5ui/js/eventeditor.js'
+    'o5ui/js/editor/editor.js',
+    'o5ui/js/editor/widgets/map.js',
+    'o5ui/js/editor/widgets/roads.js',
+    'o5ui/js/editor/widgets/attachments.js',
 )
 
 css_libs = ['vendor/bootstrap/css/bootstrap.css']
@@ -111,7 +126,7 @@ js_main = Bundle(
     js_libs,
     jst_main,
     js_app,
-    filters='rjsmin',
+    filters=JS_FILTER,
     output='gen/main.js'
 )
 
@@ -119,14 +134,14 @@ js_editor = Bundle(
     js_editor_libs,
     js_editor_app,
     jst_editor,
-    filters='rjsmin',
+    filters=JS_FILTER,
     output='gen/editor.js'
 )
 
 locale_fr = Bundle(
     'vendor/jed.js',
     'i18n/fr.js',
-    filters='rjsmin',
+    filters=JS_FILTER,
     output='gen/fr.js'
 )
 
@@ -134,4 +149,5 @@ register('css_main', css_main)
 register('js_main', js_main)
 register('css_editor', css_editor)
 register('js_editor', js_editor)
+register('js_file_upload', js_file_upload)
 register('locale_fr', locale_fr)
