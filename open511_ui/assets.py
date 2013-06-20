@@ -10,8 +10,8 @@ JS_FILTER = 'rjsmin'
 leaflet = (settings.OPEN511_UI_MAP_TYPE == 'leaflet')
 
 js_libs = [
-    'vendor/curl/curl.js',
-    'vendor/curl/curl-plugin-js.js',
+    #'vendor/curl/curl.js',
+    #'vendor/curl/curl-plugin-js.js',
     'vendor/jquery.js',
     'vendor/lodash.js',
     'vendor/backbone.js',
@@ -25,21 +25,22 @@ if leaflet:
     js_libs.append('vendor/leaflet/leaflet.js')
 js_libs = Bundle(*js_libs)
 
-
-js_editor_libs = [
-    'vendor/datepicker.js'
-]
-if leaflet:
-    js_editor_libs.append('o5ui/js/leaflet.draw.js')
-js_editor_libs = Bundle(*js_editor_libs)
-
 js_file_upload = Bundle(
     'vendor/jquery/jquery.ui.widget.js',
     'vendor/fileupload/iframe-transport.js',
     'vendor/fileupload/jquery.fileupload.js',
-    filters=JS_FILTER,
-    output='gen/fileupload.js',
+    # debug=False,
+    # filters=JS_FILTER,
+    # output='gen/fileupload.js',
 )
+
+js_editor_libs = [
+    'vendor/datepicker.js',
+    js_file_upload
+]
+if leaflet:
+    js_editor_libs.append('o5ui/js/leaflet.draw.js')
+js_editor_libs = Bundle(*js_editor_libs)
 
 js_gmaps = Bundle(
     'o5ui/js/geojson-to-google.js',
@@ -81,7 +82,7 @@ if leaflet:
 css_libs = Bundle(*css_libs)
 
 css_editor_libs = Bundle(
-    'vendor/datepicker.css'
+    'vendor/datepicker.css',
 )
 
 css_app = Bundle(
@@ -97,6 +98,7 @@ css_main = Bundle(
 
 css_editor = Bundle(
     css_editor_libs,
+    'o5ui/css/editor.css',
     filters='cssrewrite',
     output='gen/editor.css'
 )
@@ -118,6 +120,8 @@ jst_editor = Bundle(
     'o5ui/jst/event_editor.html',
     'o5ui/jst/map_edit_widget.html',
     'o5ui/jst/road_edit_widget_row.html',
+    'o5ui/jst/attachment_widget.html',
+    'o5ui/jst/attachment_widget_row.html',
     filters=[jst_filter],
     output='gen/editor_jst.js'
 )

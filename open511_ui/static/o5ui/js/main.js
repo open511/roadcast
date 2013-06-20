@@ -82,7 +82,7 @@ window.O5.init = function(opts) {
 		});
 
 		if (app.settings.enableEditing) {
-			O5.editor = new O5.views.EventEditorView();
+			O5.editor = new O5.views.EventEditorView({app: app});
 			events.on('edit', function(event) {
 				O5.editor.selectEvent(event);
 				O5.layout.setLeftPane(O5.editor);

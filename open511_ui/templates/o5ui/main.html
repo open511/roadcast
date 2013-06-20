@@ -16,6 +16,13 @@
   {% if enable_editing %}{% assets "css_editor" %}
     <link rel="stylesheet" href="{{ ASSET_URL }}">
   {% endassets %}{% endif %}
+
+  <script type="text/javascript">
+  curl = {
+    baseUrl: '{{ STATIC_URL }}'
+  };
+  </script>
+
 </head>
 
 <body>

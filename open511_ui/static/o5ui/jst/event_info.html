@@ -22,3 +22,10 @@
 } %>
 <% if (r.description) { %><h4><%- O5._t('Details') %></h4><%= O5.utils.nlToBR(r.description) %><% } %>
 <% if (r.detour) { %><h4><%- O5._t('Detour') %></h4><%= O5.utils.nlToBR(r.detour) %><% } %>
+<% if (r.attachments && r.attachments.length) { %>
+	<h4><%- O5._t('Attachments') %></h4>
+	<ul><% _.each(r.attachments, function(attachment) { %>
+		<li><a href="<%= attachment.url %>" target="_blank"><%- attachment.title ? attachment.title : attachment.url.split('/').pop() %></a></li>
+		<% }); %>
+	</ul>
+<% } %>

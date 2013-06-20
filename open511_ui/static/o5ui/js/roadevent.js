@@ -195,6 +195,13 @@
 				type: 'complex',
 				widget: 'roads',
 				tab: 'roads'
+			},
+			{
+				name: 'attachments',
+				label: _t('Attachments'),
+				type: 'complex',
+				widget: 'attachments',
+				tab: 'details'
 			}
 	];
 

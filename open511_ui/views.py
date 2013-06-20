@@ -1,8 +1,14 @@
+from base64 import b64encode
+import datetime
+from hashlib import sha1
+import hmac
 import json
+from uuid import uuid4
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from open511_ui.conf import settings
@@ -25,6 +31,9 @@ def main(request, event_slug=None):
         'mapStartZoom': settings.OPEN511_UI_MAP_START_ZOOM,
         'pushState': True,
     }
+
+    if enable_editing and settings.OPEN511_UI_AWS_ACCESS_KEY:
+        opts['fileUploadURL'] = urlresolvers.reverse('o5ui_file_upload')
 
     if settings.OPEN511_UI_MAP_TYPE == 'leaflet':
         opts.update(
@@ -54,3 +63,34 @@ def main(request, event_slug=None):
 
 if settings.OPEN511_UI_REQUIRE_LOGIN:
     main = login_required(main)
+
+@login_required
+def s3_file_upload_helper(request):
+    if not settings.OPEN511_UI_AWS_ACCESS_KEY:
+        return HttpResponse("File upload not configured", status_code=500)
+    def make_policy(key):
+        policy_object = {
+            "expiration": (datetime.datetime.now() + datetime.timedelta(hours=24)).strftime('%Y-%m-%dT%H:%M:%S.000Z'),
+            "conditions": [
+                { "bucket": settings.OPEN511_UI_FILE_UPLOAD_S3_BUCKET },
+                { "acl": "public-read" },
+                { "key": key},
+                { "success_action_status": "201" },
+                ["starts-with", "$Content-Type", ""],
+                ["content-length-range", 0, 10048576], # 10 MB
+            ]
+        }
+        return b64encode(json.dumps(policy_object).replace('\n', '').replace('\r', ''))
+
+    def sign_policy(policy):
+        return b64encode(hmac.new(settings.OPEN511_UI_AWS_SECRET_KEY, policy, sha1).digest())
+
+    key = "attachments/" + uuid4().hex + "/" + request.GET.get('filename', 'f')
+    policy = make_policy(key)
+    return HttpResponse(json.dumps({
+        "policy": policy,
+        "signature": sign_policy(policy),
+        "key": key,
+        "AWSAccessKeyId": settings.OPEN511_UI_AWS_ACCESS_KEY,
+        "post_url": "https://%s.s3.amazonaws.com/" % settings.OPEN511_UI_FILE_UPLOAD_S3_BUCKET # FIXME
+    }), content_type="application/json")

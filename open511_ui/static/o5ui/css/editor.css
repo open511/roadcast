@@ -1,0 +1,82 @@
+.mainpane-buttons .add-event {
+  margin-right: 20px;
+  display: inline-block;
+}
+
+.editor .field input, .editor .field textarea {
+  width: 90%;
+  resize: none;
+}
+.editor .field label {
+  font-weight: 300;
+  font-size: 15px;
+  color: #777777;
+}
+
+.editor .road-edit-widget .road-fields {
+  border-bottom: 1px dotted #aaaaaa;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.editor .road-edit-widget .add-row {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  font-size: 23px;
+  font-weight: bold;
+}
+.editor .road-edit-widget a.add-row:hover {
+  text-decoration: none;
+}
+
+/** ATTACHMENTS WIDGET **/
+
+.file-upload-widget .in-progress li {
+  font-style: italic;
+  background: url('../img/spinner_16.gif') no-repeat;
+  padding-left: 20px;
+}
+
+.file-upload-widget .delete, .file-upload-widget .edit {
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 8px;
+}
+.file-upload-widget .delete:hover,.file-upload-widget .edit:hover {
+  color: blue;
+}
+
+.dragndrop.file-upload-widget .target {
+  position: relative;
+  overflow: hidden;
+  border: 1px dashed #444444;
+  height: 70px;
+  width: 95%;
+  border-radius: 5px;
+  background-color: #F2F2F2;
+  display: block;
+}
+.file-upload-widget .target span {
+  display: none;
+}
+.dragndrop.file-upload-widget .target span {
+  display: block;
+  color: #666666;
+  text-align: center;
+  padding-top: 22px;
+}
+.dragndrop.file-upload-widget .target input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px, 0) scale(4);
+  font-size: 123px;
+  direction: ltr;
+  cursor: pointer;
+  width: auto;
+  height: 70px;
+}

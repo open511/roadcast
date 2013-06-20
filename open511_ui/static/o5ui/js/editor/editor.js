@@ -3,35 +3,7 @@
 
 	var fieldCounter = 1;
 
-	var getWidget = function(field, roadEvent) {
-		var wc;
-
-		var field_id = 'field_' + fieldCounter++;
-
-		if (field.widget) {
-			wc = O5.widgets[field.widget];
-		}
-		else if (field.type === 'text') {
-			wc = O5.widgets.textarea;
-		}
-		else if (field.type === 'enum' && field.choices) {
-			wc = O5.widgets.select;
-		}
-		else if (field.type === 'date') {
-			wc = O5.widgets.date;
-		}
-		else {
-			wc = O5.widgets.text;
-		}
-
-		return new wc({
-			id: field_id,
-			field: field,
-			roadEvent: roadEvent
-		});
-	};
-
-	O5.views.EventEditorView = Backbone.View.extend({
+	O5.views.EventEditorView = O5.views.BaseView.extend({
 
 		roadEvent: null,
 
@@ -41,6 +13,7 @@
 		},
 
 		initialize: function() {
+			O5.views.BaseView.prototype.initialize.call(this);
 			var $el = this.$el;
 			var self = this;
 			// Tab navigation
@@ -117,7 +90,7 @@
 			this.widgets = [];
 			_.each(O5.RoadEventFields, function(field) {
 				var $field_el = $('<div class="field control-group" />');
-				var widget = getWidget(field, self.roadEvent);
+				var widget = self.makeWidget(field, self.roadEvent);
 				$field_el.attr('data-tab', field.tab);
 				if (widget.addLabel) {
 					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));
@@ -184,9 +157,9 @@
 		validateWidget: function(widget) {
 			var fieldValid = widget.validate();
 			var $control = widget.$el.closest('.control-group');
+			$control.find('.validation-error').remove();
 			if (fieldValid === true) {
 				$control.removeClass('error');
-				$control.find('.validation-error').remove();
 				return true;
 			}
 			else {
@@ -200,8 +173,36 @@
 
 		getInvalidWidgets: function() {
 			return _.reject(this.widgets, this.validateWidget);
-		}
+		},
 
+		makeWidget: function(field, roadEvent) {
+			var wc;
+
+			var field_id = 'field_' + fieldCounter++;
+
+			if (field.widget) {
+				wc = O5.widgets[field.widget];
+			}
+			else if (field.type === 'text') {
+				wc = O5.widgets.textarea;
+			}
+			else if (field.type === 'enum' && field.choices) {
+				wc = O5.widgets.select;
+			}
+			else if (field.type === 'date') {
+				wc = O5.widgets.date;
+			}
+			else {
+				wc = O5.widgets.text;
+			}
+
+			return new wc({
+				app: this.app,
+				id: field_id,
+				field: field,
+				roadEvent: roadEvent
+			});
+		}
 	});
 
 })();

@@ -3,6 +3,17 @@ from django.core import urlresolvers
 
 from appconf import AppConf
 
+###
+# Open511 UI settings
+#
+# The following are the default settings. You probably shouldn't edit
+# this file directly.
+# To override any of these, set OPEN511_UI_SETTING_NAME in your main Django
+# settings.py. For example, to make login mandatory, add the following
+# to settings.py:
+# OPEN511_UI_REQUIRE_LOGIN = True
+###
+
 class Open511UISettings(AppConf):
     API_URL = urlresolvers.reverse_lazy('open511_discovery')
     HEADER_TITLE = 'Development preview'
@@ -27,3 +38,8 @@ class Open511UISettings(AppConf):
             Data by <a href="http://openstreetmap.org">OpenStreetMap</a>,
             under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>."""
     }
+
+    # To allow file upload, set the following
+    AWS_ACCESS_KEY = ''
+    AWS_SECRET_KEY = ''
+    FILE_UPLOAD_S3_BUCKET = ''
