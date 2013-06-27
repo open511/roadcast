@@ -20,6 +20,7 @@ js_libs = [
     'vendor/bootstrap/js/bootstrap-dropdown.js',
     'vendor/bootstrap/js/bootstrap-button.js',
     'vendor/bootstrap/js/bootstrap-modal.js',
+    'vendor/datepicker.js',
 ]
 if leaflet:
     js_libs.append('vendor/leaflet/leaflet.js')
@@ -35,7 +36,6 @@ js_file_upload = Bundle(
 )
 
 js_editor_libs = [
-    'vendor/datepicker.js',
     js_file_upload
 ]
 if leaflet:
@@ -75,15 +75,14 @@ js_editor_app = Bundle(
     'o5ui/js/editor/widgets/attachments.js',
 )
 
-css_libs = ['vendor/bootstrap/css/bootstrap.css']
+css_libs = [
+    'vendor/bootstrap/css/bootstrap.css',
+    'vendor/datepicker.css',
+]
 if leaflet:
     css_libs.append('vendor/leaflet/leaflet.css')
     css_libs.append('vendor/leaflet/leaflet.draw.css')
 css_libs = Bundle(*css_libs)
-
-css_editor_libs = Bundle(
-    'vendor/datepicker.css',
-)
 
 css_app = Bundle(
     'o5ui/css/index.css'
@@ -97,7 +96,6 @@ css_main = Bundle(
 )
 
 css_editor = Bundle(
-    css_editor_libs,
     'o5ui/css/editor.css',
     filters='cssrewrite',
     output='gen/editor.css'
