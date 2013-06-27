@@ -36,7 +36,7 @@ O5.widgets.attachments = O5.widgets.BaseWidget.extend({
 
 		this.$el.html(JST.attachment_widget());
 		this.$el.fileupload({
-			dropZone: this.$el.find('.target'),
+			dropZone: this.$el,
 			done: function(e, data) {
 				data.context.progress.remove();
 				self.data.push(data.context.fileInfo);
