@@ -125,19 +125,20 @@
 			var updates = {};
 			_.each(this.widgets, function (widget) {
 				var field = widget.options.field;
-				var val = widget.getVal();
-				if (val === '') val = null;
-				// This is done so that 'schedule/startDate' goes to {'schedule': {'startDate': x }}
-				var name_bits = field.name.split('/');
-				var base = updates;
-				while (name_bits.length > 1) {
-					var bit = name_bits.shift();
-					if (!base[bit]) {
-						base[bit] = {};
+				_.each(widget.getVals(), function(val, key) {
+					if (val === '') val = null;
+					// This is done so that 'schedule/startDate' goes to {'schedule': {'startDate': x }}
+					var name_bits = key.split('/');
+					var base = updates;
+					while (name_bits.length > 1) {
+						var bit = name_bits.shift();
+						if (!base[bit]) {
+							base[bit] = {};
+						}
+						base = base[bit];
 					}
-					base = base[bit];
-				}
-				base[name_bits[0]] = val;
+					base[name_bits[0]] = val;
+				});
 			});
 			return updates;
 		},
@@ -181,7 +182,12 @@
 			var field_id = 'field_' + fieldCounter++;
 
 			if (field.widget) {
-				wc = O5.widgets[field.widget];
+				if (_.isObject(field.widget)) {
+					wc = field.widget;
+				}
+				else {
+					wc = O5.widgets[field.widget];
+				}
 			}
 			else if (field.type === 'text') {
 				wc = O5.widgets.textarea;

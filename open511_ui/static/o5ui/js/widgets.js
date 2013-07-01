@@ -9,6 +9,12 @@
 			return this.$el.val();
 		},
 
+		getVals: function() {
+			var o = {};
+			o[this.options.field.name] = this.getVal();
+			return o;
+		},
+
 		validate: function() {
 			if (this.options.field.validate) {
 				return this.options.field.validate(this.getVal());
