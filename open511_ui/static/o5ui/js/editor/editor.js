@@ -88,7 +88,7 @@
 			var $e = $(JST["event_editor"]({r: self.roadEvent}));
 			var $fields = $e.find('.fields');
 			this.widgets = [];
-			_.each(O5.RoadEventFields, function(field) {
+			_.each(this.getFieldDefs(self.roadEvent), function(field) {
 				var $field_el = $('<div class="field control-group" />');
 				var widget = self.makeWidget(field, self.roadEvent);
 				$field_el.attr('data-tab', field.tab);
@@ -202,6 +202,14 @@
 				field: field,
 				roadEvent: roadEvent
 			});
+		},
+
+		getFieldDefs: function(roadEvent) {
+			var fields = O5.RoadEventFields.slice(0);
+			_.each(this.app.settings.plugins, function(plugin) {
+				if (plugin.changeEditorFieldDefinitions) plugin.changeEditorFieldDefinitions(fields, roadEvent);
+			});
+			return fields;
 		}
 	});
 

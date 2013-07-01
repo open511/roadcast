@@ -8,7 +8,8 @@ window.O5.init = function(opts) {
 			enableEditing: false,
 			elementSelector: '#main',
 			pushState: true,
-			timezone: '-05:00'
+			timezone: '-05:00',
+			plugins: [O5.plugins.publishEvents] // FIXME
 		});
 		_.extend(O5, opts);
 

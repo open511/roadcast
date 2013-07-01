@@ -78,6 +78,24 @@
 			}
 		}),
 
+		checkbox: BaseWidget.extend({
+			addLabel: false,
+			tagName: 'div',
+			initialize: function() {
+				this.boxID = this.id + '-cb';
+				this.$el.html('<input type="checkbox" value="true" id="' + this.boxID + '"> <label for="' + this.boxID + '"></label>');
+				this.$el.find('label').text(this.options.field.label);
+				this.$el.addClass('checkbox');
+				this.box = this.$el.find('input')[0];
+			},
+			getVal: function() {
+				return this.box.checked;
+			},
+			setVal: function(val) {
+				$(this.box).prop('checked', (!val || val.toLowerCase() === 'false') ? false : true);
+			}
+		}),
+
 		date: BaseWidget.extend({
 			tagName: 'input',
 			initialize: function() {

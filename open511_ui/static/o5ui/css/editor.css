@@ -7,6 +7,12 @@
   width: 90%;
   resize: none;
 }
+.editor .field input[type=checkbox] {
+  width: auto;
+}
+.editor .field .checkbox label {
+  display: inline;
+}
 .editor .field label {
   font-weight: 300;
   font-size: 15px;

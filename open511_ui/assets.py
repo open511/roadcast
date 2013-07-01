@@ -73,6 +73,7 @@ js_editor_app = Bundle(
     'o5ui/js/editor/widgets/map.js',
     'o5ui/js/editor/widgets/roads.js',
     'o5ui/js/editor/widgets/attachments.js',
+    'o5ui/js/plugins/publish-events.js',
 )
 
 css_libs = [
