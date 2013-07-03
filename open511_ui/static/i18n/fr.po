@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
 "POT-Creation-Date: 2013-07-03 12:33-0500\n"
-"PO-Revision-Date: 2013-07-03 12:33-0500\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2013-07-03 15:25-0500\n"
+"Last-Translator: Stéphane Guidoin <stephane.guidoin@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/attachment_widget.html:4
 msgid "Drag files here, or click to select."
 msgstr ""
+"Déplacez les fichiers ici ou cliquez ici pour sélectionner des fichiers"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/attachment_widget_row.html:1
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:3
@@ -59,7 +60,7 @@ msgstr "Routes"
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:5
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:18
 msgid "Unpublished"
-msgstr ""
+msgstr "Non publié"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:13
 msgid "from"
@@ -81,7 +82,7 @@ msgstr "Détour"
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:27
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:201
 msgid "Attachments"
-msgstr ""
+msgstr "Fichiers joints"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:5
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:118
@@ -194,7 +195,7 @@ msgstr "Tous"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:62
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:235
 msgid "Shape edges cannot cross"
@@ -294,35 +295,36 @@ msgstr ""
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:10
 msgid "File upload not configured"
-msgstr ""
+msgstr "Téléversement (upload) de fichier non configuré"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:30
 msgid "Enter a new title"
-msgstr ""
+msgstr "Entrez un nouveau titre"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:75
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:81
 msgid "Error uploading file "
-msgstr ""
+msgstr "Erreur lors du téléversement (upload) du fichier"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:125
 msgid "Please try again when all files have finished uploading."
 msgstr ""
+"Merci d'essayer de nouveau lorsque tous les fichiers auront été téléversés."
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:19
 msgid "Publish on"
-msgstr ""
+msgstr "Date de publication"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:21
 msgid "Publish now"
-msgstr ""
+msgstr "Publier maintenant"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:29
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:34
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:57
 msgid "Now"
-msgstr ""
+msgstr "Maintenant"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:35
 msgid "Publish?"
-msgstr ""
+msgstr "Publier?"
