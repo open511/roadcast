@@ -2,6 +2,8 @@ O5.widgets.attachments = O5.widgets.BaseWidget.extend({
 
 	className: "file-upload-widget",
 
+	events: {},
+
 	render: function() {
 		var self = this;
 
@@ -41,6 +43,8 @@ O5.widgets.attachments = O5.widgets.BaseWidget.extend({
 				data.context.progress.remove();
 				self.data.push(data.context.fileInfo);
 				self.renderList();
+				// If all files are uploaded, clear any validation errors
+				if (self.validate() === true) self.trigger('change');
 			},
 			add: function(e, fileAddData) {
 				var fname = fileAddData.files[0].name;
