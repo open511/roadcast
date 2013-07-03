@@ -17,7 +17,7 @@
 		renderDefault: function() {
 			this.$el.html('<div class="alert">' + O5._t('Unpublished') + '</div>' +
 				'<label for="' + this.id + '">' + O5._t('Publish on') + '</label>' +
-				'<input id="' + this.id + '-t" type="text" style="width: 50%"/> &nbsp; ' +
+				'<input id="' + this.id + '-t" type="text" style="width: 30%"/> &nbsp; ' +
 				'<button class="btn btn-primary" style="position: relative; bottom: 5px">' + O5._t('Publish now') + '</button>');
 			var $input = this.$el.find('input');
 			$input.datepicker({
