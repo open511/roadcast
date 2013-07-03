@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-05-21 16:26-0500\n"
-"PO-Revision-Date: 2013-05-21 22:27-0500\n"
-"Last-Translator: Stéphane Guidoin <stephane.guidoin@gmail.com>\n"
+"POT-Creation-Date: 2013-07-03 12:33-0500\n"
+"PO-Revision-Date: 2013-07-03 12:33-0500\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,15 @@ msgstr ""
 "X-Poedit-SearchPath-0: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst\n"
 "X-Poedit-SearchPath-1: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js\n"
 
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/attachment_widget.html:4
+msgid "Drag files here, or click to select."
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/attachment_widget_row.html:1
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:3
+msgid "Delete"
+msgstr "Supprimer"
+
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/create_event.html:3
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/create_event.html:8
 msgid "Create event"
@@ -23,10 +32,6 @@ msgstr "Créer un événement"
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:2
 msgid "Close"
 msgstr "Fermer"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:3
-msgid "Delete"
-msgstr "Supprimer"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:4
 msgid "Save"
@@ -37,7 +42,7 @@ msgid "Basics"
 msgstr "Base"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:7
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:23
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:24
 msgid "Details"
 msgstr "Détails"
 
@@ -46,27 +51,64 @@ msgid "Schedule"
 msgstr "Calendrier"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:9
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:6
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:182
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:7
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:194
 msgid "Roads"
 msgstr "Routes"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:12
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:5
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:18
+msgid "Unpublished"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:13
 msgid "from"
 msgstr "de"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:15
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:16
 msgid "near"
 msgstr "près de"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:19
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:20
 msgid "to"
 msgstr "jusqu'à"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:24
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:176
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:25
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:188
 msgid "Detour"
 msgstr "Détour"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:27
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:201
+msgid "Attachments"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:5
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:118
+msgid "Headline"
+msgstr "Titre"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:6
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:31
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:154
+msgid "Severity"
+msgstr "Sévérité"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:7
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:175
+msgid "Start date"
+msgstr "Date de début"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:8
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:182
+msgid "End date"
+msgstr "Date de fin"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:9
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:47
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:125
+msgid "Status"
+msgstr "État"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget.html:1
 msgid "Filter..."
@@ -132,49 +174,27 @@ msgstr "De"
 msgid "To"
 msgstr "Jusqu'à"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editwidgets.js:17
-msgid "This field is required"
-msgstr "Ce champ est obligatoire"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/eventeditor.js:75
-msgid "Validation error. Please verify: "
-msgstr "Erreur de validation. Merci de vérifier: "
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/eventeditor.js:84
-msgid ""
-"In general, you should set road events to archived status rather than "
-"deleting them. Are you sure you want to delete this?"
-msgstr ""
-"Plutôt que de supprimer un événement, il est préférable de le mettre à "
-"l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
-
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:16
 msgid "Jurisdiction"
 msgstr "Juridiction"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:31
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:142
-msgid "Severity"
-msgstr "Sévérité"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:47
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:112
-msgid "Status"
-msgstr "État"
-
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:55
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:116
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:129
 msgid "Active"
 msgstr "Actif"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:56
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:117
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:130
 msgid "Archived"
 msgstr "Archivé"
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:57
 msgid "All"
 msgstr "Tous"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:62
+msgid "Date"
+msgstr ""
 
 #: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:235
 msgid "Shape edges cannot cross"
@@ -216,54 +236,93 @@ msgstr "Cliquer et déplacer pour dessiner un rectangle."
 msgid "Click map to place marker."
 msgstr "Cliquer sur la carte pour placer une marqueur."
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:105
-msgid "Headline"
-msgstr "Titre"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:123
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:136
 msgid "Description"
 msgstr "Description"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:130
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:142
 msgid "Event type"
 msgstr "Type d'événement"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:134
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:146
 msgid "Planned road work"
 msgstr "Entrave planifiée (construction)"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:135
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:147
 msgid "Special event"
 msgstr "Événement spécial"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:136
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:148
 msgid "Incident (accident, unplanned roadwork...)"
 msgstr "Incident (accident, entrave non planifiée...)"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:146
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:158
 msgid "Minor"
 msgstr "Mineur"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:147
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:159
 msgid "Moderate"
 msgstr "Moyen"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:148
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:160
 msgid "Major"
 msgstr "Majeur"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:149
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:161
 msgid "Undefined"
 msgstr "Non défini"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:155
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:167
 msgid "Geography"
 msgstr "Géographie"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:163
-msgid "Start date"
-msgstr "Date de début"
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/widgets.js:23
+msgid "This field is required"
+msgstr "Ce champ est obligatoire"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:170
-msgid "End date"
-msgstr "Date de fin"
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/editor.js:48
+msgid "Validation error. Please verify: "
+msgstr "Erreur de validation. Merci de vérifier: "
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/editor.js:61
+msgid ""
+"In general, you should set road events to archived status rather than "
+"deleting them. Are you sure you want to delete this?"
+msgstr ""
+"Plutôt que de supprimer un événement, il est préférable de le mettre à "
+"l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:10
+msgid "File upload not configured"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:30
+msgid "Enter a new title"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:75
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:81
+msgid "Error uploading file "
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:125
+msgid "Please try again when all files have finished uploading."
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:19
+msgid "Publish on"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:21
+msgid "Publish now"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:29
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:34
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:57
+msgid "Now"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:35
+msgid "Publish?"
+msgstr ""
