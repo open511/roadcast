@@ -37,7 +37,7 @@
 				e.preventDefault();
 				if (!self.roadEvent.id) {
 					// Never saved, we shouldn't display it
-					return O5.layout.setLeftPane(null);
+					return O5.app.layout.setLeftPane(null);
 				}
 				self.roadEvent.select();
 			}).on('click', '.save-button', function(e) {
@@ -62,8 +62,8 @@
 					self.roadEvent.destroy({
 						wait: true,
 						success: function() {
-							O5.layout.setLeftPane(null);
-							O5.router.navigate('');
+							O5.app.layout.setLeftPane(null);
+							O5.app.router.navigate('');
 						}
 					});
 				}
@@ -75,10 +75,10 @@
 					jurisdiction_url: $(e.target).attr('data-slug')
 				});
 				// event.once('sync', function() {
-					O5.events.add(event);
+					O5.app.events.add(event);
 				// });
 				self.selectEvent(event);
-				O5.layout.setLeftPane(self);
+				O5.app.layout.setLeftPane(self);
 			});
 
 		},

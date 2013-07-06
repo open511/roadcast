@@ -46,7 +46,10 @@
 
   <script type="text/javascript">
   $(function() {
-    O5.init({{ opts|safe }});
+    var opts = {{ opts }};
+    // Load all available plugins
+    if (O5.plugins) opts.plugins = _.values(O5.plugins);
+    O5.init(opts);
   });
   </script>
 

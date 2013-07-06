@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
 
 from open511_ui.conf import settings
 
@@ -52,7 +53,7 @@ def main(request, event_slug=None):
                     j['editable'] = True
 
     ctx = {
-        'opts': json.dumps(opts),
+        'opts': mark_safe(json.dumps(opts)),
         'enable_editing': enable_editing,
         'gmaps': settings.OPEN511_UI_MAP_TYPE == 'google',
         'header_title': settings.OPEN511_UI_HEADER_TITLE,

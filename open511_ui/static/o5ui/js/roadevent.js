@@ -24,7 +24,7 @@
 		},
 
 		canEdit: function() {
-			return O5.enableEditing && _.indexOf(O5.editableJurisdictionSlugs, this.jurisdictionSlug()) !== -1;
+			return O5.app.settings.enableEditing && _.indexOf(O5.app.editableJurisdictionSlugs, this.jurisdictionSlug()) !== -1;
 		},
 
 		jurisdictionSlug: function() {
@@ -54,7 +54,7 @@
 
 		navigateTo: function(opts) {
 			if (this.get('id')) {
-				O5.router.navigate('events/' + this.get('id'), opts || {});
+				O5.app.router.navigate('events/' + this.get('id'), opts || {});
 			}
 		},
 
@@ -99,7 +99,7 @@
 	O5.RoadEvents = Backbone.Collection.extend({
 		model: O5.RoadEvent,
 		url: function() {
-			return O5.apiURL + 'events/';
+			return O5.app.settings.apiURL + 'events/';
 		},
 
 		sync: function() {

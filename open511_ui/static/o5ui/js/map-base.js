@@ -11,7 +11,7 @@
 				startLng: this.app.settings.mapStartLng || -73.61512,
 				startZoom: this.app.settings.mapStartZoom || 10,
 				markerOpts: {
-					icon: O5.staticURL + 'o5ui/img/cone-small-1.png',
+					icon: this.app.settings.staticURL + 'o5ui/img/cone-small-1.png',
 					iconAnchor: [11,29]
 				},
 				polylineOpts: {

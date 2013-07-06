@@ -26,13 +26,13 @@ O5.widgets.map = O5.widgets.BaseWidget.extend({
 		this.render();
 	},
 	startDrawing: function(type) {
-		O5.map.startDrawing(type);
-		O5.map.off('draw', this.saveDrawing);
-		O5.map.on('draw', this.saveDrawing, this);
+		O5.app.map.startDrawing(type);
+		O5.app.map.off('draw', this.saveDrawing);
+		O5.app.map.on('draw', this.saveDrawing, this);
 	},
 	saveDrawing: function(gj) {
 		this.geom = gj;
-		O5.map.stopDrawing();
+		O5.app.map.stopDrawing();
 		this.render();
 		this.options.roadEvent.set('geography', gj);
 		this.onChange();

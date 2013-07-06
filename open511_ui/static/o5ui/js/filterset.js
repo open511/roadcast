@@ -19,7 +19,7 @@
 			},
 			remote: defaultRemote,
 			choices: function() {
-				return _.map(O5.jurisdictions, function(jur) {
+				return _.map(O5.app.settings.jurisdictions, function(jur) {
 					return [jur.slug, jur.slug];
 				});
 			},
@@ -63,7 +63,7 @@
 			remote: function (key, value) {
 				return [
 					'in_effect_on',
-					value + 'T01:00' + O5.timezone + ',' + value + 'T10:59' +  O5.timezone
+					value + 'T01:00' + O5.app.settings.timezone + ',' + value + 'T10:59' +  O5.app.settings.timezone
 				];
 			},
 			widget: 'date'

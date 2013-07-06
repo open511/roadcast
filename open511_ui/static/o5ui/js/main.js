@@ -9,13 +9,14 @@ window.O5.init = function(opts) {
 			elementSelector: '#main',
 			pushState: true,
 			timezone: '-05:00',
-			plugins: [O5.plugins.publishEvents] // FIXME
+			plugins: []
 		});
-		_.extend(O5, opts);
 
 		var app = {
 			settings: {}
 		};
+
+		O5.app = app;
 
 		_.extend(app.settings, opts);
 
@@ -23,22 +24,22 @@ window.O5.init = function(opts) {
 			O5.utils.notify(xhr.responseText, 'error');
 		});
 
-		app.layout = O5.layout = new O5.prototypes.Layout($(app.settings.elementSelector));
+		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector));
 		app.layout.draw();
 
 		var $window = $(window);
 		$window.resize(function() {
-			O5.layout.change({
+			app.layout.change({
 				height: $window.height(),
 				width: $window.width()
 			});
 		});
 
 		var events = new O5.RoadEvents();
-		O5.events = app.events = events;
+		app.events = events;
 
-		O5.detailViewer = new O5.views.EventDetailView();
-		app.map = O5.map = new O5.views.MapView({app: app});
+		app.detailViewer = new O5.views.EventDetailView();
+		app.map = new O5.views.MapView({app: app});
 		app.listview = new O5.views.ListView({app: app});
 
 		app.layout.addMainView(app.map);
@@ -46,7 +47,7 @@ window.O5.init = function(opts) {
 
 		app.layout.setMainView(app.map);
 
-		O5.map.render();
+		app.map.render();
 		app.listview.render();
 
 		var filterWidget = new O5.views.FilterView({app:app});
@@ -73,30 +74,30 @@ window.O5.init = function(opts) {
 		});
 
 		events.on('add', function(event, collection, options) {
-			O5.map.addRoadEvent(event);
+			app.map.addRoadEvent(event);
 		});
 
 		events.on('selection', function(event) {
-			O5.detailViewer.displayEvent(event);
-			O5.layout.setLeftPane(O5.detailViewer);
+			app.detailViewer.displayEvent(event);
+			app.layout.setLeftPane(app.detailViewer);
 			event.navigateTo();
 		});
 
 		if (app.settings.enableEditing) {
-			O5.editor = new O5.views.EventEditorView({app: app});
+			app.editor = new O5.views.EventEditorView({app: app});
 			events.on('edit', function(event) {
-				O5.editor.selectEvent(event);
-				O5.layout.setLeftPane(O5.editor);
+				app.editor.selectEvent(event);
+				app.layout.setLeftPane(app.editor);
 			});
-			O5.editableJurisdictionSlugs = [];
-			_.each(O5.jurisdictions, function(jur) {
+			app.editableJurisdictionSlugs = [];
+			_.each(app.settings.jurisdictions, function(jur) {
 				if (jur.editable) {
-					O5.editableJurisdictionSlugs.push(jur.slug);
+					app.editableJurisdictionSlugs.push(jur.slug);
 				}
 			});
-			if (O5.editableJurisdictionSlugs.length && $('.mainpane-buttons').length) {
+			if (app.editableJurisdictionSlugs.length && $('.mainpane-buttons').length) {
 				$('.mainpane-buttons').prepend(
-					JST.create_event({ jurisdiction_slugs: O5.editableJurisdictionSlugs })
+					JST.create_event({ jurisdiction_slugs: app.editableJurisdictionSlugs })
 				);
 			}
 		}
@@ -104,13 +105,11 @@ window.O5.init = function(opts) {
 		// (this line results in fetching all the events)
 		app.filterManager.setFilters({});
 
-		O5.router = new O5.prototypes.Router();
-
-		O5.app = app;
+		app.router = new O5.prototypes.Router();
 
 		Backbone.history.start({
 			pushState: app.settings.pushState,
-			root: O5.rootURL
+			root: app.settings.rootURL
 		});
 
 		return app;
