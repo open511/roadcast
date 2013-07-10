@@ -55,7 +55,8 @@ module.exports = function(grunt) {
 					],
 					'dist/libs/all-leafletmaps.js': [
 						'dist/libs/all-googlemaps.js',
-						'app/vendor/leaflet/leaflet.js'
+						'app/vendor/leaflet/leaflet.js',
+						'app/js/leaflet.draw.js'
 					],
 
 					'dist/locale/fr.js': [
@@ -95,7 +96,7 @@ module.exports = function(grunt) {
 		jst: {
 			options: {
 				processName: function(fn) {
-					return fn.replace(/.+\/jst\//, '').replace('.html', '');
+					return fn.split('/').pop().replace('.html', '');
 				}
 			},
 			viewer: {

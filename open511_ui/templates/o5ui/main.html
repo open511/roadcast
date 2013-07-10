@@ -1,4 +1,5 @@
-{% load assets i18n %}
+{% load i18n %}
+{% load static from staticfiles %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,19 +11,12 @@
   <title>Open511</title>
 
   <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
-  {% assets "css_main" %}
-  <link rel="stylesheet" href="{{ ASSET_URL }}">
-  {% endassets %}
-  {% if enable_editing %}{% assets "css_editor" %}
-    <link rel="stylesheet" href="{{ ASSET_URL }}">
-  {% endassets %}{% endif %}
-
-  <script type="text/javascript">
-  curl = {
-    baseUrl: '{{ STATIC_URL }}'
-  };
-  </script>
-
+  {% if gmaps %}
+  <link rel="stylesheet" href="{% static "open511-complete-googlemaps.css" %}">
+  {% else %}
+  <link rel="stylesheet" href="{% static "open511-complete-leaflet.css" %}">
+  {% endif %}
+  
 </head>
 
 <body>
@@ -33,16 +27,12 @@
 
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% if LANGUAGE_CODE == "fr" %}
-    {% assets "locale_fr" %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
+    <script src="{% static "locale/fr.js" %}"></script>
   {% endif %}
-  {% assets "js_main" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
-    {% if enable_editing %}{% assets "js_editor" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}{% endif %}
+
+  {% for js_file in js_files %}
+    <script src="{% static js_file %}"></script>
+  {% endfor %}
 
   <script type="text/javascript">
   $(function() {

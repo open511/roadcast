@@ -52,10 +52,14 @@ def main(request, event_slug=None):
                 if j['slug'] in editable_jurisdictions:
                     j['editable'] = True
 
+    gmaps = settings.OPEN511_UI_MAP_TYPE == 'google'
+    main_js = 'open511-complete-' + ('googlemaps' if gmaps else 'leaflet') + ('.min' if not settings.DEBUG else '') + '.js'
+
     ctx = {
         'opts': mark_safe(json.dumps(opts)),
         'enable_editing': enable_editing,
-        'gmaps': settings.OPEN511_UI_MAP_TYPE == 'google',
+        'gmaps': gmaps,
+        'js_files': [main_js],  # FIXME load editor only if necessary
         'header_title': settings.OPEN511_UI_HEADER_TITLE,
         'show_auth_buttons': settings.OPEN511_UI_SHOW_LOGIN_BUTTON,
     }

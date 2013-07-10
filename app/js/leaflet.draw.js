@@ -6,8 +6,8 @@
 (function (window, undefined) {
 
 var _t = function(s) {
-	if (window.O5) {
-		return window.O5._t(s);
+	if (window.O5 && window.O5.i18n) {
+		return function(s) { return window.O5.i18n.gettext(s); };
 	}
 	return s;
 };
