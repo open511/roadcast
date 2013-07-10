@@ -32,26 +32,6 @@
 	height: 27px;
 }	
 
-.leaflet-control-draw-polyline {
-	background-image: url(images/draw-polyline.png);
-}
-
-.leaflet-control-draw-polygon {
-	background-image: url(images/draw-polygon.png);
-}
-
-.leaflet-control-draw-rectangle {
-	background-image: url(images/draw-rectangle.png);
-}
-
-.leaflet-control-draw-circle {
-	background-image: url(images/draw-circle.png);
-}
-
-.leaflet-control-draw-marker {
-	background-image: url(images/draw-marker-icon.png);
-}
-
 .leaflet-mouse-marker {
 	background-color: #fff;
 	cursor: crosshair;
