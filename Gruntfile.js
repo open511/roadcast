@@ -137,13 +137,13 @@ module.exports = function(grunt) {
 			main: {
 				files: {
 					'<%=dest%>/css/open511-complete-googlemaps.css': [
+						'<%=dest%>/css/libs.css',
 						'<%=dest%>/css/main.css',
-						'<%=dest%>/css/editor.css',
-						'<%=dest%>/css/libs.css'
+						'<%=dest%>/css/editor.css'
 					],
 					'<%=dest%>/css/open511-complete-leaflet.css': [
-						'<%=dest%>/css/open511-complete-googlemaps.css',
-						'<%=dest%>/css/leaflet.css'
+						'<%=dest%>/css/leaflet.css',
+						'<%=dest%>/css/open511-complete-googlemaps.css'
 					]
 				}
 			}
