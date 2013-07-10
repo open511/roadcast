@@ -7,7 +7,7 @@ window.O5.init = function(opts) {
 		_.defaults(opts, {
 			enableEditing: false,
 			elementSelector: '#main',
-			pushState: true,
+			pushState: false,
 			timezone: '-05:00',
 			plugins: []
 		});
