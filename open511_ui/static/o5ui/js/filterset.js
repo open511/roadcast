@@ -398,7 +398,7 @@
 			else {
 				_.defaults(url_or_params, {
 					format: 'json',
-					'accept-language': 'en,fr',
+					'accept-language': O5.language,
 					'limit': 50
 				});
 				opts.url = this.app.events.url() + '?' + $.param(url_or_params);
