@@ -5,7 +5,7 @@ import subprocess
 cwd = os.path.dirname(os.path.realpath(__file__))
 
 def check_version(v):
-    bits = v.lstrip('v').strip().split('.')
+    bits = [int(x) for x in v.lstrip('v').strip().split('.')]
     return (bits[0] > 0 or bits[1] >= 8)
 
 proc = subprocess.Popen(['node', '-v'], stdout=subprocess.PIPE)
