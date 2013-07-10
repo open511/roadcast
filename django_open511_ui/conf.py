@@ -45,3 +45,6 @@ class Open511UISettings(AppConf):
     AWS_ACCESS_KEY = ''
     AWS_SECRET_KEY = ''
     FILE_UPLOAD_S3_BUCKET = ''
+
+    class Meta:
+        prefix = 'OPEN511_UI'

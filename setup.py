@@ -40,12 +40,12 @@ class CustomDevelop(DistDevelop):
         DistDevelop.run(self)
 
 setup(
-    name = "open511_ui",
+    name = "django_open511_ui",
     version = "0.1",
     url='',
     license = "",
     packages = [
-        'open511_ui',
+        'django_open511_ui',
     ],
     include_package_data = True,
     install_requires = [

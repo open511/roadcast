@@ -168,11 +168,11 @@ module.exports = function(grunt) {
 	grunt.registerTask('assemble', ['clean', 'jst', 'concat', 'copy', 'cssmin']);
 	grunt.registerTask('default', ['assemble', 'uglify']);
 	grunt.registerTask('python-build', function() {
-		grunt.config('dest', 'open511_ui/static');
+		grunt.config('dest', 'django_open511_ui/static/o5ui');
 		grunt.task.run('default');
 	});
 	grunt.registerTask('python-watch', function() {
-		grunt.config('dest', 'open511_ui/static');
+		grunt.config('dest', 'django_open511_ui/static/o5ui');
 		grunt.task.run('watch');
 	});
 

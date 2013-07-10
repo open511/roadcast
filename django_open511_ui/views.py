@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 
-from open511_ui.conf import settings
+from django_open511_ui.conf import settings
 
 try:
     from open511.models import Jurisdiction
@@ -53,7 +53,7 @@ def main(request, event_slug=None):
                     j['editable'] = True
 
     gmaps = settings.OPEN511_UI_MAP_TYPE == 'google'
-    main_js = 'open511-complete-' + ('googlemaps' if gmaps else 'leaflet') + ('.min' if not settings.DEBUG else '') + '.js'
+    main_js = 'o5ui/js/open511-complete-' + ('googlemaps' if gmaps else 'leaflet') + ('.min' if not settings.DEBUG else '') + '.js'
 
     ctx = {
         'opts': mark_safe(json.dumps(opts)),

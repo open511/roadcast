@@ -12,9 +12,9 @@
 
   <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
   {% if gmaps %}
-  <link rel="stylesheet" href="{% static "open511-complete-googlemaps.css" %}">
+  <link rel="stylesheet" href="{% static "o5ui/css/open511-complete-googlemaps.css" %}">
   {% else %}
-  <link rel="stylesheet" href="{% static "open511-complete-leaflet.css" %}">
+  <link rel="stylesheet" href="{% static "o5ui/css/open511-complete-leaflet.css" %}">
   {% endif %}
   
 </head>
@@ -27,7 +27,7 @@
 
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% if LANGUAGE_CODE == "fr" %}
-    <script src="{% static "locale/fr.js" %}"></script>
+    <script src="{% static "o5ui/locale/fr.js" %}"></script>
   {% endif %}
 
   {% for js_file in js_files %}

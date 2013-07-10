@@ -3,5 +3,5 @@
 *.mo
 node_modules/
 dist/
-open511_ui/static/
+django_open511_ui/static/
 build/
