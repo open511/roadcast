@@ -171,9 +171,9 @@ module.exports = function(grunt) {
 		grunt.config('dest', 'django_open511_ui/static/o5ui');
 		grunt.task.run('default');
 	});
-	grunt.registerTask('python-watch', function() {
-		grunt.config('dest', 'django_open511_ui/static/o5ui');
-		grunt.task.run('watch');
-	});
+	// grunt.registerTask('python-watch', function() {
+	// 	grunt.config('dest', 'django_open511_ui/static/o5ui');
+	// 	grunt.task.run('watch');
+	// });
 
 };
