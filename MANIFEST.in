@@ -1,0 +1,2 @@
+recursive-include open511_ui/templates *.html
+recursive-include open511_ui/static *.html *.js *.css *.png *.jpg *.gif *.ico *.eot *.woff
