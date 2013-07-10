@@ -11,14 +11,11 @@
 				startLng: this.app.settings.mapStartLng || -73.61512,
 				startZoom: this.app.settings.mapStartZoom || 10,
 				markerOpts: {
-					icon: this.app.settings.staticURL + 'o5ui/img/cone-small-1.png',
-					iconAnchor: [11,29]
+					icon: this.app.settings.staticURL + 'o5ui/img/marker-triangle-orange.png',
+					iconAnchor: [15,15]
 				},
-				polylineOpts: {
-					strokeColor: "#FF0000"
-				},
-				polygonOpts: {
-					strokeColor: "#ff0000",
+				lineStyle: {
+					strokeColor: "#F27739",
 					fillColor: "#c23e3e"
 				}
 			});

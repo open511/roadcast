@@ -115,6 +115,12 @@ body {
 	color: #bbb;
 }
 
+.map-marker {
+	background-image: url(../img/marker-triangle-orange.png);
+	width: 29px;
+	height: 27px;
+}
+
 .mainpane-filter {
 	display: inline-block;
 }
