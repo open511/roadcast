@@ -432,7 +432,16 @@
 				if (resp.pagination.next_url) {
 					if (isActive) {
 						// Only fetch more if this FilteredSet is still active
-						filteredSet._sync(resp.pagination.next_url, opts);
+						var next_url = resp.pagination.next_url;
+						console.log(next_url);
+						console.log(opts.url);
+						if (/^https?:/.test(opts.url) && next_url.substr(0, 1) === '/') {
+							// The server is giving us a relative URL, but our original request
+							// was to a fully-qualified URL; join the two.
+							// (This basic algorithm only deals with the simple /events type of case)
+							next_url = opts.url.match(/^https?:\/\/[^\/]+/) + next_url;
+						}
+						filteredSet._sync(next_url, opts);
 					}
 				}
 				else {
