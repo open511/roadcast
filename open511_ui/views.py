@@ -37,10 +37,10 @@ def main(request, event_slug=None):
         opts['fileUploadURL'] = urlresolvers.reverse('o5ui_file_upload')
 
     if settings.OPEN511_UI_MAP_TYPE == 'leaflet':
-        opts.update(
-            mapTileURL=settings.OPEN511_UI_MAP_TILE_URL,
-            mapTileOptions=settings.OPEN511_UI_MAP_TILE_OPTIONS
-        )
+        if settings.OPEN511_UI_MAP_TILE_URL:
+            opts['mapTileURL'] = settings.OPEN511_UI_MAP_TILE_URL
+        if settings.OPEN511_UI_MAP_TILE_OPTIONS:
+            opts['mapTileOptions'] = settings.OPEN511_UI_MAP_TILE_OPTIONS
 
     if Jurisdiction is not None:
         opts['jurisdictions'] = list(Jurisdiction.objects.all().values('slug'))

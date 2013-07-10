@@ -27,17 +27,19 @@ class Open511UISettings(AppConf):
     MAP_START_ZOOM = 10
 
     # Tile settings are used only if MAP_TYPE == 'leaflet'
-    MAP_TILE_URL = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg'
+    MAP_TILE_URL = ''
+    # e.g. MAP_TILE_URL = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg'
     # Config passed directly to Leaflet
-    MAP_TILE_OPTIONS = {
-        "minZoom": 1,
-        "maxZoom": 20,
-        "subdomains": 'abcd',
-        "attribution": """Map tiles by <a href="http://stamen.com">Stamen Design</a>,
-            under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>.
-            Data by <a href="http://openstreetmap.org">OpenStreetMap</a>,
-            under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>."""
-    }
+    MAP_TILE_OPTIONS = ''
+    # e.g. MAP_TILE_OPTIONS = {
+    #     "minZoom": 1,
+    #     "maxZoom": 20,
+    #     "subdomains": 'abcd',
+    #     "attribution": """Map tiles by <a href="http://stamen.com">Stamen Design</a>,
+    #         under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>.
+    #         Data by <a href="http://openstreetmap.org">OpenStreetMap</a>,
+    #         under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>."""
+    # }
 
     # To allow file upload, set the following
     AWS_ACCESS_KEY = ''

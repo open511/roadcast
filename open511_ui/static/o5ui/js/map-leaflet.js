@@ -10,6 +10,8 @@
 			};
 			this.lmap = L.map(this.el, mapOptions);
 
+			this.lmap.attributionControl.setPrefix(''); // remove "Powered by Leaflet"
+
 			var iconopts = {
 				iconUrl: this.options.markerOpts.icon
 			};
@@ -18,17 +20,12 @@
 			}
 			this.markerIcon = L.icon(iconopts);
 
-			L.tileLayer(this.app.settings.mapTileURL || 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.jpg',
+			L.tileLayer(this.app.settings.mapTileURL || 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
 				this.app.settings.mapTileOptions || {
 				minZoom: 1,
-				maxZoom: 20,
-				subdomains: 'abcd',
-				attribution: [
-					'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ',
-					'under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ',
-					'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, ',
-					'under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-				].join("")
+				maxZoom: 19,
+				subdomains: '1234',
+				attribution: 'Tiles courtesy of <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>'
 			}).addTo(this.lmap);
 
 			// window.lmap = this.lmap;
