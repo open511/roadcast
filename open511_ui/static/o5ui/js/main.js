@@ -4,21 +4,23 @@ window.O5.utils = {};
 window.O5.prototypes = {};
 window.O5.init = function(opts) {
 
-		_.defaults(opts, {
-			enableEditing: false,
-			elementSelector: '#main',
-			pushState: false,
-			timezone: '-05:00',
-			plugins: []
-		});
-
 		var app = {
-			settings: {}
+			settings: {
+				enableEditing: false,
+				elementSelector: '#main',
+				pushState: false,
+				timezone: '-05:00',
+				plugins: 'all'
+			}
 		};
+
+		_.extend(app.settings, opts);
 
 		O5.app = app;
 
-		_.extend(app.settings, opts);
+		if (app.settings.plugins === 'all') {
+			app.settings.plugins = _.values(O5.plugins || {});
+		}
 
 		$(document).ajaxError(function(e, xhr, settings, exception) {
 			O5.utils.notify(xhr.responseText, 'error');
