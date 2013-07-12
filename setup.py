@@ -23,7 +23,7 @@ def run_grunt_build():
 
     proc = subprocess.Popen([
             os.path.join(cwd, 'node_modules', 'grunt-cli', 'bin', 'grunt'),
-            'python-build'
+            '--target=python'
         ], cwd=cwd)
     proc.communicate()
     if proc.returncode != 0:

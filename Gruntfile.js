@@ -3,8 +3,6 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
-		dest: 'dist',
-
 		concat: {
 			main: {
 				files: {
@@ -144,6 +142,9 @@ module.exports = function(grunt) {
 					'<%=dest%>/css/open511-complete-leaflet.css': [
 						'<%=dest%>/css/leaflet.css',
 						'<%=dest%>/css/open511-complete-googlemaps.css'
+					],
+					'<%=dest%>/css/open511-ie.css': [
+						'app/vendor/leaflet/leaflet.ie.css'
 					]
 				}
 			}
@@ -157,6 +158,13 @@ module.exports = function(grunt) {
 		}
 	});
 
+	if (grunt.option('target') === 'python') {
+		grunt.config('dest', 'django_open511_ui/static/o5ui');
+	}
+	else {
+		grunt.config('dest', 'dist');
+	}
+
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jst');
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -167,13 +175,5 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('assemble', ['clean', 'jst', 'concat', 'copy', 'cssmin']);
 	grunt.registerTask('default', ['assemble', 'uglify']);
-	grunt.registerTask('python-build', function() {
-		grunt.config('dest', 'django_open511_ui/static/o5ui');
-		grunt.task.run('default');
-	});
-	// grunt.registerTask('python-watch', function() {
-	// 	grunt.config('dest', 'django_open511_ui/static/o5ui');
-	// 	grunt.task.run('watch');
-	// });
 
 };
