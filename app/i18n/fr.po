@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-07-03 12:33-0500\n"
-"PO-Revision-Date: 2013-07-03 15:25-0500\n"
-"Last-Translator: Stéphane Guidoin <stephane.guidoin@gmail.com>\n"
+"POT-Creation-Date: 2013-07-13 18:06-0500\n"
+"PO-Revision-Date: 2013-07-13 18:08-0500\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -12,280 +12,275 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;_t\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst\n"
-"X-Poedit-SearchPath-1: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js\n"
+"X-Poedit-SearchPath-0: /Users/michael/proj/o5/ui/app/jst\n"
+"X-Poedit-SearchPath-1: /Users/michael/proj/o5/ui/app/js\n"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/attachment_widget.html:4
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:8
+msgid "ddd, MMM D"
+msgstr "ddd, D MMM"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:16
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:18
+msgid "Unpublished"
+msgstr "Non publié"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:18
+#: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:7
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:194
+msgid "Roads"
+msgstr "Routes"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:24
+msgid "from"
+msgstr "de"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:27
+msgid "near"
+msgstr "près de"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:31
+msgid "to"
+msgstr "jusqu'à"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:35
+#: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:5
+msgid "Details"
+msgstr "Détails"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:36
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:188
+msgid "Detour"
+msgstr "Détour"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:38
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:201
+msgid "Attachments"
+msgstr "Fichiers joints"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:47
+msgid "Edit"
+msgstr "Modifier"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_list.html:5
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:118
+msgid "Headline"
+msgstr "Titre"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_list.html:6
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:31
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:154
+msgid "Severity"
+msgstr "Sévérité"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_list.html:7
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:175
+msgid "Start date"
+msgstr "Date de début"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_list.html:8
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:182
+msgid "End date"
+msgstr "Date de fin"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_list.html:9
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:47
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:125
+msgid "Status"
+msgstr "État"
+
+#: /Users/michael/proj/o5/ui/app/jst/filter_widget.html:1
+msgid "Filter"
+msgstr "Filtrer"
+
+#: /Users/michael/proj/o5/ui/app/jst/filter_widget_dialog.html:3
+msgid "Filter events"
+msgstr "Filtrer les événements"
+
+#: /Users/michael/proj/o5/ui/app/jst/filter_widget_dialog.html:10
+msgid "Update"
+msgstr "Appliquer"
+
+#: /Users/michael/proj/o5/ui/app/jst/main.html:11
+msgid "Map"
+msgstr "Carte"
+
+#: /Users/michael/proj/o5/ui/app/jst/main.html:12
+msgid "List"
+msgstr "Liste"
+
+#: /Users/michael/proj/o5/ui/app/jst/main.html:16
+msgid "Zoom in"
+msgstr "Zoom"
+
+#: /Users/michael/proj/o5/ui/app/jst/main.html:17
+msgid "Zoom out"
+msgstr "Dézoom"
+
+#: /Users/michael/proj/o5/ui/app/jst/editor/attachment_widget.html:4
 msgid "Drag files here, or click to select."
 msgstr ""
 "Déplacez les fichiers ici ou cliquez ici pour sélectionner des fichiers"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/attachment_widget_row.html:1
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:3
+#: /Users/michael/proj/o5/ui/app/jst/editor/attachment_widget_row.html:1
 msgid "Delete"
 msgstr "Supprimer"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/create_event.html:3
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/create_event.html:8
+#: /Users/michael/proj/o5/ui/app/jst/editor/create_event.html:1
+#: /Users/michael/proj/o5/ui/app/jst/editor/create_event.html:4
 msgid "Create event"
 msgstr "Créer un événement"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:2
-msgid "Close"
-msgstr "Fermer"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:4
-msgid "Save"
-msgstr "Sauvegarder"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:6
+#: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:4
 msgid "Basics"
 msgstr "Base"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:7
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:24
-msgid "Details"
-msgstr "Détails"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:8
+#: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:6
 msgid "Schedule"
 msgstr "Calendrier"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_editor.html:9
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:7
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:194
-msgid "Roads"
-msgstr "Routes"
+#: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:13
+msgid "Cancel"
+msgstr "Annuler"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:5
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:18
-msgid "Unpublished"
-msgstr "Non publié"
+#: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:14
+msgid "Save"
+msgstr "Sauvegarder"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:13
-msgid "from"
-msgstr "de"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:16
-msgid "near"
-msgstr "près de"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:20
-msgid "to"
-msgstr "jusqu'à"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:25
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:188
-msgid "Detour"
-msgstr "Détour"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_info.html:27
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:201
-msgid "Attachments"
-msgstr "Fichiers joints"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:5
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:118
-msgid "Headline"
-msgstr "Titre"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:6
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:31
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:154
-msgid "Severity"
-msgstr "Sévérité"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:7
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:175
-msgid "Start date"
-msgstr "Date de début"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:8
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:182
-msgid "End date"
-msgstr "Date de fin"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/event_list.html:9
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:47
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:125
-msgid "Status"
-msgstr "État"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget.html:1
-msgid "Filter..."
-msgstr "Filtrer..."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget_dialog.html:3
-msgid "Filter events"
-msgstr "Filtrer les événements"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/filter_widget_dialog.html:10
-msgid "Update"
-msgstr "Appliquer"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:6
-msgid "Map"
-msgstr "Carte"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:7
-msgid "List"
-msgstr "Liste"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:11
-msgid "Zoom in"
-msgstr "Zoom"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/main.html:12
-msgid "Zoom out"
-msgstr "Dézoom"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:2
+#: /Users/michael/proj/o5/ui/app/jst/editor/map_edit_widget.html:2
 msgid "Draw point"
 msgstr "Dessiner un point"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:2
+#: /Users/michael/proj/o5/ui/app/jst/editor/map_edit_widget.html:2
 msgid "Draw line"
 msgstr "Dessiner une ligne"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:5
+#: /Users/michael/proj/o5/ui/app/jst/editor/map_edit_widget.html:5
 msgid "Point"
 msgstr "Point"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:6
+#: /Users/michael/proj/o5/ui/app/jst/editor/map_edit_widget.html:6
 msgid "Clear point"
 msgstr "Supprimer le point"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:9
+#: /Users/michael/proj/o5/ui/app/jst/editor/map_edit_widget.html:9
 msgid "LineString"
 msgstr "Ligne"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/map_edit_widget.html:10
+#: /Users/michael/proj/o5/ui/app/jst/editor/map_edit_widget.html:10
 msgid "Clear line"
 msgstr "Supprimer la ligne"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/road_edit_widget_row.html:3
+#: /Users/michael/proj/o5/ui/app/jst/editor/road_edit_widget_row.html:4
 msgid "Road name"
 msgstr "Nom de la route"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/road_edit_widget_row.html:6
+#: /Users/michael/proj/o5/ui/app/jst/editor/road_edit_widget_row.html:9
 msgid "From"
 msgstr "De"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/jst/road_edit_widget_row.html:9
+#: /Users/michael/proj/o5/ui/app/jst/editor/road_edit_widget_row.html:14
 msgid "To"
 msgstr "Jusqu'à"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:16
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:16
 msgid "Jurisdiction"
 msgstr "Juridiction"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:55
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:129
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:55
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:129
 msgid "Active"
 msgstr "Actif"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:56
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:130
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:56
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:130
 msgid "Archived"
 msgstr "Archivé"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:57
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:57
 msgid "All"
 msgstr "Tous"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/filterset.js:62
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:62
 msgid "Date"
 msgstr "Date"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:235
-msgid "Shape edges cannot cross"
-msgstr "Les bordures d'une forme ne peuvent se croiser"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:484
-msgid "Click to start drawing line."
-msgstr "Cliquer pour commencer à dessiner une ligne."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:494
-msgid "Click to continue drawing line."
-msgstr "Cliquer pour continuer à dessiner une ligne"
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:499
-msgid "Click last point to finish line."
-msgstr "Cliquer sur le dernier point pour terminer la ligne."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:591
-msgid "Click to start drawing shape."
-msgstr "Cliquer pour définir une forme."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:593
-msgid "Click to continue drawing shape."
-msgstr "Cliquer pour continuer à dessiner une forme."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:595
-msgid "Click first point to close this shape."
-msgstr "Cliquer le premier point pour ferme la forme."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:673
-msgid "Release mouse to finish drawing."
-msgstr "Relacher la sourie pour terminer le dessin."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:738
-msgid "Click and drag to draw rectangle."
-msgstr "Cliquer et déplacer pour dessiner un rectangle."
-
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/leaflet.draw.js:769
+#: /Users/michael/proj/o5/ui/app/js/leaflet.draw.js:49
 msgid "Click map to place marker."
 msgstr "Cliquer sur la carte pour placer une marqueur."
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:136
+#: /Users/michael/proj/o5/ui/app/js/leaflet.draw.js:60
+msgid "<strong>Error:</strong> shape edges cannot cross!"
+msgstr "Les bordures d'une forme ne peuvent se croiser"
+
+#: /Users/michael/proj/o5/ui/app/js/leaflet.draw.js:62
+msgid "Click to start drawing line."
+msgstr "Cliquer pour commencer à dessiner une ligne."
+
+#: /Users/michael/proj/o5/ui/app/js/leaflet.draw.js:63
+msgid "Click to continue drawing line."
+msgstr "Cliquer pour continuer à dessiner une ligne"
+
+#: /Users/michael/proj/o5/ui/app/js/leaflet.draw.js:64
+msgid "Click last point to finish line."
+msgstr "Cliquer sur le dernier point pour terminer la ligne."
+
+#: /Users/michael/proj/o5/ui/app/js/leaflet.draw.js:74
+msgid "Release mouse to finish drawing."
+msgstr "Relacher la sourie pour terminer le dessin."
+
+#: /Users/michael/proj/o5/ui/app/js/map-leaflet.js:36
+msgid "Tiles courtesy of"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:136
 msgid "Description"
 msgstr "Description"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:142
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:142
 msgid "Event type"
 msgstr "Type d'événement"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:146
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:146
 msgid "Planned road work"
 msgstr "Entrave planifiée (construction)"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:147
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:147
 msgid "Special event"
 msgstr "Événement spécial"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:148
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:148
 msgid "Incident (accident, unplanned roadwork...)"
 msgstr "Incident (accident, entrave non planifiée...)"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:158
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:158
 msgid "Minor"
 msgstr "Mineur"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:159
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:159
 msgid "Moderate"
 msgstr "Moyen"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:160
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:160
 msgid "Major"
 msgstr "Majeur"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:161
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:161
 msgid "Undefined"
 msgstr "Non défini"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/roadevent.js:167
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:167
 msgid "Geography"
 msgstr "Géographie"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/widgets.js:23
+#: /Users/michael/proj/o5/ui/app/js/widgets.js:23
 msgid "This field is required"
 msgstr "Ce champ est obligatoire"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/editor.js:48
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:48
 msgid "Validation error. Please verify: "
 msgstr "Erreur de validation. Merci de vérifier: "
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/editor.js:61
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:61
 msgid ""
 "In general, you should set road events to archived status rather than "
 "deleting them. Are you sure you want to delete this?"
@@ -293,38 +288,53 @@ msgstr ""
 "Plutôt que de supprimer un événement, il est préférable de le mettre à "
 "l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:10
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:12
 msgid "File upload not configured"
 msgstr "Téléversement (upload) de fichier non configuré"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:30
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:32
 msgid "Enter a new title"
 msgstr "Entrez un nouveau titre"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:75
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:81
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:79
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:85
 msgid "Error uploading file "
 msgstr "Erreur lors du téléversement (upload) du fichier"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/editor/widgets/attachments.js:125
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:129
 msgid "Please try again when all files have finished uploading."
 msgstr ""
 "Merci d'essayer de nouveau lorsque tous les fichiers auront été téléversés."
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:19
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:19
 msgid "Publish on"
 msgstr "Date de publication"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:21
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:21
 msgid "Publish now"
 msgstr "Publier maintenant"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:29
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:34
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:57
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:29
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:34
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:57
 msgid "Now"
 msgstr "Maintenant"
 
-#: /Users/michael/proj/o5/ui/open511_ui/static/o5ui/js/plugins/publish-events.js:35
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:35
 msgid "Publish?"
 msgstr "Publier?"
+
+#~ msgid "Close"
+#~ msgstr "Fermer"
+
+#~ msgid "Click to start drawing shape."
+#~ msgstr "Cliquer pour définir une forme."
+
+#~ msgid "Click to continue drawing shape."
+#~ msgstr "Cliquer pour continuer à dessiner une forme."
+
+#~ msgid "Click first point to close this shape."
+#~ msgstr "Cliquer le premier point pour ferme la forme."
+
+#~ msgid "Click and drag to draw rectangle."
+#~ msgstr "Cliquer et déplacer pour dessiner un rectangle."
