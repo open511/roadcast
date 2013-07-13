@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 			main: {
 				files: {
 					'<%=dest%>/js/open511-viewer.js': [
-						'app/js/no-i18n.js',
+						'app/js/i18n.js',
+						'app/js/datepicker.js',
 						'app/js/main.js',
 						'app/js/layout.js',
 						'app/js/roadevent.js',
@@ -42,7 +43,6 @@ module.exports = function(grunt) {
 						'app/vendor/bootstrap/js/bootstrap-dropdown.js',
 						'app/vendor/bootstrap/js/bootstrap-button.js',
 						'app/vendor/bootstrap/js/bootstrap-modal.js',
-						'app/vendor/datepicker.js',
 						'app/vendor/moment.js'
 					],
 					'<%=dest%>/js/libs-editor.js': [
@@ -62,11 +62,13 @@ module.exports = function(grunt) {
 
 					'<%=dest%>/locale/fr.js': [
 						'app/vendor/jed.js',
-						'app/i18n/fr.js'
+						'app/i18n/fr.js',
+						'app/i18n/fr-dates.js'
 					],
 
 					'<%=dest%>/css/main.css': [
 						'app/css/formfields.css',
+						'app/css/datepicker-custom.css',
 						'app/css/open511.css'
 					],
 					'<%=dest%>/css/editor.css': ['app/css/editor.css'],
