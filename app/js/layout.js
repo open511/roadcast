@@ -1,19 +1,18 @@
 (function() {
-	var Layout = function($el, opts) {
-		this.$el = $el;
+	var Layout = function($target, opts) {
+		this.$el = $(JST.main());
+		$target.prepend(this.$el);
 		opts = opts || {};
 		_.defaults(opts, {
-			topOffset: $el.find('.header').length ? $el.find('.header').outerHeight() : 0,
+			topOffset: this.$el.find('.navbar').outerHeight(),
 			height: $(window).height(),
 			width: $(window).width(),
 			mainViews: []
 		});
 		_.extend(this, opts);
 
-		$el.html($el.html() + JST.main());
-
-		this.$info = $el.find('.infopane');
-		this.$main = $el.find('.mainpane');
+		this.$info = this.$el.find('.infopane');
+		this.$main = this.$el.find('.mainpane');
 		this.$info.width(0);
 	};
 
@@ -21,8 +20,17 @@
 
 		draw: function() {
 			var leftOffset = this.$info.outerWidth();
-			this.$el.find('.infopane,.mainpane').height(this.height - this.topOffset);
+			var paneHeight = this.height - this.topOffset;
+			this.$el.find('.mainpane').height(paneHeight);
 			this.$main.width(this.width - leftOffset).css({left: leftOffset, top: this.topOffset});
+			this.drawLeftPane();
+		},
+
+		drawLeftPane: function() {
+			var paneHeight = this.height - this.topOffset;
+			this.$info.height(paneHeight);
+			this.$info.find('div.body').height(paneHeight - this.$info.find('.header').outerHeight()
+				 - this.$info.find('.footer').outerHeight());
 		},
 
 		change: function(opts) {
@@ -38,6 +46,7 @@
 				$pane.append(view.el);
 				newWidth = view.width || 330;
 			}
+			this.drawLeftPane();
 			if (newWidth != $pane.width()) {
 				var self = this;
 				$pane.animate({ width: newWidth}, 200, function() { self.draw(); });

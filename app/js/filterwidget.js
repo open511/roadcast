@@ -9,7 +9,7 @@
 		render: function() {
 			this.$el.html(JST.filter_widget());
 			var self = this;
-			this.$el.find('button').click(function(e) {
+			this.$el.find('a').click(function(e) {
 				e.preventDefault();
 				self.openDialog();
 			});

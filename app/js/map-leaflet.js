@@ -33,7 +33,7 @@
 				minZoom: 1,
 				maxZoom: 19,
 				subdomains: '1234',
-				attribution: 'Tiles courtesy of <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>',
+				attribution: O5._t('Tiles courtesy of') + ' <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>',
 				opacity: 0.6
 			}).addTo(this.lmap);
 

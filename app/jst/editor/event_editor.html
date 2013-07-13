@@ -1,14 +1,17 @@
 <div class="editor">
-		<div style="text-align: right"><a class="btn btn-small close-button"><%- O5._t('Close') %></a>
-		<% if (!r.isNew()) { %>&nbsp; <a class="btn btn-small btn-danger delete-button"><%- O5._t('Delete') %></a><% } %>
-		&nbsp; <a class="btn btn-small btn-primary save-button"><%- O5._t('Save') %></a></div>
-	<ul class="nav nav-tabs">
+	<div class="header">
+		<ul class="tabs">
 		<li class="active" data-tab="basics"><a href=""><%- O5._t('Basics') %></a></li>
 		<li data-tab="details"><a href=""><%- O5._t('Details') %></a></li>
 		<li data-tab="schedule"><a href=""><%- O5._t('Schedule') %></a></li>
 		<li data-tab="roads"><a href=""><%- O5._t('Roads') %></a></li>
 		<!-- <li data-tab="map"><a href="">Map</a></li> -->
-	</ul>
+		</ul>
+	</div>
+	<div class="body fields container"></div>
+	<div class="footer container">
+		<a class="button big pale close-button"><span><%- O5._t('Cancel') %></span></a>
+		<a class="button big primary save-button"><span><%- O5._t('Save') %></span></a>
+	</div>
 
-	<div class="fields"></div>
 </div>

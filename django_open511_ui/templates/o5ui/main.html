@@ -10,7 +10,6 @@
 
   <title>Open511</title>
 
-  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
   {% if gmaps %}
   <link rel="stylesheet" href="{% static "o5ui/css/open511-complete-googlemaps.css" %}">
   {% else %}
@@ -19,14 +18,14 @@
       <link rel="stylesheet" href="{% static "o5ui/css/open511-ie.css" %}">
   <![endif]-->
   {% endif %}
+
+  <link rel="shortcut icon" href="{% static "o5ui/img/favicon.ico" %}">
   
 </head>
 
-<body>
-  <!-- Main container. -->
-  <div role="main" id="main">
-    {% include "o5ui/header.html" %}
-  </div>
+<body class="open511">
+  
+  <div id="main"></div>
 
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% if LANGUAGE_CODE == "fr" %}

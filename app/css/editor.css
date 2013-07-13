@@ -1,8 +1,46 @@
-.mainpane-buttons .add-event {
-  margin-right: 20px;
-  display: inline-block;
+.editor .tabs {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.editor .tabs:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.editor .tabs li {
+  display: block;
+  float: left;
+  width: 25%;
+}
+.editor .tabs li a {
+  display: block;
+  background-color: #75B7C1;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  height: 35px;
+  padding-top: 13px;
+}
+.editor .tabs li.active a {
+  background-color: white;
+  color: #333333;
+}
+.editor .tabs li:not(.active) a:hover {
+  background-color: #6DACB2;
+  color: white;
 }
 
+.editor .footer .button {
+  width: 49%;
+}
+
+.editor .editor-row {
+  margin-top: 16px;
+}
+.editor .editor-row:first-child {
+  margin-top: 24px;
+}
 .editor .field input, .editor .field textarea {
   width: 90%;
   resize: none;
@@ -14,9 +52,11 @@
   display: inline;
 }
 .editor .field label {
-  font-weight: 300;
-  font-size: 15px;
-  color: #777777;
+  text-transform: uppercase;
+  margin: 0 0 4px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  display: block;
 }
 
 .editor .road-edit-widget .road-fields {

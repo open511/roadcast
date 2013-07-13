@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 						'app/vendor/bootstrap/js/bootstrap-dropdown.js',
 						'app/vendor/bootstrap/js/bootstrap-button.js',
 						'app/vendor/bootstrap/js/bootstrap-modal.js',
-						'app/vendor/datepicker.js'
+						'app/vendor/datepicker.js',
+						'app/vendor/moment.js'
 					],
 					'<%=dest%>/js/libs-editor.js': [
 						'app/vendor/jquery/jquery.ui.widget.js',
@@ -64,10 +65,13 @@ module.exports = function(grunt) {
 						'app/i18n/fr.js'
 					],
 
-					'<%=dest%>/css/main.css': ['app/css/index.css'],
+					'<%=dest%>/css/main.css': [
+						'app/css/formfields.css',
+						'app/css/open511.css'
+					],
 					'<%=dest%>/css/editor.css': ['app/css/editor.css'],
 					'<%=dest%>/css/libs.css': [
-						'app/vendor/bootstrap/css/bootstrap.css',
+						// 'app/vendor/bootstrap/css/bootstrap.css',
 						'app/vendor/datepicker.css'
 					],
 					'<%=dest%>/css/leaflet.css': [
@@ -100,6 +104,12 @@ module.exports = function(grunt) {
 					flatten: true,
 					src: ['app/img/*', 'app/vendor/bootstrap/img/*'],
 					dest: '<%=dest%>/img/'
+				},
+				{
+					expand: true,
+					flatten: true,
+					src: ['app/fonts/*'],
+					dest: '<%=dest%>/fonts/'
 				}]
 			}
 		},

@@ -94,10 +94,10 @@
 					});
 									
 					var line = new google.maps.Polyline({path: path});
-					line.setOptions(this.options.polylineOpts);
+					line.setOptions(this.options.lineStyle);
 					return line;
 				case 'Polygon':
-					return O5.utils.geoJSONToGoogle(gj, this.options.polygonOpts);
+					return O5.utils.geoJSONToGoogle(gj, this.options.lineStyle);
 			}
 		},
 

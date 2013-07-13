@@ -1,7 +1,18 @@
-<% if (r.headline) { %><h2><%- r.headline %>
-<% if (editable) { print('<a href="" class="edit-roadevent"><i class="icon-pencil"></i></a>'); } %>
-	</h2><% } %>
-<% if (r.schedule) { %><div class="date"><%- r.schedule.start_date %> &#8211; <%- r.schedule.end_date %></div><% } %>
+<div class="header container">
+	<% if (r.headline) { %><h2 class="headline"><%- r.headline %></h2><% } %>
+	<% if (r.schedule) {
+		var format_date = function(d) {
+			if (!d) return '';
+			d = moment(d);
+			return d.format(
+				Math.abs(d.diff(moment(), 'days')) < 60 ? O5._t('ddd, MMM D') : 'll'
+			);
+		};
+		%>
+		<div class="date"><%- format_date(r.schedule.start_date) %> &#8211; <%- format_date(r.schedule.end_date) %></div><% } %>
+</div>
+
+<div class="body container">
 <% if (r['!unpublished']) { print ('<div class="alert">' + O5._t('Unpublished') + '</div>'); } %>
 <% if (r.roads && r.roads.length) { %>
 	<h4><%- O5._t('Roads') %></h4>
@@ -29,4 +40,10 @@
 		<li><a href="<%= attachment.url %>" target="_blank"><%- attachment.title ? attachment.title : attachment.url.split('/').pop() %></a></li>
 		<% }); %>
 	</ul>
+<% } %>
+</div>
+<% if (editable) { %>
+<div class="footer container">
+		<a href="#" class="button big primary edit-event" style="width: 100%"><span><%- O5._t('Edit') %></span></a>
+</div>
 <% } %>

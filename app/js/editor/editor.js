@@ -19,7 +19,7 @@
 			// Tab navigation
 			$el.on('click', 'li[data-tab]', function(e) {
 				e.preventDefault();
-				$el.find('ul.nav li').removeClass('active');
+				$el.find('ul.tabs li').removeClass('active');
 				$(this).addClass('active');
 				var tab = $(this).data('tab');
 				$el.find('.fields div[data-tab]').each(function() {
@@ -69,18 +69,6 @@
 				}
 			});
 
-			$('body').on('click', '.create-new-event', function(e) {
-				e.preventDefault();
-				var event = new O5.RoadEvent({
-					jurisdiction_url: $(e.target).attr('data-slug')
-				});
-				// event.once('sync', function() {
-					O5.app.events.add(event);
-				// });
-				self.selectEvent(event);
-				O5.app.layout.setLeftPane(self);
-			});
-
 		},
 
 		render: function() {
@@ -89,7 +77,7 @@
 			var $fields = $e.find('.fields');
 			this.widgets = [];
 			_.each(this.getFieldDefs(self.roadEvent), function(field) {
-				var $field_el = $('<div class="field control-group" />');
+				var $field_el = $('<div class="field editor-row" />');
 				var widget = self.makeWidget(field, self.roadEvent);
 				$field_el.attr('data-tab', field.tab);
 				if (widget.addLabel) {
@@ -106,7 +94,34 @@
 				$fields.append($field_el);
 			});
 			self.$el.empty().append($e);
-			$e.find('ul.nav li[data-tab="basics"]').click();
+			self.app.layout.drawLeftPane();
+			$e.find('ul.tabs li[data-tab="basics"]').click();
+		},
+
+		renderCreateButton: function() {
+			var self = this;
+			self.app.editableJurisdictionSlugs = [];
+			_.each(self.app.settings.jurisdictions, function(jur) {
+				if (jur.editable) {
+					self.app.editableJurisdictionSlugs.push(jur.slug);
+				}
+			});
+			if (!self.app.editableJurisdictionSlugs.length) {
+				return null;
+			}
+			var $button = $(JST.create_event({ jurisdiction_slugs: self.app.editableJurisdictionSlugs }));
+			$button.on('click', function(e) {
+				e.preventDefault();
+				var event = new O5.RoadEvent({
+					jurisdiction_url: $(e.target).attr('data-slug')
+				});
+				// event.once('sync', function() {
+					self.app.events.add(event);
+				// });
+				self.selectEvent(event);
+				self.app.layout.setLeftPane(self);
+			});
+			return $button;
 		},
 
 		_getRoadEventValue: function(name) {

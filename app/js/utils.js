@@ -5,9 +5,9 @@ _.extend(O5.utils, {
 	},
 
 	notify: function(message, tag, opts) {
-		var $container = $('#notifications');
+		var $container = $('#o5notifications');
 		if (!$container.length) {
-			$container = $('<div id="notifications" />');
+			$container = $('<div id="o5notifications" />');
 			$('body').append($container);
 		}
 		opts = opts || {};

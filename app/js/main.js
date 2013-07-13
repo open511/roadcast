@@ -28,6 +28,7 @@ window.O5.init = function(opts) {
 
 		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector));
 		app.layout.draw();
+		var $el = app.layout.$el;
 
 		var $window = $(window);
 		$window.resize(function() {
@@ -40,7 +41,7 @@ window.O5.init = function(opts) {
 		var events = new O5.RoadEvents();
 		app.events = events;
 
-		app.detailViewer = new O5.views.EventDetailView();
+		app.detailViewer = new O5.views.EventDetailView({app: app});
 		app.map = new O5.views.MapView({app: app});
 		app.listview = new O5.views.ListView({app: app});
 
@@ -53,7 +54,7 @@ window.O5.init = function(opts) {
 		app.listview.render();
 
 		var filterWidget = new O5.views.FilterView({app:app});
-		$('.mainpane-buttons').prepend(filterWidget.el);
+		$el.find('.navbar .buttons').append(filterWidget.el);
 		filterWidget.render();
 
 		$('.mainpane-selector').on('click', 'button', function(e) {
@@ -91,17 +92,8 @@ window.O5.init = function(opts) {
 				app.editor.selectEvent(event);
 				app.layout.setLeftPane(app.editor);
 			});
-			app.editableJurisdictionSlugs = [];
-			_.each(app.settings.jurisdictions, function(jur) {
-				if (jur.editable) {
-					app.editableJurisdictionSlugs.push(jur.slug);
-				}
-			});
-			if (app.editableJurisdictionSlugs.length && $('.mainpane-buttons').length) {
-				$('.mainpane-buttons').prepend(
-					JST.create_event({ jurisdiction_slugs: app.editableJurisdictionSlugs })
-				);
-			}
+			var createButton = app.editor.renderCreateButton();
+			if (createButton) $el.find('.navbar .buttons').prepend(createButton);
 		}
 
 		// (this line results in fetching all the events)

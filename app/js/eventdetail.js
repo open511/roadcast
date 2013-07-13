@@ -1,7 +1,9 @@
 (function() {
-	O5.views.EventDetailView = Backbone.View.extend({
+	O5.views.EventDetailView = O5.views.BaseView.extend({
 
 		roadEvent: null,
+
+		className: 'event-detail',
 
 		displayEvent: function(event) {
 			if (this.roadEvent) {
@@ -13,23 +15,23 @@
 		},
 
 		initialize: function() {
+			O5.views.BaseView.prototype.initialize.call(this);
 			var self = this;
-			this.$el.on('click', 'a.edit-roadevent', function(e) {
+			this.$el.on('click', '.edit-event', function(e) {
 				e.preventDefault();
 				self.roadEvent.edit();
 			});
 		},
 
 		render: function() {
-			var self = this;
-			if (self.roadEvent !== null) {
-				self.$el.html(
-					JST.event_info({
-						r: self.roadEvent.attributes,
-						editable: self.roadEvent.canEdit()
-					})
-				);
-			}
+			if (this.roadEvent === null) return;
+			this.$el.html(
+				JST.event_info({
+					r: this.roadEvent.attributes,
+					editable: this.roadEvent.canEdit()
+				})
+			);
+			this.app.layout.drawLeftPane();
 		}
 	});
 })();

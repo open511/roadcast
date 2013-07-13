@@ -1,0 +1,270 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/montserrat.eot');
+    src: url('../fonts/montserrat.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/montserrat.woff') format('woff'),
+         url('../fonts/montserrat.ttf') format('truetype'),
+         url('../fonts/montserrat.svg#montserratregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body.open511 {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+.o5 { 
+	overflow: hidden;
+	font-size: 13px;
+	line-height: 18px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #333333;
+}
+.o5 a {
+	text-decoration: none;
+	cursor: pointer;
+	color: #75B7C1;
+}
+
+.o5 .button {
+	border-radius: 4px;
+	display: inline-block;
+	text-align: center;
+	font-family: "Montserrat", sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	background-color: #E2E2E2;
+	color: #555555;
+	transition: background-color 0.4s, color 0.4s;
+}
+.o5 .button.primary {
+	background-color: #75B7C1;
+	color: white;
+}
+.o5 .button.big {
+	height: 45px;
+	font-size: 14px;
+}
+.o5 .button span {
+	display: inline-block;
+	padding: 5px 13px;
+}
+.o5 .button.big span {
+	padding: 13px 10px;
+}
+.o5 .button:hover {
+	background-color: #6DACB2;
+	color: white;
+	transition: background-color 0.4s, color 0.4s;
+}
+.o5 .button.pale {
+	background-color: #EEEEEE;
+	color: #AAAAAA;
+}
+.o5 .button.pale:hover {
+	background-color: #6DACB2;
+	color: white;
+}
+
+.o5 .navbar {
+	position: relative;
+	height: 44px;
+	background-color: #2D3134;
+}
+.o5 .navbar .title {
+	text-align: center;
+	padding-top: 11px;
+}
+.o5 .navbar .logo {
+	background: url('../img/logotype.png') no-repeat;
+	height: 21px;
+	width: 84px;
+	display: inline-block;
+}
+.o5 .navbar .buttons {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.o5 .navbar .buttons div {
+	display: inline-block;
+}
+.o5 .navbar .auth {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+}
+
+.o5 .navbar .nav-button {
+	padding: 12px 25px;
+	border-right: 1px solid #FFFFFF;
+	font-family: Montserrat, sans-serif;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	transition: color 0.4s;
+}
+.o5 .navbar .nav-button:hover {
+	/*background-color: #393F42;*/
+	color: #75B7C1;
+	transition: color 0.4s;
+}
+.o5 .navbar .nav-button:last-child {
+	border-right: none;
+}
+
+.o5 .infopane {
+	overflow: hidden;
+	z-index: 5;
+	position: relative;
+	background-color: white;
+}
+.o5 .infopane .container {
+	padding-left: 24px;
+	padding-right: 24px;
+}
+.o5 .infopane .body {
+	overflow: auto;
+}
+.o5 .infopane .footer {
+	padding-top: 16px;
+	padding-bottom: 16px;
+	text-align: center;
+}
+
+.o5 .event-detail h2 {
+	font-family: "Montserrat", sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 24px;
+	margin: 5px 0 10px 0;
+}
+.o5 .event-detail .date {
+	color: #999999;
+}
+.o5 .event-detail .header {
+	padding-top: 24px;
+	padding-bottom: 24px;
+	border-bottom: 3px solid #B3B3B3;
+}
+.o5 .event-detail h4 {
+	font-family: "Montserrat", sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+	text-transform: uppercase;
+	border-bottom: 1px dotted #666666;
+	padding: 0;
+	margin: 16px 0 12px 0;
+}
+.o5 .event-detail h4:first-child {
+	margin-top: 22px;
+}
+
+
+.o5 .mainpane {
+	position: absolute;
+	overflow: hidden;
+}
+.o5 .mainpane-control {
+	position: absolute;
+	z-index: 10;
+}
+.o5 .mainpane .mainpane-buttons {
+	top: 12px;
+	right: 20px;
+}
+.o5 .mainpane-zoom {
+	left: 13px;
+	top: 12px;
+	box-shadow: 0 0 8px rgba(0,0,0,0.4);
+	border: 1px solid #888;
+	-webkit-border-radius: 5px;
+	        border-radius: 5px;
+	visibility: hidden;
+}
+.o5 .map-active .mainpane-zoom {
+	visibility: visible;
+}
+.o5 .mainpane-zoom a {
+	width: 22px;
+	height: 22px;
+	background-color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+}
+.o5 .mainpane-zoom a:hover {
+	background-color: #fff;
+	color: #777;
+}
+.o5 .mainpane-zoom-in {
+	border-bottom: 1px solid #aaa;
+	font: bold 18px/24px Arial, Helvetica, sans-serif;
+	-webkit-border-radius: 5px 5px 0 0;
+	        border-radius: 5px 5px 0 0;
+}
+.o5 .mainpane-zoom-out {
+	font: bold 23px/20px Tahoma, Verdana, sans-serif;
+	-webkit-border-radius: 0 0 5px 5px;
+	        border-radius: 0 0 5px 5px;
+}
+.o5 .mainpane-zoom a.disabled {
+	cursor: default;
+	background-color: rgba(255, 255, 255, 0.8);
+	color: #bbb;
+}
+
+.o5 .map-marker {
+	background-image: url(../img/marker-triangle-orange.png);
+	width: 29px;
+	height: 27px;
+}
+
+.o5 .mainpane-filter {
+	display: inline-block;
+}
+
+.o5 tr.empty td.closecol {
+	visibility: hidden;
+}
+
+.o5 .badged-button {
+	position: relative;
+	padding-right: 20px;
+}
+
+.o5 .badged-button .badge {
+	position: absolute;
+	top: -4px;
+	right: 10px;
+}
+
+
+
+#o5notifications {
+	position: absolute;
+	z-index: 10;
+	top: 20px;
+	left: 350px;
+}
+#o5notifications .alert {
+	width: 600px;
+/*	margin-left: auto;
+	margin-right: auto;*/
+}
+
+.o5 .roadevent-list {
+	overflow: auto;
+	height: 100%;
+}
+.o5 .roadevent-list table {
+	margin: 60px 10px 50px 40px;
+	width: auto;
+}
