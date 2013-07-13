@@ -4,7 +4,7 @@ window.O5.utils = {};
 window.O5.prototypes = {};
 window.O5.init = function(opts) {
 
-		var app = {
+		var app = _.extend({
 			settings: {
 				enableEditing: false,
 				elementSelector: '#main',
@@ -12,7 +12,7 @@ window.O5.init = function(opts) {
 				timezone: '-05:00',
 				plugins: 'all'
 			}
-		};
+		}, Backbone.Events);
 
 		_.extend(app.settings, opts);
 
@@ -80,7 +80,7 @@ window.O5.init = function(opts) {
 			app.map.addRoadEvent(event);
 		});
 
-		events.on('selection', function(event) {
+		app.on('selection', function(event) {
 			app.detailViewer.displayEvent(event);
 			app.layout.setLeftPane(app.detailViewer);
 			event.navigateTo();
@@ -88,7 +88,7 @@ window.O5.init = function(opts) {
 
 		if (app.settings.enableEditing) {
 			app.editor = new O5.views.EventEditorView({app: app});
-			events.on('edit', function(event) {
+			app.on('edit', function(event) {
 				app.editor.selectEvent(event);
 				app.layout.setLeftPane(app.editor);
 			});

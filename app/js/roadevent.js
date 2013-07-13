@@ -16,11 +16,11 @@
 				if (rdev !== self) rdev.set('_selected', false);
 			});
 			this.set('_selected', true);
-			this.collection.trigger('selection', this);
+			O5.app.trigger('selection', this);
 		},
 
 		edit: function() {
-			this.collection.trigger('edit', this);
+			O5.app.trigger('edit', this);
 		},
 
 		canEdit: function() {
