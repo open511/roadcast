@@ -227,8 +227,10 @@
 
 		getFieldDefs: function(roadEvent) {
 			var fields = O5.RoadEventFields.slice(0);
-			_.each(this.app.settings.plugins, function(plugin) {
-				if (plugin.changeEditorFieldDefinitions) plugin.changeEditorFieldDefinitions(fields, roadEvent);
+			// PLUGIN HOOK
+			this.app.trigger('editor-field-definitions', {
+				fields: fields,
+				roadEvent: roadEvent
 			});
 			return fields;
 		}

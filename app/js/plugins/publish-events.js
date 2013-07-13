@@ -1,7 +1,5 @@
 (function() {
 
-	O5.plugins = O5.plugins || {};
-
 	var PublishedWidget = O5.widgets.BaseWidget.extend({
 		tagName: 'div',
 		addLabel: false,
@@ -18,13 +16,13 @@
 			this.$el.html('<div class="alert">' + O5._t('Unpublished') + '</div>' +
 				'<label for="' + this.id + '">' + O5._t('Publish on') + '</label>' +
 				'<input id="' + this.id + '-t" type="text" style="width: 30%"/> &nbsp; ' +
-				'<a class="button" style="position: relative; bottom: 5px"><span>' + O5._t('Publish now') + '</span></button>');
+				'<a class="button publish-now" style="position: relative; bottom: 5px"><span>' + O5._t('Publish now') + '</span></button>');
 			var $input = this.$el.find('input');
 			$input.datepicker({
 				format: 'yyyy-mm-dd'
 			});
 			$input.on('focus keyup keydown', function(e) { console.log(e); });
-			this.$el.find('button').click(function(e) {
+			this.$el.find('.publish-now').click(function(e) {
 				e.preventDefault();
 				$input.val(O5._t('Now'));
 			});
@@ -32,7 +30,7 @@
 
 		renderMinimal: function() {
 			this.$el.html('<input type="checkbox" value="' + O5._t('Now') + '" checked id="' + this.id + '-cb"/>' +
-				' &nbsp; <label style="display:inline" for="' + this.id + '-cb">' + O5._t('Publish?'));
+				' &nbsp; <label class="inline" for="' + this.id + '-cb">' + O5._t('Publish?'));
 			this.minimal = true;
 			var self = this;
 			this.$el.find('input').on('change', function() {
@@ -67,19 +65,19 @@
 		}
 
 	});
-	O5.plugins.publishEvents = {
 
-		changeEditorFieldDefinitions: function(fields, roadEvent) {
-			if (roadEvent.get('!unpublished') || roadEvent.isNew()) {
-				fields.splice(1, 0, {
+	O5.plugins.register(function(app) {
+		app.on('editor-field-definitions', function(opts) {
+			if (opts.roadEvent.get('!unpublished') || opts.roadEvent.isNew()) {
+				opts.fields.splice(1, 0, {
 					name: '!publish_on',
 					label: 'Published',
 					type: 'complex',
 					widget: PublishedWidget,
 					tab: 'basics'
 				});
-			}
-		}
-	};
+			}			
+		});
+	});
 
 })();

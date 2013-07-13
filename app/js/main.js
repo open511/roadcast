@@ -1,8 +1,8 @@
 (function() {
-window.O5 = window.O5 || {};
-window.O5.utils = {};
-window.O5.prototypes = {};
-window.O5.init = function(opts) {
+O5 = window.O5 || {};
+O5.utils = {};
+O5.prototypes = {};
+O5.init = function(opts) {
 
 		var app = _.extend({
 			settings: {
@@ -10,7 +10,6 @@ window.O5.init = function(opts) {
 				elementSelector: '#main',
 				pushState: false,
 				timezone: '-05:00',
-				plugins: 'all'
 			}
 		}, Backbone.Events);
 
@@ -18,13 +17,11 @@ window.O5.init = function(opts) {
 
 		O5.app = app;
 
-		if (app.settings.plugins === 'all') {
-			app.settings.plugins = _.values(O5.plugins || {});
-		}
-
 		$(document).ajaxError(function(e, xhr, settings, exception) {
 			O5.utils.notify(xhr.responseText, 'error');
 		});
+
+		O5.plugins.init(app);
 
 		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector));
 		app.layout.draw();
@@ -109,11 +106,25 @@ window.O5.init = function(opts) {
 		return app;
 
 };
-window.O5.views = {
+O5.views = {
 	BaseView: Backbone.View.extend({
 		initialize: function() {
 			this.app = this.options.app;
 		}
 	})
+};
+
+var registered_plugins = [];
+O5.plugins = {
+
+	register: function(plugin) {
+		registered_plugins.push(plugin);
+	},
+
+	init: function(app) {
+		for (var i = 0; i < registered_plugins.length; i++) {
+			new registered_plugins[i](app);
+		}
+	}
 };
 })();
