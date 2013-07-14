@@ -20,10 +20,19 @@ class Open511UISettings(AppConf):
     REQUIRE_LOGIN = False
     SHOW_LOGIN_BUTTON = False
 
+    ENABLE_EDITOR = True
+
     MAP_TYPE = 'leaflet'  # 'leaflet' or 'google'
     MAP_START_LAT = 45.532411
     MAP_START_LNG = -73.61512
     MAP_START_ZOOM = 10
+
+    # The editor and external-auth plugins are automatically added,
+    # based on other settings
+    PLUGINS = [
+        'publish-events',
+        'attachments'
+    ]
 
     # Tile settings are used only if MAP_TYPE == 'leaflet'
     MAP_TILE_URL = ''

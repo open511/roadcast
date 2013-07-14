@@ -24,10 +24,10 @@
 				count -= 1;
 			}
 			if (count) {
-				this.$el.find('.filter-count').text(count);
+				this.$el.find('.filter-count').text(count).removeClass('empty');
 			}
 			else {
-				this.$el.find('.filter-count').text('');
+				this.$el.find('.filter-count').text('').addClass('empty');
 			}
 		},
 
@@ -90,7 +90,11 @@
 				.on('click', '.update-filters', function(e) {
 					e.preventDefault();
 					self.updateFilters(self.getDialogFilters());
-					self.$dialog.modal('hide');
+					self.$dialog.hide();
+				})
+				.on('click', 'button.close-dialog', function(e) {
+					e.preventDefault();
+					self.$dialog.hide();
 				});
 
 		},
@@ -118,8 +122,8 @@
 		openDialog: function() {
 			var self = this;
 			if (!this.$dialog) {
-				this.$dialog = $('<div id="filterModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" />');
-				$('body').append(this.$dialog);
+				this.$dialog = $('<div id="filterModal" style="display:none" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" />');
+				this.app.layout.$el.append(this.$dialog);
 				this.initializeDialogEvents();
 			}
 			this.$dialog.html(JST.filter_widget_dialog());
@@ -127,7 +131,8 @@
 				self.$dialog.find('table').append(self.renderRow(type, val));
 			});
 			self.$dialog.find('table').append(self.renderRow());
-			this.$dialog.modal();
+			// this.$dialog.modal();
+			this.$dialog.show();
 		}
 	});
 

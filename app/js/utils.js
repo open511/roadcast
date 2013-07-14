@@ -22,4 +22,5 @@ _.extend(O5.utils, {
 			setTimeout(function() { $alert.alert('close'); }, opts.hideDelay);
 		}
 	}
+
 });

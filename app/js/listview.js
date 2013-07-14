@@ -8,43 +8,72 @@
 		minHeight: 100,
 		minMapHeight: 100,
 
+		initialize: function() {
+			O5.views.BaseView.prototype.initialize.call(this);
+
+			var self = this;
+
+			this.$el.html('<div class="roadevent-list-toggle"><span class="glyph"></span></div>' +
+				'<div class="roadevent-list" style="height: 0"><div class="resize-handle"></div><table></table></div>');
+			this.$list = this.$el.find('.roadevent-list');
+
+			// Initial list height: half of pane
+			this.height = Math.max(this.app.layout.$main.height() / 2, this.minHeight);
+
+			_.bindAll(this, 'startResize', 'continueResize', 'stopResize', 'renderSoon');
+
+			this.$list.find('.resize-handle').on('mousedown', this.startResize);
+
+			this.$el.find('.roadevent-list-toggle').on('click', function(e) {
+				self.setViewVisibility(!self.visible);
+			});
+
+		},
+
 		render: function() {
+			if (!this.visible) return;
+			if (!this.eventsInitialized) this.initializeEvents();			
+
+			this.$list.find('table').html(
+				JST.event_list({events: this.app.events.where({'_visible': true})})
+			);
+		},
+
+		initializeEvents: function() {
+			if (this.eventsInitialized) return;
 			var app = this.app, self = this;
-			if (!this.eventsInitialized) {
-				this.$el.html('<div class="roadevent-list-toggle"><span class="glyph"></span></div>' +
-					'<div class="roadevent-list" style="height: 0"><div class="resize-handle"></div><table></table></div>')
-				this.$list = this.$el.find('.roadevent-list');
 
-				// Initial list height: half of pane
-				this.height = app.layout.$main.height() / 2;
-
-				_.bindAll(this, 'startResize', 'continueResize', 'stopResize');
-				this.$list.find('.resize-handle').on('mousedown', this.startResize);
-
-				this.$el.on('click', 'tr[data-roadevent]', function(e) {
-					e.preventDefault();
+			this.$el.on('click', 'tr[data-roadevent]', function(e) {
+				e.preventDefault();
+				var event = app.events.get($(this).attr('data-roadevent'));
+				if (event) {
+					event.select({
+						panTo: true
+					});
+				}
+			})
+				.on('mouseenter', 'tr[data-roadevent]', function(e) {
 					var event = app.events.get($(this).attr('data-roadevent'));
-					if (event) {
-						event.select({
-							panTo: true
-						});
-					}
+					if (event) event.set('_highlighted', true);
+				})
+				.on('mouseleave', 'tr[data-roadevent]', function() {
+					var event = app.events.get($(this).attr('data-roadevent'));
+					if (event) event.set('_highlighted', false);
 				});
-				this.app.events.on('add remove change', function(rdev) {
-					if (self.visible) {
-						self.renderSoon();
-					}
-				});
-				this.$el.find('.roadevent-list-toggle').on('click', function(e) {
-					self.setViewVisibility(!self.visible);
-				});
-				this.eventsInitialized = true;
-			}
-			if (this.visible) {
-				this.$list.find('table').html(
-					JST.event_list({events: this.app.events.where({'_visible': true})})
-				);
-			}
+
+			this.app.events.on('add remove change:except-internal change:_visible', this.renderSoon);
+			this.app.events.on('change:_selected', function(rdev, selected) {
+				if (!self.visible) return;
+				var $row = self.$el.find('tr[data-roadevent="' + rdev.id + '"]');
+				if (selected) {
+					$row.addClass('selected');
+				}
+				else {
+					$row.removeClass('selected');
+				}
+			});
+
+			this.eventsInitialized = true;
 		},
 
 		/**
@@ -54,9 +83,7 @@
 		 * in quick succession.
 		 */
 		renderSoon: function() {
-			if (this.renderTimeout) {
-				return;
-			}
+			if (this.renderTimeout || !this.visible) return;
 			var self = this;
 			this.renderTimeout = setTimeout(function() {
 				self.renderTimeout = null;

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 		concat: {
 			main: {
 				files: {
-					'<%=dest%>/js/open511-viewer.js': [
+					'<%=dest%>/js/open511-viewer-app.js': [
 						'app/js/i18n.js',
 						'app/js/datepicker.js',
 						'app/js/main.js',
@@ -26,19 +26,21 @@ module.exports = function(grunt) {
 					],
 					'<%=dest%>/js/map-adapter-leaflet.js': ['app/js/map-leaflet.js'],
 					'<%=dest%>/js/map-adapter-google.js': ['app/js/map-google.js', 'app/js/geojson-to-google.js'],
-					'<%=dest%>/js/open511-editor.js': [
+					'<%=dest%>/js/plugins/open511-editor.js': [
 						'app/js/editor/editor.js',
 						'app/js/editor/widgets/map.js',
 						'app/js/editor/widgets/roads.js',
-						'app/js/editor/widgets/attachments.js',
 						'<%=dest%>/js/templates-editor.js',
-
-						// For now, we're including these plugins in the main builds
-						'app/js/plugins/publish-events.js',
-						'app/js/plugins/external-auth.js'
 					],
 
-					'<%=dest%>/js/libs-main.js': [
+					'<%=dest%>/js/plugins/attachments.js': [
+						'app/vendor/jquery/jquery.ui.widget.js',
+						'app/vendor/fileupload/iframe-transport.js',
+						'app/vendor/fileupload/jquery.fileupload.js',
+						'app/js/editor/widgets/attachments.js'
+					],
+
+					'<%=dest%>/js/dependencies.js': [
 						'app/vendor/jquery.js',
 						'app/vendor/lodash.js',
 						'app/vendor/backbone.js',
@@ -49,17 +51,9 @@ module.exports = function(grunt) {
 						'app/vendor/bootstrap/js/bootstrap-modal.js',
 						'app/vendor/moment.js'
 					],
-					'<%=dest%>/js/libs-editor.js': [
-						'app/vendor/jquery/jquery.ui.widget.js',
-						'app/vendor/fileupload/iframe-transport.js',
-						'app/vendor/fileupload/jquery.fileupload.js'
-					],
-					'<%=dest%>/js/libs-all-googlemaps.js': [
-						'<%=dest%>/js/libs-main.js',
-						'<%=dest%>/js/libs-editor.js'
-					],
-					'<%=dest%>/js/libs-all-leaflet.js': [
-						'<%=dest%>/js/libs-all-googlemaps.js',
+
+					'<%=dest%>/js/dependencies-leaflet.js': [
+						'<%=dest%>/js/dependencies.js',
 						'app/vendor/leaflet/leaflet.js',
 						'app/js/leaflet.draw.js'
 					],
@@ -77,7 +71,6 @@ module.exports = function(grunt) {
 					],
 					'<%=dest%>/css/editor.css': ['app/css/editor.css'],
 					'<%=dest%>/css/libs.css': [
-						// 'app/vendor/bootstrap/css/bootstrap.css',
 						'app/vendor/datepicker.css'
 					],
 					'<%=dest%>/css/leaflet.css': [
@@ -85,17 +78,16 @@ module.exports = function(grunt) {
 						'app/vendor/leaflet/leaflet.draw.css'
 					],
 
-					'<%=dest%>/js/open511-complete-leaflet.js': [
-						'<%=dest%>/js/libs-all-leaflet.js',
-						'<%=dest%>/js/open511-viewer.js',
-						'<%=dest%>/js/open511-editor.js',
+					'<%=dest%>/js/open511-leaflet.js': [
+						'<%=dest%>/js/dependencies-leaflet.js',
+						'<%=dest%>/js/open511-viewer-app.js',
 						'<%=dest%>/js/map-adapter-leaflet.js'
 					],
-					'<%=dest%>/js/open511-complete-googlemaps.js': [
-						'<%=dest%>/js/libs-all-googlemaps.js',
-						'<%=dest%>/js/open511-viewer.js',
-						'<%=dest%>/js/open511-editor.js',
-						'<%=dest%>/js/map-adapter-google.js'
+
+					'<%=dest%>/js/open511-googlemaps.js': [
+						'<%=dest%>/js/dependencies.js',
+						'<%=dest%>js/open511-viewer-app.js',
+						'<%=dest%>js/map-adapter-google.js'
 					],
 
 					'<%=dest%>/example.html': ['app/example.html']
@@ -127,6 +119,7 @@ module.exports = function(grunt) {
 		},
 
 		jst: {
+			// FIXME to temporary directory?
 			options: {
 				processName: function(fn) {
 					return fn.split('/').pop().replace('.html', '');
@@ -144,12 +137,19 @@ module.exports = function(grunt) {
 
 		uglify: {
 			main: {
-				files: {
-					'<%=dest%>/js/open511-complete-leaflet.min.js': ['<%=dest%>/js/open511-complete-leaflet.js'],
-					'<%=dest%>/js/open511-complete-googlemaps.min.js': ['<%=dest%>/js/open511-complete-googlemaps.js'],
-
-					'<%=dest%>/locale/fr.js': ['<%=dest%>/locale/fr.js']
-				}
+				files: [{
+					expand: true,
+					cwd: '<%=dest%>/js/',
+					src: ['open511-leaflet.js', 'open511-googlemaps.js', 'plugins/*.js'],
+					dest: '<%=dest%>/js/',
+					ext: '.min.js'
+				},
+				{
+					expand: true,
+					cwd: '<%=dest%>/locale/',
+					src: ['??.js'],
+					dest: '<%=dest%>/locale/'
+				}]
 			}
 		},
 

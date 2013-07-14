@@ -1,4 +1,5 @@
-O5.widgets.attachments = O5.widgets.BaseWidget.extend({
+(function() {
+var AttachmentWidget = O5.widgets.BaseWidget.extend({
 
 	className: "file-upload-widget",
 
@@ -6,12 +7,6 @@ O5.widgets.attachments = O5.widgets.BaseWidget.extend({
 
 	render: function() {
 		var self = this;
-
-		if (!this.options.app.settings.fileUploadURL) {
-			return this.$el.text(
-				O5._t("File upload not configured")
-			);
-		}
 
 		// Detect file-drag API
 		if ('draggable' in document.createElement('div')) {
@@ -103,9 +98,7 @@ O5.widgets.attachments = O5.widgets.BaseWidget.extend({
 	initialize: function() {
 		var self = this;
 		this.data = [];
-		// curl(['gen/fileupload.js'], function(fu) {
-			self.render();
-		// });
+		self.render();
 	},
 
 	setVal: function(val) {
@@ -131,3 +124,19 @@ O5.widgets.attachments = O5.widgets.BaseWidget.extend({
 		return true;
 	}
 });
+
+O5.plugins.register(function(app) {
+
+	if (!app.settings.fileUploadURL) return;
+
+	app.on('editor-field-definitions', function(opts) {
+		opts.fields.push({
+			name: 'attachments',
+			label: O5._t('Attachments'),
+			type: 'complex',
+			widget: AttachmentWidget,
+			tab: 'details'
+		});
+	});
+});
+})();

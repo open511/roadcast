@@ -13,6 +13,9 @@ O5.widgets.roads = O5.widgets.BaseWidget.extend({
 		}
 		html += '<a class="add-row">+</a>';
 		this.$el.html(html);
+		if (!this.val || !this.val.length) {
+			this.addRow();
+		}
 	},
 
 	getVal: function() {
@@ -42,7 +45,7 @@ O5.widgets.roads = O5.widgets.BaseWidget.extend({
 		var self = this;
 		this.$el.on('click', '.add-row', function(e) {
 			e.preventDefault();
-			self.$el.find('.add-row').before(JST.road_edit_widget_row({r: {}}));
+			self.addRow();
 		});
 		this.render();
 	},
@@ -50,6 +53,10 @@ O5.widgets.roads = O5.widgets.BaseWidget.extend({
 	setVal: function(val) {
 		this.val = val;
 		this.render();
+	},
+
+	addRow: function() {
+		this.$el.find('.add-row').before(JST.road_edit_widget_row({r: {}}));
 	}
 
 });

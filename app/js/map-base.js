@@ -40,7 +40,7 @@
 			this.app.events.on('add change:geography', this.updateRoadEvent, this)
 				.on('remove', this.removeRoadEventOverlays, this)
 				.on('change:_visible', this.updateRoadEventVisibility, this)
-				.on('change:_selected', this.updateRoadEventIcon, this);
+				.on('change:_selected change:_highlighted change:status', this.updateRoadEventIcon, this);
 
 		},
 
@@ -106,8 +106,18 @@
 
 		updateRoadEventIcon: function(rdev) {
 			if (rdev.mapOverlays && rdev.mapOverlays.length) {
-				rdev.mapOverlays[0].setIcon(this.getIcon(rdev));
+				this.updateMarkerIcon(rdev.mapOverlays[0], this.getIconType(rdev));
 			}
+		},
+
+		getIconType: function(rdev) {
+			if (rdev.get('_selected') || rdev.get('_highlighted')) {
+				return 'selected';
+			}
+			else if (rdev.get('status') === 'ARCHIVED') {
+				return 'archived';
+			}
+			return 'default';
 		}
 
 	});

@@ -48,7 +48,7 @@
 
 /* WIDGETS - GENERAL */
 
-.editor .field input[type=text], .editor .field textarea {
+.editor .field input[type=text], .editor .field textarea, .editor .field select {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

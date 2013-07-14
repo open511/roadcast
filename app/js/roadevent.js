@@ -19,14 +19,6 @@
 			O5.app.trigger('selection', this, opts || {});
 		},
 
-		edit: function() {
-			O5.app.trigger('edit', this);
-		},
-
-		canEdit: function() {
-			return O5.app.settings.enableEditing && _.indexOf(O5.app.editableJurisdictionSlugs, this.jurisdictionSlug()) !== -1;
-		},
-
 		jurisdictionSlug: function() {
 			return this.get('jurisdiction_url').replace(/\/$/, '').split('/').slice(-1)[0];
 		},
@@ -92,12 +84,29 @@
 				opts.url += 'format=json&accept-language=en,fr';
 			}
 			return Backbone.sync.call(this, method, model, opts);
+		},
+
+		isChangeInternal: function() {
+			return _.every(_.keys(this.changed), function(key) {
+				return key.substr(0, 1) === '_';
+			});
 		}
 	});
 
 	// Default Collection.
 	O5.RoadEvents = Backbone.Collection.extend({
 		model: O5.RoadEvent,
+
+		initialize: function() {
+			// Trigger a specific change:except-internal event when a change
+			// occurs to non-internal (not underscore-prefixed) fields.
+			this.on('change', function(model, opts) {
+				if (!model.isChangeInternal()) {
+					model.trigger('change:except-internal', model, opts);
+				}
+			});
+		},
+
 		url: function() {
 			return O5.app.settings.apiURL + 'events/';
 		},
@@ -195,13 +204,6 @@
 				type: 'complex',
 				widget: 'roads',
 				tab: 'roads'
-			},
-			{
-				name: 'attachments',
-				label: _t('Attachments'),
-				type: 'complex',
-				widget: 'attachments',
-				tab: 'details'
 			}
 	];
 

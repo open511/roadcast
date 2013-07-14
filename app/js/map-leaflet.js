@@ -29,19 +29,6 @@
 				prefix: ''
 			}).addTo(lmap);
 
-			icons = {
-				'default': new L.DivIcon({
-					className: 'map-marker',
-					iconSize: [],
-					iconAnchor: this.options.markerOpts.iconAnchor
-				}),
-				selected: new L.DivIcon({
-					className: 'map-marker selected',
-					iconSize: [],
-					iconAnchor: this.options.markerOpts.iconAnchor
-				})
-			};
-
 			L.tileLayer(this.app.settings.mapTileURL || 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
 				this.app.settings.mapTileOptions || {
 				minZoom: 1,
@@ -66,12 +53,8 @@
 
 		getMarker: function(coords, rdev) {
 			return L.marker([coords[1], coords[0]], {
-				icon: this.getIcon(rdev)
+				icon: this._getIcon([this.getIconType(rdev)])
 			});
-		},
-
-		getIcon: function(rdev) {
-			return rdev.get('_selected') ? icons['selected'] : icons['default'];
 		},
 
 		removeOverlay: function(overlay) {
@@ -94,11 +77,27 @@
 			}
 		},
 
+		updateMarkerIcon: function(marker, iconType) {
+			marker.setIcon(this._getIcon(iconType));
+			marker.setZIndexOffset(iconType === 'selected' ? 1000 : 0);
+		},
+
+		_getIcon: function(type) {
+			if (!icons[type]) {
+				icons[type] = new L.DivIcon({
+					className: 'map-marker' + ' ' + type,
+					iconSize: [],
+					iconAnchor: this.options.markerOpts.iconAnchor
+				});
+			}
+			return icons[type];
+		},
+
 		initializeDrawing: function() {
 			if (!this.drawingHandlers) {
 				this.drawingHandlers = {
 					point: new L.Draw.Marker(this.lmap, {
-						icon: icons['default']
+						icon: this._getIcon('default')
 					}),
 					line: new L.Draw.Polyline(this.lmap)
 					// polygon: new L.Draw.Polygon(this.lmap)

@@ -64,16 +64,6 @@ O5.init = function(opts) {
 			event.navigateTo();
 		});
 
-		if (app.settings.enableEditing) {
-			app.editor = new O5.views.EventEditorView({app: app});
-			app.on('edit', function(event) {
-				app.editor.selectEvent(event);
-				app.layout.setLeftPane(app.editor);
-			});
-			var createButton = app.editor.renderCreateButton();
-			if (createButton) $el.find('.navbar .buttons').prepend(createButton);
-		}
-
 		// (this line results in fetching all the events)
 		app.filterManager.setFilters({});
 

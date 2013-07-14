@@ -1,9 +1,8 @@
 (function() {
-	O5.views = O5.views || {};
 
 	var fieldCounter = 1;
 
-	O5.views.EventEditorView = O5.views.BaseView.extend({
+	var EventEditorView = O5.views.BaseView.extend({
 
 		roadEvent: null,
 
@@ -101,15 +100,7 @@
 
 		renderCreateButton: function() {
 			var self = this;
-			self.app.editableJurisdictionSlugs = [];
-			_.each(self.app.settings.jurisdictions, function(jur) {
-				if (jur.editable) {
-					self.app.editableJurisdictionSlugs.push(jur.slug);
-				}
-			});
-			if (!self.app.editableJurisdictionSlugs.length) {
-				return null;
-			}
+
 			var $button = $(JST.create_event({ jurisdiction_slugs: self.app.editableJurisdictionSlugs }));
 			$button.on('click', function(e) {
 				e.preventDefault();
@@ -235,6 +226,45 @@
 			});
 			return fields;
 		}
+	});
+
+	O5.plugins.register(function(app) {
+		if (!app.settings.enableEditing) return;
+
+		app.editableJurisdictionSlugs = [];
+		_.each(app.settings.jurisdictions, function(jur) {
+			if (jur.editable) {
+				app.editableJurisdictionSlugs.push(jur.slug);
+			}
+		});
+
+		if (!app.editableJurisdictionSlugs.length) return;
+
+		var editor = new EventEditorView({app: app});
+
+		app.once('layout-render', function(opts) {
+			opts.$el.find('.navbar .buttons').prepend(editor.renderCreateButton());
+			opts.$el.find('.infopane').on('click', '.edit-event', function (e) {
+				e.preventDefault();
+				var event = app.events.get($(this).closest('.event-detail').attr('data-roadevent'));
+				if (event) {
+					editor.selectEvent(event);
+					app.layout.setLeftPane(editor);
+				}
+			});
+		});
+
+		var $editButton = $('<div class="footer container">' +
+			'<a href="#" class="button big primary edit-event" style="width: 100%"><span>' +
+			O5._t('Edit') + '</span></a></div>');
+
+		app.on('event-detail-render', function(opts) {
+			if (_.indexOf(app.editableJurisdictionSlugs, opts.roadEvent.jurisdictionSlug()) !== -1) {
+				opts.$el.append($editButton);
+			}
+		});
+
+
 	});
 
 })();

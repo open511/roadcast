@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-07-13 19:11-0500\n"
-"PO-Revision-Date: 2013-07-13 19:12-0500\n"
+"POT-Creation-Date: 2013-07-14 04:37-0500\n"
+"PO-Revision-Date: 2013-07-14 04:37-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -26,7 +26,7 @@ msgstr "Non publié"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:18
 #: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:7
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:194
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:186
 msgid "Roads"
 msgstr "Routes"
 
@@ -48,43 +48,32 @@ msgid "Details"
 msgstr "Détails"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:36
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:188
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:180
 msgid "Detour"
 msgstr "Détour"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:38
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:201
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:135
 msgid "Attachments"
 msgstr "Fichiers joints"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:47
-msgid "Edit"
-msgstr "Modifier"
-
 #: /Users/michael/proj/o5/ui/app/jst/event_list.html:5
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:118
-msgid "Headline"
-msgstr "Titre"
-
-#: /Users/michael/proj/o5/ui/app/jst/event_list.html:6
 #: /Users/michael/proj/o5/ui/app/js/filterset.js:31
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:154
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:146
 msgid "Severity"
 msgstr "Sévérité"
 
+#: /Users/michael/proj/o5/ui/app/jst/event_list.html:6
+msgid "Start"
+msgstr "Début"
+
 #: /Users/michael/proj/o5/ui/app/jst/event_list.html:7
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:175
-msgid "Start date"
-msgstr "Date de début"
+msgid "End"
+msgstr "Fin"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_list.html:8
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:182
-msgid "End date"
-msgstr "Date de fin"
-
-#: /Users/michael/proj/o5/ui/app/jst/event_list.html:9
 #: /Users/michael/proj/o5/ui/app/js/filterset.js:47
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:125
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:117
 msgid "Status"
 msgstr "État"
 
@@ -100,19 +89,11 @@ msgstr "Filtrer les événements"
 msgid "Update"
 msgstr "Appliquer"
 
-#: /Users/michael/proj/o5/ui/app/jst/main.html:11
-msgid "Map"
-msgstr "Carte"
-
-#: /Users/michael/proj/o5/ui/app/jst/main.html:12
-msgid "List"
-msgstr "Liste"
-
-#: /Users/michael/proj/o5/ui/app/jst/main.html:16
+#: /Users/michael/proj/o5/ui/app/jst/main.html:10
 msgid "Zoom in"
 msgstr "Zoom"
 
-#: /Users/michael/proj/o5/ui/app/jst/main.html:17
+#: /Users/michael/proj/o5/ui/app/jst/main.html:11
 msgid "Zoom out"
 msgstr "Dézoom"
 
@@ -187,12 +168,12 @@ msgid "Jurisdiction"
 msgstr "Juridiction"
 
 #: /Users/michael/proj/o5/ui/app/js/filterset.js:55
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:129
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:121
 msgid "Active"
 msgstr "Actif"
 
 #: /Users/michael/proj/o5/ui/app/js/filterset.js:56
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:130
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:122
 msgid "Archived"
 msgstr "Archivé"
 
@@ -228,49 +209,71 @@ msgstr "Cliquer sur le dernier point pour terminer la ligne."
 msgid "Release mouse to finish drawing."
 msgstr "Relacher la sourie pour terminer le dessin."
 
-#: /Users/michael/proj/o5/ui/app/js/map-leaflet.js:36
+#: /Users/michael/proj/o5/ui/app/js/map-leaflet.js:50
 msgid "Tiles courtesy of"
 msgstr ""
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:136
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:110
+msgid "Headline"
+msgstr "Titre"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:128
 msgid "Description"
 msgstr "Description"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:142
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:134
 msgid "Event type"
 msgstr "Type d'événement"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:146
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:138
 msgid "Planned road work"
 msgstr "Entrave planifiée (construction)"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:147
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:139
 msgid "Special event"
 msgstr "Événement spécial"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:148
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:140
 msgid "Incident (accident, unplanned roadwork...)"
 msgstr "Incident (accident, entrave non planifiée...)"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:158
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:150
 msgid "Minor"
 msgstr "Mineur"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:159
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:151
 msgid "Moderate"
 msgstr "Moyen"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:160
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:152
 msgid "Major"
 msgstr "Majeur"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:161
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:153
 msgid "Undefined"
 msgstr "Non défini"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:167
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:159
 msgid "Geography"
 msgstr "Géographie"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:167
+msgid "Start date"
+msgstr "Date de début"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:174
+msgid "End date"
+msgstr "Date de fin"
+
+#: /Users/michael/proj/o5/ui/app/js/views.js:16
+msgid "Welcome to Open511"
+msgstr ""
+
+#: /Users/michael/proj/o5/ui/app/js/views.js:17
+msgid ""
+"Open511 is the open standard for sharing road and construction data. Read "
+"more at <a href=\"http://www.open511.org/\">open511.org</a>."
+msgstr ""
 
 #: /Users/michael/proj/o5/ui/app/js/widgets.js:23
 msgid "This field is required"
@@ -288,20 +291,20 @@ msgstr ""
 "Plutôt que de supprimer un événement, il est préférable de le mettre à "
 "l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:12
-msgid "File upload not configured"
-msgstr "Téléversement (upload) de fichier non configuré"
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:251
+msgid "Edit"
+msgstr "Modifier"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:32
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:27
 msgid "Enter a new title"
 msgstr "Entrez un nouveau titre"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:79
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:85
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:74
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:80
 msgid "Error uploading file "
 msgstr "Erreur lors du téléversement (upload) du fichier"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:129
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:122
 msgid "Please try again when all files have finished uploading."
 msgstr ""
 "Merci d'essayer de nouveau lorsque tous les fichiers auront été téléversés."
@@ -331,6 +334,15 @@ msgstr "Maintenant"
 #: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:33
 msgid "Publish?"
 msgstr "Publier?"
+
+#~ msgid "Map"
+#~ msgstr "Carte"
+
+#~ msgid "List"
+#~ msgstr "Liste"
+
+#~ msgid "File upload not configured"
+#~ msgstr "Téléversement (upload) de fichier non configuré"
 
 #~ msgid "Close"
 #~ msgstr "Fermer"

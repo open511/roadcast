@@ -129,11 +129,7 @@
 				fs.forceRemove(event);
 			});
 		});
-		this.app.events.on('change', function(event) {
-			if (event.changed.hasOwnProperty('_visible') && _.keys(event.changed).length === 1) {
-				// The only change is to visibility; ignore
-				return;
-			}
+		this.app.events.on('change:except-internal', function(event) {
 			// If an event changes, test it against the active FilteredSet
 			// to see if it should still be visible.
 			var vis = self.activeSet.evaluateEvent(event, true);

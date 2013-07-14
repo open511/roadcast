@@ -20,7 +20,7 @@ except ImportError:
     Jurisdiction = None
 
 def main(request, event_slug=None):
-    enable_editing = request.user.is_authenticated()
+    enable_editing = settings.OPEN511_UI_ENABLE_EDITOR and request.user.is_authenticated()
 
     opts = {
         'rootURL': urlresolvers.reverse('o5ui_home'),
@@ -53,7 +53,14 @@ def main(request, event_slug=None):
                     j['editable'] = True
 
     gmaps = settings.OPEN511_UI_MAP_TYPE == 'google'
-    main_js = 'o5ui/js/open511-complete-' + ('googlemaps' if gmaps else 'leaflet') + ('.min' if not settings.DEBUG else '') + '.js'
+
+    js_files = ['open511-' + ('googlemaps' if gmaps else 'leaflet'), 'plugins/external-auth']
+    if enable_editing:
+        js_files.append('plugins/open511-editor')
+    js_files.extend(['plugins/' + p for p in settings.OPEN511_UI_PLUGINS])
+
+    ext = '.js' if settings.DEBUG else '.min.js'
+    js_files = ['o5ui/js/' + f + ext for f in js_files]
 
     if request.user.is_authenticated():
         opts['externalAuth'] = {
@@ -70,7 +77,7 @@ def main(request, event_slug=None):
         'opts': mark_safe(json.dumps(opts)),
         'enable_editing': enable_editing,
         'gmaps': gmaps,
-        'js_files': [main_js],  # FIXME load editor only if necessary
+        'js_files': js_files
     }
 
     return render(request, "o5ui/main.html", ctx)

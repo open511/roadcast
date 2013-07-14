@@ -10,27 +10,22 @@
 				this.roadEvent.off('change', this.render, this);
 			}
 			this.roadEvent = event;
-			this.roadEvent.on('change', this.render, this);
+			event.on('change:except-internal', this.render, this);
+			this.$el.attr('data-roadevent', event.id);
 			this.render();
-		},
-
-		initialize: function() {
-			O5.views.BaseView.prototype.initialize.call(this);
-			var self = this;
-			this.$el.on('click', '.edit-event', function(e) {
-				e.preventDefault();
-				self.roadEvent.edit();
-			});
 		},
 
 		render: function() {
 			if (this.roadEvent === null) return;
 			this.$el.html(
 				JST.event_info({
-					r: this.roadEvent.attributes,
-					editable: this.roadEvent.canEdit()
+					r: this.roadEvent.attributes
 				})
 			);
+			this.app.trigger('event-detail-render', {
+				roadEvent: this.roadEvent,
+				$el: this.$el
+			});
 			this.app.layout.drawLeftPane();
 		}
 	});
