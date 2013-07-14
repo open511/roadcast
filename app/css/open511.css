@@ -68,6 +68,24 @@ body.open511 {
 	background-color: #6DACB2;
 	color: white;
 }
+.o5 .emphasized-note {
+	margin: 5px 0;
+	padding: 8px 10px;
+	border-radius: 4px;
+	display: block;
+	border-style: solid;
+	border-width: 1px;
+}
+.o5 .emphasized-note.error {
+	background-color: #f7e4e4;
+	color: #7a3434;
+	border-color: #eed3d7;
+}
+.o5 .emphasized-note.warning {
+	background-color: #fcf8e3;
+	border-color: #fbeed5;
+	color: #A57F49;
+}
 
 .o5 .navbar {
 	position: relative;

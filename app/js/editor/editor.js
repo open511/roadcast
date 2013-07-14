@@ -173,7 +173,7 @@
 			}
 			else {
 				$control.addClass('error');
-				var $msg = $('<span class="validation-error" />');
+				var $msg = $('<span class="emphasized-note error validation-error" />');
 				$msg.text(fieldValid);
 				$control.append($msg);
 				return false;
