@@ -1,5 +1,5 @@
 (function() {
-	var BaseMap = O5.views.BaseView.extend({
+	O5.views.BaseMapView = O5.views.BaseView.extend({
 
 		name: "map",
 
@@ -122,5 +122,4 @@
 
 	});
 
-	O5.views.BaseMapView = BaseMap;
 })();

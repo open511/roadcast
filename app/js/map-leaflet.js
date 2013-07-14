@@ -62,6 +62,9 @@
 			});
 			lmap.addLayer(this.clusterLayer);
 
+			this.highlightLayer = new L.LayerGroup();
+			lmap.addLayer(this.highlightLayer);
+
 			// window.lmap = this.lmap;
 		},
 
@@ -78,7 +81,7 @@
 		},
 
 		removeOverlay: function(overlay) {
-			this.lmap.removeLayer(overlay);
+			this.clusterLayer.removeLayer(overlay);
 		},
 
 		addOverlay: function(overlay, events) {
@@ -99,8 +102,19 @@
 		},
 
 		updateMarkerIcon: function(marker, iconType) {
-			marker.setIcon(this._getIcon(iconType));
+			var icon = this._getIcon(iconType);
+			marker.setIcon(icon);
 			marker.setZIndexOffset(iconType === 'selected' ? 1000 : 0);
+			if (iconType === 'selected' && !marker._highlightMarker) {
+				marker._highlightMarker = new L.Marker(marker.getLatLng(), {
+					icon: icon
+				});
+				this.highlightLayer.addLayer(marker._highlightMarker);
+			}
+			else if (iconType !== 'selected' && marker._highlightMarker) {
+				this.highlightLayer.removeLayer(marker._highlightMarker);
+				delete marker._highlightMarker;
+			}
 		},
 
 		_getIcon: function(type) {
