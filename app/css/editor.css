@@ -54,6 +54,10 @@
   box-sizing: border-box;
   width: 100%;
   resize: none;
+  display: block;
+}
+.editor .field input.inline, .editor .field textarea.inline, .editor .field select.inline {
+  display: inline-block;
 }
 .editor .field input[type=text] {
     height: 28px;
