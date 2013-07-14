@@ -44,11 +44,6 @@ module.exports = function(grunt) {
 						'app/vendor/jquery.js',
 						'app/vendor/lodash.js',
 						'app/vendor/backbone.js',
-						'app/vendor/bootstrap/js/bootstrap-alert.js',
-						'app/vendor/bootstrap/js/bootstrap-transition.js',
-						'app/vendor/bootstrap/js/bootstrap-dropdown.js',
-						'app/vendor/bootstrap/js/bootstrap-button.js',
-						'app/vendor/bootstrap/js/bootstrap-modal.js',
 						'app/vendor/moment.js'
 					],
 
