@@ -75,6 +75,40 @@
   display: inline;
 }
 
+.editor .field.error .checkbox,
+.editor .field.error .radio,
+.editor .field.error input,
+.editor .field.error select,
+.editor .field.error textarea {
+  color: #b94a48;
+}
+
+.editor .field.error input,
+.editor .field.error select,
+.editor .field.error textarea {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.editor .field.error input:focus,
+.editor .field.error select:focus,
+.editor .field.error textarea:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+.editor .validation-error {
+  display: block;
+  background-color: #f7e4e4;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  color: #7a3434;
+}
+
 /* ROAD WIDGET */
 
 .editor .road-edit-widget .road-fields {

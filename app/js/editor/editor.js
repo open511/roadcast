@@ -46,7 +46,8 @@
 				if (invalidWidgets.length > 0) {
 					return O5.utils.notify(
 						O5._t("Validation error. Please verify: ") +
-						_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', ')
+						_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', '),
+						'error'
 					);
 				}
 				self.updateEvent({
@@ -164,7 +165,7 @@
 
 		validateWidget: function(widget) {
 			var fieldValid = widget.validate();
-			var $control = widget.$el.closest('.control-group');
+			var $control = widget.$el.closest('.field');
 			$control.find('.validation-error').remove();
 			if (fieldValid === true) {
 				$control.removeClass('error');
@@ -172,7 +173,7 @@
 			}
 			else {
 				$control.addClass('error');
-				var $msg = $('<span class="help-inline validation-error" />');
+				var $msg = $('<span class="validation-error" />');
 				$msg.text(fieldValid);
 				$control.append($msg);
 				return false;

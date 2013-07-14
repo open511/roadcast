@@ -287,14 +287,33 @@ body.open511 {
 /* NOTIFICATIONS */
 #o5notifications {
 	position: absolute;
-	z-index: 10;
-	top: 20px;
-	left: 350px;
+	z-index: 3000;
+	top: 0;
+	width: 100%;
 }
-#o5notifications .alert {
-	width: 600px;
-/*	margin-left: auto;
-	margin-right: auto;*/
+.o5notification {
+	width: 100%;
+	padding: 10px 0;
+	text-align: center;
+}
+.o5notification.warning{background-color:#fcf8e3;border-bottom:1px solid #fbeed5;}
+.o5notification.success{background-color:#dff0d8;border-bottom:1px solid #d6e9c6;}
+.o5notification.error{background-color:#f2dede;border-bottom:1px solid #eed3d7}
+.o5notification.information{background-color:#d9edf7;border-bottom:1px solid #bce8f1;}
+.o5notification .close {
+	float:right;
+	color:#000;
+	font-size:20px;
+	font-weight:bold;
+	line-height:0.75;
+	text-shadow:0 1px 0 rgba(255,255,255,1);
+	opacity:0.25;
+	margin-right: 20px;
+}
+.o5notification .close:hover{
+	color:#000;
+	text-decoration:none;
+	opacity:0.4;
 }
 
 /* LIST VIEW */
@@ -369,6 +388,9 @@ body.open511 {
 }
 .o5 .roadevent-list tbody > tr {
 	cursor: pointer;
+}
+.o5 .roadevent-list tr:nth-child(odd) td {
+	background-color: #f1f1f1;
 }
 .o5 .roadevent-list tbody > tr:hover td {
 	background-color: #e0ebed;

@@ -105,11 +105,13 @@
 		date: BaseWidget.extend({
 			tagName: 'input',
 			initialize: function() {
+				var self = this;
 				this.$el.attr('type', 'text');
 				this.$el.datepicker({
 					format: 'yyyy-mm-dd'
 				}).on('changeDate', function(e) {
 					$(this).datepicker('hide');
+					self.trigger('change');
 				});
 			},
 			setVal: function(val) {
