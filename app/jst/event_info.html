@@ -37,7 +37,7 @@
 <% if (r.attachments && r.attachments.length) { %>
 	<h4><%- O5._t('Attachments') %></h4>
 	<ul><% _.each(r.attachments, function(attachment) { %>
-		<li><a href="<%= attachment.url %>" target="_blank"><%- attachment.title ? attachment.title : attachment.url.split('/').pop() %></a></li>
+		<li><a href="<%= attachment.url %>" target="_blank"><%- attachment.title ? attachment.title : attachment.url.split('/').pop().replace(/%20/g, ' ') %></a></li>
 		<% }); %>
 	</ul>
 <% } %>

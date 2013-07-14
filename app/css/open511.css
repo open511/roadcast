@@ -97,7 +97,7 @@ body.open511 {
 .o5 .navbar .auth {
 	position: absolute;
 	right: 20px;
-	top: 10px;
+	top: 12px;
 }
 .o5 .navbar .auth a {
 	padding-left: 5px;
@@ -127,6 +127,9 @@ body.open511 {
 	z-index: 5;
 	position: relative;
 	background-color: white;
+	border-right: 1px solid #CCCCCC;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 .o5 .infopane .container {
 	padding-left: 24px;
@@ -181,26 +184,18 @@ body.open511 {
 	position: absolute;
 	z-index: 10;
 }
-.o5 .mainpane .mainpane-buttons {
-	top: 12px;
-	right: 20px;
-}
 .o5 .mainpane-zoom {
 	left: 13px;
 	top: 12px;
-	box-shadow: 0 0 8px rgba(0,0,0,0.4);
+	/*box-shadow: 0 0 8px rgba(0,0,0,0.4);*/
 	border: 1px solid #888;
-	-webkit-border-radius: 5px;
-	        border-radius: 5px;
-	visibility: hidden;
-}
-.o5 .map-active .mainpane-zoom {
-	visibility: visible;
+	border-radius: 5px;
+    border-radius: 5px;
 }
 .o5 .mainpane-zoom a {
 	width: 22px;
 	height: 22px;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.9);
 	text-align: center;
 	text-decoration: none;
 	color: black;
@@ -215,13 +210,11 @@ body.open511 {
 .o5 .mainpane-zoom-in {
 	border-bottom: 1px solid #aaa;
 	font: bold 18px/24px Arial, Helvetica, sans-serif;
-	-webkit-border-radius: 5px 5px 0 0;
-	        border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 .o5 .mainpane-zoom-out {
 	font: bold 23px/20px Tahoma, Verdana, sans-serif;
-	-webkit-border-radius: 0 0 5px 5px;
-	        border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
 }
 .o5 .mainpane-zoom a.disabled {
 	cursor: default;
@@ -233,6 +226,10 @@ body.open511 {
 	background-image: url(../img/marker-triangle-orange.png);
 	width: 29px;
 	height: 27px;
+	/*opacity: 0.8;*/
+}
+.o5 .map-marker.selected {
+	/*opacity: 1.0;*/
 }
 
 .o5 .mainpane-filter {
@@ -268,11 +265,88 @@ body.open511 {
 	margin-right: auto;*/
 }
 
+/* LIST VIEW */
+.o5 .roadevent-list-container {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	z-index: 1000;
+}
+.o5 .roadevent-list-toggle {
+	position: absolute;
+	right: 0;
+	top: -30px;
+	width: 30px;
+	height: 30px;
+	background-color: #2D3134;
+	border-top-left-radius: 7px;
+}
+.o5 .roadevent-list-container .roadevent-list-toggle .glyph {
+	display: block;
+	position: absolute;
+	top: 10px;
+	left: 8px;
+	width: 16px;
+	height: 13px;
+	background-repeat: no-repeat;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAANCAYAAACgu+4kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDQzVEQUU1RkUzMTUxMUUyQjZBN0Q0NjUzM0VENUIzRSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDQzVEQUU2MEUzMTUxMUUyQjZBN0Q0NjUzM0VENUIzRSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQwQjAzMzQ0RTFFMTExRTJCNkE3RDQ2NTMzRUQ1QjNFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkNDNURBRTVFRTMxNTExRTJCNkE3RDQ2NTMzRUQ1QjNFIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+sna0JQAAADZJREFUeNpi/Pjx438GCgATA4WABYgbGQYSMALDwIFSAwY+EB0HPBAbhnYgMv7/T5EDGAACDAAyvhWwM5kouwAAAABJRU5ErkJggg==);
+}
+.o5 .roadevent-list-container.visible .roadevent-list-toggle .glyph {
+	width: 10px;
+	height: 9px;
+	left: 11px;
+	top: 12px;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAYAAAALpr0TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDQzVEQUU2N0UzMTUxMUUyQjZBN0Q0NjUzM0VENUIzRSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDQzVEQUU2OEUzMTUxMUUyQjZBN0Q0NjUzM0VENUIzRSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkNDNURBRTY1RTMxNTExRTJCNkE3RDQ2NTMzRUQ1QjNFIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkNDNURBRTY2RTMxNTExRTJCNkE3RDQ2NTMzRUQ1QjNFIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+rZhJgQAAAINJREFUeNpi+PjxYwIQvwfRDGgAKvcfRDOCFAHFBKByifz8/AtgioDUfKj4B5BCA6iAAVRwAZSG2fAAiAMZobpBJu5HUgwDF4DYEWjLB0Yk9ygAqftoChWBikAmMjAhmbieAROsh8oxEONGkPWJDNCg+Q/FBViC5j84ZJDDCl84AgQYAFDEbgYvo0HkAAAAAElFTkSuQmCC);
+}
+.o5 .roadevent-list .resize-handle {
+	position: absolute;
+	width: 100%;
+	height: 10px;
+	cursor: ns-resize;
+	top: -2px;
+}
 .o5 .roadevent-list {
+	clear: both;
 	overflow: auto;
-	height: 100%;
+	background-color: #F6F6F6;
+	border-top: 2px solid #AAAAAA;	
 }
 .o5 .roadevent-list table {
-	margin: 60px 10px 50px 40px;
-	width: auto;
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.o5 .roadevent-list td, .o5 .roadevent-list th {
+	border: 1px solid #e6e6e6;
+	padding: 9px;
+	text-align: center;
+	max-width: 50%;
+	min-width: 70px;
+}
+.o5 .roadevent-list td:first-child {
+	text-align: left;
+	color: #75B7C1;
+}
+.o5 .roadevent-list th {
+	font-family: "Montserrat", sans-serif;
+	color: #999999;
+	text-transform: uppercase;
+	font-weight: normal;
+	font-size: 12px;
+}
+.o5 .roadevent-list tbody > tr {
+	cursor: pointer;
+}
+.o5 .roadevent-list tbody > tr:hover td {
+	background-color: #e0ebed;
+}
+.o5 .roadevent-list tr.selected td, .o5 .roadevent-list tr.selected:hover td {
+	background-color: #75B7C1;
+	color: white;
+}
+.o5 .roadevent-list td:first-child, .o5 .roadevent-list th:first-child {
+	border-left: none;
+}
+.o5 .roadevent-list td:last-child, .o5 .roadevent-list th:last-child {
+	border-right: none;
 }

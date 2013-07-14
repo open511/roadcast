@@ -37,11 +37,11 @@
   height: 35px;
   padding-top: 13px;
 }
-.editor .tabs li.active a {
+.editor .tabs li.active a, .editor .tabs li.active a:hover {
   background-color: white;
   color: #333333;
 }
-.editor .tabs li:not(.active) a:hover {
+.editor .tabs li a:hover {
   background-color: #6DACB2;
   color: white;
 }
@@ -53,8 +53,10 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
-  height: 28px;
   resize: none;
+}
+.editor .field input[type=text] {
+    height: 28px;
 }
 .editor .field input[type=checkbox] {
   width: auto;

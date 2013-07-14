@@ -108,6 +108,8 @@
 				this.$el.attr('type', 'text');
 				this.$el.datepicker({
 					format: 'yyyy-mm-dd'
+				}).on('changeDate', function(e) {
+					$(this).datepicker('hide');
 				});
 			},
 			setVal: function(val) {

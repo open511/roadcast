@@ -3,6 +3,7 @@
 	var DEFAULT_LEFT_PANE_WIDTH = 360;
 
 	var Layout = function($target, app, opts) {
+		this.app = app;
 		this.$el = $(JST.main());
 		$target.prepend(this.$el);
 		opts = opts || {};
@@ -20,10 +21,12 @@
 
 		this.$info = this.$el.find('.infopane');
 		this.$main = this.$el.find('.mainpane');
+		this.$map = this.$el.find('.mappane');
+		this.$listContainer = this.$el.find('.roadevent-list-container');
 		this.setLeftPane(opts.defaultLeftPaneView, {animate: false});
 
 		// PLUGIN HOOK
-		app.trigger('render-layout', {
+		app.trigger('layout-render', {
 			'$el': this.$el,
 			'layout': this
 		});
@@ -34,9 +37,11 @@
 		draw: function() {
 			var leftOffset = this.$info.outerWidth();
 			var paneHeight = this.height - this.topOffset;
-			this.$el.find('.mainpane').height(paneHeight);
+			this.$main.height(paneHeight);
 			this.$main.width(this.width - leftOffset).css({left: leftOffset, top: this.topOffset});
+			this.$map.height(paneHeight - this.$listContainer.outerHeight());
 			this.drawLeftPane();
+			this.app.trigger('layout-draw');
 		},
 
 		drawLeftPane: function() {
@@ -57,10 +62,9 @@
 			}, opts || {});
 			var $pane = this.$info;
 			$pane.children().detach();
-			var newWidth = 0;
 			if (!view) view = this.defaultLeftPaneView;
 			$pane.append(view.el);
-			newWidth = view.width || DEFAULT_LEFT_PANE_WIDTH;
+			var newWidth = view.width || DEFAULT_LEFT_PANE_WIDTH;
 			if (newWidth != $pane.width()) {
 				var self = this;
 				if (opts.animate) {
@@ -72,42 +76,16 @@
 				}
 			}
 			else {
-				this.draw();
+				this.drawLeftPane();
 			}
 		},
 
-		addMainView: function(view) {
-			this.mainViews.push(view);
-			view.$el.hide();
-			this.$main.append(view.el);
-		},
-
-		setMainView: function(view) {
-			if (!_.contains(this.mainViews, view)) {
-				throw new Error("view not in mainViews");
-			}
-			_.each(this.mainViews, function(v) {
-				if (v === view) {
-					v.$el.show();
-				}
-				else {
-					v.$el.hide();
-				}
-				if (v.setViewVisibility) {
-					v.setViewVisibility(v === view);
-				}
-			});
-			var self = this;
-			_.each(this.$main.attr('class').split(' '), function(cls) {
-				if (/-active$/.test(cls)) {
-					self.$main.removeClass(cls);
-				}
-			});
-			if (view.name) {
-				this.$main.addClass(view.name + '-active');
-			}
-			this.draw();
+		setListHeight: function(newHeight) {
+			console.log(newHeight);
+			this.$list.height(newHeight);
+			this.$map.height(this.$main.height() - this.$list.outerHeight());
 		}
+
 
 	});
 

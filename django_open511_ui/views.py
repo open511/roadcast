@@ -55,22 +55,22 @@ def main(request, event_slug=None):
     gmaps = settings.OPEN511_UI_MAP_TYPE == 'google'
     main_js = 'o5ui/js/open511-complete-' + ('googlemaps' if gmaps else 'leaflet') + ('.min' if not settings.DEBUG else '') + '.js'
 
-    if settings.OPEN511_UI_SHOW_LOGIN_BUTTON:
+    if request.user.is_authenticated():
+        opts['externalAuth'] = {
+            'logoutURL': urlresolvers.reverse('logout'),
+            'currentUser': (request.user.get_full_name()
+                if request.user.get_full_name() else request.user.username)
+        }
+    elif settings.OPEN511_UI_SHOW_LOGIN_BUTTON:
         opts['externalAuth'] = {
             'loginURL': urlresolvers.reverse('login'),
-            'logoutURL': urlresolvers.reverse('logout'),
         }
-        if request.user.is_authenticated():
-            opts['externalAuth']['currentUser'] = (request.user.get_full_name()
-                if request.user.get_full_name() else request.user.username)
 
     ctx = {
         'opts': mark_safe(json.dumps(opts)),
         'enable_editing': enable_editing,
         'gmaps': gmaps,
         'js_files': [main_js],  # FIXME load editor only if necessary
-        'header_title': settings.OPEN511_UI_HEADER_TITLE,
-        'show_auth_buttons': settings.OPEN511_UI_SHOW_LOGIN_BUTTON,
     }
 
     return render(request, "o5ui/main.html", ctx)

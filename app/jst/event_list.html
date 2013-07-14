@@ -1,18 +1,18 @@
 <% if (events) { %>
-	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
-				<th><%- O5._t('Headline') %></th>
+				<th></th>
 				<th><%- O5._t('Severity') %></th>
-				<th><%- O5._t('Start date') %></th>
-				<th><%- O5._t('End date') %></th>
+				<th><%- O5._t('Start') %></th>
+				<th><%- O5._t('End') %></th>
 				<th><%- O5._t('Status') %></th>
 			</tr>
 		</thead>
 		<tbody>
-		<% _.each(events, function(rdev) { %>
-			<tr <% if (rdev.get('_selected')) { print('class="success"'); } %>>
-				<td><a href="<%- rdev.get('url') %>" data-roadevent="<%- rdev.id %>" class="select-event"><%- rdev.get('headline') %></a></td>
+		<% _.each(events, function(rdev) { 
+			if (!rdev.id) return; %>
+			<tr data-roadevent="<%- rdev.id %>" <% if (rdev.get('_selected')) { print('class="selected"'); } %>>
+				<td><%- rdev.get('headline') %></td>
 				<td><%- rdev.getEnum('severity') %></td>
 				<td><%- rdev.get('schedule').start_date %></td>
 				<td><%- rdev.get('schedule').end_date %></td>
@@ -20,5 +20,4 @@
 			</tr>
 		<% }); %>
 		</tbody>
-	</table> 
 <% } %>

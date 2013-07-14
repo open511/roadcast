@@ -1,11 +1,12 @@
 (function() {
-	var BaseMap = Backbone.View.extend({
+	var BaseMap = O5.views.BaseView.extend({
 
 		name: "map",
 
+		className: 'map-view',
+
 		initialize: function() {
-			this.app = this.options.app;
-			delete this.options['app'];
+			O5.views.BaseView.prototype.initialize.call(this);
 			_.defaults(this.options, {
 				startLat: this.app.settings.mapStartLat || 45.532411,
 				startLng: this.app.settings.mapStartLng || -73.61512,
@@ -29,28 +30,40 @@
 				e.preventDefault();
 				self.zoom(-1);
 			});
+
+			this.app.on('selection', function(roadEvent, opts) {
+				if (opts.panTo && roadEvent.mapOverlays && roadEvent.mapOverlays.length) {
+					self.panToMarker(roadEvent.mapOverlays[0]);
+				}
+			});
+
+			this.app.events.on('add change:geography', this.updateRoadEvent, this)
+				.on('remove', this.removeRoadEventOverlays, this)
+				.on('change:_visible', this.updateRoadEventVisibility, this)
+				.on('change:_selected', this.updateRoadEventIcon, this);
+
 		},
 
 		/**
 		* Returns an array of overlays to add to the map based on the provided GeoJSON object. 
 		*/
-		getOverlaysFromGeoJSON: function(gj) {
+		getOverlaysFromGeoJSON: function(gj, rdev) {
 			var coords = gj['coordinates']
 			switch (gj.type) {
 				case 'Point':
-					return [this.getMarker(coords)];
+					return [this.getMarker(coords, rdev)];
 				case 'LineString':
 					// First, the polyline
 					var line = this.geoJSONToVector(gj);
 					
 					// And then a marker at the middle
-					var marker = this.getMarker(coords[Math.floor(coords.length/2)]);
+					var marker = this.getMarker(coords[Math.floor(coords.length/2)], rdev);
 					
-					return [line, marker];
+					return [marker, line];
 				case 'Polygon':
 					var gon = this.geoJSONToVector(gj);
-					var marker = this.getMarker(coords[0]);
-					return [gon, marker];
+					var marker = this.getMarker(coords[0], rdev);
+					return [marker, line];
 				default:
 					alert("Invalid geometry type: " + gj.type);
 			}
@@ -61,7 +74,7 @@
 			this.removeRoadEventOverlays(rdev);
 			var geom = rdev.get('geography');
 			if (geom) {
-				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom);
+				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom, rdev);
 				_.each(rdev.mapOverlays, function(overlay) {
 					self.addOverlay(overlay, {
 						click: function() { rdev.select(); }
@@ -91,11 +104,10 @@
 			});
 		},
 
-		addRoadEvent: function(rdev) {
-			rdev.on('change:geography', this.updateRoadEvent, this);
-			rdev.on('change:_visible', this.updateRoadEventVisibility, this);
-			rdev.on('destroy', this.removeRoadEventOverlays, this);
-			this.updateRoadEvent(rdev);
+		updateRoadEventIcon: function(rdev) {
+			if (rdev.mapOverlays && rdev.mapOverlays.length) {
+				rdev.mapOverlays[0].setIcon(this.getIcon(rdev));
+			}
 		}
 
 	});

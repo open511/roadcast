@@ -433,8 +433,6 @@
 					if (isActive) {
 						// Only fetch more if this FilteredSet is still active
 						var next_url = resp.pagination.next_url;
-						console.log(next_url);
-						console.log(opts.url);
 						if (/^https?:/.test(opts.url) && next_url.substr(0, 1) === '/') {
 							// The server is giving us a relative URL, but our original request
 							// was to a fully-qualified URL; join the two.

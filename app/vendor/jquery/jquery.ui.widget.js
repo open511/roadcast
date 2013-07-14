@@ -1,6 +1,6 @@
-/*
- * jQuery UI Widget 1.10.3+amd
- * https://github.com/blueimp/jQuery-File-Upload
+/*!
+ * jQuery UI Widget 1.10.3
+ * http://jqueryui.com
  *
  * Copyright 2013 jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -8,15 +8,7 @@
  *
  * http://api.jqueryui.com/jQuery.widget/
  */
-
-(function (factory) {
-    if (typeof define === "function" && define.amd) {
-        define('jquery.ui.widget', ["jquery"], factory);
-    } else {
-        // Browser globals:
-        factory(jQuery);
-    }
-}(function( $, undefined ) {
+(function( $, undefined ) {
 
 var uuid = 0,
 	slice = Array.prototype.slice,
@@ -526,4 +518,4 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 	};
 });
 
-}));
+})( jQuery );

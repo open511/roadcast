@@ -24,7 +24,6 @@ O5.init = function(opts) {
 		O5.plugins.init(app);
 
 		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector), app);
-		app.layout.draw();
 		var $el = app.layout.$el;
 
 		var $window = $(window);
@@ -35,17 +34,17 @@ O5.init = function(opts) {
 			});
 		});
 
-		var events = new O5.RoadEvents();
-		app.events = events;
+		app.events = new O5.RoadEvents();
 
 		app.detailViewer = new O5.views.EventDetailView({app: app});
-		app.map = new O5.views.MapView({app: app});
-		app.listview = new O5.views.ListView({app: app});
-
-		app.layout.addMainView(app.map);
-		app.layout.addMainView(app.listview);
-
-		app.layout.setMainView(app.map);
+		app.map = new O5.views.MapView({
+			app: app,
+			el: app.layout.$map[0]
+		});
+		app.listview = new O5.views.ListView({
+			app: app,
+			el: app.layout.$listContainer[0]
+		});
 
 		app.map.render();
 		app.listview.render();
@@ -54,27 +53,9 @@ O5.init = function(opts) {
 		$el.find('.navbar .buttons').append(filterWidget.el);
 		filterWidget.render();
 
-		$('.mainpane-selector').on('click', 'button', function(e) {
-			e.preventDefault();
-			var view, $this = $(e.target);
-			if ($this.hasClass('map-selector')) {
-				view = app.map;
-			}
-			else if ($this.hasClass('list-selector')) {
-				view = app.listview;
-			}
-			else { return; }
-			app.layout.setMainView(view);
-			$('.mainpane-selector button.active').removeClass('active');
-			$this.addClass('active');
-		});
 
 		app.filterManager = new O5.prototypes.FilterManager({
 			app: app
-		});
-
-		events.on('add', function(event, collection, options) {
-			app.map.addRoadEvent(event);
 		});
 
 		app.on('selection', function(event) {

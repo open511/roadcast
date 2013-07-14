@@ -16,7 +16,6 @@ from appconf import AppConf
 
 class Open511UISettings(AppConf):
     API_URL = urlresolvers.reverse_lazy('open511_discovery')
-    HEADER_TITLE = 'Development preview'
 
     REQUIRE_LOGIN = False
     SHOW_LOGIN_BUTTON = False

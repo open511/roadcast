@@ -1,5 +1,7 @@
 (function() {
 
+	var icons = {};
+
 	var Map = O5.views.BaseMapView.extend({
 
 		initialize: function() {
@@ -16,17 +18,29 @@
 			var mapOptions = {
 				center: [this.options.startLat, this.options.startLng],
 				zoom: this.options.startZoom,
-				zoomControl: false
+				zoomControl: false,
+				attributionControl: false
 			};
-			this.lmap = L.map(this.el, mapOptions);
+			var lmap = L.map(this.el, mapOptions);
+			this.lmap = lmap;
 
-			this.lmap.attributionControl.setPrefix(''); // remove "Powered by Leaflet"
+			L.control.attribution({
+				position: 'bottomleft',
+				prefix: ''
+			}).addTo(lmap);
 
-			this.markerIcon = new L.DivIcon({
-				className: 'map-marker',
-				iconSize: [],
-				iconAnchor: this.options.markerOpts.iconAnchor
-			});
+			icons = {
+				'default': new L.DivIcon({
+					className: 'map-marker',
+					iconSize: [],
+					iconAnchor: this.options.markerOpts.iconAnchor
+				}),
+				selected: new L.DivIcon({
+					className: 'map-marker selected',
+					iconSize: [],
+					iconAnchor: this.options.markerOpts.iconAnchor
+				})
+			};
 
 			L.tileLayer(this.app.settings.mapTileURL || 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
 				this.app.settings.mapTileOptions || {
@@ -34,8 +48,12 @@
 				maxZoom: 19,
 				subdomains: '1234',
 				attribution: O5._t('Tiles courtesy of') + ' <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>',
-				opacity: 0.6
-			}).addTo(this.lmap);
+				opacity: 0.5
+			}).addTo(lmap);
+
+			this.app.on('layout-draw', function() {
+				lmap._onResize(); // I can't see a way to do this without using a private method
+			});
 
 			// window.lmap = this.lmap;
 		},
@@ -46,10 +64,14 @@
 			return layer;
 		},
 
-		getMarker: function(coords) {
+		getMarker: function(coords, rdev) {
 			return L.marker([coords[1], coords[0]], {
-				icon: this.markerIcon
+				icon: this.getIcon(rdev)
 			});
+		},
+
+		getIcon: function(rdev) {
+			return rdev.get('_selected') ? icons['selected'] : icons['default'];
 		},
 
 		removeOverlay: function(overlay) {
@@ -76,7 +98,7 @@
 			if (!this.drawingHandlers) {
 				this.drawingHandlers = {
 					point: new L.Draw.Marker(this.lmap, {
-						icon: this.markerIcon
+						icon: icons['default']
 					}),
 					line: new L.Draw.Polyline(this.lmap)
 					// polygon: new L.Draw.Polygon(this.lmap)
@@ -85,7 +107,11 @@
 				var self = this;
 
 				this.lmap.on('draw:created', function(e) {
-					self.trigger('draw', e.layer.toGeoJSON());
+					var gj = e.layer.toGeoJSON();
+					if (gj.type === "Feature") {
+						gj = gj.geometry;
+					}
+					self.trigger('draw', gj);
 				});
 
 			}
@@ -110,6 +136,10 @@
 
 		zoom: function(delta) {
 			this.lmap.setZoom(this.lmap.getZoom() + delta);
+		},
+
+		panToMarker: function(marker) {
+			this.lmap.panTo(marker.getLatLng());
 		}
 
 	});

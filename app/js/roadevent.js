@@ -10,13 +10,13 @@
 			}
 		},
 
-		select: function() {
+		select: function(opts) {
 			var self = this;
 			_.each(this.collection.where({'_selected': true}), function(rdev) {
 				if (rdev !== self) rdev.set('_selected', false);
 			});
 			this.set('_selected', true);
-			O5.app.trigger('selection', this);
+			O5.app.trigger('selection', this, opts || {});
 		},
 
 		edit: function() {

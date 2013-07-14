@@ -37,6 +37,7 @@
 				e.preventDefault();
 				if (!self.roadEvent.id) {
 					// Never saved, we shouldn't display it
+					O5.app.events.remove(self.roadEvent);
 					return O5.app.layout.setLeftPane(null);
 				}
 				self.roadEvent.select();

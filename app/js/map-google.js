@@ -14,7 +14,7 @@
 				streetViewControl: false,
 				overviewMapControl: false,
 				zoomControlOptions: {
-					 style: google.maps.ZoomControlStyle.SMALL
+					style: google.maps.ZoomControlStyle.SMALL
 				}
 
 			};
@@ -125,6 +125,11 @@
 
 		zoom: function(delta) {
 			this.gmap.setZoom(this.gmap.getZoom() + delta);
+		},
+
+		panToMarker: function(marker) {
+			alert('not yet supported in google');
+			// FIXME
 		}
 
 	});
