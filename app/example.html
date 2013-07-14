@@ -7,7 +7,7 @@
     	<link rel="stylesheet" href="css/open511-ie.css">
 	<![endif]-->
 </head>
-<body>
+<body class="open511">
 	<div id="main"></div>
 
 
@@ -18,11 +18,14 @@
 	<script src="js/open511-complete-googlemaps.min.js"></script>
 
 	To change the interface to French, use:
-	<script src="locale/fr.js"></script>
+	<script src="locale/fr.min.js"></script>
 
 	-->
 	
-	<script src="js/open511-complete-leaflet.js"></script>
+	<script src="js/open511-leaflet.min.js"></script>
+
+	<!-- Load any Open511 plugins here -->
+	<script src="js/plugins/open511-editor.min.js"></script>
 
 	<script>
 	$(function() { // Hook into jQuery's document-ready event

@@ -55,7 +55,8 @@ module.exports = function(grunt) {
 					'<%=dest%>/js/dependencies-leaflet.js': [
 						'<%=dest%>/js/dependencies.js',
 						'app/vendor/leaflet/leaflet.js',
-						'app/js/leaflet.draw.js'
+						'app/js/leaflet.draw.js',
+						'app/vendor/leaflet/leaflet.markercluster.js'
 					],
 
 					'<%=dest%>/locale/fr.js': [
@@ -67,7 +68,8 @@ module.exports = function(grunt) {
 					'<%=dest%>/css/main.css': [
 						'app/css/formfields.css',
 						'app/css/datepicker-custom.css',
-						'app/css/open511.css'
+						'app/css/open511.css',
+						'app/css/markers.css'
 					],
 					'<%=dest%>/css/editor.css': ['app/css/editor.css'],
 					'<%=dest%>/css/libs.css': [
@@ -75,7 +77,8 @@ module.exports = function(grunt) {
 					],
 					'<%=dest%>/css/leaflet.css': [
 						'app/vendor/leaflet/leaflet.css',
-						'app/vendor/leaflet/leaflet.draw.css'
+						'app/vendor/leaflet/leaflet.draw.css',
+						'app/vendor/leaflet/leaflet.markercluster.css'
 					],
 
 					'<%=dest%>/js/open511-leaflet.js': [

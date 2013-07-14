@@ -42,6 +42,26 @@
 				lmap._onResize(); // I can't see a way to do this without using a private method
 			});
 
+			this.clusterLayer = new L.MarkerClusterGroup({
+				showCoverageOnHover: false,
+				maxClusterRadius: 50,
+				iconCreateFunction: function (cluster) {
+					var childCount = cluster.getChildCount();
+
+					// var c = ' marker-cluster-';
+					// if (childCount < 50) {
+					// 	c += 'small';
+					// } else if (childCount < 40) {
+					// 	c += 'medium';
+					// } else {
+					// 	c += 'large';
+					// }
+
+					return new L.DivIcon({ html: '<span>' + childCount + '</span>', className: 'marker-cluster', iconSize: [] });
+				}
+			});
+			lmap.addLayer(this.clusterLayer);
+
 			// window.lmap = this.lmap;
 		},
 
@@ -62,7 +82,8 @@
 		},
 
 		addOverlay: function(overlay, events) {
-			this.lmap.addLayer(overlay);
+			// this.lmap.addLayer(overlay);
+			this.clusterLayer.addLayer(overlay);
 			_.each(events || {}, function(callback, event) {
 				overlay.on(event, callback);
 			});
