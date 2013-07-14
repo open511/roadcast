@@ -1,3 +1,18 @@
+/* LAYOUT */
+
+.editor .footer .button {
+  width: 49%;
+}
+
+.editor .editor-row {
+  margin-top: 16px;
+}
+.editor .editor-row:first-child {
+  margin-top: 24px;
+}
+
+/* TABS */
+
 .editor .tabs {
   list-style-type: none;
   padding: 0;
@@ -31,18 +46,14 @@
   color: white;
 }
 
-.editor .footer .button {
-  width: 49%;
-}
+/* WIDGETS - GENERAL */
 
-.editor .editor-row {
-  margin-top: 16px;
-}
-.editor .editor-row:first-child {
-  margin-top: 24px;
-}
-.editor .field input, .editor .field textarea {
-  width: 90%;
+.editor .field input[type=text], .editor .field textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 28px;
   resize: none;
 }
 .editor .field input[type=checkbox] {
@@ -58,6 +69,11 @@
   font-size: 12px;
   display: block;
 }
+.editor .field label.inline {
+  display: inline;
+}
+
+/* ROAD WIDGET */
 
 .editor .road-edit-widget .road-fields {
   border-bottom: 1px dotted #aaaaaa;
@@ -76,7 +92,7 @@
   text-decoration: none;
 }
 
-/** ATTACHMENTS WIDGET **/
+/* ATTACHMENTS WIDGET */
 
 .file-upload-widget .in-progress li {
   font-style: italic;
@@ -98,7 +114,6 @@
   overflow: hidden;
   border: 1px dashed #444444;
   height: 70px;
-  width: 95%;
   border-radius: 5px;
   background-color: #F2F2F2;
   display: block;

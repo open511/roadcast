@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-07-13 18:06-0500\n"
-"PO-Revision-Date: 2013-07-13 18:08-0500\n"
+"POT-Creation-Date: 2013-07-13 19:11-0500\n"
+"PO-Revision-Date: 2013-07-13 19:12-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -20,7 +20,7 @@ msgid "ddd, MMM D"
 msgstr "ddd, D MMM"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:16
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:18
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:16
 msgid "Unpublished"
 msgstr "Non publié"
 
@@ -306,21 +306,29 @@ msgid "Please try again when all files have finished uploading."
 msgstr ""
 "Merci d'essayer de nouveau lorsque tous les fichiers auront été téléversés."
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:19
+#: /Users/michael/proj/o5/ui/app/js/plugins/external-auth.js:8
+msgid "Sign out"
+msgstr "Déconnexion"
+
+#: /Users/michael/proj/o5/ui/app/js/plugins/external-auth.js:12
+msgid "Sign in"
+msgstr "Connexion"
+
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:17
 msgid "Publish on"
 msgstr "Date de publication"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:21
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:19
 msgid "Publish now"
 msgstr "Publier maintenant"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:29
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:34
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:57
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:27
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:32
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:55
 msgid "Now"
 msgstr "Maintenant"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:35
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:33
 msgid "Publish?"
 msgstr "Publier?"
 

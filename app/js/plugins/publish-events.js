@@ -76,7 +76,7 @@
 					widget: PublishedWidget,
 					tab: 'basics'
 				});
-			}			
+			}
 		});
 	});
 

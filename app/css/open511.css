@@ -1,4 +1,5 @@
 @font-face {
+	/* You can also use the Google-hosted version: http://fonts.googleapis.com/css?family=Montserrat:400 */
     font-family: 'Montserrat';
     src: url('../fonts/montserrat.eot');
     src: url('../fonts/montserrat.eot?#iefix') format('embedded-opentype'),
@@ -72,6 +73,8 @@ body.open511 {
 	position: relative;
 	height: 44px;
 	background-color: #2D3134;
+	font-family: "Montserrat", sans-serif;
+	color: #999999;
 }
 .o5 .navbar .title {
 	text-align: center;
@@ -96,11 +99,13 @@ body.open511 {
 	right: 20px;
 	top: 10px;
 }
+.o5 .navbar .auth a {
+	padding-left: 5px;
+}
 
 .o5 .navbar .nav-button {
 	padding: 12px 25px;
 	border-right: 1px solid #FFFFFF;
-	font-family: Montserrat, sans-serif;
 	text-transform: uppercase;
 	color: #FFFFFF;
 	text-decoration: none;
@@ -135,14 +140,14 @@ body.open511 {
 	padding-bottom: 16px;
 	text-align: center;
 }
-
-.o5 .event-detail h2 {
+.o5 .infopane h2 {
 	font-family: "Montserrat", sans-serif;
 	font-weight: normal;
 	font-size: 20px;
 	line-height: 24px;
 	margin: 5px 0 10px 0;
 }
+
 .o5 .event-detail .date {
 	color: #999999;
 }
@@ -162,6 +167,9 @@ body.open511 {
 }
 .o5 .event-detail h4:first-child {
 	margin-top: 22px;
+}
+.o5 .infopane .blurb {
+	margin-top: 24px;
 }
 
 

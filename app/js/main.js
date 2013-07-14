@@ -9,7 +9,7 @@ O5.init = function(opts) {
 				enableEditing: false,
 				elementSelector: '#main',
 				pushState: false,
-				timezone: '-05:00',
+				timezone: '-05:00'
 			}
 		}, Backbone.Events);
 
@@ -23,7 +23,7 @@ O5.init = function(opts) {
 
 		O5.plugins.init(app);
 
-		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector));
+		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector), app);
 		app.layout.draw();
 		var $el = app.layout.$el;
 
@@ -105,13 +105,6 @@ O5.init = function(opts) {
 
 		return app;
 
-};
-O5.views = {
-	BaseView: Backbone.View.extend({
-		initialize: function() {
-			this.app = this.options.app;
-		}
-	})
 };
 
 var registered_plugins = [];

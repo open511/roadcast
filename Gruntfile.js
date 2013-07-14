@@ -10,6 +10,7 @@ module.exports = function(grunt) {
 						'app/js/i18n.js',
 						'app/js/datepicker.js',
 						'app/js/main.js',
+						'app/js/views.js',
 						'app/js/layout.js',
 						'app/js/roadevent.js',
 						'app/js/eventdetail.js',
@@ -30,8 +31,11 @@ module.exports = function(grunt) {
 						'app/js/editor/widgets/map.js',
 						'app/js/editor/widgets/roads.js',
 						'app/js/editor/widgets/attachments.js',
+						'<%=dest%>/js/templates-editor.js',
+
+						// For now, we're including these plugins in the main builds
 						'app/js/plugins/publish-events.js',
-						'<%=dest%>/js/templates-editor.js'
+						'app/js/plugins/external-auth.js'
 					],
 
 					'<%=dest%>/js/libs-main.js': [
@@ -102,16 +106,22 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
 				files: [{
-					expand: true,
-					flatten: true,
 					src: ['app/img/*', 'app/vendor/bootstrap/img/*'],
-					dest: '<%=dest%>/img/'
+					dest: '<%=dest%>/img/',
+					expand: true,
+					flatten: true
 				},
 				{
-					expand: true,
-					flatten: true,
 					src: ['app/fonts/*'],
-					dest: '<%=dest%>/fonts/'
+					dest: '<%=dest%>/fonts/',
+					expand: true,
+					flatten: true
+				},
+				{
+					src: ['app/js/plugins/*.js'],
+					dest: '<%=dest%>/js/plugins/',
+					expand: true,
+					flatten: true
 				}]
 			}
 		},
@@ -162,6 +172,20 @@ module.exports = function(grunt) {
 			}
 		},
 
+		autoprefixer: {
+			options: {
+				browsers: ['last 3 versions', 'ie 8', 'ie 9']
+			},
+			main: {
+				files : [{
+					expand: true,
+					cwd: '<%=dest %>/css/',
+					src: '*.css',
+					dest: '<%=dest%>/css/'
+				}]
+			}
+		},
+
 		clean: ['<%=dest%>/'],
 
 		watch: {
@@ -184,6 +208,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-autoprefixer');
 
 	grunt.registerTask('assemble', ['clean', 'jst', 'concat', 'copy', 'cssmin']);
 	grunt.registerTask('default', ['assemble', 'uglify']);
