@@ -78,9 +78,27 @@
 				if (_.isFunction(choices)) {
 					choices = choices();
 				}
+				if (!_.find(choices, function(choice) { return choice[0] === '' || choice[0] === null; })) {
+					// Ensure there's a blank choice
+					$el.append($('<option class="temporary-default" value=""></option>'));
+				}
 				_.each(choices, function(choice) {
 					$el.append($('<option />').val(choice[0]).text(choice[1]));
 				});
+			},
+
+			setVal: function(val) {
+				if (!_.find(this.options.field.choices, function(choice) { return choice[0] === val; })) {
+					// throw error?
+					return;
+				}
+				this.$el.val(val);
+				this.$el.find('option.temporary-default').remove();
+			},
+
+			onChange: function() {
+				this.$el.find('option.temporary-default').remove();
+				BaseWidget.prototype.onChange.call(this);
 			}
 		}),
 

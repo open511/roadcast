@@ -134,6 +134,7 @@
 					['ACTIVE', _t('Active')],
 					['ARCHIVED', _t('Archived')]
 				],
+				'default': 'ACTIVE',
 				required: true
 			},
 			{
@@ -152,6 +153,7 @@
 					['SPECIAL_EVENT', _t('Special event')],
 					['INCIDENT', _t('Incident (accident, unplanned roadwork...)')]
 				],
+				'default': 'CONSTRUCTION',
 				required: true
 			},
 			{

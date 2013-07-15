@@ -105,16 +105,28 @@
 			var $button = $(JST.create_event({ jurisdiction_slugs: self.app.editableJurisdictionSlugs }));
 			$button.on('click', function(e) {
 				e.preventDefault();
-				var event = new O5.RoadEvent({
-					jurisdiction_url: $(e.target).attr('data-slug')
-				});
-				// event.once('sync', function() {
-					self.app.events.add(event);
-				// });
-				self.selectEvent(event);
-				self.app.layout.setLeftPane(self);
+				self.createEvent($(e.target).attr('data-slug'));
 			});
 			return $button;
+		},
+
+		createEvent: function(jurisdiction_url) {
+			var event = new O5.RoadEvent({
+				jurisdiction_url: jurisdiction_url
+			});
+			
+			// Set default values
+			var defaults = {};
+			_.each(this.getFieldDefs(event), function(field) {
+				if (field['default']) {
+					defaults[field.name] = field['default'];
+				}
+			});
+			event.set(defaults);
+
+			this.app.events.add(event);
+			this.selectEvent(event);
+			this.app.layout.setLeftPane(this);
 		},
 
 		_getRoadEventValue: function(name) {
