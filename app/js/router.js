@@ -19,7 +19,7 @@
 				// We need to fetch the data for the event
 				event = new O5.RoadEvent({
 					id: eventID,
-					url: O5.app.events.url() + eventID + '/'
+					url: O5.app.events.url + eventID + '/'
 				});
 				event.fetch({
 					success: function() {

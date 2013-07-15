@@ -8,6 +8,7 @@
 
 		selectEvent: function(event) {
 			this.roadEvent = event;
+			this._originalAttributes = _.clone(event.attributes);
 			this.render();
 		},
 
@@ -32,14 +33,16 @@
 				});
 			});
 
-			$el.on('click', '.close-button', function(e) {
+			$el.on('click', '.cancel-button', function(e) {
 				e.preventDefault();
-				if (!self.roadEvent.id) {
-					// Never saved, we shouldn't display it
-					O5.app.events.remove(self.roadEvent);
-					return O5.app.layout.setLeftPane(null);
+				var rdev = self.roadEvent;
+				self.deactivate();
+				if (rdev.isNew()) {
+					self.app.layout.setLeftPane(null);
 				}
-				self.roadEvent.select();
+				else {
+					rdev.select();
+				}
 			}).on('click', '.save-button', function(e) {
 				e.preventDefault();
 				var invalidWidgets = self.getInvalidWidgets();
@@ -85,7 +88,18 @@
 					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));
 				}
 				self.widgets.push(widget);
-				widget.on('change', function() { self.validateWidget(widget); });
+				widget.on('change', function(opts) {
+					// suppressValidation option is for e.g. the case when you're clearing the
+					// geography -- you want to update the event with the "invalid" value,
+					// you don't want to be nagged right away, but you DO want to be nagged
+					// if you try to save
+					if ((opts || {}).suppressValidation || self.validateWidget(widget)) {
+						if (field.name.indexOf('/') === -1) {
+							// FIXME doesn't currently support slash-nested names
+							self.roadEvent.set(field.name, widget.getVal());
+						}
+					}
+				});
 				// widget.on('changeActivity', function() { $field_el.removeClass('error'); });
 				$field_el.append(widget.el);
 				var val = self._getRoadEventValue(field.name);
@@ -114,7 +128,7 @@
 			var event = new O5.RoadEvent({
 				jurisdiction_url: jurisdiction_url
 			});
-			
+
 			// Set default values
 			var defaults = {};
 			_.each(this.getFieldDefs(event), function(field) {
@@ -125,6 +139,7 @@
 			event.set(defaults);
 
 			this.app.events.add(event);
+			event.select({trigger: false});
 			this.selectEvent(event);
 			this.app.layout.setLeftPane(this);
 		},
@@ -238,6 +253,19 @@
 				roadEvent: roadEvent
 			});
 			return fields;
+		},
+
+		deactivate: function() {
+			if (!this.roadEvent) return;
+			if (this.roadEvent.neverSaved()) {
+				// Never saved, delete it
+				O5.app.events.remove(this.roadEvent);
+			}
+			else {
+				// Revert it
+				this.roadEvent.set(this._originalAttributes);
+			}
+			this.roadEvent = null;
 		}
 	});
 

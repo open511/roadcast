@@ -63,6 +63,12 @@
 			var $pane = this.$info;
 			$pane.children().detach();
 			if (!view) view = this.defaultLeftPaneView;
+
+			if (view !== this.leftPaneView) {
+				if (this.leftPaneView && this.leftPaneView.deactivate) this.leftPaneView.deactivate();
+				this.leftPaneView = view;
+			}
+
 			$pane.append(view.el);
 			var newWidth = view.width || DEFAULT_LEFT_PANE_WIDTH;
 			if (newWidth != $pane.width()) {

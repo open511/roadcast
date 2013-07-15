@@ -32,7 +32,7 @@
 			L.tileLayer(this.app.settings.mapTileURL || 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
 				this.app.settings.mapTileOptions || {
 				minZoom: 1,
-				maxZoom: 19,
+				maxZoom: 18,
 				subdomains: '1234',
 				attribution: O5._t('Tiles courtesy of') + ' <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>',
 				opacity: 0.5
@@ -76,12 +76,16 @@
 
 		getMarker: function(coords, rdev) {
 			return L.marker([coords[1], coords[0]], {
-				icon: this._getIcon([this.getIconType(rdev)])
+				icon: null
 			});
 		},
 
 		removeOverlay: function(overlay) {
 			this.clusterLayer.removeLayer(overlay);
+			if (overlay._highlight_marker) {
+				this.highlightLayer.removeLayer(overlay._highlight_marker);
+				delete overlay._highlight_marker;
+			}
 		},
 
 		addOverlay: function(overlay, events) {
@@ -105,15 +109,15 @@
 			var icon = this._getIcon(iconType);
 			marker.setIcon(icon);
 			marker.setZIndexOffset(iconType === 'selected' ? 1000 : 0);
-			if (iconType === 'selected' && !marker._highlightMarker) {
-				marker._highlightMarker = new L.Marker(marker.getLatLng(), {
+			if (iconType === 'selected' && !marker._highlight_marker) {
+				marker._highlight_marker = new L.Marker(marker.getLatLng(), {
 					icon: icon
 				});
-				this.highlightLayer.addLayer(marker._highlightMarker);
+				this.highlightLayer.addLayer(marker._highlight_marker);
 			}
-			else if (iconType !== 'selected' && marker._highlightMarker) {
-				this.highlightLayer.removeLayer(marker._highlightMarker);
-				delete marker._highlightMarker;
+			else if (iconType !== 'selected' && marker._highlight_marker) {
+				this.highlightLayer.removeLayer(marker._highlight_marker);
+				delete marker._highlight_marker;
 			}
 		},
 

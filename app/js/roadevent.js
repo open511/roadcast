@@ -11,12 +11,19 @@
 		},
 
 		select: function(opts) {
+			// valid options:
+			// - panTo: asks the map to pan
+			// - trigger: send a selection event, which does things like
+			// 		display the event details
+			opts = _.extend({
+				trigger: true
+			}, opts || {});
 			var self = this;
 			_.each(this.collection.where({'_selected': true}), function(rdev) {
 				if (rdev !== self) rdev.set('_selected', false);
 			});
 			this.set('_selected', true);
-			O5.app.trigger('selection', this, opts || {});
+			if (opts.trigger) O5.app.trigger('selection', this, opts);
 		},
 
 		jurisdictionSlug: function() {
@@ -79,11 +86,22 @@
 		sync: function(method, model, opts) {
 			if (method === 'read') {
 				// Add some default parameters to the URL
-				if (!opts.url) { opts.url = model.url(); }
+				if (!opts.url) opts.url = model.url();
 				opts.url += opts.url.indexOf('?') === -1 ? '?' : '&';
-				opts.url += 'format=json&accept-language=en,fr';
+				opts.url += 'format=json&accept-language=' + O5.language;
+			}
+			else {
+				this._sync_called = true;
 			}
 			return Backbone.sync.call(this, method, model, opts);
+		},
+
+		neverSaved: function() {
+			// A stronger version of isNew() that returns false
+			// as soon as we first try to send the model to the server.
+			// Note that even if sending the model to the server
+			// fails, this'll continue returning false.
+			return this.isNew() && !this._sync_called;
 		},
 
 		isChangeInternal: function() {

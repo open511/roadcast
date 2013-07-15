@@ -32,12 +32,12 @@
 			});
 
 			this.app.on('selection', function(roadEvent, opts) {
-				if (opts.panTo && roadEvent.mapOverlays && roadEvent.mapOverlays.length) {
-					self.panToMarker(roadEvent.mapOverlays[0]);
+				if (opts.panTo && roadEvent.mapOverlays && roadEvent.mapOverlays.marker) {
+					self.panToMarker(roadEvent.mapOverlays.marker);
 				}
 			});
 
-			this.app.events.on('add change:geography', this.updateRoadEvent, this)
+			this.app.events.on('add change:geography change:id', this.updateRoadEvent, this)
 				.on('remove', this.removeRoadEventOverlays, this)
 				.on('change:_visible', this.updateRoadEventVisibility, this)
 				.on('change:_selected change:_highlighted change:status', this.updateRoadEventIcon, this);
@@ -51,7 +51,9 @@
 			var coords = gj['coordinates']
 			switch (gj.type) {
 				case 'Point':
-					return [this.getMarker(coords, rdev)];
+					return {
+						marker: this.getMarker(coords, rdev)
+					}
 				case 'LineString':
 					// First, the polyline
 					var line = this.geoJSONToVector(gj);
@@ -59,11 +61,17 @@
 					// And then a marker at the middle
 					var marker = this.getMarker(coords[Math.floor(coords.length/2)], rdev);
 					
-					return [marker, line];
+					return {
+						marker: marker,
+						vector: line
+					}
 				case 'Polygon':
 					var gon = this.geoJSONToVector(gj);
 					var marker = this.getMarker(coords[0], rdev);
-					return [marker, line];
+					return {
+						marker: marker,
+						vector: line
+					}
 				default:
 					alert("Invalid geometry type: " + gj.type);
 			}
@@ -75,10 +83,11 @@
 			var geom = rdev.get('geography');
 			if (geom) {
 				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom, rdev);
+				if (rdev.mapOverlays.marker) this.updateRoadEventIcon(rdev);
 				_.each(rdev.mapOverlays, function(overlay) {
-					self.addOverlay(overlay, {
-						click: function() { rdev.select(); }
-					});
+					var events = {}
+					if (rdev.id) events.click = function() { rdev.select(); }
+					self.addOverlay(overlay, events);
 				});
 			}
 			if (!rdev.get('_visible')) {
@@ -88,12 +97,12 @@
 
 		removeRoadEventOverlays: function(rdev) {
 			var self = this;
-			if (rdev.mapOverlays && rdev.mapOverlays.length) {
+			if (rdev.mapOverlays) {
 				_.each(rdev.mapOverlays, function(overlay) {
 					self.removeOverlay(overlay);
 				});
 			}
-			rdev.mapOverlays = [];
+			rdev.mapOverlays = null;
 		},
 
 		updateRoadEventVisibility: function(rdev) {
@@ -105,8 +114,8 @@
 		},
 
 		updateRoadEventIcon: function(rdev) {
-			if (rdev.mapOverlays && rdev.mapOverlays.length) {
-				this.updateMarkerIcon(rdev.mapOverlays[0], this.getIconType(rdev));
+			if (rdev.mapOverlays && rdev.mapOverlays.marker) {
+				this.updateMarkerIcon(rdev.mapOverlays.marker, this.getIconType(rdev));
 			}
 		},
 
