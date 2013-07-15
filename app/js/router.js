@@ -25,7 +25,9 @@
 					success: function() {
 						O5.app.events.add(event);
 						event = O5.app.events.get(eventID); // In case a duplicate has since been added
-						event.select();
+						event.select({
+							panTo: true
+						});
 					}
 				});
 			}
