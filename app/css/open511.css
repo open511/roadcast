@@ -270,7 +270,7 @@ body {
     margin-left: 10px
 }
 
-.o5 .badge:empty, .o5 .badge.empty {
+.o5 .badge.empty {
   display: none;
 }
 
