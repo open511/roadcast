@@ -285,9 +285,9 @@
 
 		app.once('layout-render', function(opts) {
 			opts.$el.find('.navbar .buttons').prepend(editor.renderCreateButton());
-			opts.$el.find('.infopane').on('click', '.edit-event', function (e) {
+			opts.$el.on('click', '.edit-event', function (e) {
 				e.preventDefault();
-				var event = app.events.get($(this).closest('.event-detail').attr('data-roadevent'));
+				var event = app.events.get($(e.target).closest('[data-roadevent]').attr('data-roadevent'));
 				if (event) {
 					editor.selectEvent(event);
 					app.layout.setLeftPane(editor);
@@ -295,13 +295,14 @@
 			});
 		});
 
-		var $editButton = $('<div class="footer container">' +
-			'<a href="#" class="button big primary edit-event" style="width: 100%"><span>' +
-			O5._t('Edit') + '</span></a></div>');
+		var editButtonHTML = '<a href="#" class="button big primary edit-event" style="width: 100%">' +
+			O5._t('Edit') + '</a>';
 
 		app.on('event-detail-render', function(opts) {
 			if (_.indexOf(app.editableJurisdictionSlugs, opts.roadEvent.jurisdictionSlug()) !== -1) {
-				opts.$el.append($editButton);
+				var $footer = opts.$el.find('div.footer');
+				if (!$footer.length) $footer = $('<div class="footer container"></div>').appendTo(opts.$el);
+				$footer.append($(editButtonHTML));
 			}
 		});
 
