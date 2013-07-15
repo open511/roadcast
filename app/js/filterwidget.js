@@ -81,6 +81,11 @@
 			}
 			else {
 				$row.addClass('empty');
+				var ghostSelect = new O5.utils.GhostSelect({
+					app: this.app,
+					$target: $row.find('a.button'),
+					choices: []
+				});
 			}
 			return $row;
 		},

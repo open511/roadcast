@@ -46,6 +46,57 @@ _.extend(O5.utils, {
 			setTimeout(close, opts.hideAfter);
 		}
 		return { close: close};
-	}
+	},
+
+	GhostSelect: O5.views.BaseView.extend({
+		// A select box that hovers invisibly in front of another item,
+		// capturing its clicks and popping up when the target item is
+		// clicked.
+
+		tagName: 'select',
+
+		className: 'ghost-select',
+
+		initialize: function() {
+			O5.views.BaseView.prototype.initialize.call(this);
+
+			_.bindAll(this, 'update');
+
+			this.$target = this.options.$target;
+			this.choices = this.options.choices;
+
+			this.$el.css({
+				'-webkit-appearance': 'menulist-button',
+				position: 'absolute',
+				opacity: 0
+			});
+
+			var self = this;
+			_.each(this.choices, function(text, val) {
+				self.$el.append(
+					$(document.createElement('option')).attr('value', val).text(text)
+				);
+			});
+
+			this.update();
+
+			this.$target.one('mousedown focus mouseover keypress', this.update);
+
+			// The constructor inserts the element into the DOM
+			this.$target.before(this.$el);
+		},
+
+		update: function() {
+			this.$el.css({
+				fontSize: this.$target.css('font-size'),
+				width: this.$target.outerWidth(),
+				height: this.$target.outerHeight()
+			});
+			this.$el.offset(this.$target.offset());
+		}
+
+
+
+	})
 
 });
