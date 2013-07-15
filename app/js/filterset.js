@@ -153,7 +153,7 @@
 		},
 
 		getCurrentFilters: function() {
-			return this.activeSet.filterState;
+			return _.clone(this.activeSet.filterState);
 		},
 
 		/**
@@ -165,10 +165,11 @@
 		 */
 		setFilters: function(filters) {
 
-			_.defaults(filters, {
-				// Require an explicit value for the status filter
-				'status': 'ACTIVE'
-			});
+			// Clone provided filters, and require an explicit value
+			// for the status filter
+			filters = _.extend({
+				'status': 'ACTIVE'				
+			}, filters);
 
 			var self = this;
 			// Can we derive the new FilteredSet locally, based on a complete

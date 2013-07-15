@@ -48,7 +48,7 @@
 
 /* WIDGETS - GENERAL */
 
-.editor .field input[type=text], .editor .field textarea, .editor .field select {
+.o5 .field input[type=text], .o5 .field textarea, .o5 .field select {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -56,49 +56,49 @@
   resize: none;
   display: block;
 }
-.editor .field input.inline, .editor .field textarea.inline, .editor .field select.inline {
+.o5 .field input.inline, .o5 .field textarea.inline, .o5 .field select.inline {
   display: inline-block;
 }
-.editor .field input[type=text] {
+.o5 .field input[type=text] {
     height: 28px;
 }
-.editor .field input[type=checkbox] {
+.o5 .field input[type=checkbox] {
   width: auto;
 }
-.editor .field .checkbox label {
+.o5 .field .checkbox label {
   display: inline;
 }
-.editor .field label {
+.o5 .field label {
   text-transform: uppercase;
   margin: 0 0 4px 0;
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   display: block;
 }
-.editor .field label.inline {
+.o5 .field label.inline {
   display: inline;
 }
 
-.editor .field.error .checkbox,
-.editor .field.error .radio,
-.editor .field.error input,
-.editor .field.error select,
-.editor .field.error textarea {
+.o5 .field.error .checkbox,
+.o5 .field.error .radio,
+.o5 .field.error input,
+.o5 .field.error select,
+.o5 .field.error textarea {
   color: #b94a48;
 }
 
-.editor .field.error input,
-.editor .field.error select,
-.editor .field.error textarea {
+.o5 .field.error input,
+.o5 .field.error select,
+.o5 .field.error textarea {
   border-color: #b94a48;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
-.editor .field.error input:focus,
-.editor .field.error select:focus,
-.editor .field.error textarea:focus {
+.o5 .field.error input:focus,
+.o5 .field.error select:focus,
+.o5 .field.error textarea:focus {
   border-color: #953b39;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;

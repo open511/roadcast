@@ -4,22 +4,30 @@
 	 */
 	var FilterView = O5.views.BaseView.extend({
 
-		className: "mainpane-filter",
+		className: "filter-button",
+
+		dialogOpen: false,
+
+		widgets: {},
+
+		filterState: {},
 
 		render: function() {
-			this.$el.html(JST.filter_widget());
+			this.$el.html(JST.filter_navbar_button());
 			var self = this;
 			this.$el.find('a').click(function(e) {
 				e.preventDefault();
-				self.openDialog();
+				if (!self.dialogOpen) {
+					self.openDialog();
+					e.stopPropagation();
+				}
 			});
 
 		},
 
 		renderBadge: function() {
-			var filters = this.app.filterManager.getCurrentFilters();
-			var count = _.keys(filters).length;
-			if (filters.status === 'ACTIVE') {
+			var count = _.keys(this.filterState).length;
+			if (this.filterState.status === 'ACTIVE') {
 				// We consider this the default, don't show a badge
 				count -= 1;
 			}
@@ -32,6 +40,9 @@
 		},
 
 		renderWidget: function($row, type, initialValue) {
+			if (this.widgets[type]) {
+				throw Exception("Widget type " + type + "already exists");
+			}
 			var filter = O5.FILTERS[type],
 				wc = O5.widgets.text;
 			if (filter.widget) {
@@ -44,25 +55,31 @@
 			if (initialValue) {
 				widget.setVal(initialValue);
 			}
-			$row.find('td.value').empty().data('widget', widget).append(widget.el);
+			this.widgets[type] = widget;
+
+			var self = this;
+			widget.on('change', function() {
+				self.filterState[type] = widget.getVal();
+				self.updateFilters();
+			});
+
+			$row.attr('data-filtertype', type).find('.name').empty()
+				.append($('<span />').text(O5.FILTERS[type].label));
+			$row.find('.value').empty().append(widget.el);
+			if (type === 'status') $row.find('.close').hide();
+
+			if (_.keys(O5.FILTERS).length === _.keys(this.widgets).length) {
+				this.$filters.addClass('full');
+			}
 			return widget;
 		},
 
 		renderRow: function(type, initialValue) {
 			var $row = $(JST.filter_widget_item());
 			if (type) {
-				$row.find('th.name').text(O5.FILTERS[type].label).attr('data-filtertype', type);
 				this.renderWidget($row, type, initialValue);
-				if (type === 'status') {
-					$row.find('.closecol').hide();
-				}
 			}
 			else {
-				var $select = $('<select><option /></select>');
-				_.each(O5.FILTERS, function(f, key) {
-					$select.append($('<option />').attr('value', key).text(f.label));
-				});
-				$row.find('th.name').append($select);
 				$row.addClass('empty');
 			}
 			return $row;
@@ -70,69 +87,89 @@
 
 		initializeDialogEvents: function() {
 			var self = this;
-			this.$dialog.on('change', '.name select', function(e) {
-				var val = $(e.target).val();
-				var $row = $(e.target).closest('tr');
-				$row.removeClass('empty');
-				var $table = $row.closest('table');
-				if (!$table.find('tr.empty').length) {
-					$table.append(self.renderRow());
-				}
-				self.renderWidget($row, val);
-			})
-				.on('click', 'tr .close', function(e) {
+			this.$dialog
+				.on('change', '.name select', function(e) {
+					// Filter selected: initialize widget
+					var val = $(e.target).val();
+					if (!val) return;
+					var $row = $(e.target).closest('.filter');
+					$row.removeClass('empty');
+					var $filters = $row.closest('.filters');
+					if (!$filters.find('.empty').length) {
+						$filters.append(self.renderRow());
+					}
+					self.renderWidget($row, val);
+				})
+				.on('click', '.close', function(e) {
+					// Remove a filter
 					e.preventDefault();
-					var $row = $(e.target).closest('tr');
+					var $row = $(e.target).closest('.filter');
+					var filterType = $row.attr('data-filtertype');
+					if (filterType) {
+						self.widgets[filterType].off();
+						delete self.widgets[filterType];
+						delete self.filterState[filterType];
+						self.updateFilters();
+						self.$filters.removeClass('full');
+					}
 					$row.fadeOut(300, function() {
 						$row.remove();
 					});
 				})
-				.on('click', '.update-filters', function(e) {
-					e.preventDefault();
-					self.updateFilters(self.getDialogFilters());
-					self.$dialog.hide();
-				})
-				.on('click', 'button.close-dialog', function(e) {
-					e.preventDefault();
-					self.$dialog.hide();
+				.on('focus', '.name select', function() {
+					// We generate the list of options for the filter-type
+					// select box only as it's clicked, since the options
+					// change based on what other filters you've chosen
+					// (each filter can only be set once)
+					var $select  = $(this);
+					$select.empty().append('<option />');
+					_.each(O5.FILTERS, function(f, key) {
+						if (!self.widgets[key]) $select.append($('<option />').attr('value', key).text(f.label));
+					});
 				});
 
 		},
 
-		getDialogFilters: function() {
-			var filters = {};
-			_.each(this.$dialog.find('td.value'), function(td) {
-				var widget = $(td).data('widget');
-				if (widget) {
-					var key = widget.options.filterType;
-					var val = widget.getVal();
-					if (val && val.length) {
-						filters[key] = val;
-					}
-				}
-			});
-			return filters;
-		},
-
-		updateFilters: function(newState) {
-			this.app.filterManager.setFilters(newState);
+		updateFilters: function() {
+			this.app.filterManager.setFilters(this.filterState);
 			this.renderBadge();
 		},
 
-		openDialog: function() {
+		renderDialog: function() {
+			this.$dialog = $('<div id="filter-dropdown" class="dropdown-menu dropdown-caret filter-dialog"><div class="filters" /></div>');
+			this.app.layout.$el.append(this.$dialog);
+			this.$dialog.offset(this.$el.offset());
+			this.$filters = this.$dialog.find('.filters');
+			this.initializeDialogEvents();
+
 			var self = this;
-			if (!this.$dialog) {
-				this.$dialog = $('<div id="filterModal" style="display:none" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" />');
-				this.app.layout.$el.append(this.$dialog);
-				this.initializeDialogEvents();
-			}
-			this.$dialog.html(JST.filter_widget_dialog());
-			_.each(this.app.filterManager.getCurrentFilters(), function(val, type) {
-				self.$dialog.find('table').append(self.renderRow(type, val));
+			this.filterState = this.app.filterManager.getCurrentFilters();
+			_.each(this.filterState, function(val, type) {
+				self.$filters.append(self.renderRow(type, val));
 			});
-			self.$dialog.find('table').append(self.renderRow());
-			// this.$dialog.modal();
+
+			// and a blank row
+			this.$filters.append(this.renderRow());
+
+		},
+
+		openDialog: function() {
+			if (!this.$dialog) this.renderDialog();
 			this.$dialog.show();
+			var self = this;
+			var click_outside = function(e) {
+				if (!$(e.target).closest('.filter-dialog').length) {
+					$(document).off('click', click_outside);
+					self.closeDialog();
+				}
+			};
+			$(document).on('click', click_outside);
+			this.dialogOpen = true;
+		},
+
+		closeDialog: function() {
+			this.$dialog.hide();
+			this.dialogOpen = false;
 		}
 	});
 

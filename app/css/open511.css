@@ -253,10 +253,6 @@ body {
 	display: inline-block;
 }
 
-.o5 tr.empty td.closecol {
-	visibility: hidden;
-}
-
 .o5 .badge {
 	display: inline-block;
 	line-height: 18px;
@@ -278,6 +274,72 @@ body {
 
 .o5 .badge:empty, .o5 .badge.empty {
   display: none;
+}
+
+.o5 .filter-dialog {
+	position: absolute;
+	top: 44px;
+	left: 5px;
+	width: 305px;
+}
+
+.o5 .filter-dialog .filters {
+	max-height: 425px;
+	overflow: auto;
+}
+.o5 .filter-dialog .filter {
+	border-bottom: 1px solid #CCCCCC;
+	position: relative;
+	padding: 18px 30px 11px 30px;
+}
+.o5 .filter-dialog .filter:first-child {
+	padding-top: 13px;
+}
+.o5 .filter-dialog .filter:last-child {
+	border-bottom: none;
+}
+.o5 .filter-dialog .filter:nth-child(even) {
+	background-color: #f6f6f6;
+}
+.o5 .filter-dialog .name {
+	margin-bottom: 10px;
+}
+.o5 .filter-dialog .name span {
+	font-family: Montserrat;
+	text-transform: uppercase;
+}
+.o5 .filter-dialog .close {
+	float: right;
+}
+.o5 .filter-dialog .filter.empty .close {
+	/* You can't delete an unchosen filter */
+	display: none;
+}
+.o5 .filters.full .filter.empty {
+	/* If all filters are taken, don't show a blank row */
+	display: none;
+}
+
+.dropdown-caret:before {
+  content: '';
+  display: inline-block;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: -7px;
+  left: 30px;
+}
+.dropdown-caret:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  position: absolute;
+  top: -6px;
+  left: 30px;
 }
 
 /* temp */
@@ -308,17 +370,19 @@ body {
 .o5notification.success{background-color:#dff0d8;border-bottom:1px solid #d6e9c6;}
 .o5notification.error{background-color:#f2dede;border-bottom:1px solid #eed3d7}
 .o5notification.information{background-color:#d9edf7;border-bottom:1px solid #bce8f1;}
-.o5notification .close {
-	float:right;
+.o5 a.close {
 	color:#000;
 	font-size:20px;
 	font-weight:bold;
 	line-height:0.75;
 	text-shadow:0 1px 0 rgba(255,255,255,1);
 	opacity:0.25;
+}
+.o5notification a.close {
+	float:right;
 	margin-right: 20px;
 }
-.o5notification .close:hover{
+.o5 a.close:hover{
 	color:#000;
 	text-decoration:none;
 	opacity:0.4;
