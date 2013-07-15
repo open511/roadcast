@@ -28,6 +28,9 @@ body {
 	cursor: pointer;
 	color: #6DACB2;
 }
+.o5 a:hover {
+	color: #57898C;
+}
 
 .o5 .button {
 	border-radius: 4px;

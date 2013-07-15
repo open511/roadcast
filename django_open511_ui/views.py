@@ -54,12 +54,16 @@ def main(request, event_slug=None):
 
     gmaps = settings.OPEN511_UI_MAP_TYPE == 'google'
 
-    js_files = ['open511-' + ('googlemaps' if gmaps else 'leaflet'), 'plugins/external-auth']
+    js_files = [
+        'open511',
+        ('open511-googlemaps' if gmaps else 'open511-maps'),
+        'plugins/external-auth'
+    ]
     if enable_editing:
         js_files.append('plugins/open511-editor')
     js_files.extend(['plugins/' + p for p in settings.OPEN511_UI_PLUGINS])
 
-    ext = '.js' if settings.DEBUG else '.min.js'
+    ext = '.min.js' if settings.DEBUG else '.min.js'
     js_files = ['o5ui/js/' + f + ext for f in js_files]
 
     if request.user.is_authenticated():

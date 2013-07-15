@@ -2,12 +2,12 @@
 <head>
 	<title>Open511 example</title>
 
-	<link rel="stylesheet" href="css/open511-complete-leaflet.css">
+	<link rel="stylesheet" href="css/open511.css">
 	<!--[if lte IE 8]>
     	<link rel="stylesheet" href="css/open511-ie.css">
 	<![endif]-->
 </head>
-<body class="open511">
+<body>
 	<div id="main"></div>
 
 
@@ -17,12 +17,26 @@
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>
 	<script src="js/open511-complete-googlemaps.min.js"></script>
 
-	To change the interface to French, use:
+	<!--
+
+	To change the interface language, load a locale file before
+	the rest of the app:
 	<script src="locale/fr.min.js"></script>
 
 	-->
 	
-	<script src="js/open511-leaflet.min.js"></script>
+	<script src="js/open511.min.js"></script>
+
+	<!--
+
+	Using Google maps requires that you use their JavaScript code. Include these two scripts:
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>
+	<script src="js/open511-googlemaps.js"></script>
+
+	If you're using Google maps, you don't need open511-maps.js, which includes our default
+	mapping code.
+	-->
+	<script src="js/open511-maps.min.js"></script>
 
 	<!-- Load any Open511 plugins here -->
 	<script src="js/plugins/open511-editor.min.js"></script>
