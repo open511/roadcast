@@ -1,5 +1,5 @@
+/* You can also use the Google-hosted version: http://fonts.googleapis.com/css?family=Montserrat:400 */
 @font-face {
-	/* You can also use the Google-hosted version: http://fonts.googleapis.com/css?family=Montserrat:400 */
     font-family: 'Montserrat';
     src: url('../fonts/montserrat.eot');
     src: url('../fonts/montserrat.eot?#iefix') format('embedded-opentype'),
@@ -41,7 +41,11 @@ body {
 	text-transform: uppercase;
 	background-color: #E2E2E2;
 	color: #555555;
+	padding: 5px 13px;
 	transition: background-color 0.4s, color 0.4s;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 .o5 .button.primary {
 	background-color: #75B7C1;
@@ -50,12 +54,6 @@ body {
 .o5 .button.big {
 	height: 45px;
 	font-size: 14px;
-}
-.o5 .button span {
-	display: inline-block;
-	padding: 5px 13px;
-}
-.o5 .button.big span {
 	padding: 13px 10px;
 }
 .o5 .button:hover {
@@ -308,6 +306,9 @@ body {
 	font-family: Montserrat;
 	text-transform: uppercase;
 }
+.o5 .filter-dialog .name .button {
+	width: 100%;
+}
 .o5 .filter-dialog .close {
 	float: right;
 }
@@ -341,18 +342,6 @@ body {
   top: -6px;
   left: 30px;
 }
-
-/* temp */
-.modal {
-	position: fixed;
-	top: 100px;
-	width: 600px;
-	left: 200px;
-	height: 500px;
-	background-color: white;
-	z-index: 2000;
-}
-
 
 /* NOTIFICATIONS */
 #o5notifications {
