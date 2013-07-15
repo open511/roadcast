@@ -57,7 +57,11 @@
 					// 	c += 'large';
 					// }
 
-					return new L.DivIcon({ html: '<span>' + childCount + '</span>', className: 'marker-cluster', iconSize: [] });
+					return new L.DivIcon({
+						html: '<span>' + childCount + '</span>',
+						className: 'marker-cluster',
+						iconSize: null
+					});
 				}
 			});
 			lmap.addLayer(this.clusterLayer);
@@ -125,7 +129,7 @@
 			if (!icons[type]) {
 				icons[type] = new L.DivIcon({
 					className: 'map-marker' + ' ' + type,
-					iconSize: [],
+					iconSize: null,
 					iconAnchor: this.options.markerOpts.iconAnchor
 				});
 			}
