@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 				files: {
 					'<%=dest%>/js/open511-nodeps.js': [
 						'app/js/i18n.js',
-						'app/js/datepicker.js',
+						'app/js/utils/datepicker.js',
 						'app/js/main.js',
 						'app/js/views.js',
 						'app/js/layout.js',
@@ -16,11 +16,11 @@ module.exports = function(grunt) {
 						'app/js/eventdetail.js',
 						'app/js/router.js',
 						'app/js/listview.js',
-						'app/js/map-base.js',
+						'app/js/map/map-base.js',
 						'app/js/filterset.js',
 						'app/js/filterwidget.js',
 						'app/js/widgets.js',
-						'app/js/utils.js',
+						'app/js/utils/utils.js',
 						'<%=dest%>/tmp/templates.js'
 					],
 					'<%=dest%>/js/open511.js': [
@@ -32,13 +32,13 @@ module.exports = function(grunt) {
 					],
 					'<%=dest%>/js/open511-maps.js': [
 						'app/vendor/leaflet/leaflet.js',
-						'app/js/leaflet.draw.js',
+						'app/js/map/leaflet.draw.js',
 						'app/vendor/leaflet/leaflet.markercluster.js',
-						'app/js/map-leaflet.js'
+						'app/js/map/map-leaflet.js'
 					],
 					'<%=dest%>/js/open511-googlemaps.js': [
-						'app/js/map-google.js',
-						'app/js/geojson-to-google.js'
+						'app/js/map/map-google.js',
+						'app/js/map/geojson-to-google.js'
 					],
 
 					'<%=dest%>/js/plugins/open511-editor.js': [
