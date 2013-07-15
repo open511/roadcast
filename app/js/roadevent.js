@@ -107,10 +107,6 @@
 			});
 		},
 
-		url: function() {
-			return O5.app.settings.apiURL + 'events/';
-		},
-
 		sync: function() {
 			throw new Error('Sync not supported on Collection');
 		},

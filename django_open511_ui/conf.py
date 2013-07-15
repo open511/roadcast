@@ -15,7 +15,7 @@ from appconf import AppConf
 ###
 
 class Open511UISettings(AppConf):
-    API_URL = urlresolvers.reverse_lazy('open511_discovery')
+    EVENTS_URL = urlresolvers.reverse_lazy('open511_roadevent_list')
 
     REQUIRE_LOGIN = False
     SHOW_LOGIN_BUTTON = False

@@ -34,7 +34,9 @@ O5.init = function(opts) {
 			});
 		});
 
-		app.events = new O5.RoadEvents();
+		app.events = new O5.RoadEvents([], {
+			url: app.settings.eventsURL
+		});
 
 		app.detailViewer = new O5.views.EventDetailView({app: app});
 		app.map = new O5.views.MapView({

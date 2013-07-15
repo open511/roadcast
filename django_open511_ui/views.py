@@ -24,7 +24,7 @@ def main(request, event_slug=None):
 
     opts = {
         'rootURL': urlresolvers.reverse('o5ui_home'),
-        'apiURL': unicode(settings.OPEN511_UI_API_URL),
+        'eventsURL': unicode(settings.OPEN511_UI_EVENTS_URL),
         'staticURL': settings.STATIC_URL,
         'enableEditing': enable_editing,
         'mapStartLat': settings.OPEN511_UI_MAP_START_LAT,
@@ -63,7 +63,7 @@ def main(request, event_slug=None):
         js_files.append('plugins/open511-editor')
     js_files.extend(['plugins/' + p for p in settings.OPEN511_UI_PLUGINS])
 
-    ext = '.min.js' if settings.DEBUG else '.min.js'
+    ext = '.js' if settings.DEBUG else '.min.js'
     js_files = ['o5ui/js/' + f + ext for f in js_files]
 
     if request.user.is_authenticated():
