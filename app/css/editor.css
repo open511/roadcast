@@ -55,6 +55,7 @@
   width: 100%;
   resize: none;
   display: block;
+  transition: height .3s linear;
 }
 .o5 .field input.inline, .o5 .field textarea.inline, .o5 .field select.inline {
   display: inline-block;

@@ -48,12 +48,22 @@
 
 			resize: function() {
 				var val = this.getVal();
-				var rows = Math.min((val.length / 40) + val.split('\n').length - 1, 12) + 1;
-				this.$el.attr('rows', rows);
+				var rows = Math.min(Math.round(val.length / 45) + val.split('\n').length - 1, 12) + 1;
+				this.$el.css({
+					height: ((rows * 20) + 10) + 'px'
+				});
 			},
 
 			initialize: function() {
-				this.$el.attr('rows', 2);
+				this.$el.css({
+					'webkit-box-sizing': 'border-box',
+					'-moz-box-sizing': 'border-box',
+					'box-sizing': 'border-box',
+					'line-height': '20px',
+					'padding': '4px 6px',
+					'border-width': '1px',
+					'height': '30px'
+				});
 				this.on('change changeActivity', this.resize, this);
 			},
 
