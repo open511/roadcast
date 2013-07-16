@@ -18,7 +18,7 @@
 				}
 
 			};
-			this.gmap = new google.maps.Map(this.el, mapOptions);
+			var gmap = this.gmap = new google.maps.Map(this.el, mapOptions);
 
 			var iconopts = {
 				url: this.options.markerOpts.icon
@@ -28,8 +28,9 @@
 			}
 			this.markerIcon = iconopts;
 
-			// DEBUG ONLY
-			// window.gmap = this.gmap;
+			this.app.on('layout-map-resize', function() {
+				google.maps.event.trigger(gmap, 'resize');
+			});
 
 		},
 
@@ -128,8 +129,11 @@
 		},
 
 		panToMarker: function(marker) {
-			alert('not yet supported in google');
-			// FIXME
+			this.gmap.panTo(marker.getPosition());
+		},
+
+		updateOverlayIcon: function(overlay, iconType) {
+			// FIXME not yet implemented for google
 		}
 
 	});

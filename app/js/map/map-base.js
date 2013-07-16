@@ -16,8 +16,10 @@
 					iconAnchor: [15,15]
 				},
 				lineStyle: {
-					strokeColor: "#F27739",
-					fillColor: "#c23e3e"
+					strokeColor: "#F27739"
+				},
+				selectedLineStyle: {
+					strokeColor: "#57898C"
 				}
 			});
 			this.$el.css('width', '100%').css('height', '100%');
@@ -70,7 +72,7 @@
 					var marker = this.getMarker(coords[0], rdev);
 					return {
 						marker: marker,
-						vector: line
+						vector: gon
 					}
 				default:
 					alert("Invalid geometry type: " + gj.type);
@@ -85,8 +87,8 @@
 				rdev.mapOverlays = this.getOverlaysFromGeoJSON(geom, rdev);
 				if (rdev.mapOverlays.marker) this.updateRoadEventIcon(rdev);
 				_.each(rdev.mapOverlays, function(overlay) {
-					var events = {}
-					if (rdev.id) events.click = function() { rdev.select(); }
+					var events = {};
+					if (rdev.id) events.click = function() { rdev.select(); };
 					self.addOverlay(overlay, events);
 				});
 			}
@@ -115,7 +117,7 @@
 
 		updateRoadEventIcon: function(rdev) {
 			if (rdev.mapOverlays && rdev.mapOverlays.marker) {
-				this.updateMarkerIcon(rdev.mapOverlays.marker, this.getIconType(rdev));
+				this.updateOverlayIcon(rdev.mapOverlays, this.getIconType(rdev));
 			}
 		},
 

@@ -12,6 +12,9 @@
 				color: this.options.lineStyle.strokeColor
 				// fill: this.options.lineStyle.fillColor
 			};
+			this.options.selectedLineStyle = {
+				color: this.options.selectedLineStyle.strokeColor
+			};
 		},
 
 		render: function() {
@@ -38,7 +41,7 @@
 				opacity: 0.5
 			}).addTo(lmap);
 
-			this.app.on('layout-draw', function() {
+			this.app.on('layout-map-resize', function() {
 				lmap._onResize(); // I can't see a way to do this without using a private method
 			});
 
@@ -109,19 +112,25 @@
 			}
 		},
 
-		updateMarkerIcon: function(marker, iconType) {
-			var icon = this._getIcon(iconType);
-			marker.setIcon(icon);
-			marker.setZIndexOffset(iconType === 'selected' ? 1000 : 0);
-			if (iconType === 'selected' && !marker._highlight_marker) {
-				marker._highlight_marker = new L.Marker(marker.getLatLng(), {
-					icon: icon
-				});
-				this.highlightLayer.addLayer(marker._highlight_marker);
+		updateOverlayIcon: function(overlays, iconType) {
+			if (overlays.marker) {
+				var icon = this._getIcon(iconType);
+				var marker = overlays.marker;
+				marker.setIcon(icon);
+				marker.setZIndexOffset(iconType === 'selected' ? 1000 : 0);
+				if (iconType === 'selected' && !marker._highlight_marker) {
+					marker._highlight_marker = new L.Marker(marker.getLatLng(), {
+						icon: icon
+					});
+					this.highlightLayer.addLayer(marker._highlight_marker);
+				}
+				else if (iconType !== 'selected' && marker._highlight_marker) {
+					this.highlightLayer.removeLayer(marker._highlight_marker);
+					delete marker._highlight_marker;
+				}
 			}
-			else if (iconType !== 'selected' && marker._highlight_marker) {
-				this.highlightLayer.removeLayer(marker._highlight_marker);
-				delete marker._highlight_marker;
+			if (overlays.vector) {
+				overlays.vector.setStyle(iconType === 'selected' ? this.options.selectedLineStyle : this.options.lineStyle);
 			}
 		},
 
