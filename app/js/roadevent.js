@@ -44,10 +44,7 @@
 		},
 
 		parse: function(resp) {
-			if (resp.meta) {
-				delete resp.meta;
-			}
-			resp.id = resp.url.replace(/\/$/, '').split('/').slice(-2).join('/');
+			if (resp.meta) delete resp.meta;
 			return resp;
 		},
 
