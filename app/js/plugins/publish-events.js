@@ -21,7 +21,6 @@
 			$input.datepicker({
 				format: 'yyyy-mm-dd'
 			});
-			$input.on('focus keyup keydown', function(e) { console.log(e); });
 			this.$el.find('.publish-now').click(function(e) {
 				e.preventDefault();
 				$input.val(O5._t('Now'));
