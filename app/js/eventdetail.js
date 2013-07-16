@@ -26,7 +26,7 @@
 				roadEvent: this.roadEvent,
 				$el: this.$el
 			});
-			this.app.layout.drawLeftPane();
+			this.app.layout.draw();
 		}
 	});
 })();

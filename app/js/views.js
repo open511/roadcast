@@ -10,7 +10,9 @@ O5.views.BlurbView = O5.views.BaseView.extend({
 
 	className: 'blurb container',
 
-	render: function() {
+	initialize: function() {
+		O5.views.BaseView.prototype.initialize.call(this);
+
 		var html = this.app.settings.blurbHTML;
 		if (!html) {
 			html = '<h2>' + O5._t('Welcome to Open511') + '</h2>' +

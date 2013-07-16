@@ -6,8 +6,7 @@ O5.init = function(opts) {
 
 		var app = _.extend({
 			settings: {
-				enableEditing: false,
-				elementSelector: '#main',
+				inside: 'body',
 				pushState: false,
 				timezone: '-05:00'
 			}
@@ -23,16 +22,8 @@ O5.init = function(opts) {
 
 		O5.plugins.init(app);
 
-		app.layout = new O5.prototypes.Layout($(app.settings.elementSelector), app);
+		app.layout = new O5.prototypes.Layout(app.settings.inside, app);
 		var $el = app.layout.$el;
-
-		var $window = $(window);
-		$window.resize(function() {
-			app.layout.change({
-				height: $window.height(),
-				width: $window.width()
-			});
-		});
 
 		app.events = new O5.RoadEvents([], {
 			url: app.settings.eventsURL

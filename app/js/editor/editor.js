@@ -1,7 +1,5 @@
 (function() {
 
-	var fieldCounter = 1;
-
 	var EventEditorView = O5.views.BaseView.extend({
 
 		roadEvent: null,
@@ -109,7 +107,7 @@
 				$fields.append($field_el);
 			});
 			self.$el.empty().append($e);
-			self.app.layout.drawLeftPane();
+			self.app.layout.draw();
 			$e.find('ul.tabs li[data-tab="basics"]').click();
 		},
 
@@ -214,8 +212,6 @@
 		makeWidget: function(field, roadEvent) {
 			var wc;
 
-			var field_id = 'field_' + fieldCounter++;
-
 			if (field.widget) {
 				if (_.isObject(field.widget)) {
 					wc = field.widget;
@@ -239,7 +235,7 @@
 
 			return new wc({
 				app: this.app,
-				id: field_id,
+				id: _.uniqueId('field_'),
 				field: field,
 				roadEvent: roadEvent
 			});

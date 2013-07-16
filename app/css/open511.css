@@ -10,13 +10,8 @@
     font-style: normal;
 }
 
-body {
-	overflow: hidden;
-	margin: 0;
-	padding: 0;
-}
-
-.o5 { 
+.o5 {
+	position: relative; 
 	overflow: hidden;
 	font-size: 13px;
 	line-height: 18px;
