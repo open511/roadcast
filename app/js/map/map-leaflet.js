@@ -32,12 +32,15 @@
 				prefix: ''
 			}).addTo(lmap);
 
-			L.tileLayer(this.app.settings.mapTileURL || 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
+			var defaultTileURL = 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg';
+			var defaultAttribution = O5._t('Tiles from <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>, data from <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>');
+
+			L.tileLayer(this.app.settings.mapTileURL || defaultTileURL,
 				this.app.settings.mapTileOptions || {
 				minZoom: 1,
 				maxZoom: 18,
 				subdomains: '1234',
-				attribution: O5._t('Tiles courtesy of') + ' <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>',
+				attribution: (this.app.settings.mapTileURL ? '' : defaultAttribution),
 				opacity: 0.5
 			}).addTo(lmap);
 
