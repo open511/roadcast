@@ -53,19 +53,25 @@ _.extend(O5.prototypes.Layout.prototype, {
 		var leftOffset = this.$info.outerWidth();
 		var topOffset = this.$navbar.outerHeight();
 		var paneHeight = this.$sizingContainer.height() - topOffset;
-		this.$main.height(paneHeight)
-			.width(this.$sizingContainer.width() - leftOffset)
-			.css({
-				left: leftOffset,
-				top: topOffset
-			});
-		this.$map.height(paneHeight - this.$listContainer.outerHeight());
+
+		if (this.$main.height() !== paneHeight) this.$main.height(paneHeight);
+		var mainWidth = this.$sizingContainer.width() - leftOffset;
+		if (this.$main.width() !== mainWidth) this.$main.width(mainWidth);
+		this.$main.css({ left: leftOffset, top: topOffset });
+
+		var mapHeight = paneHeight - this.$listContainer.outerHeight();
+		if (this.$map.height() !== mapHeight) {
+			this.$map.height(mapHeight);
+			this.app.trigger('layout-map-resize');
+		}
+
 		this.$info.height(paneHeight);
 		this.$info.find('div.body').height(
 			paneHeight -
 			this.$info.find('.header').outerHeight() -
 			this.$info.find('.footer').outerHeight()
 		);
+
 		this.app.trigger('layout-draw');
 	},
 
@@ -73,16 +79,17 @@ _.extend(O5.prototypes.Layout.prototype, {
 		opts = _.extend({
 			'animate': true
 		}, opts || {});
-		var $pane = this.$info;
-		$pane.children().detach();
+
 		if (!view) view = this.defaultLeftPaneView;
 
-		if (view !== this.leftPaneView) {
-			if (this.leftPaneView && this.leftPaneView.deactivate) this.leftPaneView.deactivate();
-			this.leftPaneView = view;
-		}
+		if (view === this.leftPaneView) return;
+		if (this.leftPaneView && this.leftPaneView.deactivate) this.leftPaneView.deactivate();
+		this.leftPaneView = view;
 
+		var $pane = this.$info;
+		$pane.children().detach();
 		$pane.append(view.el);
+
 		var newWidth = view.width || this.defaultLeftPaneWidth;
 		if (newWidth != $pane.width()) {
 			if (opts.animate) {
