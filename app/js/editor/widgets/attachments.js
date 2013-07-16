@@ -18,12 +18,12 @@ var AttachmentWidget = O5.widgets.BaseWidget.extend({
 
 		// Init events
 		this.$el.on('click', '.delete', function(e) {
-			var url = $(e.target).closest('li').find('a').attr('href');
+			var url = $(e.target).closest('li').find('a.attachment').attr('href');
 			self.remove(url);
 			self.renderList();
 		});
 		this.$el.on('click', '.edit', function(e) {
-			var url = $(e.target).closest('li').find('a').attr('href');
+			var url = $(e.target).closest('li').find('a.attachment').attr('href');
 			var title = prompt(O5._t("Enter a new title"));
 			if (title && title.length) {
 				_.find(self.data, function(a) { return a.url === url; }).title = title;
