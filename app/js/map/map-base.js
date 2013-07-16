@@ -61,7 +61,16 @@
 					var line = this.geoJSONToVector(gj);
 					
 					// And then a marker at the middle
-					var marker = this.getMarker(coords[Math.floor(coords.length/2)], rdev);
+					var midpoint = null;
+					if (coords.length % 2 === 1) {
+						midpoint = coords[Math.floor(coords.length / 2)];
+					}
+					else {
+						var a = coords[(coords.length / 2) - 1],
+							b = coords[coords.length / 2];
+						midpoint = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+					}
+					var marker = this.getMarker(midpoint, rdev);
 					
 					return {
 						marker: marker,

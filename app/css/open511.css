@@ -362,9 +362,9 @@
 	line-height:0.75;
 	text-shadow:0 1px 0 rgba(255,255,255,1);
 	opacity:0.25;
+	float: right;
 }
 .o5notification a.close {
-	float:right;
 	margin-right: 20px;
 }
 .o5 a.close:hover{

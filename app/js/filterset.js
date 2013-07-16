@@ -168,7 +168,7 @@
 			// Clone provided filters, and require an explicit value
 			// for the status filter
 			filters = _.extend({
-				'status': 'ACTIVE'				
+				'status': 'ACTIVE'
 			}, filters);
 
 			var self = this;
