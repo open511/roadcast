@@ -159,6 +159,8 @@ module.exports = function(grunt) {
 						'app/css/open511.css',
 						'app/css/markers.css',
 
+						'app/css/small-screen.css',
+
 						// editor
 						'app/css/editor.css',
 

@@ -1,7 +1,14 @@
 (function() {
+
 O5 = window.O5 || {};
 O5.utils = {};
 O5.prototypes = {};
+if (!window.console) {
+	window.console = {
+		log: function() {}
+	};
+}
+
 O5.init = function(opts) {
 
 		var app = _.extend({
@@ -19,10 +26,12 @@ O5.init = function(opts) {
 			O5.utils.notify(xhr.responseText, 'error');
 		});
 
-		O5.plugins.init(app);
-
 		app.layout = new O5.prototypes.Layout(app.settings.inside, app);
 		var $el = app.layout.$el;
+
+		O5.plugins.init(app, {
+			screenSize: app.layout.screenSize
+		});
 
 		app.events = new O5.RoadEvents([], {
 			url: app.settings.eventsURL
@@ -77,9 +86,13 @@ O5.plugins = {
 		registered_plugins.push(plugin);
 	},
 
-	init: function(app) {
-		for (var i = 0; i < registered_plugins.length; i++) {
-			new registered_plugins[i](app);
+	init: function(app, opts) {
+		var plugins = registered_plugins;
+		if (opts.screenSize === 'small') {
+			plugins = _.where(plugins, { supportSmallScreens: true });
+		}
+		for (var i = 0; i < plugins.length; i++) {
+			new plugins[i](app);
 		}
 	}
 };

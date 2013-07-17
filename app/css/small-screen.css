@@ -1,0 +1,42 @@
+.o5.small-screen .mainpane {
+	z-index: 10;
+}
+.o5.small-screen .infopane {
+	visibility: hidden;
+	border: none;
+}
+.o5.small-screen .navbar .nav-button:hover {
+	color: white;
+	transition: none;
+}
+.o5.small-screen .navbar *:active, .o5.small-screen .navbar *:focus {
+	background-color: inherit;
+	outline: none;
+}
+.o5.small-screen .navbar, .o5.small-screen .mappane {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.o5 .navbar .back-button {
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	font-size: 30px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	display: none;
+}
+
+.o5.small-screen.left-pane-on .infopane {
+	visibility: visible;
+}
+.o5.small-screen.left-pane-on .mainpane {
+	z-index: 0;
+}
+.o5.small-screen.left-pane-on .navbar .buttons {
+	display: none;
+}
+.o5.small-screen.left-pane-on .navbar .back-button {
+	display: block;
+}
+

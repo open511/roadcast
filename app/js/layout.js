@@ -38,7 +38,11 @@ O5.prototypes.Layout = function(inside, app, opts) {
 	this.setLeftPane(this.defaultLeftPaneView, {animate: false});
 
 	// Redraw whenever the window is resized
-	$(window).on('resize', _.bind(this.draw, this));
+	this.drawSoon = _.debounce(_.bind(this.draw, this), 10);
+	$(window).on('resize', this.drawSoon);
+
+	// if ('ontouchend' in document) this._addTouchEvents();
+	this._addMobileEvents();
 
 	// PLUGIN HOOK
 	app.trigger('layout-render', {
@@ -50,13 +54,25 @@ O5.prototypes.Layout = function(inside, app, opts) {
 _.extend(O5.prototypes.Layout.prototype, {
 
 	draw: function() {
-		var leftOffset = this.$info.outerWidth();
-		var topOffset = this.$navbar.outerHeight();
-		var paneHeight = this.$sizingContainer.height() - topOffset;
+		var containerWidth = this.$sizingContainer.width();
+		var screenSize = (containerWidth < 700 ? 'small' : 'big');
+		if (screenSize !== this.screenSize) {
+			this.$el.removeClass(this.screenSize + '-screen').addClass(screenSize + '-screen');
+			this.screenSize = screenSize;
+			if (screenSize === 'small')
+				console.log('Open511 is running in small-screen mode. Some features are disabled.');
+			this.app.trigger('layout-screen-size-change', screenSize);
+		}
 
-		if (this.$main.height() !== paneHeight) this.$main.height(paneHeight);
-		var mainWidth = this.$sizingContainer.width() - leftOffset;
+		var leftOffset = screenSize === 'small' ? 0 : this.$info.outerWidth();
+		var topOffset = this.$navbar.outerHeight();
+
+		var mainWidth = containerWidth - leftOffset;
 		if (this.$main.width() !== mainWidth) this.$main.width(mainWidth);
+
+		var paneHeight = this.$sizingContainer.height() - topOffset;
+		if (this.$main.height() !== paneHeight) this.$main.height(paneHeight);
+
 		this.$main.css({ left: leftOffset, top: topOffset });
 
 		var mapHeight = paneHeight - this.$listContainer.outerHeight();
@@ -72,6 +88,8 @@ _.extend(O5.prototypes.Layout.prototype, {
 			this.$info.find('.footer').outerHeight()
 		);
 
+		this.drawn = true;
+
 		this.app.trigger('layout-draw');
 	},
 
@@ -80,17 +98,24 @@ _.extend(O5.prototypes.Layout.prototype, {
 			'animate': true
 		}, opts || {});
 
-		if (!view) view = this.defaultLeftPaneView;
+		if (!view) {
+			if (this.screenSize === 'small') return this.$el.removeClass('left-pane-on');
+			view = this.defaultLeftPaneView;
+		}
 
-		if (view === this.leftPaneView) return;
+		if (this.screenSize === 'small') this.$el.addClass('left-pane-on');
+
 		if (this.leftPaneView && this.leftPaneView.deactivate) this.leftPaneView.deactivate();
-		this.leftPaneView = view;
 
 		var $pane = this.$info;
-		$pane.children().detach();
-		$pane.append(view.el);
+		if (view !== this.leftPaneView) {
+			$pane.children().detach();
+			$pane.append(view.el);
+		}
+		this.leftPaneView = view;
 
 		var newWidth = view.width || this.defaultLeftPaneWidth;
+		if (this.screenSize === 'small') newWidth = this.$sizingContainer.width();
 		if (newWidth != $pane.width()) {
 			if (opts.animate) {
 				$pane.animate({ width: newWidth}, 200, _.bind(this.draw, this));
@@ -105,6 +130,26 @@ _.extend(O5.prototypes.Layout.prototype, {
 	setListHeight: function(newHeight) {
 		this.$list.height(newHeight);
 		this.$map.height(this.$main.height() - this.$list.outerHeight());
+	},
+
+	_addMobileEvents: function() {
+		var self = this;
+		var go_back = function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			self.setLeftPane(null);
+			self.$navbar.on('click', suppress_click);
+			setTimeout(function() {
+				self.$navbar.off('click', suppress_click);
+			}, 350);
+		};
+		var suppress_click = function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		};
+		this.$navbar.find('.back-button').on('touchend click', _.debounce(
+			go_back, 300, true));
+		// $('body').on('orientationchange', this.drawSoon);
 	}
 
 });

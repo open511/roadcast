@@ -279,16 +279,15 @@
 
 		var editor = new EventEditorView({app: app});
 
-		app.once('layout-render', function(opts) {
-			opts.$el.find('.navbar .buttons').prepend(editor.renderCreateButton());
-			opts.$el.on('click', '.edit-event', function (e) {
-				e.preventDefault();
-				var event = app.events.get($(e.target).closest('[data-roadevent]').attr('data-roadevent'));
-				if (event) {
-					editor.selectEvent(event);
-					app.layout.setLeftPane(editor);
-				}
-			});
+		var $el = app.layout.$el;
+		$el.find('.navbar .buttons').prepend(editor.renderCreateButton());
+		$el.on('click', '.edit-event', function (e) {
+			e.preventDefault();
+			var event = app.events.get($(e.target).closest('[data-roadevent]').attr('data-roadevent'));
+			if (event) {
+				editor.selectEvent(event);
+				app.layout.setLeftPane(editor);
+			}
 		});
 
 		var editButtonHTML = '<a href="#" class="button big primary edit-event" style="width: 100%">' +

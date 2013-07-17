@@ -6,6 +6,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="shortcut icon" type="image/x-icon" href="{% static "o5ui/img/favicon.ico" %}">
 
 
@@ -21,8 +23,6 @@
 
 <body class="open511">
   
-  <div id="main"></div>
-
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% if LANGUAGE_CODE == "fr" %}
     <script src="{% static "o5ui/locale/fr.js" %}"></script>

@@ -15,13 +15,17 @@
 		render: function() {
 			this.$el.html(JST.filter_navbar_button());
 			var self = this;
-			this.$el.find('a').click(function(e) {
-				e.preventDefault();
-				if (!self.dialogOpen) {
-					self.openDialog();
-					e.stopPropagation();
-				}
-			});
+			this.app.layout.$el.on('click', '.filter-button',
+				// we bind to the main app element so that we can suppress
+				// this click more easily elsewhere, for touch-related situations
+				function(e) {
+					e.preventDefault();
+					if (!self.dialogOpen) {
+						self.openDialog();
+						e.stopPropagation();
+					}
+				} // , 350, true)
+			);
 
 		},
 
