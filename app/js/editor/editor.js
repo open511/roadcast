@@ -51,12 +51,13 @@
 						'error'
 					);
 				}
+				var rdev = self.roadEvent;
 				self.updateEvent({
 					success: function() {
-						self.roadEvent.select();
+						rdev.select();
 					}
 				});
-				self.roadEvent.select();
+				rdev.select();
 			}).on('click', '.delete-button', function(e) {
 				e.preventDefault();
 				if (self.roadEvent.status === 'ARCHIVED' ||
