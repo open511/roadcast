@@ -224,7 +224,5 @@
 	_.each(O5.RoadEventFields, function(f) {
 		O5.RoadEventFieldsLookup[f.name] = f;
 	});
-			
-
 
 })();

@@ -271,6 +271,39 @@
 		}
 	});
 
+	var initWidgets = function() {
+
+		var StatusWidget = O5.widgets.select.extend({
+
+			getChoices: function() {
+				var choices = _.clone(O5.widgets.select.prototype.getChoices.call(this));
+				choices.push(['DELETE', O5._t('Deleted')]);
+				return choices;
+			},
+
+			onChange: function() {
+				if (this.getVal() === 'DELETE') {
+					this.setVal(this.lastVal);
+					if (window.confirm(O5._t("In general, you should set road events to archived status rather than deleting them. Are you sure you want to delete this?"))) {
+						var app = this.app;
+						this.options.roadEvent.destroy({
+							wait: true,
+							success: function() {
+								app.layout.setLeftPane(null);
+								app.router.navigate('');
+							}
+						});
+					}
+				}
+				else {
+					O5.widgets.select.prototype.onChange.apply(this, arguments);
+				}
+			}
+		});
+
+		O5.RoadEventFieldsLookup.status.widget = StatusWidget;
+	};
+
 	O5.plugins.register(function(app) {
 		if (!app.settings.enableEditing) return;
 
@@ -295,6 +328,8 @@
 				app.layout.setLeftPane(editor);
 			}
 		});
+
+		initWidgets();
 
 		var editButtonHTML = '<a href="#" class="button big primary edit-event" style="width: 100%">' +
 			O5._t('Edit') + '</a>';

@@ -55,6 +55,7 @@
 			},
 
 			initialize: function() {
+				BaseWidget.prototype.initialize.call(this);
 				this.$el.css({
 					'webkit-box-sizing': 'border-box',
 					'-moz-box-sizing': 'border-box',
@@ -76,6 +77,7 @@
 		text: BaseWidget.extend({
 			tagName: 'input',
 			initialize: function() {
+				BaseWidget.prototype.initialize.call(this);
 				this.$el.attr('type', 'text');
 			}
 		}),
@@ -83,27 +85,31 @@
 		select: BaseWidget.extend({
 			tagName: 'select',
 			initialize: function() {
+				BaseWidget.prototype.initialize.call(this);
 				var $el = this.$el;
-				var choices = this.options.field.choices;
-				if (_.isFunction(choices)) {
-					choices = choices();
-				}
-				if (!_.find(choices, function(choice) { return choice[0] === '' || choice[0] === null; })) {
+				this.choices = this.getChoices();
+				if (!_.find(this.choices, function(choice) { return choice[0] === '' || choice[0] === null; })) {
 					// Ensure there's a blank choice
 					$el.append($('<option class="temporary-default" value=""></option>'));
 				}
-				_.each(choices, function(choice) {
+				_.each(this.choices, function(choice) {
 					$el.append($('<option />').val(choice[0]).text(choice[1]));
 				});
 			},
 
+			getChoices: function() {
+				var choices = this.options.field.choices;
+				return _.isFunction(choices) ? choices() : choices;
+			},
+
 			setVal: function(val) {
-				if (!_.find(this.options.field.choices, function(choice) { return choice[0] === val; })) {
+				if (!_.find(this.choices, function(choice) { return choice[0] === val; })) {
 					// throw error?
 					return;
 				}
 				this.$el.val(val);
 				this.$el.find('option.temporary-default').remove();
+				this.lastVal = val;
 			},
 
 			onChange: function() {
@@ -116,8 +122,9 @@
 			addLabel: false,
 			tagName: 'div',
 			initialize: function() {
+				BaseWidget.prototype.initialize.call(this);
 				this.boxID = this.id + '-cb';
-				this.$el.html('<input type="checkbox" value="true" id="' + this.boxID + '"> <label for="' + this.boxID + '"></label>');
+				this.$el.html('<input class="checkbox" type="checkbox" value="true" id="' + this.boxID + '"> <label for="' + this.boxID + '"></label>');
 				this.$el.find('label').text(this.options.field.label);
 				this.$el.addClass('checkbox');
 				this.box = this.$el.find('input')[0];
@@ -133,6 +140,7 @@
 		date: BaseWidget.extend({
 			tagName: 'input',
 			initialize: function() {
+				BaseWidget.prototype.initialize.call(this);
 				var self = this;
 				this.$el.attr('type', 'text');
 				this.$el.datepicker({

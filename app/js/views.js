@@ -2,7 +2,6 @@ O5.views = {
 	BaseView: Backbone.View.extend({
 		initialize: function() {
 			this.app = this.options.app;
-			if (this.options.app) delete this.options.app;
 		}
 	})
 };
