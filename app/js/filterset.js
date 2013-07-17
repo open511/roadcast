@@ -20,7 +20,7 @@
 			remote: defaultRemote,
 			choices: function() {
 				return _.map(O5.app.settings.jurisdictions, function(jur) {
-					return [jur.slug, jur.slug];
+					return [jur.id, jur.id];
 				});
 			},
 			widget: 'select'

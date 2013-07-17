@@ -43,13 +43,13 @@ def main(request, event_slug=None):
             opts['mapTileOptions'] = settings.OPEN511_UI_MAP_TILE_OPTIONS
 
     if Jurisdiction is not None:
-        opts['jurisdictions'] = list(Jurisdiction.objects.all().values('slug'))
+        opts['jurisdictions'] = list(Jurisdiction.objects.all().values('id'))
 
         if enable_editing:
             editable_jurisdictions = Jurisdiction.objects.filter(
-                permitted_users=request.user).values_list('slug', flat=True)
+                permitted_users=request.user).values_list('id', flat=True)
             for j in opts['jurisdictions']:
-                if j['slug'] in editable_jurisdictions:
+                if j['id'] in editable_jurisdictions:
                     j['editable'] = True
 
     gmaps = settings.OPEN511_UI_MAP_TYPE == 'google'

@@ -35,7 +35,7 @@
 				e.preventDefault();
 				var rdev = self.roadEvent;
 				self.deactivate();
-				if (rdev.isNew()) {
+				if (!rdev || rdev.isNew()) {
 					self.app.layout.setLeftPane(null);
 				}
 				else {
@@ -170,8 +170,8 @@
 			var updates = this.getUpdates();
 			opts = opts || {};
 			_.defaults(opts, {
-				patch: true,
-				wait: true
+				patch: true
+				// wait: true
 			});
 			if (_.size(updates)) {
 				this.roadEvent.save(updates, opts);
@@ -298,7 +298,7 @@
 		app.editableJurisdictionSlugs = [];
 		_.each(app.settings.jurisdictions, function(jur) {
 			if (jur.editable) {
-				app.editableJurisdictionSlugs.push(jur.slug);
+				app.editableJurisdictionSlugs.push(jur.id);
 			}
 		});
 
