@@ -125,6 +125,7 @@
 
 		createEvent: function(jurisdiction_url) {
 			var event = new O5.RoadEvent({
+				status: 'ACTIVE',
 				jurisdiction_url: jurisdiction_url
 			});
 
@@ -243,7 +244,11 @@
 		},
 
 		getFieldDefs: function(roadEvent) {
-			var fields = O5.RoadEventFields.slice(0);
+			var fields = _.clone(O5.RoadEventFields);
+			if (roadEvent.isNew()) {
+				// Don't show status dropdown on new events
+				fields = _.reject(fields, function(field) { return field.name === 'status'; });
+			}
 			// PLUGIN HOOK
 			this.app.trigger('editor-field-definitions', {
 				fields: fields,
