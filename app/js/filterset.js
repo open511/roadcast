@@ -63,7 +63,7 @@
 			remote: function (key, value) {
 				return [
 					'in_effect_on',
-					value + 'T01:00' + O5.app.settings.timezone + ',' + value + 'T10:59' +  O5.app.settings.timezone
+					value + 'T00:00' + ',' + value + 'T23:59'
 				];
 			},
 			widget: 'date'

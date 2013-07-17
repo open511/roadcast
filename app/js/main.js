@@ -7,8 +7,7 @@ O5.init = function(opts) {
 		var app = _.extend({
 			settings: {
 				inside: 'body',
-				pushState: false,
-				timezone: '-05:00'
+				pushState: false
 			}
 		}, Backbone.Events);
 
