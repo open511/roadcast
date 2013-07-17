@@ -58,18 +58,6 @@
 					}
 				});
 				rdev.select();
-			}).on('click', '.delete-button', function(e) {
-				e.preventDefault();
-				if (self.roadEvent.status === 'ARCHIVED' ||
-					window.confirm(O5._t("In general, you should set road events to archived status rather than deleting them. Are you sure you want to delete this?"))) {
-					self.roadEvent.destroy({
-						wait: true,
-						success: function() {
-							O5.app.layout.setLeftPane(null);
-							O5.app.router.navigate('');
-						}
-					});
-				}
 			});
 
 		},
