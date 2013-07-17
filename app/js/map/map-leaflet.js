@@ -2,6 +2,9 @@
 
 	var icons = {};
 
+	var overlaysToRemove = [],
+		overlaysToAdd = [];
+
 	var Map = O5.views.BaseMapView.extend({
 
 		initialize: function() {
@@ -91,20 +94,34 @@
 		},
 
 		removeOverlay: function(overlay) {
-			this.clusterLayer.removeLayer(overlay);
+			overlaysToRemove.push(overlay);
 			if (overlay._highlight_marker) {
 				this.highlightLayer.removeLayer(overlay._highlight_marker);
 				delete overlay._highlight_marker;
 			}
+			this._processOverlayQueues();
 		},
 
 		addOverlay: function(overlay, events) {
-			// this.lmap.addLayer(overlay);
-			this.clusterLayer.addLayer(overlay);
-			_.each(events || {}, function(callback, event) {
-				overlay.on(event, callback);
-			});
+			overlaysToAdd.push(overlay);
+			if (events) {
+				_.each(events || {}, function(callback, event) {
+					overlay.on(event, callback);
+				});
+			}
+			this._processOverlayQueues();
 		},
+
+		_processOverlayQueues: _.debounce(function() {
+			if (overlaysToRemove.length) {
+				this.clusterLayer.removeLayers(overlaysToRemove);
+				overlaysToRemove = [];
+			}
+			if (overlaysToAdd.length) {
+				this.clusterLayer.addLayers(overlaysToAdd);
+				overlaysToAdd = [];
+			}
+		}, 2),
 
 		setOverlayVisibility: function(overlay, visible) {
 			if (visible) {
