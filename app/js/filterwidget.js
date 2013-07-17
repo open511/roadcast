@@ -64,7 +64,7 @@
 			var self = this;
 			widget.on('change', function() {
 				self.filterState[type] = widget.getVal();
-				self.updateFilters();
+				_.defer(function() { self.updateFilters(); });
 			});
 
 			$row.attr('data-filtertype', type).find('.name').empty()
