@@ -94,6 +94,7 @@
 		},
 
 		removeOverlay: function(overlay) {
+			if (overlaysToAdd.length) this._processOverlayQueuesNow();
 			overlaysToRemove.push(overlay);
 			if (overlay._highlight_marker) {
 				this.highlightLayer.removeLayer(overlay._highlight_marker);
@@ -103,6 +104,7 @@
 		},
 
 		addOverlay: function(overlay, events) {
+			if (overlaysToRemove.length) this._processOverlayQueuesNow();
 			overlaysToAdd.push(overlay);
 			if (events) {
 				_.each(events || {}, function(callback, event) {
@@ -112,7 +114,7 @@
 			this._processOverlayQueues();
 		},
 
-		_processOverlayQueues: _.debounce(function() {
+		'_processOverlayQueuesNow': function() {
 			if (overlaysToRemove.length) {
 				this.clusterLayer.removeLayers(overlaysToRemove);
 				overlaysToRemove = [];
@@ -121,7 +123,7 @@
 				this.clusterLayer.addLayers(overlaysToAdd);
 				overlaysToAdd = [];
 			}
-		}, 2),
+		},
 
 		setOverlayVisibility: function(overlay, visible) {
 			if (visible) {
@@ -214,6 +216,8 @@
 		}
 
 	});
+
+	Map.prototype._processOverlayQueues = _.debounce(Map.prototype._processOverlayQueuesNow, 2);
 
 	O5.views.MapView = Map;
 })();
