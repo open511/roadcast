@@ -323,7 +323,7 @@
 			O5._t('Edit') + '</a>';
 
 		app.on('event-detail-render', function(opts) {
-			if (_.indexOf(app.editableJurisdictionSlugs, opts.roadEvent.jurisdictionSlug()) !== -1) {
+			if (_.indexOf(app.editableJurisdictionSlugs, opts.roadEvent.getJurisdictionID()) !== -1) {
 				var $footer = opts.$el.find('div.footer');
 				if (!$footer.length) $footer = $('<div class="footer container"></div>').appendTo(opts.$el);
 				$footer.append($(editButtonHTML));

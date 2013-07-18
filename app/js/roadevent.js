@@ -26,8 +26,8 @@
 			if (opts.trigger) O5.app.trigger('selection', this, opts);
 		},
 
-		jurisdictionSlug: function() {
-			return this.get('jurisdiction_url').replace(/\/$/, '').split('/').slice(-1)[0];
+		getJurisdictionID: function() {
+			return this.id.split('/')[0];
 		},
 
 		/**

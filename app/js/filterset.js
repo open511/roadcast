@@ -15,7 +15,7 @@
 		jurisdiction: {
 			label: O5._t("Jurisdiction"),
 			local: function(key, value, rdev) {
-				return rdev.jurisdictionSlug() === value;
+				return rdev.getJurisdictionID() === value;
 			},
 			remote: defaultRemote,
 			choices: function() {

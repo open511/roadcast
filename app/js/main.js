@@ -89,7 +89,7 @@ O5.plugins = {
 	init: function(app, opts) {
 		var plugins = registered_plugins;
 		if (opts.screenSize === 'small') {
-			plugins = _.where(plugins, { supportSmallScreens: true });
+			plugins = _.where(plugins, { supportsSmallScreens: true });
 		}
 		for (var i = 0; i < plugins.length; i++) {
 			new plugins[i](app);
