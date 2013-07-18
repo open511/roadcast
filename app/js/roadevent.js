@@ -27,7 +27,7 @@
 		},
 
 		getJurisdictionID: function() {
-			return this.id.split('/')[0];
+			return this.get('jurisdiction_id') || this.id.split('/')[0];
 		},
 
 		/**
@@ -60,24 +60,6 @@
 				return url;
 			}
 			return Backbone.Model.prototype.url.call(this);
-		},
-
-		update: function(updates, opts) {
-			var self = this;
-			opts = opts || {};
-			$.ajax({
-				url: this.url(),
-				data: JSON.stringify(updates),
-				type: 'POST',
-				contentType: 'application/json',
-				processData: false,
-				success: function() {
-					self.fetch();
-					if (_.isFunction(opts.success)) {
-						opts.success();
-					}
-				}
-			});
 		},
 
 		sync: function(method, model, opts) {

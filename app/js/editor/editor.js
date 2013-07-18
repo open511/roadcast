@@ -70,7 +70,7 @@
 			_.each(this.getFieldDefs(self.roadEvent), function(field) {
 				var $field_el = $('<div class="field editor-row" />');
 				var widget = self.makeWidget(field, self.roadEvent);
-				$field_el.attr('data-tab', field.tab);
+				$field_el.attr('data-tab', field.tab).attr('data-fieldname', field.name);
 				if (widget.addLabel) {
 					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));
 				}
@@ -111,10 +111,10 @@
 			return $button;
 		},
 
-		createEvent: function(jurisdiction_url) {
+		createEvent: function(jurisdiction_id) {
 			var event = new O5.RoadEvent({
 				status: 'ACTIVE',
-				jurisdiction_url: jurisdiction_url
+				jurisdiction_id: jurisdiction_id
 			});
 
 			// Set default values
