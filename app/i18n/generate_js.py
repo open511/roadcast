@@ -8,7 +8,7 @@ import subprocess
 
 JS_TEMPLATE = """window.O5 = window.O5 || {};
 
-O5.i18n = new Jed({
+O5.i18n = new SimpleI18N({
     locale_data: {
         messages: %s
     }

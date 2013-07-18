@@ -55,7 +55,8 @@ module.exports = function(grunt) {
 					],
 
 					'<%=dest%>/locale/fr.js': [
-						'app/vendor/jed.js',
+						//'app/vendor/jed.js',
+						'app/i18n/simple-i18n.js',
 						'app/i18n/fr.js',
 						'app/i18n/fr-dates.js'
 					],
