@@ -22,7 +22,7 @@
 </head>
 
 <body class="open511">
-  
+  {{ inject_for_testing }}
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% if LANGUAGE_CODE == "fr" %}
     <script src="{% static "o5ui/locale/fr.js" %}"></script>
