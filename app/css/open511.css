@@ -419,6 +419,10 @@
 	overflow: auto;
 	background-color: #F6F6F6;
 	border-top: 2px solid #AAAAAA;	
+	display: none;
+}
+.o5 .roadevent-list-container.visible .roadevent-list {
+	display: block;
 }
 .o5 .roadevent-list table {
 	width: 100%;
