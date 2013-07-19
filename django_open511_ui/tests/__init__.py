@@ -19,19 +19,23 @@ class IntegrationTests(BrowserTestCase):
         self.go_home()
         self.assertEquals(self.js('return window.browser_testing;'), 'indeed')
 
+    def _fill_in_event(self, headline='xxx'):
+        self.css('[data-fieldname="headline"] textarea').send_keys(headline)
+        self.css('[data-fieldname="severity"] select option:last-child').click()
+        self.css('[data-fieldname="geography"] .draw-point').click()
+        self.css('.mappane').click()
+        self.css('li[data-tab=schedule] a').click()
+        time.sleep(0.2)
+        self.css('[data-fieldname="schedule/start_date"] input').click()
+        self.css('.datepicker .active').click()
+        self.css('li[data-tab=basics] a').click()
+
     def test_create_event(self):
         self.assertEquals(len(self.get_all_events()['content']), 0)
         self.go_home()
         self.log_in('testuser', 'testuser')
         self.css('.create-new-event').click()
-        self.css('[data-fieldname="headline"] textarea').send_keys('Head Line')
-        self.css('[data-fieldname="severity"] select option:last-child').click()
-        self.css('[data-fieldname="geography"] .draw-point').click()
-        self.css('.mappane').click()
-        self.css('li[data-tab=schedule] a').click()
-        self.css('[data-fieldname="schedule/start_date"] input').click()
-        time.sleep(0.1)
-        self.css('.datepicker .active').click()
+        self._fill_in_event(headline='Head Line')
         self.css('.save-button').click()
         time.sleep(1)
         all_events = self.get_all_events()['content']
@@ -51,3 +55,21 @@ class IntegrationTests(BrowserTestCase):
             'jurisdiction_url': 'http://test/api/jurisdictions/test.open511.org/',
             'schedule': {'start_date': unicode(datetime.date.today())}
         })
+
+    def test_published(self):
+        self.assertEquals(len(self.get_all_events()['content']), 0)
+        self.go_home()
+        self.log_in('testuser', 'testuser')
+        self.css('.create-new-event').click()
+        self._fill_in_event()
+        self.css('[data-fieldname="!publish_on"] input[type="checkbox"]').click()
+        self.css('.save-button').click()
+        time.sleep(0.7)
+        self.assertEquals(len(self.get_all_events()['content']), 0)
+        self.css('.event-detail .unpublished')
+        self.css('.edit-event').click()
+        self.css('.publish-now').click()
+        self.css('.save-button').click()
+        time.sleep(0.7)
+        self.assertEquals(len(self.get_all_events()['content']), 1)
+        self.assert_not_css('.event-detail .unpublished')

@@ -54,6 +54,9 @@ class BrowserTestCase(LiveServerTestCase):
     def assert_no_js_errors(self):
         self.assert_js('return window.jsErrors;', [])
 
+    def assert_not_css(self, css):
+        self.assert_js("return $('" + css + "').length", 0)
+
     def log_in(self, username, password):
         self.css('.auth .log-in').click()
         self.css('#id_username').send_keys(username)

@@ -6,7 +6,7 @@
 
 		selectEvent: function(event) {
 			this.roadEvent = event;
-			this._originalAttributes = _.clone(event.attributes);
+			this.savepoint();
 			this.render();
 		},
 
@@ -43,21 +43,7 @@
 				}
 			}).on('click', '.save-button', function(e) {
 				e.preventDefault();
-				var invalidWidgets = self.getInvalidWidgets();
-				if (invalidWidgets.length > 0) {
-					return O5.utils.notify(
-						O5._t("Validation error. Please verify: ") +
-						_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', '),
-						'error'
-					);
-				}
-				var rdev = self.roadEvent;
-				self.updateEvent({
-					success: function() {
-						rdev.select();
-					}
-				});
-				rdev.select();
+				self.save();
 			});
 
 		},
@@ -170,12 +156,47 @@
 			var updates = this.getUpdates();
 			opts = opts || {};
 			_.defaults(opts, {
-				patch: true
-				// wait: true
+				patch: !this.roadEvent.isNew(),
+				wait: true
 			});
 			if (_.size(updates)) {
+				// We want to set a savepoint after updating the model, so that when we get a deactivate
+				// event as the editor closes, we'll know not to discard any changes. That's why
+				// we do a manual set and then call Backbone's save with {wait: true}
+				this.roadEvent.set(updates);
+				this.savepoint();
 				this.roadEvent.save(updates, opts);
 			}
+		},
+
+		save: function() {
+			var invalidWidgets = this.getInvalidWidgets();
+			if (invalidWidgets.length > 0) {
+				return O5.utils.notify(
+					O5._t("Validation error. Please verify: ") +
+					_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', '),
+					'error'
+				);
+			}
+
+			var rdev = this.roadEvent;
+			var wasNew = rdev.isNew();
+			this.updateEvent({
+				success: function() {
+					if (wasNew) rdev.select();
+				}
+			});
+			rdev.select();
+		},
+
+		// Remembers the current state of an event's attributes; used to indicate the
+		// last saved state
+		savepoint: function() {
+			this._lastSavedAttributes = _.omit(
+				// remove internal underscore-prefixed attribute like _selected and _visible
+				this.roadEvent.attributes,
+				_.filter(_.keys(this.roadEvent.attributes), function(key) { return key.substring(0, 1) === '_'; })
+			);
 		},
 
 		validateWidget: function(widget) {
@@ -252,8 +273,13 @@
 				O5.app.events.remove(this.roadEvent);
 			}
 			else {
-				// Revert it
-				this.roadEvent.set(this._originalAttributes);
+				if (!_.isEqual(this.roadEvent.attributes, this._lastSavedAttributes)) {
+					console.log('Discarding event changes'); // FIXME dialog
+					console.log(this.roadEvent.attributes);
+					console.log(this._lastSavedAttributes);
+					// Revert it
+					this.roadEvent.set(this._lastSavedAttributes);
+				}
 			}
 			this.roadEvent = null;
 		}

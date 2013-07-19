@@ -13,7 +13,7 @@
 </div>
 
 <div class="body container">
-<% if (r['!unpublished']) { print ('<div class="emphasized-note warning">' + O5._t('Unpublished') + '</div>'); } %>
+<% if (r['!unpublished']) { print ('<div class="emphasized-note warning unpublished">' + O5._t('Unpublished') + '</div>'); } %>
 <% if (r.roads && r.roads.length) { %>
 	<h4><%- O5._t('Roads') %></h4>
 	<% _.each(r.roads, function(road) { %>

@@ -13,7 +13,7 @@
 		},
 
 		renderDefault: function() {
-			this.$el.html('<div class="emphasized-note warning">' + O5._t('Unpublished') + '</div>' +
+			this.$el.html('<div class="emphasized-note warning unpublished">' + O5._t('Unpublished') + '</div>' +
 				'<label for="' + this.id + '">' + O5._t('Publish on') + '</label>' +
 				'<input id="' + this.id + '-t" type="text" class="inline" style="width: 30%"/> &nbsp; ' +
 				'<a class="button publish-now" style="position: relative; bottom: 5px"><span>' + O5._t('Publish now') + '</span></button>');
