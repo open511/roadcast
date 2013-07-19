@@ -41,7 +41,7 @@
 
 			this.app.events.on('add change:geography change:id', this.updateRoadEvent, this)
 				.on('remove', this.removeRoadEventOverlays, this)
-				.on('internalChange:visible', this.updateRoadEventVisibility, this)
+				.on('internalChange:visible internalChange:selected', this.updateRoadEventVisibility, this)
 				.on('internalChange:selected internalChange:highlighted change:status', this.updateRoadEventIcon, this);
 
 		},
@@ -119,7 +119,7 @@
 		updateRoadEventVisibility: function(rdev) {
 			var self = this;
 			_.each(rdev.mapOverlays, function(overlay) {
-				self.setOverlayVisibility(overlay, rdev.internal.visible);
+				self.setOverlayVisibility(overlay, rdev.internal.visible || rdev.internal.selected);
 			});
 		},
 

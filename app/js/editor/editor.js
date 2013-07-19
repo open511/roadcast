@@ -49,6 +49,7 @@
 		},
 
 		render: function() {
+			// FIXME refactor, too big
 			var self = this;
 			var $e = $(JST["event_editor"]({r: self.roadEvent}));
 			var $fields = $e.find('.fields');
