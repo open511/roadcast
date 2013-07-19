@@ -22,7 +22,9 @@ except ImportError:
 def main(request, event_slug=None):
     enable_editing = settings.OPEN511_UI_ENABLE_EDITOR and request.user.is_authenticated()
 
-    opts = {
+    opts = settings.OPEN511_UI_APP_SETTINGS
+
+    opts.update({
         'rootURL': urlresolvers.reverse('o5ui_home'),
         'eventsURL': unicode(settings.OPEN511_UI_EVENTS_URL),
         'staticURL': settings.STATIC_URL,
@@ -31,16 +33,10 @@ def main(request, event_slug=None):
         'mapStartLng': settings.OPEN511_UI_MAP_START_LNG,
         'mapStartZoom': settings.OPEN511_UI_MAP_START_ZOOM,
         'pushState': True,
-    }
+    })
 
     if enable_editing and settings.OPEN511_UI_AWS_ACCESS_KEY:
         opts['fileUploadURL'] = urlresolvers.reverse('o5ui_file_upload')
-
-    if settings.OPEN511_UI_MAP_TYPE == 'leaflet':
-        if settings.OPEN511_UI_MAP_TILE_URL:
-            opts['mapTileURL'] = settings.OPEN511_UI_MAP_TILE_URL
-        if settings.OPEN511_UI_MAP_TILE_OPTIONS:
-            opts['mapTileOptions'] = settings.OPEN511_UI_MAP_TILE_OPTIONS
 
     if Jurisdiction is not None:
         opts['jurisdictions'] = list(Jurisdiction.objects.all().values('id'))
