@@ -3,12 +3,15 @@ from __future__ import unicode_literals
 import datetime
 import time
 
+from django_open511_ui.conf import settings
 from django_open511_ui.test_utils import BrowserTestCase
 
 
 class IntegrationTests(BrowserTestCase):
 
     fixtures = ['o5ui_base']
+
+    maxDiff = None
     
     # Smoke tests
     def test_page_load(self):
@@ -17,7 +20,10 @@ class IntegrationTests(BrowserTestCase):
 
     def test_js_injection(self):
         self.go_home()
-        self.assertEquals(self.js('return window.browser_testing;'), 'indeed')
+        self.assert_js('return window.browser_testing;', 'indeed')
+        if settings.OPEN511_UI_TEST_BROWSER == 'phantomjs':
+            # https://github.com/ariya/phantomjs/issues/11384
+            self.assert_js('return Backbone.emulateHTTP;', True)
 
     def _fill_in_event(self, headline='xxx'):
         self.css('[data-fieldname="headline"] textarea').send_keys(headline)
@@ -44,7 +50,6 @@ class IntegrationTests(BrowserTestCase):
         event.pop('geography') # these will all change
         event.pop('created')
         event.pop('updated')
-        self.maxDiff = 1000 # better error reporting if the next assert fails
         self.assertEquals(all_events[0], {
             'id': 'test.open511.org/1',
             'headline': 'Head Line',

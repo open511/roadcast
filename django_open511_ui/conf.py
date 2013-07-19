@@ -54,5 +54,8 @@ class Open511UISettings(AppConf):
     AWS_SECRET_KEY = ''
     FILE_UPLOAD_S3_BUCKET = ''
 
+    # Which WebDriver to use for automated testing? firefox or phantomjs
+    TEST_BROWSER = 'firefox'
+
     class Meta:
         prefix = 'OPEN511_UI'

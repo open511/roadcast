@@ -1,7 +1,7 @@
 import json
 from urlparse import urljoin
 
-from django.conf import settings
+from django_open511_ui.conf import settings
 from django.core import urlresolvers
 from django.test import LiveServerTestCase
 from django.test.utils import override_settings
@@ -9,10 +9,14 @@ from django.utils.safestring import mark_safe
 
 
 def get_driver():
-    from selenium.webdriver.firefox.webdriver import WebDriver
-    #from selenium.webdriver.phantomjs.webdriver import WebDriver
+    if settings.OPEN511_UI_TEST_BROWSER == 'phantomjs':
+        from selenium.webdriver.phantomjs.webdriver import WebDriver
+    else:
+        from selenium.webdriver.firefox.webdriver import WebDriver
+
     driver = WebDriver()
     driver.implicitly_wait(5)
+    driver.set_window_size(1000, 700)
     return driver
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage',
@@ -72,13 +76,16 @@ class BrowserTestCase(LiveServerTestCase):
 
 
 def context_processor(request):
+    script_body = """
+        window.browser_testing = 'indeed';
+        window.jsErrors = [];
+        window.onerror = function(msg) {
+            window.jsErrors.push(msg);
+        };"""
+    if settings.OPEN511_UI_TEST_BROWSER == 'phantomjs':
+        # https://github.com/ariya/phantomjs/issues/11384
+        script_body += "window.onload = function() { Backbone.emulateHTTP = true; };"
     return {
-        'inject_for_testing': mark_safe("""<script>
-            window.browser_testing = 'indeed';
-            window.jsErrors = [];
-            window.onerror = function(msg) {
-                window.jsErrors.push(msg);
-            };
-            </script>
-            """)
+        'inject_for_testing': mark_safe(
+            "<script>%s</script>" % script_body)
     }
