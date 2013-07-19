@@ -35,7 +35,7 @@
 			if (!this.eventsInitialized) this.initializeEvents();			
 
 			this.$list.find('table').html(
-				JST.event_list({events: this.app.events.where({'_visible': true})})
+				JST.event_list({events: this.app.events.getVisible() })
 			);
 		},
 
@@ -54,15 +54,15 @@
 			})
 				.on('mouseenter', 'tr[data-roadevent]', function(e) {
 					var event = app.events.get($(this).attr('data-roadevent'));
-					if (event) event.set('_highlighted', true);
+					if (event) event.setInternal('highlighted', true);
 				})
 				.on('mouseleave', 'tr[data-roadevent]', function() {
 					var event = app.events.get($(this).attr('data-roadevent'));
-					if (event) event.set('_highlighted', false);
-				});
+					if (event) event.setInternal('highlighted', false);
+				}); 
 
-			this.app.events.on('add remove change:except-internal change:_visible', this.renderSoon);
-			this.app.events.on('change:_selected', function(rdev, selected) {
+			this.app.events.on('add remove change internalChange:visible', this.renderSoon);
+			this.app.events.on('internalChange:selected', function(rdev, selected) {
 				if (!self.visible) return;
 				var $row = self.$el.find('tr[data-roadevent="' + rdev.id + '"]');
 				if (selected) {

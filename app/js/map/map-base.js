@@ -33,7 +33,7 @@
 				self.zoom(-1);
 			});
 
-			this.app.on('selection', function(roadEvent, opts) {
+			this.app.on('display', function(roadEvent, opts) {
 				if (opts.panTo && roadEvent.mapOverlays && roadEvent.mapOverlays.marker) {
 					self.panToMarker(roadEvent.mapOverlays.marker);
 				}
@@ -41,8 +41,8 @@
 
 			this.app.events.on('add change:geography change:id', this.updateRoadEvent, this)
 				.on('remove', this.removeRoadEventOverlays, this)
-				.on('change:_visible', this.updateRoadEventVisibility, this)
-				.on('change:_selected change:_highlighted change:status', this.updateRoadEventIcon, this);
+				.on('internalChange:visible', this.updateRoadEventVisibility, this)
+				.on('internalChange:selected internalChange:highlighted change:status', this.updateRoadEventIcon, this);
 
 		},
 
@@ -101,7 +101,7 @@
 					self.addOverlay(overlay, events);
 				});
 			}
-			if (!rdev.get('_visible')) {
+			if (!rdev.internal.visible) {
 				this.updateRoadEventVisibility(rdev);
 			}
 		},
@@ -117,10 +117,9 @@
 		},
 
 		updateRoadEventVisibility: function(rdev) {
-			var visible = rdev.get('_visible');
 			var self = this;
 			_.each(rdev.mapOverlays, function(overlay) {
-				self.setOverlayVisibility(overlay, visible);
+				self.setOverlayVisibility(overlay, rdev.internal.visible);
 			});
 		},
 
@@ -131,7 +130,7 @@
 		},
 
 		getIconType: function(rdev) {
-			if (rdev.get('_selected') || rdev.get('_highlighted')) {
+			if (rdev.internal.selected || rdev.internal.highlighted) {
 				return 'selected';
 			}
 			else if (rdev.get('status') === 'ARCHIVED') {

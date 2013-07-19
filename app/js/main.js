@@ -24,6 +24,7 @@ O5.init = function(opts) {
 
 		$(document).ajaxError(function(e, xhr, settings, exception) {
 			O5.utils.notify(xhr.responseText, 'error');
+			if (window.jsErrors) window.jsErrors.push(xhr.responseText);
 		});
 
 		app.layout = new O5.prototypes.Layout(app.settings.inside, app);
@@ -59,7 +60,7 @@ O5.init = function(opts) {
 			app: app
 		});
 
-		app.on('selection', function(event) {
+		app.on('display', function(event) {
 			app.detailViewer.displayEvent(event);
 			app.layout.setLeftPane(app.detailViewer);
 			event.navigateTo();

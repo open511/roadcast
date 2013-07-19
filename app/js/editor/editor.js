@@ -113,7 +113,7 @@
 			event.set(defaults);
 
 			this.app.events.add(event);
-			event.select({trigger: false});
+			event.select({display: false});
 			this.selectEvent(event);
 			this.app.layout.setLeftPane(this);
 		},
@@ -192,11 +192,7 @@
 		// Remembers the current state of an event's attributes; used to indicate the
 		// last saved state
 		savepoint: function() {
-			this._lastSavedAttributes = _.omit(
-				// remove internal underscore-prefixed attribute like _selected and _visible
-				this.roadEvent.attributes,
-				_.filter(_.keys(this.roadEvent.attributes), function(key) { return key.substring(0, 1) === '_'; })
-			);
+			this._lastSavedAttributes = _.clone(this.roadEvent.attributes);
 		},
 
 		validateWidget: function(widget) {
@@ -275,8 +271,6 @@
 			else {
 				if (!_.isEqual(this.roadEvent.attributes, this._lastSavedAttributes)) {
 					console.log('Discarding event changes'); // FIXME dialog
-					console.log(this.roadEvent.attributes);
-					console.log(this._lastSavedAttributes);
 					// Revert it
 					this.roadEvent.set(this._lastSavedAttributes);
 				}

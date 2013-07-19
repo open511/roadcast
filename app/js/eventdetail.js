@@ -10,7 +10,7 @@
 				this.roadEvent.off('change', this.render, this);
 			}
 			this.roadEvent = event;
-			event.on('change:except-internal', this.render, this);
+			event.on('change', this.render, this);
 			this.$el.attr('data-roadevent', event.id);
 			this.render();
 		},

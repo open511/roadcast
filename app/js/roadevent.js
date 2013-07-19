@@ -5,25 +5,12 @@
 	O5.RoadEvent = Backbone.Model.extend({
 
 		initialize: function() {
-			if (!this.has('_visible')) {
-				this.set('_visible', true);
-			}
+			if (!this.internal) this.internal = { visible: true };
 		},
 
 		select: function(opts) {
-			// valid options:
-			// - panTo: asks the map to pan
-			// - trigger: send a selection event, which does things like
-			// 		display the event details
-			opts = _.extend({
-				trigger: true
-			}, opts || {});
-			var self = this;
-			_.each(this.collection.where({'_selected': true}), function(rdev) {
-				if (rdev !== self) rdev.set('_selected', false);
-			});
-			this.set('_selected', true);
-			if (opts.trigger) O5.app.trigger('selection', this, opts);
+			// see collection.select for options
+			this.collection.select(this, opts);
 		},
 
 		getJurisdictionID: function() {
@@ -83,26 +70,23 @@
 			return this.isNew() && !this._sync_called;
 		},
 
-		isChangeInternal: function() {
-			return _.every(_.keys(this.changed), function(key) {
-				return key.substr(0, 1) === '_';
-			});
+		setInternal: function(key, val, opts) {
+			var changing = (val !== this.internal[key]);
+			this.internal[key] = val;
+			opts = opts || {};
+			if (!opts.silent)
+				this.trigger('internalChange:' + key, this, this.internal[key], opts);
+		},
+
+		getInternal: function(key) {
+			return this.internal[key];
 		}
+
 	});
 
 	// Default Collection.
 	O5.RoadEvents = Backbone.Collection.extend({
 		model: O5.RoadEvent,
-
-		initialize: function() {
-			// Trigger a specific change:except-internal event when a change
-			// occurs to non-internal (not underscore-prefixed) fields.
-			this.on('change', function(model, opts) {
-				if (!model.isChangeInternal()) {
-					model.trigger('change:except-internal', model, opts);
-				}
-			});
-		},
 
 		sync: function() {
 			throw new Error('Sync not supported on Collection');
@@ -110,6 +94,25 @@
 
 		parse: function(resp, xhr) {
 			return resp.content;
+		},
+
+		select: function(model, opts) {
+			// valid options:
+			// - panTo: asks the map to pan
+			// - display: true by default, triggers a 'display' event which the 
+			// 		detail-viewer pane responds to
+			opts = _.extend({
+				display: true
+			}, opts || {});
+			if (this.selectedEvent && this.selectedEvent !== model)
+				this.selectedEvent.setInternal('selected', false);
+			this.selectedEvent = model;
+			model.setInternal('selected', true);
+			if (opts.display) O5.app.trigger('display', model, opts);
+		},
+
+		getVisible: function() {
+			return this.filter(function(model) { return model.internal.visible; });
 		}
 
 	});

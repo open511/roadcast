@@ -13,7 +13,7 @@
 		eventDetails: function(eventID) {
 			var event = O5.app.events.get(eventID);
 			if (event) {
-				event.select();
+				event.select({ panTo: true});
 			}
 			else {
 				// We need to fetch the data for the event
