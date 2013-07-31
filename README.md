@@ -13,3 +13,20 @@ This should give you a folder called `dist`. You should be able to open `example
 This repository also includes an optional Django application wrapper that takes care of compiling and serving the JavaScript application. You can install it by running `python setup.py install` from within a copy of this repository, or running `pip install -e git+https://github.com/opennorth/open511-ui.git#egg=django_open511_ui` to download and install. You still need to have [Node.JS](http://nodejs.org/) 0.8 or greater installed for this to work, and setup.py will complain if you don't.
 
 Once the package is installed, just add `url(r'^map/', include('django_open511_ui.urls')),` to `urls.py` in an existing Django project. You can also use [opennorth/open511_site](https://www.github.com/opennorth/open511_site) as a project template -- just install it, and this UI is included.
+
+# License
+
+Copyright (C) 2013 Open North
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see http://www.gnu.org/licenses/
