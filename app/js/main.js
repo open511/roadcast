@@ -23,6 +23,8 @@ O5.init = function(opts) {
 		O5.app = app;
 
 		$(document).ajaxError(function(e, xhr, settings, exception) {
+			if (xhr.readyState !== 4) return; // For now, don't handle requests that were
+											  // aborted before completing
 			O5.utils.notify(xhr.responseText, 'error');
 			if (window.jsErrors) window.jsErrors.push(xhr.responseText);
 		});
