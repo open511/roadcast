@@ -47,14 +47,14 @@ class IntegrationTests(BrowserTestCase):
         all_events = self.get_all_events()['content']
         self.assertEquals(len(all_events), 1)
         event = all_events[0]
-        event.pop('geography') # these will all change
+        event.pop('geography') # these will vary, don't test their contents
         event.pop('created')
         event.pop('updated')
-        self.assertEquals(all_events[0], {
+        self.assertEquals(event, {
             'id': 'test.open511.org/1',
             'headline': 'Head Line',
             'event_type': 'CONSTRUCTION',
-            'severity': '9',
+            'severity': 'UNKNOWN',
             'status': 'ACTIVE',
             'url': '/api/events/test.open511.org/1/',
             'jurisdiction_url': 'http://test/api/jurisdictions/test.open511.org/',
