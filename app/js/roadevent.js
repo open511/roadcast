@@ -162,10 +162,10 @@
 				type: 'enum',
 				tab: 'basics',
 				choices: [
-					['1', _t('Minor')],
-					['2', _t('Moderate')],
-					['3', _t('Major')],
-					['9', _t('Undefined')]
+					['MINOR', _t('Minor')],
+					['MODERATE', _t('Moderate')],
+					['MAJOR', _t('Major')],
+					['UNKNOWN', _t('Unknown')]
 				],
 				required: true
 			},
