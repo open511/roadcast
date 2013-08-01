@@ -50,13 +50,13 @@ class IntegrationTests(BrowserTestCase):
         event.pop('geography') # these will vary, don't test their contents
         event.pop('created')
         event.pop('updated')
+        assert event.pop('id').startswith('test.open511.org/')
+        assert event.pop('url')
         self.assertEquals(event, {
-            'id': 'test.open511.org/1',
             'headline': 'Head Line',
             'event_type': 'CONSTRUCTION',
             'severity': 'UNKNOWN',
             'status': 'ACTIVE',
-            'url': '/api/events/test.open511.org/1/',
             'jurisdiction_url': 'http://test/api/jurisdictions/test.open511.org/',
             'schedule': {'start_date': unicode(datetime.date.today())}
         })
