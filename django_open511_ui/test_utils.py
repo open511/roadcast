@@ -21,6 +21,7 @@ def get_driver():
 
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage',
     OPEN511_BASE_URL='http://test',
+    OPEN511_UI_SHOW_LOGIN_BUTTON=True,
     LANGUAGE_CODE='en',
     TEMPLATE_CONTEXT_PROCESSORS=settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django_open511_ui.test_utils.context_processor',))
