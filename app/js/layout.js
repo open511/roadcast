@@ -105,7 +105,15 @@ _.extend(O5.prototypes.Layout.prototype, {
 
 		if (this.screenSize === 'small') this.$el.addClass('left-pane-on');
 
-		if (this.leftPaneView && this.leftPaneView.deactivate) this.leftPaneView.deactivate();
+		if (this.leftPaneView && this.leftPaneView.deactivate) {
+			try {
+				this.leftPaneView.deactivate();
+			}
+			catch (e) {
+				// If deactivate throws an exception, don't switch the pane
+				return;
+			}
+		}
 
 		var $pane = this.$info;
 		if (view !== this.leftPaneView) {

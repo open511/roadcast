@@ -129,7 +129,10 @@ _.extend(O5.utils, {
 			closeButtonClass: '.close-modal'
 		});
 		$dialog.on('closeModal', function() {
-			_.defer(function() { $dialog.remove(); });
+			_.defer(function() { 
+				if (opts.onclose) opts.onclose();
+				$dialog.remove(); 
+			});
 		});
 	},
 

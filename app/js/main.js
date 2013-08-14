@@ -32,10 +32,6 @@ O5.init = function(opts) {
 		app.layout = new O5.prototypes.Layout(app.settings.inside, app);
 		var $el = app.layout.$el;
 
-		O5.plugins.init(app, {
-			screenSize: app.layout.screenSize
-		});
-
 		app.events = new O5.RoadEvents([], {
 			url: app.settings.eventsURL
 		});
@@ -48,6 +44,10 @@ O5.init = function(opts) {
 		app.listview = new O5.views.ListView({
 			app: app,
 			el: app.layout.$listContainer[0]
+		});
+
+		O5.plugins.init(app, {
+			screenSize: app.layout.screenSize
 		});
 
 		app.map.render();

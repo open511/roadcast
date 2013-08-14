@@ -14,6 +14,13 @@
 			O5.views.BaseView.prototype.initialize.call(this);
 			var $el = this.$el;
 			var self = this;
+
+			this.app.events.on('destroy', function(rdev) {
+				if (rdev === self.roadEvent) {
+					self.roadEvent = null;
+				}
+			});
+
 			// Tab navigation
 			$el.on('click', 'li[data-tab]', function(e) {
 				e.preventDefault();
@@ -271,9 +278,37 @@
 			}
 			else {
 				if (!_.isEqual(this.roadEvent.attributes, this._lastSavedAttributes)) {
-					console.log('Discarding event changes'); // FIXME dialog
-					// Revert it
-					this.roadEvent.set(this._lastSavedAttributes);
+					var self = this;
+					var event = self.roadEvent;
+					var last_saved = this._lastSavedAttributes;
+					var discarded = false;
+					O5.utils.modal(
+						O5._t("The event you're currently editing has changes. Are you sure you want to discard them?"),
+						{
+							buttons: [
+								{
+									'name': O5._t('Cancel'),
+								},
+								{
+									'name': O5._t('Discard'),
+									'class': 'primary',
+									onclick: function() {
+										discarded = true;
+										event.set(last_saved);
+									}
+								}
+							],
+							onclose: function() {
+								if (discarded) return;
+								self.roadEvent = event;
+								event.select({
+									display: false
+								});
+								self.render();
+								self.app.layout.setLeftPane(self);
+							}
+						}
+					);
 				}
 			}
 			this.roadEvent = null;
