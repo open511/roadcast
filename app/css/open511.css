@@ -84,6 +84,30 @@
 	color: #A57F49;
 }
 
+.o5modal {
+	background-color: #ffffff;
+	border-radius: 5px;
+	padding: 20px 30px;
+	min-width: 400px;
+	max-width: 600px;
+	position: relative;
+}
+.o5modal .close {
+	position: absolute;
+	top: 6px;
+	right: 10px;
+}
+.o5modal .modal-content {
+	font-size: 14px;
+}
+.o5modal .modal-buttons {
+	text-align: right;
+	padding-top: 10px;
+}
+.o5modal .modal-buttons .button {
+	margin-left: 5px;
+}
+
 .o5 .navbar {
 	position: relative;
 	height: 44px;

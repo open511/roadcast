@@ -28,6 +28,7 @@ module.exports = function(grunt) {
 						'app/vendor/lodash.js',
 						'app/vendor/backbone.js',
 						'app/vendor/moment.js',
+						'app/vendor/jquery.easymodal.js',
 						'<%=dest%>/js/open511-nodeps.js'
 					],
 					'<%=dest%>/js/open511-maps.js': [

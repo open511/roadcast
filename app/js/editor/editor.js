@@ -293,16 +293,24 @@
 			onChange: function() {
 				if (this.getVal() === 'DELETE') {
 					this.setVal(this.lastVal);
-					if (window.confirm(O5._t("In general, you should set road events to archived status rather than deleting them. Are you sure you want to delete this?"))) {
-						var app = this.app;
-						this.options.roadEvent.destroy({
-							wait: true,
-							success: function() {
-								app.layout.setLeftPane(null);
-								app.router.navigate('');
+					var self = this;
+					O5.utils.confirm(
+						"In general, you should set road events to archived status rather than deleting them. Are you sure you want to delete this?",
+						{
+							yesText: O5._t('Delete'),
+							noText: O5._t('Cancel'),
+							onYes: function() {
+								var app = self.app;
+								self.options.roadEvent.destroy({
+									wait: true,
+									success: function() {
+										app.layout.setLeftPane(null);
+										app.router.navigate('');
+									}
+								});
 							}
-						});
-					}
+						}
+					);
 				}
 				else {
 					O5.widgets.select.prototype.onChange.apply(this, arguments);

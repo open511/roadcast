@@ -97,6 +97,62 @@ _.extend(O5.utils, {
 
 
 
-	})
+	}),
+	
+	/** Open a modal dialog.
+	 * - content: Element or text string of the dialog conent
+	 * - opts.buttons: an array of objects with name/class/onclick keys
+	 */
+	modal: function(content, opts) {
+		var $dialog = $(JST.modal());
+		if (_.isString(content)) {
+			$dialog.find('.modal-content').text(content);
+		} else {
+			$dialog.find('.modal-content').append(content);
+		}
+
+		opts = opts || {};
+
+		if (opts.buttons) {
+			var $buttons = $dialog.find('.modal-buttons');
+			_.each(opts.buttons, function(button) {
+				var $button = $('<a class="button close-modal ' + (button.class ? button.class : '') + '" />');
+				$button.text(button.name);
+				if (button.onclick) $button.on('click', button.onclick);
+				$buttons.append($button);
+			});
+		}
+
+		O5.app.layout.$el.append($dialog);
+		$dialog.easyModal({
+			autoOpen: true,
+			closeButtonClass: '.close-modal'
+		});
+		$dialog.on('closeModal', function() {
+			_.defer(function() { $dialog.remove(); });
+		});
+	},
+
+	confirm: function (text, opts) {
+		opts = _.extend({
+			'yesText': O5._t('Yes'),
+			'noText': O5._t('No'),
+			onYes: function() {}
+		}, opts);
+
+		O5.utils.modal(text, {
+			buttons: [
+				{
+					'name': opts.noText,
+				},
+				{
+					'name': opts.yesText,
+					'class': 'primary',
+					onclick: opts.onYes
+				}
+			]
+		});
+
+	}
 
 });
