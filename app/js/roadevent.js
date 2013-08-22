@@ -217,6 +217,19 @@
 						label: _t('To'),
 						type: 'text'
 					},
+					{
+						name: 'direction',
+						label: _t('Direction'),
+						type: 'enum',
+						choices: [
+							['', ''],
+							['BOTH', _t('Both')],
+							['N', _t('North')],
+							['S', _t('South')],
+							['E', _t('East')],
+							['W', _t('West')]
+						]
+					}
 				],
 				tab: 'roads'
 			}
