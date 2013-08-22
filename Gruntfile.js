@@ -44,8 +44,8 @@ module.exports = function(grunt) {
 
 					'<%=dest%>/js/plugins/open511-editor.js': [
 						'app/js/editor/editor.js',
+						'app/js/editor/fieldgroup.js',
 						'app/js/editor/widgets/map.js',
-						'app/js/editor/widgets/roads.js',
 						'<%=dest%>/tmp/templates-editor.js'
 					],
 					'<%=dest%>/js/plugins/attachments.js': [

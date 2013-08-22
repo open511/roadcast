@@ -106,22 +106,22 @@
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
 }
 
-/* ROAD WIDGET */
+/* REPEATING GROUPS */
 
-.editor .road-edit-widget .road-fields {
+.editor .repeating-group .fieldgroup {
   border-bottom: 1px dotted #aaaaaa;
   padding-bottom: 5px;
   margin-bottom: 10px;
 }
 
-.editor .road-edit-widget .add-row {
+.editor .repeating-group .add-row {
   display: block;
   text-align: center;
   cursor: pointer;
   font-size: 23px;
   font-weight: bold;
 }
-.editor .road-edit-widget a.add-row:hover {
+.editor .repeating-group a.add-row:hover {
   text-decoration: none;
 }
 

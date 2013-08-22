@@ -15,7 +15,8 @@
 			return o;
 		},
 
-		validate: function() {
+		// Should return true if the field is valid, an error message if not.
+		checkValidation: function() {
 			if (this.options.field.validate) {
 				return this.options.field.validate(this.getVal());
 			}
@@ -23,6 +24,30 @@
 				return O5._t("This field is required");
 			}
 			return true;
+		},
+
+		
+		// Same return value as checkValidation, but also displays the error
+		// message within the field (if the full field from renderEditorField
+		// is displayed)
+		displayValidation: function() {
+			var $control = this.$field_el || $();
+			var validationResult = this.checkValidation();
+			$control.find('.validation-error').remove();
+			if (validationResult === true) {
+				$control.removeClass('error');
+			}
+			else {
+				$control.addClass('error');
+				var $msg = $('<span class="emphasized-note error validation-error" />');
+				$msg.text(validationResult);
+				$control.append($msg);
+			}
+			return validationResult;
+		},
+
+		getInvalidWidgets: function() {
+			return (this.displayValidation() === true ? [] : [this]);
 		},
 
 		events: {
@@ -36,6 +61,19 @@
 
 		onChangeActivity: function() {
 			this.trigger('changeActivity');
+		},
+
+		renderEditorField: function() {
+			var field = this.options.field;
+			var $field_el = $('<div class="field editor-row" />');
+			if (field.tab) $field_el.attr('data-tab', field.tab);
+			$field_el.attr('data-fieldname', field.name);
+			if (this.addLabel) {
+				$field_el.append($('<label for="' + this.id + '" />').text(field.label));
+			}
+			$field_el.append(this.$el);
+			this.$field_el = $field_el;
+			return $field_el;
 		}
 	});
 
@@ -57,7 +95,7 @@
 			initialize: function() {
 				BaseWidget.prototype.initialize.call(this);
 				this.$el.css({
-					'webkit-box-sizing': 'border-box',
+					'-webkit-box-sizing': 'border-box',
 					'-moz-box-sizing': 'border-box',
 					'box-sizing': 'border-box',
 					'line-height': '20px',

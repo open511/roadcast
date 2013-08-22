@@ -116,7 +116,7 @@ var AttachmentWidget = O5.widgets.BaseWidget.extend({
 		});
 	},
 
-	validate: function() {
+	checkValidation: function() {
 		if (this.$el.find('.in-progress li').length) {
 			// This is kinda smelly and DOM-y, but works for now
 			return O5._t("Please try again when all files have finished uploading.");

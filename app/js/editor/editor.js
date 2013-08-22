@@ -1,5 +1,7 @@
 (function() {
 
+	O5.editor = O5.editor || {};
+
 	var EventEditorView = O5.views.BaseView.extend({
 
 		roadEvent: null,
@@ -56,44 +58,21 @@
 		},
 
 		render: function() {
-			// FIXME refactor, too big
-			var self = this;
-			var $e = $(JST["event_editor"]({r: self.roadEvent}));
-			var $fields = $e.find('.fields');
-			this.widgets = [];
-			_.each(this.getFieldDefs(self.roadEvent), function(field) {
-				var $field_el = $('<div class="field editor-row" />');
-				var widget = self.makeWidget(field, self.roadEvent);
-				$field_el.attr('data-tab', field.tab).attr('data-fieldname', field.name);
-				if (widget.addLabel) {
-					$field_el.append($('<label for="' + widget.id + '" />').text(field.label));
-				}
-				self.widgets.push(widget);
-				widget.on('change', function(opts) {
-					// suppressValidation option is for e.g. the case when you're clearing the
-					// geography -- you want to update the event with the "invalid" value,
-					// you don't want to be nagged right away, but you DO want to be nagged
-					// if you try to save
-					if ((opts || {}).suppressValidation || self.validateWidget(widget)) {
-						if (field.name.indexOf('/') === -1) {
-							// FIXME doesn't currently support slash-nested names
-							self.roadEvent.set(field.name, widget.getVal());
-						}
-					}
-				});
-				// widget.on('changeActivity', function() { $field_el.removeClass('error'); });
-				$field_el.append(widget.el);
-				var val = self._getRoadEventValue(field.name);
-				if (val) {
-					widget.setVal(val);
-				}
-				$fields.append($field_el);
+			var $editor = $(JST["event_editor"]({r: self.roadEvent}));
+			this.fieldGroup = new O5.editor.TopLevelFieldGroup({
+				fields: this.getFieldDefs(this.roadEvent),
+				app: this.app,
+				roadEvent: this.roadEvent
 			});
-			self.$el.empty().append($e);
-			self.app.layout.draw();
-			$e.find('ul.tabs li[data-tab="basics"]').click();
+			this.fieldGroup.setVal(this.roadEvent.attributes);
+			$editor.find('.fields').append(this.fieldGroup.$el);
+
+			this.$el.empty().append($editor);
+			this.app.layout.draw();
+			$editor.find('ul.tabs li[data-tab="basics"]').click();
 		},
 
+		// Returns a Create Event button (to be placed in the navbar)
 		renderCreateButton: function() {
 			var self = this;
 
@@ -105,6 +84,7 @@
 			return $button;
 		},
 
+		// Create a new event
 		createEvent: function(jurisdiction_id) {
 			var event = new O5.RoadEvent({
 				status: 'ACTIVE',
@@ -126,42 +106,9 @@
 			this.app.layout.setLeftPane(this);
 		},
 
-		_getRoadEventValue: function(name) {
-			if (!this.roadEvent) {
-				return null;
-			}
-			var name_bits = name.split('/');
-			var base = this.roadEvent.get(name_bits.shift());
-			while (base && name_bits.length) {
-				base = base[name_bits.shift()];
-			}
-			return base;
-		},
-
-		getUpdates: function() {
-			var updates = {};
-			_.each(this.widgets, function (widget) {
-				var field = widget.options.field;
-				_.each(widget.getVals(), function(val, key) {
-					if (val === '') val = null;
-					// This is done so that 'schedule/startDate' goes to {'schedule': {'startDate': x }}
-					var name_bits = key.split('/');
-					var base = updates;
-					while (name_bits.length > 1) {
-						var bit = name_bits.shift();
-						if (!base[bit]) {
-							base[bit] = {};
-						}
-						base = base[bit];
-					}
-					base[name_bits[0]] = val;
-				});
-			});
-			return updates;
-		},
-
+		// Sends edited data to the server
 		updateEvent: function(opts) {
-			var updates = this.getUpdates();
+			var updates = this.fieldGroup.getVal();
 			opts = opts || {};
 			_.defaults(opts, {
 				patch: !this.roadEvent.isNew(),
@@ -177,8 +124,9 @@
 			}
 		},
 
+		// Checks validation and, if everything's okay, saves changes to the server
 		save: function() {
-			var invalidWidgets = this.getInvalidWidgets();
+			var invalidWidgets = this.fieldGroup.getInvalidWidgets();
 			if (invalidWidgets.length > 0) {
 				return O5.utils.notify(
 					O5._t("Validation error. Please verify: ") +
@@ -203,59 +151,8 @@
 			this._lastSavedAttributes = _.clone(this.roadEvent.attributes);
 		},
 
-		validateWidget: function(widget) {
-			var fieldValid = widget.validate();
-			var $control = widget.$el.closest('.field');
-			$control.find('.validation-error').remove();
-			if (fieldValid === true) {
-				$control.removeClass('error');
-				return true;
-			}
-			else {
-				$control.addClass('error');
-				var $msg = $('<span class="emphasized-note error validation-error" />');
-				$msg.text(fieldValid);
-				$control.append($msg);
-				return false;
-			}
-		},
-
-		getInvalidWidgets: function() {
-			return _.reject(this.widgets, this.validateWidget);
-		},
-
-		makeWidget: function(field, roadEvent) {
-			var wc;
-
-			if (field.widget) {
-				if (_.isObject(field.widget)) {
-					wc = field.widget;
-				}
-				else {
-					wc = O5.widgets[field.widget];
-				}
-			}
-			else if (field.type === 'text') {
-				wc = O5.widgets.textarea;
-			}
-			else if (field.type === 'enum' && field.choices) {
-				wc = O5.widgets.select;
-			}
-			else if (field.type === 'date') {
-				wc = O5.widgets.date;
-			}
-			else {
-				wc = O5.widgets.text;
-			}
-
-			return new wc({
-				app: this.app,
-				id: _.uniqueId('field_'),
-				field: field,
-				roadEvent: roadEvent
-			});
-		},
-
+		// Get a JS object defining the list of fields to show
+		// in the editor
 		getFieldDefs: function(roadEvent) {
 			var fields = _.clone(O5.RoadEventFields);
 			if (roadEvent.isNew()) {
@@ -270,6 +167,7 @@
 			return fields;
 		},
 
+		// Called by Layout when someone navigates away
 		deactivate: function() {
 			if (!this.roadEvent) return;
 			if (this.roadEvent.neverSaved()) {
@@ -368,7 +266,7 @@
 
 		if (!app.editableJurisdictionSlugs.length) return;
 
-		var editor = new EventEditorView({app: app});
+		var editor = app.editor = new EventEditorView({app: app});
 
 		var $el = app.layout.$el;
 		$el.find('.navbar .buttons').prepend(editor.renderCreateButton());

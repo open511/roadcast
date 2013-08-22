@@ -199,8 +199,25 @@
 			{
 				name: 'roads',
 				label: _t('Roads'),
-				type: 'complex',
-				widget: 'roads',
+				type: 'group',
+				repeating: true,
+				fields: [
+					{
+						name: 'road_name',
+						label: _t('Road name'),
+						type: 'text'
+					},
+					{
+						name: 'from',
+						label: _t('From'),
+						type: 'text'
+					},
+					{
+						name: 'to',
+						label: _t('To'),
+						type: 'text'
+					},
+				],
 				tab: 'roads'
 			}
 	];
