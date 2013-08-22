@@ -11,7 +11,7 @@
 		<tbody>
 		<% _.each(events, function(rdev) { 
 			if (!rdev.id) return; %>
-			<tr data-roadevent="<%- rdev.id %>" <% if (rdev.get('_selected')) { print('class="selected"'); } %>>
+			<tr data-roadevent="<%- rdev.id %>" <% if (rdev.internal.selected) { print('class="selected"'); } %>>
 				<td><%- rdev.get('headline') %></td>
 				<td><%- rdev.getEnum('severity') %></td>
 				<td><%- rdev.get('schedule').start_date %></td>
