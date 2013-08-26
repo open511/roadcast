@@ -5,18 +5,18 @@
 	 * Groups can be nested inside groups.
 	 */
 	O5.editor.FieldGroup = O5.views.BaseView.extend({
-		className: 'fieldgroup',
+		className: 'fieldgroup field',
 
 		initialize: function() {
 			O5.views.BaseView.prototype.initialize.call(this);
 			this.widgets = {};
-			this.widgetsList = [];
+			this.widgetList = [];
 			if (this.options.tab) this.$el.attr('data-tab', this.options.tab);
 			var self = this;
 			_.each(this.options.fields, function(field) {
 				var item = self._makeWidget(field);
 				self.widgets[field.name] = item;
-				self.widgetsList.push(item);
+				self.widgetList.push(item);
 				item.on('change', function(opts) {
 					self.onWidgetChange(item, opts);
 				});
@@ -25,7 +25,7 @@
 
 		renderEditorField: function() {
 			var self = this;
-			_.each(this.widgetsList, function(widget) {
+			_.each(this.widgetList, function(widget) {
 				self.$el.append(widget.renderEditorField());
 			});
 			return self.$el;
@@ -75,7 +75,7 @@
 		// also triggers display of validation errors
 		getInvalidWidgets: function() {
 			var invalid = [];
-			_.each(this.widgetsList, function (widget) {
+			_.each(this.widgetList, function (widget) {
 				invalid.push.apply(invalid, widget.getInvalidWidgets());
 			});
 			return invalid;
@@ -153,25 +153,35 @@
 	 * represents a road, and an event can have many different roads.
 	 */
 	O5.editor.RepeatingFieldGroup = O5.editor.FieldGroup.extend({
-		className: 'repeating-group',
+		className: 'repeating-group field',
 
 		initialize: function() {
 			O5.views.BaseView.prototype.initialize.call(this);
+			_.defaults(this.options, {
+				addSeparators: true
+			});
+
+			this.widgetList = [];
+			if (this.options.addSeparators) this.$el.addClass('with-separators');
 			if (this.options.tab) this.$el.attr('data-tab', this.options.tab);
-			this.$el.on('click', '.add-row', _.bind(this.addRow, this));
+			if (this.options.label) this.$el.append($(document.createElement('label')).text(this.options.label));
 			this.$rows = $('<div class="repeating-group-rows"></div>');
 			this.$el.append(this.$rows);
-			this.$el.append($('<a class="add-row">+</a>'));
+			this.renderRows(1);
+
+			if (!this.options.autoAddRows) {
+				this.$el.on('click', '.add-row', _.bind(this.addRow, this));
+				this.$el.append($('<a class="add-row">+</a>'));
+			}
 		},
 
 		renderEditorField: function() {
-			this.renderRows(1);
 			return this.$el;
 		},
 
 		renderRows: function(rows) {
 			this.$rows.empty();
-			this.widgetsList = [];
+			this.widgetList = []; // FIXME clear events on former widgets?
 			for (var i = 0; i < rows; i ++) {
 				this.addRow();
 			}
@@ -179,18 +189,45 @@
 
 		addRow: function() {
 			var item = this._makeWidget(_.extend({}, this.options, {repeating: false}));
-			this.widgetsList.push(item);
+			var self = this;
+			item.on('change', function(opts) {
+				self.onWidgetChange(item, opts);
+			});
+			this.widgetList.push(item);
 			this.$rows.append(item.renderEditorField());
+		},
+
+		onWidgetChange: function(item, opts) {
+			if (this.options.autoAddRows) this.autoAddRow();
+			O5.editor.FieldGroup.prototype.onWidgetChange.call(this);
+		},
+
+		// Add another row if all current rows are full
+		autoAddRow: function() {
+			if (this._isFull()) this.addRow();
 		},
 
 		getVal: function() {
 			var val = [];
-			_.each(this.widgetsList, function(group) {
-				var gval = group.getVal();
-				var has_value = _.isObject(gval) ? _.any(gval, function(v) { return v === 0 || v; }) : (gval === 0 || gval);
-				if (has_value) val.push(gval);
+			var self = this;
+			_.each(this.widgetList, function(widget) {
+				var wval = widget.getVal();
+				if (!self._isEmptyValue(wval)) val.push(wval);
 			});
 			return val;
+		},
+
+		// Is this either a nullish value or an object containing only nullish values?
+		_isEmptyValue: function(wval) {
+			return !(_.isObject(wval) ? _.any(wval, function(v) { return v === 0 || v; }) : (wval === 0 || wval));
+		},
+
+		// Are all current rows full?
+		_isFull: function() {
+			var self = this;
+			return _.all(this.widgetList, function(widget) {
+				return !self._isEmptyValue(widget.getVal()) && self.getInvalidWidgets().length === 0;
+			});
 		},
 
 		getVals: function() {
@@ -200,15 +237,14 @@
 		},
 
 		setVal: function(val) {
-			if (!val || !val.length) {
-				return this.renderRows(1);
-			}
-			if (this.widgetsList.length !== val.length) {
+			if (!val) val = [{}];
+			if (this.widgetList.length !== val.length) {
 				this.renderRows(val.length);
 			}
 			for (var i = 0; i < val.length; i++) {
-				this.widgetsList[i].setVal(val[i]);
+				this.widgetList[i].setVal(val[i]);
 			}
+			if (this.options.autoAddRows) this.autoAddRow();
 		}
 
 

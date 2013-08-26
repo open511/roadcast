@@ -61,7 +61,7 @@
   display: inline-block;
 }
 .o5 .field input[type=text] {
-    height: 28px;
+  height: 28px;
 }
 .o5 .field input[type=checkbox] {
   width: auto;
@@ -106,9 +106,16 @@
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
 }
 
+/* WIDGET: TIMERANGE */
+
+.o5 .timerange input[type=text] {
+  display: inline;
+  width: 40%;
+}
+
 /* REPEATING GROUPS */
 
-.editor .repeating-group .fieldgroup {
+.editor .repeating-group.with-separators .fieldgroup {
   border-bottom: 1px dotted #aaaaaa;
   padding-bottom: 5px;
   margin-bottom: 10px;

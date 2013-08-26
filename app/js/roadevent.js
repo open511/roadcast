@@ -191,6 +191,16 @@
 				tab: 'schedule'
 			},
 			{
+				name: 'schedule/times',
+				label: _t('Times'),
+				type: 'group',
+				repeating: true,
+				autoAddRows: true,
+				addSeparators: false,
+				widget: 'timerange',
+				tab: 'schedule'
+			},
+			{
 				name: 'detour',
 				label: _t('Detour'),
 				type: 'text',
@@ -198,7 +208,6 @@
 			},
 			{
 				name: 'roads',
-				label: _t('Roads'),
 				type: 'group',
 				repeating: true,
 				fields: [
