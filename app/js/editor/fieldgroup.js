@@ -10,28 +10,25 @@
 		initialize: function() {
 			O5.views.BaseView.prototype.initialize.call(this);
 			this.widgets = {};
+			this.widgetsList = [];
 			if (this.options.tab) this.$el.attr('data-tab', this.options.tab);
 			var self = this;
 			_.each(this.options.fields, function(field) {
-				var item;
-				if (field.type === 'group') {
-					var prot = field.repeating ? O5.editor.RepeatingFieldGroup : O5.editor.FieldGroup;
-					var opts = _.extend({}, field, {
-						app: self.app,
-						roadEvent: self.options.roadEvent
-					});
-					item = new prot(opts);
-					self.$el.append(item.$el);
-				}
-				else {
-					item = self._makeWidget(field);
-					self.$el.append(item.renderEditorField());
-				}
+				var item = self._makeWidget(field);
 				self.widgets[field.name] = item;
+				self.widgetsList.push(item);
 				item.on('change', function(opts) {
 					self.onWidgetChange(item, opts);
 				});
 			});
+		},
+
+		renderEditorField: function() {
+			var self = this;
+			_.each(this.widgetsList, function(widget) {
+				self.$el.append(widget.renderEditorField());
+			});
+			return self.$el;
 		},
 
 		// Returns a dict of all the values entered into this group's widgets
@@ -78,7 +75,7 @@
 		// also triggers display of validation errors
 		getInvalidWidgets: function() {
 			var invalid = [];
-			_.each(this.widgets, function (widget) {
+			_.each(this.widgetsList, function (widget) {
 				invalid.push.apply(invalid, widget.getInvalidWidgets());
 			});
 			return invalid;
@@ -87,7 +84,10 @@
 		_makeWidget: function(field) {
 			var wc;
 
-			if (field.widget) {
+			if (field.repeating) {
+				wc = O5.editor.RepeatingFieldGroup;
+			}
+			else if (field.widget) {
 				if (_.isObject(field.widget)) {
 					wc = field.widget;
 				}
@@ -104,16 +104,19 @@
 			else if (field.type === 'date') {
 				wc = O5.widgets.date;
 			}
+			else if (field.type === 'group') {
+				wc = O5.editor.FieldGroup;
+			}
 			else {
 				wc = O5.widgets.text;
 			}
 
-			return new wc({
+			var opts = _.extend({
 				app: this.app,
-				id: _.uniqueId('field_'),
-				field: field,
 				roadEvent: this.options.roadEvent
-			});
+			}, field);
+			return new wc(opts);
+
 		},
 
 		// Bubble change events upwards
@@ -149,7 +152,7 @@
 	 * Represents a FieldGroup that can recur multiple times -- e.g. the group
 	 * represents a road, and an event can have many different roads.
 	 */
-	O5.editor.RepeatingFieldGroup = O5.views.BaseView.extend({
+	O5.editor.RepeatingFieldGroup = O5.editor.FieldGroup.extend({
 		className: 'repeating-group',
 
 		initialize: function() {
@@ -157,28 +160,32 @@
 			if (this.options.tab) this.$el.attr('data-tab', this.options.tab);
 			this.$el.on('click', '.add-row', _.bind(this.addRow, this));
 			this.$rows = $('<div class="repeating-group-rows"></div>');
-			this.renderRows(1);
 			this.$el.append(this.$rows);
 			this.$el.append($('<a class="add-row">+</a>'));
 		},
 
+		renderEditorField: function() {
+			this.renderRows(1);
+			return this.$el;
+		},
+
 		renderRows: function(rows) {
 			this.$rows.empty();
-			this.fieldGroups = [];
+			this.widgetsList = [];
 			for (var i = 0; i < rows; i ++) {
 				this.addRow();
 			}
 		},
 
 		addRow: function() {
-			var group = new O5.editor.FieldGroup(this.options);
-			this.fieldGroups.push(group);
-			this.$rows.append(group.$el);
+			var item = this._makeWidget(_.extend({}, this.options, {repeating: false}));
+			this.widgetsList.push(item);
+			this.$rows.append(item.renderEditorField());
 		},
 
 		getVal: function() {
 			var val = [];
-			_.each(this.fieldGroups, function(group) {
+			_.each(this.widgetsList, function(group) {
 				var gval = group.getVal();
 				var has_value = _.isObject(gval) ? _.any(gval, function(v) { return v === 0 || v; }) : (gval === 0 || gval);
 				if (has_value) val.push(gval);
@@ -196,21 +203,14 @@
 			if (!val || !val.length) {
 				return this.renderRows(1);
 			}
-			if (this.fieldGroups.length !== val.length) {
+			if (this.widgetsList.length !== val.length) {
 				this.renderRows(val.length);
 			}
 			for (var i = 0; i < val.length; i++) {
-				this.fieldGroups[i].setVal(val[i]);
+				this.widgetsList[i].setVal(val[i]);
 			}
-		},
-
-		getInvalidWidgets: function() {
-			invalid = [];
-			_.each(this.fieldGroups, function(group) {
-				invalid.push.apply(invalid, group.getInvalidWidgets());
-			});
-			return invalid;
 		}
+
 
 	});
 })();

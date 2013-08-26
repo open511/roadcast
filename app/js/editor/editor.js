@@ -65,7 +65,7 @@
 				roadEvent: this.roadEvent
 			});
 			this.fieldGroup.setVal(this.roadEvent.attributes);
-			$editor.find('.fields').append(this.fieldGroup.$el);
+			$editor.find('.fields').append(this.fieldGroup.renderEditorField());
 
 			this.$el.empty().append($editor);
 			this.app.layout.draw();

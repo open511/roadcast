@@ -11,16 +11,16 @@
 
 		getVals: function() {
 			var o = {};
-			o[this.options.field.name] = this.getVal();
+			o[this.options.name] = this.getVal();
 			return o;
 		},
 
 		// Should return true if the field is valid, an error message if not.
 		checkValidation: function() {
-			if (this.options.field.validate) {
-				return this.options.field.validate(this.getVal());
+			if (this.options.validate) {
+				return this.options.validate(this.getVal());
 			}
-			if (this.options.field.required && !this.getVal()) {
+			if (this.options.required && !this.getVal()) {
 				return O5._t("This field is required");
 			}
 			return true;
@@ -64,12 +64,11 @@
 		},
 
 		renderEditorField: function() {
-			var field = this.options.field;
 			var $field_el = $('<div class="field editor-row" />');
-			if (field.tab) $field_el.attr('data-tab', field.tab);
-			$field_el.attr('data-fieldname', field.name);
+			if (this.options.tab) $field_el.attr('data-tab', this.options.tab);
+			$field_el.attr('data-fieldname', this.options.name);
 			if (this.addLabel) {
-				$field_el.append($('<label for="' + this.id + '" />').text(field.label));
+				$field_el.append($('<label for="' + this.id + '" />').text(this.options.label));
 			}
 			$field_el.append(this.$el);
 			this.$field_el = $field_el;
@@ -136,7 +135,7 @@
 			},
 
 			getChoices: function() {
-				var choices = this.options.field.choices;
+				var choices = this.options.choices;
 				return _.isFunction(choices) ? choices() : choices;
 			},
 
@@ -163,7 +162,7 @@
 				BaseWidget.prototype.initialize.call(this);
 				this.boxID = this.id + '-cb';
 				this.$el.html('<input class="checkbox" type="checkbox" value="true" id="' + this.boxID + '"> <label for="' + this.boxID + '"></label>');
-				this.$el.find('label').text(this.options.field.label);
+				this.$el.find('label').text(this.options.label);
 				this.$el.addClass('checkbox');
 				this.box = this.$el.find('input')[0];
 			},

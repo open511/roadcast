@@ -52,10 +52,8 @@
 			if (filter.widget) {
 				wc = O5.widgets[filter.widget];
 			}
-			var widget = new wc({
-				filterType: type,
-				field: filter
-			});
+			var widget_opts = _.extend({ app: this.app }, filter);
+			var widget = new wc(widget_opts);
 			if (initialValue) {
 				widget.setVal(initialValue);
 			}
