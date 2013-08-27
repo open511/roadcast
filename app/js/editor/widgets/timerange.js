@@ -8,12 +8,12 @@ O5.widgets.timerange = O5.editor.FieldGroup.extend({
 				{
 					name: 'start_time',
 					type: 'time',
-					label: O5._t('Start time')
+					placeholder: O5._t('Start time')
 				},
 				{
 					name: 'end_time',
 					type: 'time',
-					label: O5._t('End time')
+					placeholder: O5._t('End time')
 				}
 			]
 		}, this.options);

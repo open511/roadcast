@@ -104,6 +104,9 @@
 			else if (field.type === 'date') {
 				wc = O5.widgets.date;
 			}
+			else if (field.type === 'time') {
+				wc = O5.widgets.time;
+			}
 			else if (field.type === 'group') {
 				wc = O5.editor.FieldGroup;
 			}
