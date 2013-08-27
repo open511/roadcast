@@ -116,7 +116,7 @@ _.extend(O5.utils, {
 		if (opts.buttons) {
 			var $buttons = $dialog.find('.modal-buttons');
 			_.each(opts.buttons, function(button) {
-				var $button = $('<a class="button close-modal ' + (button.class ? button.class : '') + '" />');
+				var $button = $('<a class="button close-modal ' + (button['class'] ? button['class'] : '') + '" />');
 				$button.text(button.name);
 				if (button.onclick) $button.on('click', button.onclick);
 				$buttons.append($button);
@@ -129,9 +129,9 @@ _.extend(O5.utils, {
 			closeButtonClass: '.close-modal'
 		});
 		$dialog.on('closeModal', function() {
-			_.defer(function() { 
+			_.defer(function() {
 				if (opts.onclose) opts.onclose();
-				$dialog.remove(); 
+				$dialog.remove();
 			});
 		});
 	},
