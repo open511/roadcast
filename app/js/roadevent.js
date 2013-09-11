@@ -150,8 +150,8 @@
 				tab: 'basics',
 				choices: [
 					['CONSTRUCTION', _t('Planned road work')],
-					['SPECIAL_EVENT', _t('Special event')],
-					['INCIDENT', _t('Incident (accident, unplanned roadwork...)')]
+					['INCIDENT', _t('Incident')],
+					['SPECIAL_EVENT', _t('Special event')]
 				],
 				'default': 'CONSTRUCTION',
 				required: true

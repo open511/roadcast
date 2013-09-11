@@ -130,7 +130,7 @@
 			if (invalidWidgets.length > 0) {
 				return O5.utils.notify(
 					O5._t("Validation error. Please verify: ") +
-					_.map(invalidWidgets, function(w) { return w.options.field.label; }).join(', '),
+					_.map(invalidWidgets, function(w) { return w.options.label; }).join(', '),
 					'error'
 				);
 			}

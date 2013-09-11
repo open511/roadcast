@@ -17,7 +17,7 @@ O5.widgets.map = O5.widgets.BaseWidget.extend({
 		this.$el.on('click', '.draw-clear', function(e) {
 			e.preventDefault();
 			self.geom = null;
-			self.trigger('change', { suppressValidation: true });
+			self.trigger('change');
 			self.render();
 		}).on('click', '.draw-point', function(e) {
 			e.preventDefault();

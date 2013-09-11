@@ -137,7 +137,7 @@
 
 		onWidgetChange: function(widget, opts) {
 
-			if ((opts || {}).suppressValidation || widget.getInvalidWidgets().length === 0) {
+			if (widget.getInvalidWidgets().length === 0) {
 				var self = this;
 				_.each(widget.getVals(), function(val, name) {
 					if (name.indexOf('/') === -1) {
@@ -217,6 +217,7 @@
 				var wval = widget.getVal();
 				if (!self._isEmptyValue(wval)) val.push(wval);
 			});
+			if (val.length === 0) return null;
 			return val;
 		},
 
