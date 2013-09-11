@@ -1,6 +1,6 @@
 A Javascript browsing and editing interface for an Open511 Events API. Try it out at [demo.open511.org](http://demo.open511.org/).
 
-[![Build Status](https://travis-ci.org/opennorth/open511_ui.png)](https://travis-ci.org/opennorth/open511_ui)
+[![Build Status](https://travis-ci.org/opennorth/open511-ui.png)](https://travis-ci.org/opennorth/open511-ui)
 
 # Installation
 
