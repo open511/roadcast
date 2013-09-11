@@ -3,7 +3,7 @@ import subprocess
 
 from setuptools.command.install import install as DistInstall
 from setuptools.command.develop import develop as DistDevelop
-from setuptools import setup
+from setuptools import setup, find_packages
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 
@@ -44,9 +44,7 @@ setup(
     version = "0.1",
     url='',
     license = "",
-    packages = [
-        'django_open511_ui',
-    ],
+    packages = find_packages(),
     include_package_data = True,
     install_requires = [
         'django-appconf==0.5',

@@ -1,0 +1,21 @@
+language: python
+python:
+    - "2.7"
+virtualenv:
+    system_site_packages: true
+before_install:
+    - "sudo apt-get update -qq"
+    - "sudo apt-get install -qq libgeos-dev libproj-dev postgresql-9.1-postgis gdal-bin python-psycopg2 python-lxml"
+install:
+    - "pip install -r travis-ci/requirements.txt --use-mirrors"
+    - pip install selenium
+before_script:
+    - createdb -U postgres template_postgis
+    - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
+    - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
+    - createdb -U postgres -T template_postgis open511
+    - python setup.py install
+    - cd travis-ci
+    - python manage.py syncdb --noinput --all
+script:
+    - python manage.py test django_open511_ui
