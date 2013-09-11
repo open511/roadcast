@@ -1,5 +1,7 @@
 A Javascript browsing and editing interface for an Open511 Events API. Try it out at [demo.open511.org](http://demo.open511.org/).
 
+[![Build Status](https://travis-ci.org/opennorth/open511_ui.png)](https://travis-ci.org/opennorth/open511_ui)
+
 # Installation
 
 Our build process uses [Grunt](http://gruntjs.com). If your system doesn't already have Grunt installed, first install [Node.JS](http://nodejs.org/) (0.8 or greater), and then run `sudo npm install -g grunt-cli`.
