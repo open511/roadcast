@@ -1,15 +1,16 @@
 <div class="header container">
 	<% if (r.headline) { %><h2 class="headline"><%- r.headline %></h2><% } %>
-	<% if (r.schedule) {
-		var format_date = function(d) {
-			if (!d) return '';
-			d = moment(d);
-			return d.format(
-				Math.abs(d.diff(moment(), 'days')) < 60 ? O5._t('ddd, MMM D') : 'll'
-			);
-		};
-		%>
-		<div class="date"><%- format_date(r.schedule.start_date) %> &#8211; <%- format_date(r.schedule.end_date) %></div><% } %>
+	<% 
+	var format_date = function(d) {
+		if (!d) return '';
+		d = moment(d);
+		return d.format(
+			Math.abs(d.diff(moment(), 'days')) < 60 ? O5._t('ddd, MMM D') : 'll'
+		);
+	};
+	_.each(r.schedules, function(sched) { %>
+		<div class="date"><%- format_date(sched.start_date) %> &#8211; <%- format_date(sched.end_date) %></div>
+	<% }); %>
 </div>
 
 <div class="body container">

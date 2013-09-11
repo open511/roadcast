@@ -178,27 +178,33 @@
 				required: true
 			},
 			{
-				name: 'schedule/start_date',
-				label: _t('Start date'),
-				type: 'date',
-				tab: 'schedule',
-				required: true
-			},
-			{
-				name: 'schedule/end_date',
-				label: _t('End date'),
-				type: 'date',
-				tab: 'schedule'
-			},
-			{
-				name: 'schedule/times',
-				label: _t('Times'),
+				name: 'schedules',
 				type: 'group',
 				repeating: true,
-				autoAddRows: true,
-				addSeparators: false,
-				widget: 'timerange',
-				tab: 'schedule'
+				tab: 'schedule',
+				fields: [
+					{
+						name: 'start_date',
+						label: _t('Start date'),
+						required: true,
+						type: 'date'
+					},
+					{
+						name: 'end_date',
+						label: _t('End date'),
+						type: 'date'
+					},
+					{
+						name: 'start_time',
+						label: _t('Start time'),
+						type: 'time'
+					},
+					{
+						name: 'end_time',
+						label: _t('End time'),
+						type: 'time'
+					}
+				]
 			},
 			{
 				name: 'detour',

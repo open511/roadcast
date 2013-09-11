@@ -14,8 +14,8 @@
 			<tr data-roadevent="<%- rdev.id %>" <% if (rdev.internal.selected) { print('class="selected"'); } %>>
 				<td><%- rdev.get('headline') %></td>
 				<td><%- rdev.getEnum('severity') %></td>
-				<td><%- rdev.get('schedule').start_date %></td>
-				<td><%- rdev.get('schedule').end_date %></td>
+				<td><%- rdev.get('schedules')[0].start_date %></td>
+				<td><%- rdev.get('schedules')[0].end_date %></td>
 				<td><%- rdev.getEnum('status') %></td>
 			</tr>
 		<% }); %>
