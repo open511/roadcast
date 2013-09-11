@@ -1,2 +1,3 @@
 recursive-include django_open511_ui/templates *.html
 recursive-include django_open511_ui/static *.html *.js *.css *.png *.jpg *.gif *.ico *.eot *.woff
+recursive-include django_open511_ui/fixtures *.json
