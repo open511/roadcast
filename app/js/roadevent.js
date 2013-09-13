@@ -80,6 +80,10 @@
 
 		getInternal: function(key) {
 			return this.internal[key];
+		},
+
+		parseSchedule: function() {
+			return new O5.prototypes.Schedule(this.get('schedules'));
 		}
 
 	});
@@ -203,6 +207,21 @@
 						name: 'end_time',
 						label: _t('End time'),
 						type: 'time'
+					},
+					{
+						name: 'days',
+						label: _t('Weekdays'),
+						type: 'multienum',
+						widget: 'multitoggle',
+						choices: [
+							[1, _t('Mon')],
+							[2, _t('Tue')],
+							[3, _t('Wed')],
+							[4, _t('Thu')],
+							[5, _t('Fri')],
+							[6, _t('Sat')],
+							[7, _t('Sun')]
+						]
 					}
 				]
 			},
@@ -218,7 +237,7 @@
 				repeating: true,
 				fields: [
 					{
-						name: 'road_name',
+						name: 'name',
 						label: _t('Road name'),
 						type: 'text'
 					},
@@ -231,6 +250,18 @@
 						name: 'to',
 						label: _t('To'),
 						type: 'text'
+					},
+					{
+						name: 'state',
+						label: _t('State'),
+						type: 'enum',
+						choices: [
+							['', ''],
+							['ALL_LANES_OPEN', _t('All lanes open')],
+							['SOME_LANES_CLOSED', _t('Some lanes closed')],
+							['SINGLE_LANE_ALTERNATING', _t('Single lane alternating')],
+							['CLOSED', _t('All lanes closed')]
+						]
 					},
 					{
 						name: 'direction',

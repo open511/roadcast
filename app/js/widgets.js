@@ -244,44 +244,7 @@
 			},
 
 			displayVal: function() {
-				var disp;
-
-				if (!this.time) {
-					disp = '';
-				}
-				else if (O5.language === 'en') {
-
-					var minutes = this.time[1] ? ':' + this._pad(this.time[1]) : '';
-
-					// Special English logic
-					if (this.time[0] === 12) {
-						if (this.time[1] === 0) {
-							disp = 'Noon';
-						}
-						else {
-							disp = '12' + minutes + ' p.m.';
-						}
-					}
-					else if (this.time[0] === 0) {
-						if (this.time[1] === 0) {
-							disp = 'Midnight';
-						}
-						else {
-							disp = '12' + minutes + ' a.m.';
-						}
-					}
-					else if (this.time[0] < 12) {
-						disp = this.time[0] + minutes + ' a.m.';
-					}
-					else {
-						disp = (this.time[0] - 12) + minutes + ' p.m.';
-					}
-				}
-				else {
-					disp = this.getVal();
-				}
-
-				this.$el.val(disp);
+				this.$el.val(O5.utils.formatTime(this.getVal()));
 			},
 
 			onChange: function() {
@@ -289,6 +252,48 @@
 				this.setVal(this.$el.val());
 				if (this.getVal() !== prevVal) TextWidget.prototype.onChange.call(this);
 			}
+		}),
+
+		multitoggle: BaseWidget.extend({
+
+			className: 'multi-toggle-widget',
+
+			initialize: function() {
+				BaseWidget.prototype.initialize.call(this);
+				var $el = this.$el;
+				var self = this;
+				this.choices = this.getChoices();
+				_.each(this.choices, function(choice) {
+					$el.append($(document.createElement('span'))
+						.attr('class', 'label')
+						.attr('data-value', choice[0])
+						.text(choice[1]));
+				});
+				$el.on('click', 'span', function(e) {
+					$(this).toggleClass('selected');
+					self.onChange();
+				});
+			},
+
+			getVal: function() {
+				return _.map(this.$el.find('span.selected'), function(span) {
+					return span.getAttribute('data-value');
+				});
+			},
+
+			setVal: function(vals) {
+				this.$el.find('span.selected').removeClass('selected');
+				if (!vals) return;
+				for (var i = 0; i < vals.length; i++) {
+					this.$el.find('span[data-value="' + vals[i] + '"]').addClass('selected');
+				}
+			},
+
+			getChoices: function() {
+				var choices = this.options.choices;
+				return _.isFunction(choices) ? choices() : choices;
+			}
+
 		})
 
 	};

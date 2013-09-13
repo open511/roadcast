@@ -19,7 +19,8 @@
 			if (this.roadEvent === null) return;
 			this.$el.html(
 				JST.event_info({
-					r: this.roadEvent.attributes
+					r: this.roadEvent.attributes,
+					schedule: this.roadEvent.parseSchedule()
 				})
 			);
 			this.app.trigger('event-detail-render', {

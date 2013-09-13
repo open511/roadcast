@@ -1,16 +1,9 @@
 <div class="header container">
 	<% if (r.headline) { %><h2 class="headline"><%- r.headline %></h2><% } %>
-	<% 
-	var format_date = function(d) {
-		if (!d) return '';
-		d = moment(d);
-		return d.format(
-			Math.abs(d.diff(moment(), 'days')) < 60 ? O5._t('ddd, MMM D') : 'll'
-		);
-	};
-	_.each(r.schedules, function(sched) { %>
-		<div class="date"><%- format_date(sched.start_date) %> &#8211; <%- format_date(sched.end_date) %></div>
-	<% }); %>
+	<div class="date">
+		<% if (schedule.inEffectOn()) { %><strong><%- O5._t('In effect today') %></strong><br><% } %>
+		<%= O5.utils.nlToBR(schedule.toStrings().join('\n')) %>
+	</div>
 </div>
 
 <div class="body container">
@@ -18,7 +11,7 @@
 <% if (r.roads && r.roads.length) { %>
 	<h4><%- O5._t('Roads') %></h4>
 	<% _.each(r.roads, function(road) { %>
-		<p><strong><%- road.road_name %></strong><% 
+		<p><strong><%- road.name %></strong><% 
 			if (road.from) { 
 				print(', ');
 				if (road.to) {

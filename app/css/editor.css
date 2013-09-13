@@ -113,6 +113,17 @@
   width: 40%;
 }
 
+/* WIDGET: MULTITOGGLE */
+
+.o5 .multi-toggle-widget span:hover {
+  background-color: #AAAAAA;
+  color: #EEEEEE;
+}
+
+.o5 .multi-toggle-widget span.selected, .o5 .multi-toggle-widget span.selected:hover {
+  background-color: #75b7c1;
+}
+
 /* REPEATING GROUPS */
 
 .editor .repeating-group.with-separators .fieldgroup {

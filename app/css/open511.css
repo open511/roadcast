@@ -84,6 +84,20 @@
 	color: #A57F49;
 }
 
+.o5 .label {
+  display: inline-block;
+  background-color: #999999;
+  padding: .2em .6em .3em;
+  border-radius: 7px;
+  font-weight: bold;
+  margin-right: 3px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 88%;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
 .o5modal {
 	background-color: #ffffff;
 	border-radius: 5px;

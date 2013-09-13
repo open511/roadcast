@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 						'app/js/views.js',
 						'app/js/layout.js',
 						'app/js/roadevent.js',
+						'app/js/schedule.js',
 						'app/js/eventdetail.js',
 						'app/js/router.js',
 						'app/js/listview.js',

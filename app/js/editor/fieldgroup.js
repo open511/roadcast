@@ -36,7 +36,7 @@
 			var updates = {};
 			_.each(this.widgets, function (widget) {
 				_.each(widget.getVals(), function(val, key) {
-					if (val === '') val = null;
+					if (val === '' || (val && val.length === 0)) val = null;
 					// This is done so that 'schedule/startDate' goes to {'schedule': {'startDate': x }}
 					var name_bits = key.split('/');
 					var base = updates;
