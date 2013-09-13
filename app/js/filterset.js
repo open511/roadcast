@@ -1,7 +1,7 @@
 (function() {
 
 	var filterExactValue = function(key, value, rdev) {
-		return rdev.get(key) === value;
+		return rdev.attributes[key] === value;
 	};
 
 	var defaultRemote = function(key, value) {
@@ -65,6 +65,9 @@
 					'in_effect_on',
 					value + 'T00:00' + ',' + value + 'T23:59'
 				];
+			},
+			local: function(key, value, rdev) {
+				return rdev.parseSchedule().inEffectOn(moment(value));
 			},
 			widget: 'date'
 		}
