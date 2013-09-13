@@ -32,7 +32,7 @@ class IntegrationTests(BrowserTestCase):
         self.css('.mappane').click()
         self.css('li[data-tab=schedule] a').click()
         time.sleep(0.2)
-        self.css('[data-fieldname="schedule/start_date"] input').click()
+        self.css('[data-fieldname="start_date"] input').click()
         self.css('.datepicker .active').click()
         self.css('li[data-tab=basics] a').click()
 
@@ -58,7 +58,7 @@ class IntegrationTests(BrowserTestCase):
             'severity': 'UNKNOWN',
             'status': 'ACTIVE',
             'jurisdiction_url': 'http://test/api/jurisdictions/test.open511.org/',
-            'schedule': {'start_date': unicode(datetime.date.today())}
+            'schedules': [{'start_date': unicode(datetime.date.today())}]
         })
 
     def test_published(self):
