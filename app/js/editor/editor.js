@@ -43,6 +43,7 @@
 			$el.on('click', '.cancel-button', function(e) {
 				e.preventDefault();
 				var rdev = self.roadEvent;
+				if (self._lastSavedAttributes) rdev.set(self._lastSavedAttributes);
 				self.deactivate();
 				if (!rdev || rdev.isNew()) {
 					self.app.layout.setLeftPane(null);
