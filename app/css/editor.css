@@ -6,6 +6,7 @@
 
 .editor .editor-row {
   margin-top: 16px;
+  margin-bottom: 10px;
 }
 .editor .editor-row:first-child {
   margin-top: 24px;

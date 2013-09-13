@@ -249,7 +249,21 @@
 				this.widgetList[i].setVal(val[i]);
 			}
 			if (this.options.autoAddRows) this.autoAddRow();
-		}
+		},
+
+		// Returns an array of every widget failing validation;
+		// also triggers display of validation errors
+		getInvalidWidgets: function() {
+			var invalid = [];
+			var self = this;
+			_.each(this.widgetList, function (widget) {
+				if (!self._isEmptyValue(widget.getVal())) {
+					// If it's an empty row, don't validate it
+					invalid.push.apply(invalid, widget.getInvalidWidgets());
+				}
+			});
+			return invalid;
+		},
 
 
 	});

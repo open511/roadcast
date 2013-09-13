@@ -17,11 +17,11 @@
 
 		// Should return true if the field is valid, an error message if not.
 		checkValidation: function() {
-			if (this.options.validate) {
-				return this.options.validate(this.getVal());
-			}
 			if (this.options.required && !this.getVal()) {
 				return O5._t("This field is required");
+			}
+			if (this.options.validate) {
+				return this.options.validate(this.getVal());
 			}
 			return true;
 		},

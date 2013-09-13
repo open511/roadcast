@@ -1,7 +1,7 @@
 <div class="header container">
 	<% if (r.headline) { %><h2 class="headline"><%- r.headline %></h2><% } %>
 	<div class="date">
-		<% if (schedule.inEffectOn()) { %><strong><%- O5._t('In effect today') %></strong><br><% } %>
+		<strong><%- schedule.inEffectOn() ? O5._t('In effect today') : O5._t('Not today') %></strong><br>
 		<%= O5.utils.nlToBR(schedule.toStrings().join('\n')) %>
 	</div>
 </div>

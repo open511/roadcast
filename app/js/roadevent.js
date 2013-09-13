@@ -239,7 +239,8 @@
 					{
 						name: 'name',
 						label: _t('Road name'),
-						type: 'text'
+						type: 'text',
+						required: true
 					},
 					{
 						name: 'from',
