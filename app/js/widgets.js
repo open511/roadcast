@@ -16,38 +16,44 @@
 		},
 
 		// Should return true if the field is valid, an error message if not.
-		checkValidation: function() {
+		checkValidation: function(opts) {
 			if (this.options.required && !this.getVal()) {
 				return O5._t("This field is required");
 			}
 			if (this.options.validate) {
-				return this.options.validate(this.getVal());
+				return this.options.validate(this.getVal(), opts);
 			}
 			return true;
 		},
 
-		
-		// Same return value as checkValidation, but also displays the error
-		// message within the field (if the full field from renderEditorField
-		// is displayed)
-		displayValidation: function() {
-			var $control = this.$field_el || $();
-			var validationResult = this.checkValidation();
-			$control.find('.validation-error').remove();
-			if (validationResult === true) {
-				$control.removeClass('error');
+		// Displays the provided validation error; if message is null, clears
+		// validation errors.
+		displayValidationError: function(message) {
+			var $container = this.$el.closest('.field');
+			$container.find('.validation-error').remove();
+			if (message) {
+				$container.addClass('error');
+				var $msg = $('<span class="emphasized-note error validation-error" />');
+				$msg.text(message);
+				$container.append($msg);
 			}
 			else {
-				$control.addClass('error');
-				var $msg = $('<span class="emphasized-note error validation-error" />');
-				$msg.text(validationResult);
-				$control.append($msg);
+				$container.removeClass('error');
 			}
-			return validationResult;
 		},
 
-		getInvalidWidgets: function() {
-			return (this.displayValidation() === true ? [] : [this]);
+		// Triggers validation, displays an error if necessary, and returns a list
+		// of invalid widgets (i.e. [this] or [])
+		getInvalidWidgets: function(opts) {
+			var result = this.checkValidation(opts);
+			if (result === true) {
+				this.displayValidationError(null);
+				return [];
+			}
+			else {
+				this.displayValidationError(result);
+				return [this];
+			}
 		},
 
 		events: {

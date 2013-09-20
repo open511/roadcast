@@ -186,6 +186,31 @@
 				type: 'group',
 				repeating: true,
 				tab: 'schedule',
+				validate: function(val, opts) {
+					if (val.end_date && !moment(val.start_date).isBefore(val.end_date)) {
+						return {
+							field: 'end_date',
+							error: O5._t('End date must be after start date (or left blank)')
+						};
+					}
+					if (val.start_time || val.end_time) {
+						if (!val.start_time) return {
+							field: 'start_time',
+							error: O5._t('If end time is provided, start time is required')
+						};
+						if (!val.end_time && opts && opts.saving) return {
+							// Suppress this warning unless we're saving
+							field: 'end_time',
+							error: O5._t('If start time is provided, end time is required')
+						};
+						if (val.end_time && !moment('2013-01-01T' + val.start_time).isBefore(moment('2013-01-01T' + val.end_time))) return {
+							field: 'start_time',
+							error: O5._t('Start time must be before end time')
+						};
+					}
+					return true;
+				},
+				required: true,
 				fields: [
 					{
 						name: 'start_date',
@@ -235,6 +260,13 @@
 				name: 'roads',
 				type: 'group',
 				repeating: true,
+				validate: function(val) {
+					if (val.state && !val.direction) return {
+						field: 'direction',
+						error: O5._t('If state is provided, direction is required')
+					};
+					return true;
+				},
 				fields: [
 					{
 						name: 'name',
@@ -253,18 +285,6 @@
 						type: 'text'
 					},
 					{
-						name: 'state',
-						label: _t('State'),
-						type: 'enum',
-						choices: [
-							['', ''],
-							['ALL_LANES_OPEN', _t('All lanes open')],
-							['SOME_LANES_CLOSED', _t('Some lanes closed')],
-							['SINGLE_LANE_ALTERNATING', _t('Single lane alternating')],
-							['CLOSED', _t('All lanes closed')]
-						]
-					},
-					{
 						name: 'direction',
 						label: _t('Direction'),
 						type: 'enum',
@@ -275,6 +295,18 @@
 							['S', _t('South')],
 							['E', _t('East')],
 							['W', _t('West')]
+						]
+					},
+					{
+						name: 'state',
+						label: _t('State'),
+						type: 'enum',
+						choices: [
+							['', ''],
+							['ALL_LANES_OPEN', _t('All lanes open')],
+							['SOME_LANES_CLOSED', _t('Some lanes closed')],
+							['SINGLE_LANE_ALTERNATING', _t('Single lane alternating')],
+							['CLOSED', _t('All lanes closed')]
 						]
 					}
 				],

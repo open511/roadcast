@@ -127,7 +127,9 @@
 
 		// Checks validation and, if everything's okay, saves changes to the server
 		save: function() {
-			var invalidWidgets = this.fieldGroup.getInvalidWidgets();
+			var invalidWidgets = this.fieldGroup.getInvalidWidgets({
+				saving: true
+			});
 			if (invalidWidgets.length > 0) {
 				return O5.utils.notify(
 					O5._t("Validation error. Please verify: ") +

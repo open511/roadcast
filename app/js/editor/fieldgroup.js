@@ -71,13 +71,35 @@
 			});
 		},
 
+		displayValidationError: function(message) {
+			this.$el.find('.validation-error').remove();
+			if (message) {
+				var $msg = $('<span class="emphasized-note error validation-error" />');
+				$msg.text(message);
+				this.$el.prepend($msg);
+			}
+		},
+
+		// Should return true if the field is valid, an object with "field" and "error" keys if not
+		checkValidation: function(opts) {
+			if (this.options.validate) {
+				return this.options.validate(this.getVal(), opts);
+			}
+			return true;
+		},
+
 		// Returns an array of every widget failing validation;
 		// also triggers display of validation errors
-		getInvalidWidgets: function() {
+		getInvalidWidgets: function(opts) {
 			var invalid = [];
 			_.each(this.widgetList, function (widget) {
-				invalid.push.apply(invalid, widget.getInvalidWidgets());
+				invalid.push.apply(invalid, widget.getInvalidWidgets(opts));
 			});
+			var result = this.checkValidation(opts);
+			if (result !== true) {
+				this.widgets[result.field].displayValidationError(result.error);
+				invalid.push(this);
+			}
 			return invalid;
 		},
 
@@ -137,7 +159,7 @@
 
 		onWidgetChange: function(widget, opts) {
 
-			if (widget.getInvalidWidgets().length === 0) {
+			if (widget.getInvalidWidgets({}).length === 0) {
 				var self = this;
 				_.each(widget.getVals(), function(val, name) {
 					if (name.indexOf('/') === -1) {
@@ -223,6 +245,7 @@
 
 		// Is this either a nullish value or an object containing only nullish values?
 		_isEmptyValue: function(wval) {
+			if (_.isArray(wval)) return _.every(wval, this._isEmptyValue);
 			return !(_.isObject(wval) ? _.any(wval, function(v) { return v === 0 || v; }) : (wval === 0 || wval));
 		},
 
@@ -251,17 +274,30 @@
 			if (this.options.autoAddRows) this.autoAddRow();
 		},
 
+		checkValidation: function() {
+			return true;
+		},
+
 		// Returns an array of every widget failing validation;
 		// also triggers display of validation errors
-		getInvalidWidgets: function() {
+		getInvalidWidgets: function(opts) {
 			var invalid = [];
 			var self = this;
 			_.each(this.widgetList, function (widget) {
 				if (!self._isEmptyValue(widget.getVal())) {
 					// If it's an empty row, don't validate it
-					invalid.push.apply(invalid, widget.getInvalidWidgets());
+					invalid.push.apply(invalid, widget.getInvalidWidgets(opts));
 				}
 			});
+			if (this.options.required && invalid.length === 0 && this._isEmptyValue(this.getVal())) {
+				// If we're required and don't have a value, trigger validation on the first group
+				invalid.push.apply(invalid, this.widgetList[0].getInvalidWidgets(opts));
+			}
+			var result = this.checkValidation(opts);
+			if (result !== true) {
+				this.displayValidationError(result);
+				invalid.push(this);
+			}
 			return invalid;
 		},
 
