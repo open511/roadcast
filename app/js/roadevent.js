@@ -31,7 +31,7 @@
 		},
 
 		parse: function(resp) {
-			if (resp.meta) delete resp.meta;
+			if (resp.events && resp.meta) return resp.events[0];
 			return resp;
 		},
 
@@ -97,7 +97,7 @@
 		},
 
 		parse: function(resp, xhr) {
-			return resp.content;
+			return resp.events;
 		},
 
 		select: function(model, opts) {
