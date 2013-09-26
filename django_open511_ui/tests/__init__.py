@@ -37,14 +37,14 @@ class IntegrationTests(BrowserTestCase):
         self.css('li[data-tab=basics] a').click()
 
     def test_create_event(self):
-        self.assertEquals(len(self.get_all_events()['content']), 0)
+        self.assertEquals(len(self.get_all_events()['events']), 0)
         self.go_home()
         self.log_in('testuser', 'testuser')
         self.css('.create-new-event').click()
         self._fill_in_event(headline='Head Line')
         self.css('.save-button').click()
         time.sleep(1)
-        all_events = self.get_all_events()['content']
+        all_events = self.get_all_events()['events']
         self.assertEquals(len(all_events), 1)
         event = all_events[0]
         event.pop('geography') # these will vary, don't test their contents
@@ -62,7 +62,7 @@ class IntegrationTests(BrowserTestCase):
         })
 
     def test_published(self):
-        self.assertEquals(len(self.get_all_events()['content']), 0)
+        self.assertEquals(len(self.get_all_events()['events']), 0)
         self.go_home()
         self.log_in('testuser', 'testuser')
         self.css('.create-new-event').click()
@@ -70,11 +70,11 @@ class IntegrationTests(BrowserTestCase):
         self.css('[data-fieldname="!publish_on"] input[type="checkbox"]').click()
         self.css('.save-button').click()
         time.sleep(0.7)
-        self.assertEquals(len(self.get_all_events()['content']), 0)
+        self.assertEquals(len(self.get_all_events()['events']), 0)
         self.css('.event-detail .unpublished')
         self.css('.edit-event').click()
         self.css('.publish-now').click()
         self.css('.save-button').click()
         time.sleep(0.7)
-        self.assertEquals(len(self.get_all_events()['content']), 1)
+        self.assertEquals(len(self.get_all_events()['events']), 1)
         self.assert_not_css('.event-detail .unpublished')
