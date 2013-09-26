@@ -97,7 +97,8 @@
 			});
 			var result = this.checkValidation(opts);
 			if (result !== true) {
-				this.widgets[result.field].displayValidationError(result.error);
+				var target = result.field ? this.widgets[result.field] : this;
+				target.displayValidationError(result.error ? result.error : result);
 				invalid.push(this);
 			}
 			return invalid;
@@ -194,10 +195,13 @@
 			this.$el.append(this.$rows);
 			this.renderRows(1);
 
-			if (!this.options.autoAddRows) {
-				this.$el.on('click', '.add-row', _.bind(this.addRow, this));
-				this.$el.append($('<a class="add-row">+</a>'));
-			}
+			if (!this.options.autoAddRows) this.renderAddRow();
+
+		},
+
+		renderAddRow: function() {
+			this.$el.on('click', '.add-row', _.bind(this.addRow, this));
+			this.$el.append($('<a class="add-row">+</a>'));
 		},
 
 		renderEditorField: function() {
@@ -212,14 +216,15 @@
 			}
 		},
 
-		addRow: function() {
-			var item = this._makeWidget(_.extend({}, this.options, {repeating: false}));
+		addRow: function(widgetOpts) {
+			var item = this._makeWidget(widgetOpts || _.extend({}, this.options, {repeating: false}));
 			var self = this;
 			item.on('change', function(opts) {
 				self.onWidgetChange(item, opts);
 			});
 			this.widgetList.push(item);
 			this.$rows.append(item.renderEditorField());
+			return item;
 		},
 
 		onWidgetChange: function(item, opts) {

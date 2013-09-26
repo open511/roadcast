@@ -2,7 +2,6 @@
 	<% if (r.headline) { %><h2 class="headline"><%- r.headline %></h2><% } %>
 	<div class="date">
 		<strong><%- schedule.inEffectOn() ? O5._t('In effect today') : O5._t('Not today') %></strong><br>
-		<%= O5.utils.nlToBR(schedule.toStrings().join('\n')) %>
 	</div>
 </div>
 
@@ -27,6 +26,9 @@
 	<% });
 } %>
 <% if (r.description) { %><h4><%- O5._t('Details') %></h4><%= O5.utils.nlToBR(r.description) %><% } %>
+
+<h4><%- O5._t('Schedule') %></h4><%= O5.utils.nlToBR(schedule.toStrings().join('\n')) %>
+
 <% if (r.detour) { %><h4><%- O5._t('Detour') %></h4><%= O5.utils.nlToBR(r.detour) %><% } %>
 <% if (r.attachments && r.attachments.length) { %>
 	<h4><%- O5._t('Attachments') %></h4>

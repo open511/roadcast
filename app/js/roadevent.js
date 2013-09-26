@@ -184,7 +184,7 @@
 			{
 				name: 'schedules',
 				type: 'group',
-				repeating: true,
+				widget: 'schedule',
 				tab: 'schedule',
 				validate: function(val, opts) {
 					if (val.end_date && !moment(val.start_date).isBefore(val.end_date)) {
@@ -247,6 +247,23 @@
 							[6, _t('Sat')],
 							[7, _t('Sun')]
 						]
+					}
+				],
+				specificDatesFields: [
+					{
+						name: 'date',
+						label: _t('Specific date'),
+						type: 'date',
+						placeholder: _t('Date'),
+						required: true
+					},
+					{
+						name: 'times',
+						type: 'group',
+						widget: 'timerange',
+						repeating: true,
+						autoAddRows: true,
+						addSeparators: false
 					}
 				]
 			},

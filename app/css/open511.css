@@ -18,6 +18,13 @@
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #333333;
 }
+
+.o5 .clear-group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .o5 a {
 	text-decoration: none;
 	cursor: pointer;
@@ -93,7 +100,7 @@
   margin-right: 3px;
   color: #ffffff;
   text-align: center;
-  font-size: 88%;
+  font-size: 90%;
   cursor: pointer;
   white-space: nowrap;
 }

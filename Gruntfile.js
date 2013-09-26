@@ -48,6 +48,7 @@ module.exports = function(grunt) {
 						'app/js/editor/fieldgroup.js',
 						'app/js/editor/widgets/map.js',
 						'app/js/editor/widgets/timerange.js',
+						'app/js/editor/widgets/schedule.js',
 						'<%=dest%>/tmp/templates-editor.js'
 					],
 					'<%=dest%>/js/plugins/attachments.js': [

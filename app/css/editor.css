@@ -114,6 +114,14 @@
   width: 40%;
 }
 
+.o5 .timerange input[data-fieldname=start_time] {
+  float: left;
+}
+
+.o5 .timerange input[data-fieldname=end_time] {
+  float: right;
+}
+
 /* WIDGET: MULTITOGGLE */
 
 .o5 .multi-toggle-widget span:hover {
@@ -127,7 +135,7 @@
 
 /* REPEATING GROUPS */
 
-.editor .repeating-group.with-separators .fieldgroup {
+.editor .repeating-group.with-separators > .repeating-group-rows > .fieldgroup {
   border-bottom: 1px dotted #aaaaaa;
   padding-bottom: 5px;
   margin-bottom: 10px;
