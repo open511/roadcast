@@ -8,9 +8,6 @@
   margin-top: 16px;
   margin-bottom: 10px;
 }
-.editor .editor-row:first-child {
-  margin-top: 24px;
-}
 
 /* TABS */
 
@@ -111,7 +108,7 @@
 
 .o5 .timerange input[type=text] {
   display: inline;
-  width: 40%;
+  width: 45%;
 }
 
 .o5 .timerange input[data-fieldname=start_time] {
