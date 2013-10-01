@@ -52,13 +52,16 @@ var SpecificDatesSchedule = function(specifics) {
 		dates[bits.shift()] = bits;
 	});
 	this.dates = dates;
+	this.dateList = _.keys(dates);
+	this.dateList.sort();
 };
 
 SpecificDatesSchedule.prototype.toStrings = function() {
-	return _.map(this.dates, function(times, date) {
+	var self = this;
+	return _.map(this.dateList, function(date) {
 		var s = O5.utils.formatDate(moment(date)) + ' ';
-		if (times.length) {
-			s += _.map(times, function(timerange) {
+		if (self.dates[date].length) {
+			s += _.map(self.dates[date], function(timerange) {
 				var bits = timerange.split('-');
 				return O5.utils.formatTime(bits[0]) + "\u202f\u2013\u202f" + O5.utils.formatTime(bits[1]);
 			}).join(', ');
@@ -93,12 +96,6 @@ var Schedule = function(schedules) {
 };
 
 _.extend(Schedule.prototype, {
-
-	parseSpecificDates: function(specifics) {
-		var r = {};
-
-		return r;
-	},
 
 	toStrings: function() {
 		var scheduled = _.map(this.schedules, function(sched) { return sched.toString(); });

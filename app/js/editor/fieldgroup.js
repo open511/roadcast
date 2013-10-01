@@ -200,7 +200,8 @@
 		},
 
 		renderAddRow: function() {
-			this.$el.on('click', '.add-row', _.bind(this.addRow, this));
+			var self = this;
+			this.$el.on('click', '.add-row', function() { self.addRow(); });
 			this.$el.append($('<a class="add-row">+</a>'));
 		},
 
