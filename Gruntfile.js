@@ -8,7 +8,6 @@ module.exports = function(grunt) {
 				files: {
 					'<%=dest%>/js/open511-nodeps.js': [
 						'app/js/i18n.js',
-						'app/js/utils/datepicker.js',
 						'app/js/main.js',
 						'app/js/views.js',
 						'app/js/layout.js',
@@ -29,6 +28,7 @@ module.exports = function(grunt) {
 						'app/vendor/lodash.js',
 						'app/vendor/backbone.js',
 						'app/vendor/moment.js',
+						'app/vendor/datepicker.js',
 						'app/vendor/jquery.easymodal.js',
 						'<%=dest%>/js/open511-nodeps.js'
 					],

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
 "POT-Creation-Date: 2013-09-30 16:55-0500\n"
-"PO-Revision-Date: 2013-10-01 13:43-0500\n"
+"PO-Revision-Date: 2013-10-02 13:56-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -429,7 +429,7 @@ msgstr "+ Reccurrent"
 
 #: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:51
 msgid "+ Specific Date"
-msgstr "+ Date spécifique"
+msgstr "+ Date spéciale"
 
 #: /Users/michael/proj/o5/ui/app/js/map/leaflet.draw.js:31
 msgid "Click map to place marker."

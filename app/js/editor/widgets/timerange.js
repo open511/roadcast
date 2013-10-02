@@ -28,7 +28,10 @@ O5.widgets.timerange = O5.editor.FieldGroup.extend({
 
 	checkValidation: function(opts) {
 		var val = this.getVal();
-		if (this._timeToMinutes(val.end_time) <= this._timeToMinutes(val.start_time)) {
+		if ((opts || {}).saving && (!val.start_time || !val.end_time)) {
+			return O5._t("Both start and end times must be provided");
+		}
+		if (val.end_time && val.start_time && this._timeToMinutes(val.end_time) <= this._timeToMinutes(val.start_time)) {
 			return O5._t("Start time must be before end time");
 		}
 		return O5.editor.FieldGroup.prototype.checkValidation.call(this, opts);

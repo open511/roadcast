@@ -189,7 +189,8 @@
 				TextWidget.prototype.initialize.call(this);
 				var self = this;
 				this.$el.datepicker({
-					format: 'yyyy-mm-dd'
+					format: 'yyyy-mm-dd',
+					language: O5.language
 				}).on('changeDate', function(e) {
 					$(this).datepicker('hide');
 					self.trigger('change');
