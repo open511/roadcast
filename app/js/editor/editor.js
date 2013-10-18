@@ -102,9 +102,9 @@
 			event.set(defaults);
 
 			this.app.events.add(event);
+			this.app.layout.setLeftPane(this);
 			event.select({display: false});
 			this.selectEvent(event);
-			this.app.layout.setLeftPane(this);
 		},
 
 		// Sends edited data to the server

@@ -219,6 +219,11 @@
 
 		panToMarker: function(marker) {
 			this.lmap.panTo(marker.getLatLng());
+		},
+
+		fitPoints: function(points) {
+			// points: an array of [lat, lng] arrays
+			this.lmap.fitBounds(points);
 		}
 
 	});

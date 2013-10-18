@@ -25,7 +25,7 @@
   {{ inject_for_testing }}
   {% if gmaps %}<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=drawing"></script>{% endif %}
   {% if LANGUAGE_CODE == "fr" %}
-    <script src="{% static "o5ui/locale/fr.js" %}"></script>
+    <script src="{% static "o5ui/locale/fr.js" %}" charset="UTF-8"></script>
   {% endif %}
 
   {% for js_file in js_files %}

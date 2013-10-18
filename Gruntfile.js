@@ -81,7 +81,6 @@ module.exports = function(grunt) {
 					// 	'app/vendor/leaflet/leaflet.markercluster.css'
 					// ],
 
-					'<%=dest%>/example.html': ['app/example.html']
 				}
 			}
 		},
@@ -103,6 +102,12 @@ module.exports = function(grunt) {
 				{
 					src: ['app/js/plugins/*.js'],
 					dest: '<%=dest%>/js/plugins/',
+					expand: true,
+					flatten: true
+				},
+				{
+					src: ['app/*.html'],
+					dest: '<%=dest%>/',
 					expand: true,
 					flatten: true
 				}]
