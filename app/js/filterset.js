@@ -430,7 +430,7 @@
 					if (isActive) ev.setInternal('visible', true);
 				});
 
-				if (resp.pagination.next_url) {
+				if (resp.pagination && resp.pagination.next_url) {
 					if (isActive) {
 						// Only fetch more if this FilteredSet is still active
 						var next_url = resp.pagination.next_url;
