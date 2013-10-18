@@ -66,6 +66,10 @@
 				url: add_url_params(rootURL),
 				dataType: 'json',
 				success: function(data) {
+
+					// Is this an events resource? If so, initialize it directly.
+					if (data.events && data.events.length) return initialize(rootURL);
+
 					// We got the discovery page -- figure out the URL to the events service
 					if (!data.services) return O5.utils.notify("Doesn't look like a valid Open511 discovery resource -- no services element.", 'error');
 					var service = _.find(data.services, function(s) { return s.service_type_url.indexOf('open511.org/services/events') !== -1; });
@@ -103,6 +107,8 @@
 				_.delay(fit_points, 5);
 			});
 		};
+
+		window.initializeMap = initialize;
 
 		// We're temporarily using the O5 notification code before we've initialized
 		// the O5 app, so we need to handle notification closing manually
