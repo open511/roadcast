@@ -401,7 +401,8 @@
 					'accept-language': O5.language,
 					'limit': 50
 				});
-				opts.url = this.app.events.url + '?' + $.param(url_or_params);
+				opts.url = this.app.events.url + (this.app.events.url.indexOf('?') === -1 ? '?' : '&')
+					+ $.param(url_or_params);
 			}
 			var collection = filteredSet.app.events;
 			var success = function(resp, status, xhr) {
