@@ -1,10 +1,14 @@
 (function() {
 
+var weekdays = moment.langData(moment.lang())._weekdaysShort;
+var getDayName = function(day) { return weekdays[day === 7 ? 0 : day]; };
+
 var RecurringSchedule = function(data) {
 	this.data = data;
 	this.start_date = data.start_date ? moment(data.start_date) : null;
 	this.end_date = data.end_date ? moment(data.end_date) : null;
 	this.days = data.days;
+	if (this.days && this.days.length) this.days.sort();
 };
 
 RecurringSchedule.prototype.inEffectOn = function(date) {
@@ -16,9 +20,14 @@ RecurringSchedule.prototype.inEffectOn = function(date) {
 RecurringSchedule.prototype.toString = function() {
 	var s = '';
 	if (this.days) {
-		var weekdays = moment.langData(moment.lang())._weekdaysShort;
-		// TODO Mon-Fri instead of Mon, Tue, Wed, Thu, Fri
-		s += O5._t('every') + ' ' + _.map(this.days, function(day) { return weekdays[day === 7 ? 0 : day]; }).join(', ');
+		if (this.days.length > 2 && (this.days[this.days.length - 1] - this.days[0]) === this.days.length - 1) {
+			// Range: Mon-Fri
+			s += getDayName(this.days[0]) + "\u2013" + getDayName(this.days[this.days.length-1]);
+		}
+		else {
+			// Mon, Tue, Thu
+			s += O5._t('every') + ' ' + _.map(this.days, getDayName).join(', ');
+		}
 	}
 	if (this.data.start_time) {
 		if (s) s += ' ';
