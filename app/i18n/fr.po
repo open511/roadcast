@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-09-30 16:55-0500\n"
-"PO-Revision-Date: 2013-10-02 13:56-0500\n"
+"POT-Creation-Date: 2013-10-24 00:49-0500\n"
+"PO-Revision-Date: 2013-10-24 00:49-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -56,7 +56,7 @@ msgid "Schedule"
 msgstr "Calendrier"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:32
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:272
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:273
 msgid "Detour"
 msgstr "Détour"
 
@@ -173,6 +173,14 @@ msgstr "Tous"
 msgid "Date"
 msgstr "Date"
 
+#: /Users/michael/proj/o5/ui/app/js/i18n.js:16
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: /Users/michael/proj/o5/ui/app/js/i18n.js:17
+msgid "Clear"
+msgstr "Supprimer"
+
 #: /Users/michael/proj/o5/ui/app/js/roadevent.js:127
 msgid "Headline"
 msgstr "Titre"
@@ -230,7 +238,7 @@ msgid "If start time is provided, end time is required"
 msgstr "Lorsqu'une heure de début est proposée, l'heure de fin est obligatoire"
 
 #: /Users/michael/proj/o5/ui/app/js/roadevent.js:208
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:32
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:35
 msgid "Start time must be before end time"
 msgstr "L'heure de début doit être antérieure à l'heure de fin"
 
@@ -288,63 +296,73 @@ msgstr "Dim"
 msgid "Specific date"
 msgstr "Date spéciale"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:283
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:259
+msgid ""
+"The schedule for this event on a specific date. Overrides any recurring "
+"schedules. To specify that the event is not active on this date, enter a "
+"date but leave the times blank."
+msgstr ""
+"Calendrier pour une date spécifique. Prioritaire sur les calendriers "
+"récurrents. Pour signifier qu'un événement n'est pas actif pendant une "
+"journée, entrer une date mais laisser les heures vides."
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:284
 msgid "If state is provided, direction is required"
 msgstr "Si l'état est spécifiée, la direction est obligatoire"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:290
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:291
 msgid "Road name"
 msgstr "Nom de la route"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:296
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:297
 msgid "From"
 msgstr "De"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:301
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:302
 msgid "To"
 msgstr "Jusqu'à"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:306
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:307
 msgid "Direction"
 msgstr "Direction"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:310
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:311
 msgid "Both"
 msgstr "Tous"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:311
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:312
 msgid "North"
 msgstr "Nord"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:312
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:313
 msgid "South"
 msgstr "Sud"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:313
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:314
 msgid "East"
 msgstr "Est"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:314
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:315
 msgid "West"
 msgstr "Ouest"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:319
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:320
 msgid "State"
 msgstr "État"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:323
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:324
 msgid "All lanes open"
 msgstr "Toutes les voies sont ouvertes"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:324
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:325
 msgid "Some lanes closed"
 msgstr "Certaines voies sont fermées"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:325
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:326
 msgid "Single lane alternating"
 msgstr "Circulation alternée sur une voie"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:326
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:327
 msgid "All lanes closed"
 msgstr "Toutes les voies sont fermées"
 
@@ -364,7 +382,7 @@ msgstr "depuis"
 msgid "starting"
 msgstr "commençant"
 
-#: /Users/michael/proj/o5/ui/app/js/schedule.js:67
+#: /Users/michael/proj/o5/ui/app/js/schedule.js:70
 msgid "not in effect"
 msgstr "non actif"
 
@@ -430,6 +448,10 @@ msgstr "+ Reccurrent"
 #: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:51
 msgid "+ Specific Date"
 msgstr "+ Date spéciale"
+
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:32
+msgid "Both start and end times must be provided"
+msgstr "Les heures de début et de fin doivent être fournies"
 
 #: /Users/michael/proj/o5/ui/app/js/map/leaflet.draw.js:31
 msgid "Click map to place marker."

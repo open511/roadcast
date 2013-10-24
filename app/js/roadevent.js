@@ -255,7 +255,8 @@
 						label: _t('Specific date'),
 						type: 'date',
 						placeholder: _t('Date'),
-						required: true
+						required: true,
+						help_text: _t("The schedule for this event on a specific date. Overrides any recurring schedules. To specify that the event is not active on this date, enter a date but leave the times blank.")
 					},
 					{
 						name: 'times',

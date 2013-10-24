@@ -74,7 +74,22 @@
 			if (this.options.tab) $field_el.attr('data-tab', this.options.tab);
 			$field_el.attr('data-fieldname', this.options.name);
 			if (this.addLabel) {
-				$field_el.append($('<label for="' + this.id + '" />').text(this.options.label));
+				var $label = $('<label for="' + this.id + '" />').text(this.options.label);
+				if (this.options.help_text) {
+					var $tip = $('<span class="help_text">?</span>');
+					$tip.attr('title', this.options.label).attr('data-content', this.options.help_text)
+						.popover({container: '.o5', trigger: 'hover'});
+					// if (this.options.help_text.title && this.options.help_text.content) {
+					// 	$tip.attr('title', this.options.help_text.title)
+					// 		.attr('data-content', this.options.help_text.content)
+					// 		.popover({container: '.o5'});
+					// }
+					// else {
+					// 	$tip.attr('title', this.options.help_text).tooltip({container: '.o5'});
+					// }
+					$label.append($tip);
+				}
+				$field_el.append($label);
 			}
 			$field_el.append(this.$el);
 			this.$field_el = $field_el;

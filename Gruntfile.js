@@ -30,6 +30,8 @@ module.exports = function(grunt) {
 						'app/vendor/moment.js',
 						'app/vendor/datepicker.js',
 						'app/vendor/jquery.easymodal.js',
+						'app/vendor/bootstrap-tooltip.js',
+						'app/vendor/bootstrap-popover.js',
 						'<%=dest%>/js/open511-nodeps.js'
 					],
 					'<%=dest%>/js/open511-maps.js': [
@@ -157,6 +159,7 @@ module.exports = function(grunt) {
 					'<%=dest%>/css/open511.css': [
 						// dependencies
 						'app/vendor/datepicker.css',
+						'app/vendor/bootstrap-tooltip.css',
 
 						// leaflet
 						'app/vendor/leaflet/leaflet.css',

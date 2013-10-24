@@ -73,9 +73,18 @@
   font-family: "Montserrat", sans-serif;
   font-size: 13px;
   display: block;
+  position: relative;
 }
 .o5 .field label.inline {
   display: inline;
+}
+.o5 .field label .help_text {
+  position: absolute;
+  right: 0;
+  /*cursor: pointer;*/
+  border-radius: 5px;
+  padding: 0 3px;
+  background-color: #E2E2E2;
 }
 
 .o5 .field.error .checkbox,
