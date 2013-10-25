@@ -4,7 +4,7 @@
 	 */
 	var FilterView = O5.views.BaseView.extend({
 
-		className: "filter-button",
+		className: "filter-button nav-button",
 
 		dialogOpen: false,
 

@@ -82,7 +82,7 @@
 				e.preventDefault();
 				self.createEvent($(e.target).attr('data-slug'));
 			});
-			return $button;
+			return $('<div class="nav-button"></div>').append($button);
 		},
 
 		// Create a new event

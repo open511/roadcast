@@ -34,6 +34,8 @@ class Open511UISettings(AppConf):
         'attachments'
     ]
 
+    SHOW_FEEDBACK_BUTTON = False
+
     # All settings here will be passed directly to the JavaScript application.
     # For example, in settings.py:
     # OPEN511_UI_APP_SETTINGS = {

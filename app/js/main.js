@@ -57,7 +57,6 @@ O5.init = function(opts) {
 		$el.find('.navbar .buttons').append(filterWidget.el);
 		filterWidget.render();
 
-
 		app.filterManager = new O5.prototypes.FilterManager({
 			app: app
 		});

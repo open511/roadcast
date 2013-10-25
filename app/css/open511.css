@@ -166,9 +166,8 @@
 	padding-left: 5px;
 }
 
-.o5 .navbar .nav-button {
+.o5 .navbar a.nav-button {
 	padding: 12px 25px;
-	border-right: 1px solid #FFFFFF;
 	text-transform: uppercase;
 	color: #FFFFFF;
 	text-decoration: none;
@@ -178,12 +177,15 @@
 	transition: color 0.4s;
 	height: 44px;
 }
-.o5 .navbar .nav-button:hover {
+.o5 .navbar div.nav-button {
+	border-right: 1px solid #FFFFFF;
+}
+.o5 .navbar a.nav-button:hover {
 	/*background-color: #393F42;*/
 	color: #75B7C1;
 	transition: color 0.4s;
 }
-.o5 .navbar .nav-button:last-child {
+.o5 .navbar div.nav-button:last-child {
 	border-right: none;
 }
 

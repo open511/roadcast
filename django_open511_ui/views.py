@@ -8,6 +8,7 @@ from uuid import uuid4
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
+from django.core.mail import mail_managers
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
@@ -59,6 +60,11 @@ def main(request, event_slug=None):
         js_files.append('plugins/open511-editor')
     js_files.extend(['plugins/' + p for p in settings.OPEN511_UI_PLUGINS])
 
+    if settings.OPEN511_UI_SHOW_FEEDBACK_BUTTON:
+        js_files.append('plugins/feedback')
+        opts['feedbackURL'] = urlresolvers.reverse('o5ui_feedback')
+
+
     ext = '.js' if settings.DEBUG else '.min.js'
     js_files = ['o5ui/js/' + f + ext for f in js_files]
 
@@ -66,7 +72,8 @@ def main(request, event_slug=None):
         opts['auth'] = {
             'logoutURL': urlresolvers.reverse('logout'),
             'displayName': (request.user.get_full_name()
-                if request.user.get_full_name() else request.user.username)
+                if request.user.get_full_name() else request.user.username),
+            'email': request.user.email
         }
     elif settings.OPEN511_UI_SHOW_LOGIN_BUTTON:
         opts['auth'] = {
@@ -115,3 +122,8 @@ def s3_file_upload_helper(request):
         "AWSAccessKeyId": settings.OPEN511_UI_AWS_ACCESS_KEY,
         "post_url": "https://%s.s3.amazonaws.com/" % settings.OPEN511_UI_FILE_UPLOAD_S3_BUCKET # FIXME
     }), content_type="application/json")
+
+def feedback(request):
+    if request.method == 'POST':
+        mail_managers('Open511 feedback', "Email: %s\n\nMessage: %s" % (request.POST.get('email'), request.POST.get('message')))
+    return HttpResponse('OK')
