@@ -32,6 +32,10 @@
     <script src="{% static js_file %}"></script>
   {% endfor %}
 
+  <!--[if lte IE 9]>
+    <script src="{% static "o5ui/js/open511-ie.js" %}"></script>
+  <![endif]-->
+
   <script type="text/javascript">
   $(function() {
     O5.init({{ opts }});

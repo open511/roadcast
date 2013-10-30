@@ -34,6 +34,9 @@ module.exports = function(grunt) {
 						'app/vendor/bootstrap-popover.js',
 						'<%=dest%>/js/open511-nodeps.js'
 					],
+					'<%=dest%>/js/open511-ie.js': [
+						'app/vendor/placeholder-polyfill.js'
+					],
 					'<%=dest%>/js/open511-maps.js': [
 						'app/vendor/leaflet/leaflet.js',
 						'app/js/map/leaflet.draw.js',
@@ -164,6 +167,7 @@ module.exports = function(grunt) {
 						// dependencies
 						'app/vendor/datepicker.css',
 						'app/vendor/bootstrap-tooltip.css',
+						'app/vendor/placeholder-polyfill.css',
 
 						// leaflet
 						'app/vendor/leaflet/leaflet.css',

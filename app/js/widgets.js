@@ -96,13 +96,18 @@
 			return $field_el;
 		}
 	});
+	
+	var SUPPORTS_PLACEHOLDER = !!("placeholder" in document.createElement( "input" ));
 
 	var TextWidget = BaseWidget.extend({
 		tagName: 'input',
 		initialize: function() {
 			BaseWidget.prototype.initialize.call(this);
 			this.$el.attr('type', 'text');
-			if (this.options.placeholder) this.$el.attr('placeholder', this.options.placeholder);
+			if (this.options.placeholder) {
+				this.$el.attr('placeholder', this.options.placeholder);
+				if (!SUPPORTS_PLACEHOLDER && $.fn.placeholder) this.$el.placeholder();
+			}
 		}
 	});
 
