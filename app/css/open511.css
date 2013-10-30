@@ -513,3 +513,20 @@
 .o5 .roadevent-list td:last-child, .o5 .roadevent-list th:last-child {
 	border-right: none;
 }
+
+/* EMBEDDING */
+.o5 .embed-control {
+	display: none;
+}
+.o5.embedded .embed-control {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 30px;
+	height: 30px;
+	background-color: #2D3134;
+	border-bottom-left-radius: 7px;
+	cursor: pointer;
+	z-index: 1000;
+}

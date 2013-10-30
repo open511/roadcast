@@ -67,6 +67,10 @@ module.exports = function(grunt) {
 						'app/i18n/fr-dates.js'
 					],
 
+					'<%=dest%>/js/embed.js': [
+						'app/js/embed.js'
+					]
+
 					// '<%=dest%>/css/main.css': [
 					// 	'app/css/formfields.css',
 					// 	'app/css/datepicker-custom.css',

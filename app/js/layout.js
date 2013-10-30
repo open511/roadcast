@@ -25,7 +25,8 @@ O5.prototypes.Layout = function(inside, app, opts) {
 		'$info': this.$el.find('.infopane'),
 		'$main': this.$el.find('.mainpane'),
 		'$map': this.$el.find('.mappane'),
-		'$listContainer': this.$el.find('.roadevent-list-container')
+		'$listContainer': this.$el.find('.roadevent-list-container'),
+		'showNavbar': true
 	}, opts || {});
 
 	// Pass defaultLeftPaneView (a Backbone.View instance) to override;
@@ -34,11 +35,16 @@ O5.prototypes.Layout = function(inside, app, opts) {
 		this.defaultLeftPaneView = new O5.views.BlurbView({app: app});
 	}
 
+	this.drawSoon = _.debounce(_.bind(this.draw, this), 10);
+
+	if (inside === 'body' && window.top !== window.self) {
+		this._initializeEmbedding();
+	}
+
 	// Display the default left-pane view; this triggers a draw
 	this.setLeftPane(this.defaultLeftPaneView, {animate: false});
 
 	// Redraw whenever the window is resized
-	this.drawSoon = _.debounce(_.bind(this.draw, this), 10);
 	$(window).on('resize', this.drawSoon);
 
 	// if ('ontouchend' in document) this._addTouchEvents();
@@ -64,8 +70,10 @@ _.extend(O5.prototypes.Layout.prototype, {
 			this.app.trigger('layout-screen-size-change', screenSize);
 		}
 
+		if (this.showNavbar !== this.$navbar.is(':visible')) this.$navbar.toggle();
+
 		var leftOffset = screenSize === 'small' ? 0 : this.$info.outerWidth();
-		var topOffset = this.$navbar.outerHeight();
+		var topOffset = this.showNavbar ? this.$navbar.outerHeight() : 0;
 
 		var mainWidth = containerWidth - leftOffset;
 		if (this.$main.width() !== mainWidth) this.$main.width(mainWidth);
@@ -158,6 +166,32 @@ _.extend(O5.prototypes.Layout.prototype, {
 		this.$navbar.find('.back-button').on('touchend click', _.debounce(
 			go_back, 300, true));
 		// $('body').on('orientationchange', this.drawSoon);
+	},
+
+	_initializeEmbedding: function() {
+
+		var self = this;
+
+		$(window).on('message', function(e) {
+			var msg = e.originalEvent.data;
+			if (msg === 'open511-embed') {
+				self.showNavbar = false;
+				self.$el.addClass('embedded');
+				self.drawSoon();
+			}
+			if (msg === 'open511-fullscreen') {
+				self.showNavbar = true;
+				self.drawSoon();
+			}
+		});
+
+		this.$el.on('click', '.embed-control', function(e) {
+			e.preventDefault();
+			window.top.postMessage('open511-fullscreen', '*');
+		});
+
+		window.top.postMessage('open511-embed', '*');
+
 	}
 
 });
