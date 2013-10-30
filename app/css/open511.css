@@ -140,19 +140,19 @@
 	color: #75B7C1;
 }
 .o5 .navbar .title {
-	text-align: center;
-	padding-top: 11px;
+	display: inline-block;
+	position: relative;
+	top: -12px;
 }
 .o5 .navbar .logo {
 	background: url('../img/logotype.png') no-repeat;
 	height: 21px;
 	width: 84px;
+	margin-left: 40px;
 	display: inline-block;
 }
 .o5 .navbar .buttons {
-	position: absolute;
-	top: 0;
-	left: 0;
+	display: inline-block;
 }
 .o5 .navbar .buttons div {
 	display: inline-block;
@@ -167,7 +167,7 @@
 }
 
 .o5 .navbar a.nav-button {
-	padding: 12px 25px;
+	padding: 12px 25px 0 25px;
 	text-transform: uppercase;
 	color: #FFFFFF;
 	text-decoration: none;
@@ -175,18 +175,18 @@
 	float: left;
 	font-size: 13px;
 	transition: color 0.4s;
-	height: 44px;
+	height: 32px;
 }
 .o5 .navbar div.nav-button {
-	border-right: 1px solid #FFFFFF;
+	border-left: 1px solid #FFFFFF;
 }
 .o5 .navbar a.nav-button:hover {
 	/*background-color: #393F42;*/
 	color: #75B7C1;
 	transition: color 0.4s;
 }
-.o5 .navbar div.nav-button:last-child {
-	border-right: none;
+.o5 .navbar div.nav-button:first-child {
+	border-left: none;
 }
 
 .o5 .infopane {
