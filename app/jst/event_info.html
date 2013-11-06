@@ -10,7 +10,18 @@
 <% if (r.roads && r.roads.length) { %>
 	<h4><%- O5._t('Roads') %></h4>
 	<% _.each(r.roads, function(road) { %>
-		<p><strong><%- road.name %></strong><% 
+		<p><strong><%- road.name %><% 
+			var directions = {
+				// 'BOTH': O5._t('both directions'),
+				'S': O5._t('southbound'),
+				'N': O5._t('northbound'),
+				'E': O5._t('eastbound'),
+				'W': O5._t('westbound')
+			};
+			if (road.direction && directions[road.direction]) {
+				print(' (' + directions[road.direction] + ')');
+			}
+			print('</strong>');
 			if (road.from) { 
 				print(', ');
 				if (road.to) {
