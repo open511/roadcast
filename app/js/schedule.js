@@ -45,7 +45,7 @@ RecurringSchedule.prototype.toString = function() {
 	}
 	else {
 		if (this.end_date) {
-			s += O5.utils.formatDate(this.start_date) + "\u220f\u2013\u202f" + O5.utils.formatDate(this.end_date);
+			s += O5.utils.formatDate(this.start_date) + "\u202f\u2013\u202f" + O5.utils.formatDate(this.end_date);
 		}
 		else {
 			s+= O5._t('starting') + ' ' + O5.utils.formatDate(this.start_date);
