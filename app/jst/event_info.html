@@ -18,6 +18,11 @@
 				'E': O5._t('eastbound'),
 				'W': O5._t('westbound')
 			};
+			var states = { // FIXME not very dry
+				'SOME_LANES_CLOSED': O5._t('Some lanes closed'),
+				'SINGLE_LANE_ALTERNATING': O5._t('Single lane alternating'),
+				'CLOSED': O5._t('All lanes closed')
+			};
 			if (road.direction && directions[road.direction]) {
 				print(' (' + directions[road.direction] + ')');
 			}
@@ -33,6 +38,9 @@
 				print(' ' + road.from);
 			 }
 			if (road.to) { print(' ' + O5._t('to') + ' ' + road.to); }
+			if (road.state && states[road.state]) {
+				print('. ' + states[road.state] + '.');
+			}
 		%></p>
 	<% });
 } %>

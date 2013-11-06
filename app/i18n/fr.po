@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-10-24 22:59-0500\n"
-"PO-Revision-Date: 2013-10-24 23:05-0500\n"
+"POT-Creation-Date: 2013-11-06 17:11-0500\n"
+"PO-Revision-Date: 2013-11-06 17:11-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -33,34 +33,65 @@ msgstr "Non publié"
 msgid "Roads"
 msgstr "Routes"
 
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:16
+msgid "southbound"
+msgstr "direction sud"
+
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:17
+msgid "northbound"
+msgstr "direction nord"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:18
+msgid "eastbound"
+msgstr "direction est"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:19
+msgid "westbound"
+msgstr "direction ouest"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:22
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:325
+msgid "Some lanes closed"
+msgstr "Certaines voies sont fermées"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:23
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:326
+msgid "Single lane alternating"
+msgstr "Circulation alternée sur une voie"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:24
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:327
+msgid "All lanes closed"
+msgstr "Toutes les voies sont fermées"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:33
 msgid "from"
 msgstr "de"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:20
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:36
 msgid "near"
 msgstr "près de"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:24
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:40
 msgid "to"
 msgstr "jusqu'à"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:28
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:47
 #: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:5
 msgid "Details"
 msgstr "Détails"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:30
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:49
 #: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:6
 msgid "Schedule"
 msgstr "Calendrier"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:32
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:51
 #: /Users/michael/proj/o5/ui/app/js/roadevent.js:273
 msgid "Detour"
 msgstr "Détour"
 
-#: /Users/michael/proj/o5/ui/app/jst/event_info.html:34
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:53
 #: /Users/michael/proj/o5/ui/app/js/editor/widgets/attachments.js:135
 msgid "Attachments"
 msgstr "Fichiers joints"
@@ -93,11 +124,11 @@ msgstr "Filtrer"
 msgid "Add filter"
 msgstr "Ajouter un filtre"
 
-#: /Users/michael/proj/o5/ui/app/jst/main.html:11
+#: /Users/michael/proj/o5/ui/app/jst/main.html:12
 msgid "Zoom in"
 msgstr "Zoom"
 
-#: /Users/michael/proj/o5/ui/app/jst/main.html:12
+#: /Users/michael/proj/o5/ui/app/jst/main.html:13
 msgid "Zoom out"
 msgstr "Dézoom"
 
@@ -122,7 +153,7 @@ msgstr "Base"
 #: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:13
 #: /Users/michael/proj/o5/ui/app/js/editor/editor.js:191
 #: /Users/michael/proj/o5/ui/app/js/editor/editor.js:237
-#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:20
+#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:21
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -355,18 +386,6 @@ msgstr "État"
 msgid "All lanes open"
 msgstr "Toutes les voies sont ouvertes"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:325
-msgid "Some lanes closed"
-msgstr "Certaines voies sont fermées"
-
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:326
-msgid "Single lane alternating"
-msgstr "Circulation alternée sur une voie"
-
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:327
-msgid "All lanes closed"
-msgstr "Toutes les voies sont fermées"
-
 #: /Users/michael/proj/o5/ui/app/js/schedule.js:29
 msgid "every"
 msgstr "chaque"
@@ -500,19 +519,19 @@ msgstr "Connexion"
 msgid "Feedback"
 msgstr "Commentaires"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:10
+#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:11
 msgid "Your email"
 msgstr "Votre courriel"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:11
+#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:12
 msgid "Message"
 msgstr "Message"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:23
+#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:24
 msgid "Send"
 msgstr "Envoyer"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:33
+#: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:34
 msgid "Your message has been sent. Thank you!"
 msgstr "Votre message a été envoyé. Merci !"
 
