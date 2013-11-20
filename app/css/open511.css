@@ -530,3 +530,6 @@
 	cursor: pointer;
 	z-index: 1000;
 }
+.o5.embedded-small .roadevent-list-toggle {
+	display: none;
+}
