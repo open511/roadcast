@@ -38,6 +38,7 @@ O5.prototypes.Layout = function(inside, app, opts) {
 	this.drawSoon = _.debounce(_.bind(this.draw, this), 10);
 
 	if (inside === 'body' && window.top !== window.self) {
+		// We have special logic if we're inside an iframe
 		this._initializeEmbedding();
 	}
 
@@ -76,7 +77,11 @@ _.extend(O5.prototypes.Layout.prototype, {
 		var topOffset = this.showNavbar ? this.$navbar.outerHeight() : 0;
 
 		var mainWidth = containerWidth - leftOffset;
-		if (this.$main.width() !== mainWidth) this.$main.width(mainWidth);
+		var mapSizeChange = false;
+		if (this.$main.width() !== mainWidth) {
+			mapSizeChange = true;
+			this.$main.width(mainWidth);
+		}
 
 		var paneHeight = this.$sizingContainer.height() - topOffset;
 		if (this.$main.height() !== paneHeight) this.$main.height(paneHeight);
@@ -86,8 +91,9 @@ _.extend(O5.prototypes.Layout.prototype, {
 		var mapHeight = paneHeight - this.$listContainer.outerHeight();
 		if (this.$map.height() !== mapHeight) {
 			this.$map.height(mapHeight);
-			this.app.trigger('layout-map-resize');
+			mapSizeChange = true;
 		}
+		if (mapSizeChange) this.app.trigger('layout-map-resize');
 
 		this.$info.height(paneHeight);
 		this.$info.find('div.body').height(
@@ -163,33 +169,53 @@ _.extend(O5.prototypes.Layout.prototype, {
 			e.preventDefault();
 			e.stopPropagation();
 		};
-		this.$navbar.find('.back-button').on('touchend click', _.debounce(
+		this.$el.find('.back-button').on('touchend click', _.debounce(
 			go_back, 300, true));
 		// $('body').on('orientationchange', this.drawSoon);
 	},
 
 	_initializeEmbedding: function() {
+		// This function is called if we're inside an iframe
 
 		var self = this;
 
 		$(window).on('message', function(e) {
 			var msg = e.originalEvent.data;
+			// Deal with messages from the parent page
 			if (msg === 'open511-embed') {
+				// Initialize small, embedded view
 				self.showNavbar = false;
 				self.$el.addClass('embedded');
+				self.$el.removeClass('embedded-fullscreen');
+				self.$el.addClass('embedded-small');
 				self.drawSoon();
 			}
 			if (msg === 'open511-fullscreen') {
+				// The parent page has expanded us to fill the window
 				self.showNavbar = true;
+				self.$el.removeClass('embedded-small');
+				self.$el.addClass('embedded-fullscreen');
+				self.drawSoon();
+			}
+			if (msg === 'open511-draw') {
 				self.drawSoon();
 			}
 		});
 
 		this.$el.on('click', '.embed-control', function(e) {
 			e.preventDefault();
-			window.top.postMessage('open511-fullscreen', '*');
+			if (self.$el.hasClass('embedded-fullscreen')) {
+				window.top.postMessage('open511-embed', '*');
+			}
+			else {
+				window.top.postMessage('open511-fullscreen', '*');
+			}
 		});
 
+		// Send a message to the parent page. If it's running our embedding JS,
+		// the it will respond with an 'open511-embed' message, and we'll turn on
+		// our embedded UI. If it's not, then we never get a response, and
+		// we use our usual UI.
 		window.top.postMessage('open511-embed', '*');
 
 	}
