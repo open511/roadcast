@@ -35,7 +35,8 @@ module.exports = function(grunt) {
 						'<%=dest%>/js/open511-nodeps.js'
 					],
 					'<%=dest%>/js/open511-ie.js': [
-						'app/vendor/placeholder-polyfill.js'
+						'app/vendor/placeholder-polyfill.js',
+						'app/vendor/jquery.xdomainrequest.js'
 					],
 					'<%=dest%>/js/open511-maps.js': [
 						'app/vendor/leaflet/leaflet.js',
