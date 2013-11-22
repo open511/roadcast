@@ -8,69 +8,92 @@
 		return [key, value];
 	};
 
-	/**
-	 * The specification of available filters.
-	 */
-	var FILTERS = {
-		jurisdiction: {
-			label: O5._t("Jurisdiction"),
-			local: function(key, value, rdev) {
-				return rdev.getJurisdictionID() === value;
-			},
-			remote: defaultRemote,
-			choices: function() {
-				return _.map(O5.app.settings.jurisdictions, function(jur) {
-					return [jur.id, jur.id];
-				});
-			},
-			widget: 'select'
+	var FILTERS = {};
 
-		},
+	var getFilterList = function(app) {
 
-		severity: {
-			label: O5._t("Severity"),
-			local: filterExactValue,
-			remote: defaultRemote,
-			widget: 'select',
-			choices: O5.RoadEventFieldsLookup.severity.choices
-		},
+		var f = {
 
-		event_type: {
-			label: O5.RoadEventFieldsLookup.event_type.label,
-			local: filterExactValue,
-			remote: defaultRemote,
-			widget: 'select',
-			choices: O5.RoadEventFieldsLookup.event_type.choices
-		},
-
-		status: {
-			label: O5._t('Status'),
-			local: function(key, value, rdev) {
-				value = value.toUpperCase();
-				return value === 'ALL' || value === rdev.get('status');
+			severity: {
+				label: O5._t("Severity"),
+				local: filterExactValue,
+				remote: defaultRemote,
+				widget: 'select',
+				choices: O5.RoadEventFieldsLookup.severity.choices
 			},
-			remote: defaultRemote,
-			widget: 'select',
-			choices: [
-				['ACTIVE', O5._t('Active')],
-				['ARCHIVED', O5._t('Archived')],
-				['ALL', O5._t('All')]
-			]
-		},
 
-		date: {
-			label: O5._t('Date'),
-			remote: function (key, value) {
-				return [
-					'in_effect_on',
-					value + 'T00:00' + ',' + value + 'T23:59'
-				];
+			event_type: {
+				label: O5.RoadEventFieldsLookup.event_type.label,
+				local: filterExactValue,
+				remote: defaultRemote,
+				widget: 'select',
+				choices: O5.RoadEventFieldsLookup.event_type.choices
 			},
-			local: function(key, value, rdev) {
-				return rdev.parseSchedule().inEffectOn(moment(value));
+
+			status: {
+				label: O5._t('Status'),
+				local: function(key, value, rdev) {
+					value = value.toUpperCase();
+					return value === 'ALL' || value === rdev.get('status');
+				},
+				remote: defaultRemote,
+				widget: 'select',
+				choices: [
+					['ACTIVE', O5._t('Active')],
+					['ARCHIVED', O5._t('Archived')],
+					['ALL', O5._t('All')]
+				]
 			},
-			widget: 'date'
+
+			date: {
+				label: O5._t('Date'),
+				remote: function (key, value) {
+					return [
+						'in_effect_on',
+						value + 'T00:00' + ',' + value + 'T23:59'
+					];
+				},
+				local: function(key, value, rdev) {
+					return rdev.parseSchedule().inEffectOn(moment(value));
+				},
+				widget: 'date'
+			}
+		};
+
+		if (app.settings.jurisdictions && app.settings.jurisdictions.length) {
+			f.jurisdiction = {
+				label: O5._t("Jurisdiction"),
+				local: function(key, value, rdev) {
+					return rdev.getJurisdictionID() === value;
+				},
+				remote: defaultRemote,
+				choices: function() {
+					return _.map(O5.app.settings.jurisdictions, function(jur) {
+						return [jur.id, jur.id];
+					});
+				},
+				widget: 'select'
+			};
 		}
+
+		if (app.settings.areas && app.settings.areas.length) {
+			f.area_id = {
+				label: O5._t("Area"),
+				local: function(key, value, rdev) {
+					return _.any(rdev.get('areas') || [], function(area) { return area.id === value; });
+				},
+				remote: defaultRemote,
+				choices: app.settings.areas,
+				widget: 'select'
+			};
+		}
+
+		// PLUGIN HOOK
+		app.trigger('filter-list', {
+			'filters': f
+		});
+
+		return f;
 	};
 
 	/**
@@ -103,6 +126,10 @@
 	var FilterManager = function(opts) {
 		this.app = opts.app;
 		this.history = [];
+
+		// Get the list of filters
+		FILTERS = getFilterList(this.app);
+		this.app.FILTERS = FILTERS;
 
 		// Hook into events on the RoadEvents collection
 		var self = this;
@@ -476,5 +503,4 @@
 	});
 
 	O5.prototypes.FilterManager = FilterManager;
-	O5.FILTERS = FILTERS;
 })();

@@ -47,7 +47,7 @@
 			if (this.widgets[type]) {
 				throw Exception("Widget type " + type + "already exists");
 			}
-			var filter = O5.FILTERS[type],
+			var filter = this.app.FILTERS[type],
 				wc = O5.widgets.text;
 			if (filter.widget) {
 				wc = O5.widgets[filter.widget];
@@ -66,11 +66,11 @@
 			});
 
 			$row.attr('data-filtertype', type).find('.name').empty()
-				.append($('<span />').text(O5.FILTERS[type].label));
+				.append($('<span />').text(this.app.FILTERS[type].label));
 			$row.find('.value').empty().append(widget.el);
 			if (type === 'status') $row.find('.close').hide();
 
-			if (_.keys(O5.FILTERS).length === _.keys(this.widgets).length) {
+			if (_.keys(this.app.FILTERS).length === _.keys(this.widgets).length) {
 				this.$filters.addClass('full');
 			}
 			return widget;
@@ -130,7 +130,7 @@
 					// (each filter can only be set once)
 					var $select  = $(this);
 					$select.empty().append('<option />');
-					_.each(O5.FILTERS, function(f, key) {
+					_.each(self.app.FILTERS, function(f, key) {
 						if (!self.widgets[key]) $select.append($('<option />').attr('value', key).text(f.label));
 					});
 				});
