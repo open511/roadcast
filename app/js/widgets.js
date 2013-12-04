@@ -249,13 +249,14 @@
 						var hrs = parseInt(match[1], 10);
 						var mins = parseInt((match[2] || '').substring(1), 10) || 0;
 						var ampm = match[3] || '';
+						if (hrs === 24) hrs = 0;
 						if (ampm.substring(0, 1) === 'a' && hrs === 12) {
 							hrs = 0;
 						}
 						else if (ampm.substring(0, 1) === 'p' && hrs < 12) {
 							hrs += 12;
 						}
-						if (hrs || hrs === 0) {
+						if (hrs < 24) {
 							this.time = [hrs, mins];
 						}
 						else {
