@@ -186,6 +186,8 @@
 				type: 'group',
 				widget: 'schedule',
 				tab: 'schedule',
+				label: _t('Schedule'),
+				displayLabel: false,
 				validate: function(val, opts) {
 					if (val.end_date && !moment(val.start_date).isBefore(val.end_date)) {
 						return {
@@ -211,6 +213,7 @@
 					return true;
 				},
 				required: true,
+				initialEmptyRows: 0,
 				fields: [
 					{
 						name: 'start_date',

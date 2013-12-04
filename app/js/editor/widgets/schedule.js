@@ -41,13 +41,13 @@
 		},
 
 		renderAddRow: function() {
-			var $row = $(document.createElement('div'));
+			var $row = $(document.createElement('div')).addClass('add-row');
 			var self = this;
-			$('<a class="button" style="float:left"></a>')
+			$('<a class="button add-recurring" style="float:left"></a>')
 				.text(O5._t('+ Recurring'))
 				.on('click', function() { self.addRow(); })
 				.appendTo($row);
-			$('<a class="button" style="float:right"></a>')
+			$('<a class="button add-specific-date" style="float:right"></a>')
 				.text(O5._t('+ Specific Date'))
 				.on('click', function() { self.addSpecificDatesRow(); })
 				.appendTo($row);

@@ -80,7 +80,7 @@
 			}
 		},
 
-		// Should return true if the field is valid, an object with "field" and "error" keys if not
+		// Should return true if the field is valid, an error message if not
 		checkValidation: function(opts) {
 			if (this.options.validate) {
 				return this.options.validate(this.getVal(), opts);
@@ -184,16 +184,19 @@
 		initialize: function() {
 			O5.views.BaseView.prototype.initialize.call(this);
 			_.defaults(this.options, {
-				addSeparators: true
+				addSeparators: true,
+				initialEmptyRows: 1,
+				displayLabel: true
 			});
 
 			this.widgetList = [];
 			if (this.options.addSeparators) this.$el.addClass('with-separators');
 			if (this.options.tab) this.$el.attr('data-tab', this.options.tab);
-			if (this.options.label) this.$el.append($(document.createElement('label')).text(this.options.label));
+			if (this.options.label && this.options.displayLabel)
+				this.$el.append($(document.createElement('label')).text(this.options.label));
 			this.$rows = $('<div class="repeating-group-rows"></div>');
 			this.$el.append(this.$rows);
-			this.renderRows(1);
+			this.renderRows(this.options.initialEmptyRows);
 
 			if (!this.options.autoAddRows) this.renderAddRow();
 
@@ -296,8 +299,10 @@
 				}
 			});
 			if (this.options.required && invalid.length === 0 && this._isEmptyValue(this.getVal())) {
-				// If we're required and don't have a value, trigger validation on the first group
-				invalid.push.apply(invalid, this.widgetList[0].getInvalidWidgets(opts));
+				// We're required and don't have a value
+				// invalid.push.apply(invalid, this.widgetList[0].getInvalidWidgets(opts));
+				this.displayValidationError(O5._t("This field is required"));
+				invalid.push(this);
 			}
 			var result = this.checkValidation(opts);
 			if (result !== true) {

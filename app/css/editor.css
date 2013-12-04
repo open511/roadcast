@@ -147,7 +147,7 @@
   margin-bottom: 10px;
 }
 
-.editor .repeating-group .add-row {
+.editor .repeating-group a.add-row {
   display: block;
   text-align: center;
   cursor: pointer;
@@ -156,6 +156,10 @@
 }
 .editor .repeating-group a.add-row:hover {
   text-decoration: none;
+}
+.editor .repeating-group div.add-row {
+  text-align: center;
+  margin-top: 15px;
 }
 
 /* ATTACHMENTS WIDGET */

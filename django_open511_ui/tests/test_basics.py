@@ -32,6 +32,7 @@ class IntegrationTests(BrowserTestCase):
         self.css('.mappane').click()
         self.css('li[data-tab=schedule] a').click()
         time.sleep(0.2)
+        self.css('[data-tab="schedule"] .add-recurring').click()
         self.css('[data-fieldname="start_date"] input').click()
         self.css('.datepicker .active').click()
         self.css('li[data-tab=basics] a').click()
