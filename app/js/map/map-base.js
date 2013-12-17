@@ -1,4 +1,23 @@
 (function() {
+
+	var IconType = function(types) {
+		this.types = types;
+		console.log(this.getClassString());
+	};
+
+	_.extend(IconType.prototype, {
+
+		getClassString: function() {
+			return this.types.join(' ');
+		},
+
+		isSelected: function() {
+			return _.indexOf(this.types, 'selected') !== -1;
+		}
+
+	});
+
+
 	O5.views.BaseMapView = O5.views.BaseView.extend({
 
 		name: "map",
@@ -130,13 +149,30 @@
 		},
 
 		getIconType: function(rdev) {
+			var types = [];
 			if (rdev.internal.selected || rdev.internal.highlighted) {
-				return 'selected';
+				types.push('selected');
 			}
 			else if (rdev.get('status') === 'ARCHIVED') {
-				return 'archived';
+				types.push('archived');
 			}
-			return 'default';
+			var type = rdev.get('event_type'),
+				today = rdev.parseSchedule().inEffectOn();
+			if (type === 'CONSTRUCTION') {
+				types.push('construction');
+			}
+			else {
+				types.push('not-construction');
+			}
+			types.push('severity-' + rdev.get('severity').toLowerCase());
+			if (today) {
+				types.push('today');
+			}
+			else {
+				types.push('not-today');
+			}
+			if (rdev.get('!unpublished')) types.push('unpublished');
+			return new IconType(types);
 		}
 
 	});

@@ -142,23 +142,24 @@
 
 		updateOverlayIcon: function(overlays, iconType) {
 			if (overlays.marker) {
-				var icon = this._getIcon(iconType);
+				var icon = this._getIcon(iconType.getClassString());
 				var marker = overlays.marker;
+				var selected = iconType.isSelected();
 				marker.setIcon(icon);
-				marker.setZIndexOffset(iconType === 'selected' ? 1000 : 0);
-				if (iconType === 'selected' && !marker._highlight_marker) {
+				marker.setZIndexOffset(selected ? 1000 : 0);
+				if (selected && !marker._highlight_marker) {
 					marker._highlight_marker = new L.Marker(marker.getLatLng(), {
 						icon: icon
 					});
 					this.highlightLayer.addLayer(marker._highlight_marker);
 				}
-				else if (iconType !== 'selected' && marker._highlight_marker) {
+				else if (!selected && marker._highlight_marker) {
 					this.highlightLayer.removeLayer(marker._highlight_marker);
 					delete marker._highlight_marker;
 				}
 			}
 			if (overlays.vector) {
-				overlays.vector.setStyle(iconType === 'selected' ? this.options.selectedLineStyle : this.options.lineStyle);
+				overlays.vector.setStyle(selected ? this.options.selectedLineStyle : this.options.lineStyle);
 			}
 		},
 
