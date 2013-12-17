@@ -148,7 +148,7 @@
 	background: url('../img/logotype.png') no-repeat;
 	height: 21px;
 	width: 84px;
-	margin-left: 40px;
+	margin-left: 24px;
 	display: inline-block;
 }
 .o5 .navbar .buttons {
@@ -178,7 +178,7 @@
 	height: 32px;
 }
 .o5 .navbar div.nav-button {
-	border-left: 1px solid #FFFFFF;
+	border-left: 1px solid #666666;
 }
 .o5 .navbar a.nav-button:hover {
 	/*background-color: #393F42;*/
