@@ -42,6 +42,8 @@ O5.prototypes.Layout = function(inside, app, opts) {
 		this._initializeEmbedding();
 	}
 
+	this._initializeSpinner();
+
 	// Display the default left-pane view; this triggers a draw
 	this.setLeftPane(this.defaultLeftPaneView, {animate: false});
 
@@ -153,6 +155,56 @@ _.extend(O5.prototypes.Layout.prototype, {
 		this.$list.height(newHeight);
 		this.$map.height(this.$main.height() - this.$list.outerHeight());
 	},
+
+	_initializeSpinner: function () {
+		$spinner = this.$el.find('.spinner');
+		$(document).ajaxStart(function() {
+			$spinner.css('visibility', 'visible');
+		}).ajaxStop(function() {
+			$spinner.css('visibility', 'hidden');
+		});
+	},
+
+/*	_initializeSpinnerSonic: function() {
+		if (!document.createElement('canvas').getContext) {
+			// Browser doesn't support canvas. No spinner for you!
+			return;
+		}
+
+		var sonic = new Sonic({
+			
+			width: 30,
+			height: 30,
+			fillColor: '#75b7c1',
+			// backgroundColor: '#2d3134',
+			
+			trailLength: 0.7,
+			pointDistance: 0.01,
+			stepsPerFrame: 10,
+			fps: 15,
+			
+			step: function(point, i, f, color, alpha) {
+                this._.fillRect(point.x - 2, point.y - 2, 4, 4);
+            },
+
+			path: [
+				['line', 5, 25, 15, 5],
+				['line', 15, 5, 25, 25],
+				['line', 25, 25, 5, 25],
+			]
+		});
+
+		this.$el.find('.spinner').append(sonic.canvas);
+
+		$(document).ajaxStart(function() {
+			$(sonic.canvas).css('visibility', 'visible');
+			sonic.play();
+		}).ajaxStop(function() {
+			$(sonic.canvas).css('visibility', 'hidden');
+			sonic.stop();
+		});
+
+	}, */
 
 	_addMobileEvents: function() {
 		var self = this;

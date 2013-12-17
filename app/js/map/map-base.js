@@ -2,7 +2,6 @@
 
 	var IconType = function(types) {
 		this.types = types;
-		console.log(this.getClassString());
 	};
 
 	_.extend(IconType.prototype, {
