@@ -155,7 +155,7 @@
 	display: inline-block;
 	position: relative;
 	top: 3px;
-	margin-left: 15px;
+	margin-left: 12px;
 	background: url('../img/spinner-triangle.gif') no-repeat;
 	width: 30px;
 	height: 30px;
@@ -197,7 +197,7 @@
 }
 .o5 .navbar div.nav-button:first-child {
 	border-left: none;
-	margin-left: -20px;
+	margin-left: -18px;
 }
 
 .o5 .infopane {
