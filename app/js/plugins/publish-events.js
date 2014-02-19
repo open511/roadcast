@@ -4,7 +4,8 @@
 		tagName: 'div',
 		addLabel: false,
 		initialize: function() {
-			if (this.options.roadEvent.isNew()) {
+			O5.widgets.BaseWidget.prototype.initialize.call(this);
+			if (this.options.roadEvent.isNew() && !this.app.settings.newEventsUnpublished) {
 				this.renderMinimal();
 			}
 			else {
