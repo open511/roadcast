@@ -158,10 +158,12 @@
 		// in the editor
 		getFieldDefs: function(roadEvent) {
 			var fields = _.clone(O5.RoadEventFields);
+
+			// Don't show status dropdown on new events
 			if (roadEvent.isNew()) {
-				// Don't show status dropdown on new events
 				fields = _.reject(fields, function(field) { return field.name === 'status'; });
 			}
+
 			// PLUGIN HOOK
 			this.app.trigger('editor-field-definitions', {
 				fields: fields,

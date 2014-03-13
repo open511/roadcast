@@ -197,6 +197,19 @@ _.extend(O5.utils, {
 			]
 		});
 
+	},
+
+	/** Returns a field definition object, given a list of them
+	 * key is the name of the field; nested fields can be expressed with slashes, e.g. roads/name */
+	getFieldDef: function(key, fields) {
+		var key_bits = key.split('/');
+		var item = {fields: fields};
+		while (key_bits.length) {
+			key = key_bits.shift();
+			item = _.detect(item.fields, function(i) { return i.name === key; })
+			if (!item) throw "Could not find field named " + key;
+		}
+		return item;
 	}
 
 });
