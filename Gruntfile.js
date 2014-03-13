@@ -65,6 +65,11 @@ module.exports = function(grunt) {
 						'app/js/editor/widgets/attachments.js'
 					],
 
+					'<%=dest%>/js/plugins/autocomplete.js': [
+						'app/vendor/typeahead.bundle.js',
+						'app/js/plugins/autocomplete.js'
+					],
+
 					'<%=dest%>/locale/fr.js': [
 						//'app/vendor/jed.js',
 						'app/i18n/simple-i18n.js',
@@ -186,6 +191,7 @@ module.exports = function(grunt) {
 
 						// editor
 						'app/css/editor.css',
+						'app/css/autocomplete.css'
 
 					],
 					'<%=dest%>/css/open511-ie.css': [
@@ -236,7 +242,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 
-	grunt.registerTask('assemble', ['clean:prebuild', 'jst', 'concat', 'copy', 'cssmin', 'clean:postbuild']);
+	grunt.registerTask('assemble', ['clean:prebuild', 'jst', 'copy', 'concat', 'cssmin', 'clean:postbuild']);
 	grunt.registerTask('default', ['assemble', 'uglify']);
 
 };
