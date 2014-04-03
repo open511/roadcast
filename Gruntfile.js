@@ -20,7 +20,8 @@ module.exports = function(grunt) {
 						'app/js/filterset.js',
 						'app/js/filterwidget.js',
 						'app/js/widgets.js',
-						'app/js/utils/utils.js',
+						'app/js/utils/external-safe.js',
+						'app/js/utils/internal.js',
 						'<%=dest%>/tmp/templates.js'
 					],
 					'<%=dest%>/js/open511.js': [
@@ -77,9 +78,18 @@ module.exports = function(grunt) {
 						'app/i18n/fr-dates.js'
 					],
 
-					'<%=dest%>/js/embed.js': [
+					'<%=dest%>/js/external/open511-embed.js': [
 						'app/js/embed.js'
-					]
+					],
+
+					'<%=dest%>/js/external/open511-tools.js': [
+						'app/vendor/lodash.js',
+						'app/vendor/moment.js',
+						'app/js/external-tools.js',
+						'app/js/i18n.js',
+						'app/js/utils/external-safe.js',
+						'app/js/schedule.js'
+					],
 
 					// '<%=dest%>/css/main.css': [
 					// 	'app/css/formfields.css',
@@ -154,7 +164,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: '<%=dest%>/js/',
-					src: ['*.js', 'plugins/*.js'],
+					src: ['*.js', 'plugins/*.js', 'external/*.js'],
 					dest: '<%=dest%>/js/',
 					ext: '.min.js'
 				},

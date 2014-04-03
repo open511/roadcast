@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Open511 Simple Table Example</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap-theme.min.css"> 
+	<style type="text/css">
+		th.description {
+			width: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Open511 Simple Table Example</h1>
+
+		<table class="open511-events table table-striped">
+			<thead>
+				<tr>
+					<th class="headline">Headline</th>
+					<th class="description">Description</th>
+					<th class="schedule">Schedule</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<script type="text/html" id="event-template">
+	<tr>
+		<td><%- e.headline %></td>
+		<td><%- e.description %></td>
+		<td><%= nlToBR(e.parseSchedule().toStrings().join('\n')) %>
+	</tr>
+	</script>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/external/open511-tools.min.js"></script>
+	<script>
+	nlToBR = function(txt) {
+		return _.escape(txt).replace(/\n/g, '<br>');
+	};
+
+	$(function() {
+
+		var URL = 'http://demo.open511.org/api/events/?callback=?';
+		var selector = '.open511-events tbody';
+		var template = _.template($('#event-template').html())
+
+		$.getJSON(URL, function(data) {
+			var $el = $(selector);
+			_.each(data['events'], function(event_data) {
+				var event = new O5.RoadEvent(event_data);
+				var html = template({e: event});
+				$el.append(html);
+			});
+		});
+
+	});
+	</script>
+
+</body>
+</html>
