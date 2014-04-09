@@ -6,6 +6,7 @@
 
 		initialize: function() {
 			if (!this.internal) this.internal = { visible: true };
+			this.on('change:schedules', function(me) { me._schedule = null; });
 		},
 
 		select: function(opts) {
@@ -83,7 +84,9 @@
 		},
 
 		parseSchedule: function() {
-			return new O5.prototypes.Schedule(this.get('schedules'));
+			if (!this._schedule)
+				this._schedule = new O5.prototypes.Schedule(this.get('schedules'));
+			return this._schedule;
 		}
 
 	});

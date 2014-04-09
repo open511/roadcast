@@ -90,6 +90,18 @@ SpecificDatesSchedule.prototype.inEffectOn = function(date) {
 	return this.dates[d].length >= 1;
 };
 
+SpecificDatesSchedule.prototype.earliestDate = function() {
+	for (var i = 0; i < this.dateList.length; i++) {
+		if (this.dates[this.dateList[i]].length >= 1) return moment(this.dateList[i]);
+	}
+};
+
+SpecificDatesSchedule.prototype.latestDate = function() {
+	for (var i = this.dateList.length - 1; i >= 0; i--) {
+		if (this.dates[this.dateList[i]].length >= 1) return moment(this.dateList[i]);
+	}
+};
+
 var Schedule = function(schedules) {
 	this.schedules = [];
 	if (!schedules) return;
@@ -119,6 +131,28 @@ _.extend(Schedule.prototype, {
 			if (!_.isNull(spec)) return spec;
 		}
 		return _.any(this.schedules, function(sched) { return sched.inEffectOn(date); });
+	},
+
+	earliestDate: function() {
+		// TODO doesn't take into account weekdays in recurring schedules
+		var candidates = _.map(this.schedules, function(sched) { return sched.start_date; });
+		if (this.specific) {
+			var spec = this.specific.earliestDate();
+			if (spec) candidates.push(spec);
+		}
+		return _.min(candidates, function(d) { return d.unix(); });
+	},
+
+	latestDate: function() {
+		// TODO doesn't take into account weekdays in recurring schedules
+		var candidates = _.map(this.schedules, function(sched) { return sched.end_date; });
+		if (!_.all(candidates))
+			return '';
+		if (this.specific) {
+			var spec = this.specific.latestDate();
+			if (spec) candidates.push(spec);
+		}
+		return _.min(candidates, function(d) { return d.unix(); });
 	}
 
 

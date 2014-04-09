@@ -10,12 +10,13 @@
 		</thead>
 		<tbody>
 		<% _.each(events, function(rdev) { 
-			if (!rdev.id) return; %>
+			if (!rdev.id) return;
+			var sched = rdev.parseSchedule();%>
 			<tr data-roadevent="<%- rdev.id %>" <% if (rdev.internal.selected) { print('class="selected"'); } %>>
 				<td><%- rdev.get('headline') %></td>
 				<td><%- rdev.getEnum('severity') %></td>
-				<td><%- rdev.get('schedules')[0].start_date %></td>
-				<td><%- rdev.get('schedules')[0].end_date %></td>
+				<td><% var start = sched.earliestDate(); if (start) {%><%- start.format('ll') %><% } %></td>
+				<td><% var end = sched.latestDate(); if (end) {%><%- end.format('ll') %><% } %></td>
 				<td><%- rdev.getEnum('status') %></td>
 			</tr>
 		<% }); %>
