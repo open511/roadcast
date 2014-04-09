@@ -31,16 +31,13 @@
 	<tr>
 		<td><%- e.headline %></td>
 		<td><%- e.description %></td>
-		<td><%= nlToBR(e.parseSchedule().toStrings().join('\n')) %>
+		<td><%= O5.utils.nlToBR(e.parseSchedule().toStrings().join('\n')) %>
 	</tr>
 	</script>
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="js/external/open511-tools.min.js"></script>
 	<script>
-	nlToBR = function(txt) {
-		return _.escape(txt).replace(/\n/g, '<br>');
-	};
 
 	$(function() {
 
