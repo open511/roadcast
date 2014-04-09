@@ -5,7 +5,6 @@ import hmac
 import json
 from uuid import uuid4
 
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
 from django.core.mail import mail_managers
@@ -16,7 +15,7 @@ from django.utils.safestring import mark_safe
 from django_open511_ui.conf import settings
 
 try:
-    from open511.models import Jurisdiction
+    from open511_server.models import Jurisdiction
 except ImportError:
     Jurisdiction = None
 
