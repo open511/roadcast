@@ -163,7 +163,7 @@
 			else {
 				types.push('not-construction');
 			}
-			types.push('severity-' + rdev.get('severity').toLowerCase());
+			types.push('severity-' + (rdev.get('severity') || 'MODERATE').toLowerCase());
 			if (today) {
 				types.push('today');
 			}
