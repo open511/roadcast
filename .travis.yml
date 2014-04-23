@@ -7,7 +7,8 @@ before_install:
     - "sudo apt-get update -qq"
     - "sudo apt-get install -qq libgeos-dev libproj-dev gdal-bin python-psycopg2 python-lxml"
 install:
-    - "pip install -r travis-ci/requirements.txt --use-mirrors"
+    - "pip install https://www.djangoproject.com/download/1.7b2/tarball/"
+    - "pip install -r travis-ci/requirements.txt"
 before_script:
     - createdb -U postgres open511
     - psql -U postgres -d open511 -c "CREATE EXTENSION postgis"
