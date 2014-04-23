@@ -1,6 +1,6 @@
 A Javascript browsing and editing interface for an Open511 Events API. Try it out at [demo.open511.org](http://demo.open511.org/).
 
-[![Build Status](https://travis-ci.org/opennorth/open511-ui.png)](https://travis-ci.org/opennorth/open511-ui)
+[![Build Status](https://travis-ci.org/opennorth/roadcast.png)](https://travis-ci.org/opennorth/roadcast)
 
 # Installation
 
@@ -12,9 +12,9 @@ This should give you a folder called `dist`. You should be able to open `example
 
 # Python wrapper
 
-This repository also includes an optional Django application wrapper that takes care of compiling and serving the JavaScript application. You can install it by running `python setup.py install` from within a copy of this repository, or running `pip install -e git+https://github.com/opennorth/open511-ui.git#egg=django_open511_ui` to download and install. You still need to have [Node.JS](http://nodejs.org/) 0.8 or greater installed for this to work, and setup.py will complain if you don't.
+This repository also includes an optional Django application wrapper that takes care of compiling and serving the JavaScript application. You can install it by running `python setup.py install` from within a copy of this repository, or running `pip install -e git+https://github.com/opennorth/roadcast.git#egg=roadcast` to download and install. You still need to have [Node.JS](http://nodejs.org/) 0.8 or greater installed for this to work, and setup.py will complain if you don't.
 
-Once the package is installed, just add `url(r'^map/', include('django_open511_ui.urls')),` to `urls.py` in an existing Django project. You can also use [opennorth/open511_site](https://www.github.com/opennorth/open511_site) as a project template -- just install it, and this UI is included.
+Once the package is installed, just add `url(r'^map/', include('django_open511_ui.urls')),` to `urls.py` in an existing Django project. For a full example, see [opennorth/open511-example](https://www.github.com/opennorth/open511-example).
 
 # License
 
