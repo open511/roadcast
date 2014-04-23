@@ -40,7 +40,7 @@ class CustomDevelop(DistDevelop):
         DistDevelop.run(self)
 
 setup(
-    name = "django_open511_ui",
+    name = "roadcast",
     version = "0.1",
     url='',
     license = "",
