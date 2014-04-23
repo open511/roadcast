@@ -14,6 +14,6 @@ before_script:
     - psql -U postgres -d open511 -c "CREATE EXTENSION postgis"
     - python setup.py develop
     - cd travis-ci
-    - python manage.py syncdb --noinput --all
+    - python manage.py migrate
 script:
     - python manage.py test django_open511_ui
