@@ -25,7 +25,10 @@ O5.init = function(opts) {
 		$(document).ajaxError(function(e, xhr, settings, exception) {
 			if (xhr.readyState !== 4) return; // For now, don't handle requests that were
 											  // aborted before completing
-			O5.utils.notify(xhr.responseText, 'error');
+			errorText = xhr.responseText;
+			if (xhr.status === 404)
+				errorText = O5._t("That event couldn't be found.");
+			O5.utils.notify(errorText, 'error');
 			if (window.jsErrors) window.jsErrors.push(xhr.responseText);
 		});
 
