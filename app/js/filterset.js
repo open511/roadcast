@@ -117,6 +117,9 @@
 		return r;
 	};
 
+	// How often to check for updates, in milliseconds
+	var POLL_INTERVAL = 30000;
+
 	/**
 	 * The public interface to filtering.
 	 * 
@@ -126,6 +129,7 @@
 	var FilterManager = function(opts) {
 		this.app = opts.app;
 		this.history = [];
+		this.lastServerFetch = null;
 
 		// Get the list of filters
 		FILTERS = getFilterList(this.app);
@@ -174,6 +178,13 @@
 				}
 			}
 		});
+
+		this.setFilters({});
+		this.allEventsSet = new FilteredSet({
+			manager: this,
+			filterState: {status: 'ALL'}
+		});
+		this.setPollTimeout();
 	};
 
 	_.extend(FilterManager.prototype, {
@@ -239,6 +250,34 @@
 			}
 
 			this.activeSet.setVisibility();
+		},
+
+		/**
+		 * Called every POLL_INTERVAL milliseconds; if it's time to see if there are new things
+		 * on the server, set a one-time event to do so when we capture mouse movement.
+		 * (We wait for mouse movement so we don't make constant expensive requests when we're
+		 * in a background tab or there's nobody at the computer.)
+		 */
+		_pollTimeoutHandler: function() {
+			if (Date.now() - this.lastServerFetch < POLL_INTERVAL)
+				return this.setPollTimeout();
+			var self = this;
+			$('body').one('mousemove', function() { self._pollActivityHandler(); });
+
+		},
+
+		_pollActivityHandler: function() {
+			if (this.activeSet.filterableLocally && this.initialDateHeader)
+				this.allEventsSet.fetchEvents({
+					limit: 500,
+					updated: ">=" + (this.allEventsSet.lastDateHeader || this.initialDateHeader).toISOString()
+				});
+			this.setPollTimeout();
+		},
+
+		setPollTimeout: function() {
+			var self = this;
+			window.setTimeout(function() { self._pollTimeoutHandler(); }, POLL_INTERVAL);
 		}
 
 	});
@@ -416,75 +455,14 @@
 		},
 
 		_sync: function(url_or_params, opts) {
-			var filteredSet = this;
-			url_or_params = url_or_params || {};
-			opts = opts || {};
-			if (_.isString(url_or_params)) {
-				opts.url = url_or_params;
-			}
-			else {
-				_.defaults(url_or_params, {
-					format: 'json',
-					'accept-language': O5.language,
-					'limit': 50
-				});
-				opts.url = this.app.events.url + (this.app.events.url.indexOf('?') === -1 ? '?' : '&')
-					+ $.param(url_or_params);
-			}
-			var collection = filteredSet.app.events;
-			var success = function(resp, status, xhr) {
-				var eventData = _.map(collection.parse(resp),
-					collection.model.prototype.parse);
-
-				// Put events we already have in existing
-				var x, existing = [];
-				for (var i = 0; i < eventData.length; i++) {
-					x = collection.get(eventData[i].id);
-					if (x) existing.push(x);
-				}
-
-				// Add/update the events we retrieved in the master events collection
-				collection.add(eventData, {
-					merge: true,
-					sourceFilteredSet: filteredSet
-				});
-
-				// Add all the events retrieved to the requesting filteredSet,
-				// and ensure they're visible if the filteredSet is active
-				var isActive = (filteredSet === filteredSet.manager.activeSet);
-				_.each(existing, function(ev) {
-					filteredSet.forceAdd(ev);
-					if (isActive) ev.setInternal('visible', true);
-				});
-
-				if (resp.pagination && resp.pagination.next_url) {
-					if (isActive) {
-						// Only fetch more if this FilteredSet is still active
-						var next_url = resp.pagination.next_url;
-						if (/^https?:/.test(opts.url) && next_url.substr(0, 1) === '/') {
-							// The server is giving us a relative URL, but our original request
-							// was to a fully-qualified URL; join the two.
-							// (This basic algorithm only deals with the simple /events type of case)
-							next_url = opts.url.match(/^https?:\/\/[^\/]+/) + next_url;
-						}
-						filteredSet._sync(next_url, opts);
-					}
-				}
-				else {
-					// We have all the items for this set; save it to the history
-					// for use in future filters
-					filteredSet.manager._addToHistory(filteredSet);
-				}
-			};
-			opts.success = success;
-			return Backbone.sync.call(this.app.events, 'read', this.app.events, _.clone(opts));
+			return _sync(this, url_or_params, opts);
 		},
 
 		/**
 		 * Populate this FilteredSet from the server.
 		 */
-		fetchEvents: function() {
-			var filter_params = {};
+		fetchEvents: function(default_params) {
+			var filter_params = default_params || {};
 			_.each(this.filterState, function(val, key) {
 				var remote = FILTERS[key].remote(key, val);
 				filter_params[remote[0]] = remote[1];
@@ -501,6 +479,76 @@
 		}
 
 	});
+
+	var _sync = function(filteredSet, url_or_params, opts) {
+		url_or_params = url_or_params || {};
+		opts = opts || {};
+		var collection = filteredSet.app.events;
+		if (_.isString(url_or_params)) {
+			opts.url = url_or_params;
+		}
+		else {
+			_.defaults(url_or_params, {
+				format: 'json',
+				'accept-language': O5.language,
+				'limit': 50
+			});
+			opts.url = collection.url + (collection.url.indexOf('?') === -1 ? '?' : '&') +
+				$.param(url_or_params);
+		}
+		var success = function(resp, status, xhr) {
+			// Update timestamps
+			filteredSet.lastDateHeader = moment(Date.parse(xhr.getResponseHeader('Date')));
+			filteredSet.manager.lastServerFetch = Date.now();
+			if (!filteredSet.manager.initialDateHeader)
+				filteredSet.manager.initialDateHeader = filteredSet.lastDateHeader;
+
+			var eventData = _.map(collection.parse(resp),
+				collection.model.prototype.parse);
+
+			// Put events we already have in existing
+			var x, existing = [];
+			for (var i = 0; i < eventData.length; i++) {
+				x = collection.get(eventData[i].id);
+				if (x) existing.push(x);
+			}
+
+			// Add/update the events we retrieved in the master events collection
+			collection.add(eventData, {
+				merge: true,
+				sourceFilteredSet: filteredSet
+			});
+
+			// Add all the events retrieved to the requesting filteredSet,
+			// and ensure they're visible if the filteredSet is active
+			var isActive = (filteredSet === filteredSet.manager.activeSet);
+			_.each(existing, function(ev) {
+				filteredSet.forceAdd(ev);
+				if (isActive) ev.setInternal('visible', true);
+			});
+
+			if (resp.pagination && resp.pagination.next_url) {
+				if (isActive) {
+					// Only fetch more if this FilteredSet is still active
+					var next_url = resp.pagination.next_url;
+					if (/^https?:/.test(opts.url) && next_url.substr(0, 1) === '/') {
+						// The server is giving us a relative URL, but our original request
+						// was to a fully-qualified URL; join the two.
+						// (This basic algorithm only deals with the simple /events type of case)
+						next_url = opts.url.match(/^https?:\/\/[^\/]+/) + next_url;
+					}
+					_sync(filteredSet, next_url, opts);
+				}
+			}
+			else {
+				// We have all the items for this set; save it to the history
+				// for use in future filters
+				filteredSet.manager._addToHistory(filteredSet);
+			}
+		};
+		opts.success = success;
+		return Backbone.sync.call(collection, 'read', collection, _.clone(opts));
+	};
 
 	O5.prototypes.FilterManager = FilterManager;
 })();

@@ -57,18 +57,16 @@ O5.init = function(opts) {
 		$el.find('.navbar .buttons').append(filterWidget.el);
 		filterWidget.render();
 
-		app.filterManager = new O5.prototypes.FilterManager({
-			app: app
-		});
-
 		app.on('display', function(event) {
 			app.detailViewer.displayEvent(event);
 			app.layout.setLeftPane(app.detailViewer);
 			event.navigateTo();
 		});
 
-		// (this line results in fetching all the events)
-		app.filterManager.setFilters({});
+		// Creating filterManager also fetches all events
+		app.filterManager = new O5.prototypes.FilterManager({
+			app: app
+		});
 
 		app.router = new O5.prototypes.Router();
 
