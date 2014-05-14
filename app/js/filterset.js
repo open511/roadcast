@@ -267,11 +267,17 @@
 		},
 
 		_pollActivityHandler: function() {
-			if (this.activeSet.filterableLocally && this.initialDateHeader)
-				this.allEventsSet.fetchEvents({
-					limit: 500,
-					updated: ">=" + (this.allEventsSet.lastDateHeader || this.initialDateHeader).toISOString()
-				});
+			if (this.activeSet.filterableLocally) {
+				var updated = (this.allEventsSet.lastDateHeader || this.initialDateHeader);
+				if (!updated)
+					updated = _.max(this.app.map(function(e) { return Date.parse(e.get('updated')); }));
+				if (updated) {
+					this.allEventsSet.fetchEvents({
+						limit: 500,
+						updated: ">=" + moment(updated).toISOString()
+					});
+				}
+			}
 			this.setPollTimeout();
 		},
 
@@ -498,10 +504,13 @@
 		}
 		var success = function(resp, status, xhr) {
 			// Update timestamps
-			filteredSet.lastDateHeader = moment(Date.parse(xhr.getResponseHeader('Date')));
-			filteredSet.manager.lastServerFetch = Date.now();
-			if (!filteredSet.manager.initialDateHeader)
-				filteredSet.manager.initialDateHeader = filteredSet.lastDateHeader;
+			var d = moment(Date.parse(xhr.getResponseHeader('Date')));
+			if (d.isValid()) {
+				filteredSet.lastDateHeader = d;
+				filteredSet.manager.lastServerFetch = Date.now();
+				if (!filteredSet.manager.initialDateHeader)
+					filteredSet.manager.initialDateHeader = filteredSet.lastDateHeader;
+			}
 
 			var eventData = _.map(collection.parse(resp),
 				collection.model.prototype.parse);
