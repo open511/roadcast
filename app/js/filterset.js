@@ -270,7 +270,7 @@
 			if (this.activeSet.filterableLocally) {
 				var updated = (this.allEventsSet.lastDateHeader || this.initialDateHeader);
 				if (!updated)
-					updated = _.max(this.app.map(function(e) { return Date.parse(e.get('updated')); }));
+					updated = _.max(this.app.events.map(function(e) { return Date.parse(e.get('updated')); }));
 				if (updated) {
 					this.allEventsSet.fetchEvents({
 						limit: 500,
@@ -504,13 +504,14 @@
 		}
 		var success = function(resp, status, xhr) {
 			// Update timestamps
-			var d = moment(Date.parse(xhr.getResponseHeader('Date')));
+			var d = moment(Date.parse(xhr.getResponseHeader('Date') || xhr.getResponseHeader('Last-Modified')));
 			if (d.isValid()) {
 				filteredSet.lastDateHeader = d;
-				filteredSet.manager.lastServerFetch = Date.now();
 				if (!filteredSet.manager.initialDateHeader)
 					filteredSet.manager.initialDateHeader = filteredSet.lastDateHeader;
 			}
+
+			filteredSet.manager.lastServerFetch = Date.now();
 
 			var eventData = _.map(collection.parse(resp),
 				collection.model.prototype.parse);
