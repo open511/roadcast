@@ -83,7 +83,8 @@ def main(request, event_slug=None):
         'opts': mark_safe(json.dumps(opts)),
         'enable_editing': enable_editing,
         'gmaps': gmaps,
-        'js_files': js_files
+        'js_files': js_files,
+        'google_analytics_id': settings.OPEN511_UI_GOOGLE_ANALYTICS_ID
     }
 
     return render(request, "o5ui/main.html", ctx)
