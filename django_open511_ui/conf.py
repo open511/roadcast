@@ -53,6 +53,7 @@ class Open511UISettings(AppConf):
     FILE_UPLOAD_S3_BUCKET = ''
 
     GOOGLE_ANALYTICS_ID = None
+    CUSTOM_CSS = None
 
     # Which WebDriver to use for automated testing? firefox or phantomjs
     TEST_BROWSER = 'firefox'
