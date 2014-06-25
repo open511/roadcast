@@ -1,4 +1,5 @@
 from base64 import b64encode
+from copy import deepcopy
 import datetime
 from hashlib import sha1
 import hmac
@@ -22,7 +23,7 @@ except ImportError:
 def main(request, event_slug=None):
     enable_editing = settings.OPEN511_UI_ENABLE_EDITOR and request.user.is_authenticated()
 
-    opts = settings.OPEN511_UI_APP_SETTINGS
+    opts = deepcopy(settings.OPEN511_UI_APP_SETTINGS)
 
     opts.update({
         'rootURL': urlresolvers.reverse('o5ui_home'),
