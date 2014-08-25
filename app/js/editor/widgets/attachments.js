@@ -39,7 +39,7 @@ var AttachmentWidget = O5.widgets.BaseWidget.extend({
 				self.data.push(data.context.fileInfo);
 				self.renderList();
 				// If all files are uploaded, clear any validation errors
-				if (self.validate() === true) self.trigger('change');
+				if (self.checkValidation() === true) self.trigger('change');
 			},
 			add: function(e, fileAddData) {
 				var fname = fileAddData.files[0].name;
