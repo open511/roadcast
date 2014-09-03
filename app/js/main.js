@@ -32,6 +32,12 @@ O5.init = function(opts) {
 			if (window.jsErrors) window.jsErrors.push(xhr.responseText);
 		});
 
+		if (app.settings.sentryDSN && window.Raven) {
+			Raven.config(app.settings.sentryDSN).install();
+			if (app.settings.auth && app.settings.auth.displayName)
+				Raven.setUserContext({name: app.settings.auth.displayName});
+		}
+
 		app.layout = new O5.prototypes.Layout(app.settings.inside, app);
 		var $el = app.layout.$el;
 

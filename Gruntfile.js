@@ -33,6 +33,10 @@ module.exports = function(grunt) {
 						'app/vendor/jquery.easymodal.js',
 						'app/vendor/bootstrap-tooltip.js',
 						'app/vendor/bootstrap-popover.js',
+						'app/vendor/raven/raven.js',
+						'app/vendor/raven/raven-native.js',
+						'app/vendor/raven/raven-jquery.js',
+						'app/vendor/raven/raven-backbone.js',
 						// 'app/vendor/sonic.js',
 						'<%=dest%>/js/open511-nodeps.js'
 					],
