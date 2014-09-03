@@ -180,17 +180,24 @@
 		});
 
 		this.setFilters({});
+
 		this.allEventsSet = new FilteredSet({
 			manager: this,
 			filterState: {status: 'ALL'}
 		});
+		// The allEventsSet is used when polling for updates;
+		// however, we don't start by fetching all events, 
+		// so we never want to add it the history of completed
+		// sets.
+		this.allEventsSet.excludeFromHistory = true;
 		this.setPollTimeout();
 	};
 
 	_.extend(FilterManager.prototype, {
 
 		_addToHistory: function(fs) {
-			this.history.push(fs);
+			if (!fs.excludeFromHistory)
+				this.history.push(fs);
 		},
 
 		getCurrentFilters: function() {
