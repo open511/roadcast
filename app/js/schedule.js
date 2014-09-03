@@ -168,6 +168,7 @@ _.extend(Schedule.prototype, {
 			var spec = this.exceptions.earliestDate();
 			if (spec) candidates.push(spec);
 		}
+		if (!candidates.length) return null;
 		return _.min(candidates, function(d) { return d.unix(); });
 	},
 
@@ -180,7 +181,8 @@ _.extend(Schedule.prototype, {
 			var spec = this.exceptions.latestDate();
 			if (spec) candidates.push(spec);
 		}
-		return _.min(candidates, function(d) { return d.unix(); });
+		if (!candidates.length) return null;
+		return _.max(candidates, function(d) { return d.unix(); });
 	}
 
 
