@@ -140,6 +140,8 @@ _.extend(Schedule.prototype, {
 			var spec = this.specific.earliestDate();
 			if (spec) candidates.push(spec);
 		}
+		if (!candidates.length)
+			return;
 		return _.min(candidates, function(d) { return d.unix(); });
 	},
 
@@ -147,12 +149,14 @@ _.extend(Schedule.prototype, {
 		// TODO doesn't take into account weekdays in recurring schedules
 		var candidates = _.map(this.schedules, function(sched) { return sched.end_date; });
 		if (!_.all(candidates))
-			return '';
+			return;
 		if (this.specific) {
 			var spec = this.specific.latestDate();
 			if (spec) candidates.push(spec);
 		}
-		return _.min(candidates, function(d) { return d.unix(); });
+		if (!candidates.length)
+			return;
+		return _.max(candidates, function(d) { return d.unix(); });
 	}
 
 
