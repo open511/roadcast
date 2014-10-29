@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Open511\n"
-"POT-Creation-Date: 2013-11-06 17:11-0500\n"
-"PO-Revision-Date: 2013-11-06 17:11-0500\n"
+"POT-Creation-Date: 2014-10-29 15:04-0500\n"
+"PO-Revision-Date: 2014-10-29 15:42-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,6 +16,12 @@ msgstr ""
 "X-Poedit-SearchPath-1: /Users/michael/proj/o5/ui/app/js\n"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:4
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:43
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:142
+msgid "Archived"
+msgstr "Archivé"
+
+#: /Users/michael/proj/o5/ui/app/jst/event_info.html:4
 msgid "In effect today"
 msgstr "Actif aujourd'hui"
 
@@ -24,7 +30,7 @@ msgid "Not today"
 msgstr "Non actif aujourd'hui"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:9
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:16
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:17
 msgid "Unpublished"
 msgstr "Non publié"
 
@@ -50,17 +56,17 @@ msgid "westbound"
 msgstr "direction ouest"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:22
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:325
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:360
 msgid "Some lanes closed"
 msgstr "Certaines voies sont fermées"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:23
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:326
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:361
 msgid "Single lane alternating"
 msgstr "Circulation alternée sur une voie"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:24
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:327
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:362
 msgid "All lanes closed"
 msgstr "Toutes les voies sont fermées"
 
@@ -83,11 +89,12 @@ msgstr "Détails"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:49
 #: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:6
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:192
 msgid "Schedule"
 msgstr "Calendrier"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_info.html:51
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:273
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:308
 msgid "Detour"
 msgstr "Détour"
 
@@ -97,8 +104,8 @@ msgid "Attachments"
 msgstr "Fichiers joints"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_list.html:5
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:31
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:165
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:18
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:168
 msgid "Severity"
 msgstr "Sévérité"
 
@@ -111,8 +118,8 @@ msgid "End"
 msgstr "Fin"
 
 #: /Users/michael/proj/o5/ui/app/jst/event_list.html:8
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:47
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:134
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:34
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:137
 msgid "Status"
 msgstr "État"
 
@@ -137,7 +144,7 @@ msgid "<a>Select files</a> or drag them here."
 msgstr "<a>Sélectionner les fichiers</a> ou glissez-les ici."
 
 #: /Users/michael/proj/o5/ui/app/jst/editor/attachment_widget_row.html:1
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:236
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:238
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -151,8 +158,8 @@ msgid "Basics"
 msgstr "Base"
 
 #: /Users/michael/proj/o5/ui/app/jst/editor/event_editor.html:13
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:191
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:237
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:193
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:239
 #: /Users/michael/proj/o5/ui/app/js/plugins/feedback.js:21
 msgid "Cancel"
 msgstr "Annuler"
@@ -182,28 +189,27 @@ msgstr "Ligne"
 msgid "Clear line"
 msgstr "Supprimer la ligne"
 
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:16
-msgid "Jurisdiction"
-msgstr "Juridiction"
-
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:55
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:138
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:42
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:141
 msgid "Active"
 msgstr "Actif"
 
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:56
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:139
-msgid "Archived"
-msgstr "Archivé"
-
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:57
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:44
 msgid "All"
 msgstr "Tous"
 
-#: /Users/michael/proj/o5/ui/app/js/filterset.js:62
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:257
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:49
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:267
 msgid "Date"
 msgstr "Date"
+
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:65
+msgid "Jurisdiction"
+msgstr "Juridiction"
+
+#: /Users/michael/proj/o5/ui/app/js/filterset.js:81
+msgid "Area"
+msgstr "Région"
 
 #: /Users/michael/proj/o5/ui/app/js/i18n.js:16
 msgid "Today"
@@ -213,122 +219,133 @@ msgstr "Aujourd'hui"
 msgid "Clear"
 msgstr "Supprimer"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:127
+#: /Users/michael/proj/o5/ui/app/js/main.js:30
+msgid "That event couldn't be found."
+msgstr "Cet événement ne peut pas être trouvé"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:130
 msgid "Headline"
 msgstr "Titre"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:146
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:149
 msgid "Description"
 msgstr "Description"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:152
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:155
 msgid "Event type"
 msgstr "Type d'événement"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:156
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:159
 msgid "Planned road work"
 msgstr "Entrave planifiée (construction)"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:157
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:160
 msgid "Incident"
 msgstr "Incident"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:158
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:161
 msgid "Special event"
 msgstr "Événement spécial"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:169
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:172
 msgid "Minor"
 msgstr "Mineur"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:170
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:173
 msgid "Moderate"
 msgstr "Moyen"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:171
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:174
 msgid "Major"
 msgstr "Majeur"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:172
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:175
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:178
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:181
 msgid "Geography"
 msgstr "Géographie"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:193
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:200
 msgid "End date must be after start date (or left blank)"
 msgstr "La date de fin doit être postérieure à la date de début (ou vide)"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:199
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:206
 msgid "If end time is provided, start time is required"
 msgstr "Lorsqu'une heure de fin est proposée, l'heure de début est obligatoire"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:204
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:211
 msgid "If start time is provided, end time is required"
 msgstr "Lorsqu'une heure de début est proposée, l'heure de fin est obligatoire"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:208
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:215
 #: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:35
 msgid "Start time must be before end time"
 msgstr "L'heure de début doit être antérieure à l'heure de fin"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:217
-msgid "Start date"
-msgstr "Date de début"
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:225
+msgid "Start date (Recurring schedule)"
+msgstr "Date de début (événement récurrent)"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:223
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:228
+msgid ""
+"Recurring schedules represent a pattern that repeats, e.g. every Monday "
+"until Dec. 1"
+msgstr ""
+"Les événements récurrents se répètent dans le temps, p. ex. tous les lundis "
+"jusqu'au 1er dec."
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:233
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:296
 msgid "End date"
 msgstr "Date de fin"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:228
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:11
-msgid "Start time"
-msgstr "Heure de début"
-
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:233
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:16
-msgid "End time"
-msgstr "Heure de fin"
-
 #: /Users/michael/proj/o5/ui/app/js/roadevent.js:238
+msgid "Daily start time"
+msgstr "Heure de début quotidienne"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:243
+msgid "Daily end time"
+msgstr "Heure de fin quotidienne"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:248
 msgid "Weekdays"
 msgstr "Jours de semaine"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:242
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:252
 msgid "Mon"
 msgstr "Lun"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:243
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:253
 msgid "Tue"
 msgstr "Mar"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:244
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:254
 msgid "Wed"
 msgstr "Mer"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:245
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:255
 msgid "Thu"
 msgstr "Jeu"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:246
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:256
 msgid "Fri"
 msgstr "Ven"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:247
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:257
 msgid "Sat"
 msgstr "Sam"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:248
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:258
 msgid "Sun"
 msgstr "Dim"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:255
-msgid "Specific date"
-msgstr "Date spéciale"
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:265
+msgid "Exception date"
+msgstr "Date de l'exception"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:259
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:269
 msgid ""
 "The schedule for this event on a specific date. Overrides any recurring "
 "schedules. To specify that the event is not active on this date, enter a "
@@ -338,51 +355,76 @@ msgstr ""
 "récurrents. Pour signifier qu'un événement n'est pas actif pendant une "
 "journée, entrer une date mais laisser les heures vides."
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:284
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:283
+msgid "Start date (Interval)"
+msgstr "Date de début (interval)"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:286
+msgid ""
+"Interval schedules represent a continuous period of time, for example the "
+"period from Oct. 1 at noon until Oct. 10 at noon. The end date & time are "
+"optional."
+msgstr ""
+"Les événement de type interval représentent une période continue de temps, "
+"par exemple du 1er octobre à midi jusqu'au 10 octobre a midi. Les date et "
+"heure de fin sont optionnelles."
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:290
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:11
+msgid "Start time"
+msgstr "Heure de début"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:301
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:16
+msgid "End time"
+msgstr "Heure de fin"
+
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:319
 msgid "If state is provided, direction is required"
 msgstr "Si l'état est spécifiée, la direction est obligatoire"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:291
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:326
 msgid "Road name"
 msgstr "Nom de la route"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:297
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:332
+#: /Users/michael/proj/o5/ui/app/js/schedule.js:123
 msgid "From"
 msgstr "De"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:302
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:337
 msgid "To"
 msgstr "Jusqu'à"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:307
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:342
 msgid "Direction"
 msgstr "Direction"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:311
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:346
 msgid "Both"
 msgstr "Tous"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:312
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:347
 msgid "North"
 msgstr "Nord"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:313
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:348
 msgid "South"
 msgstr "Sud"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:314
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:349
 msgid "East"
 msgstr "Est"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:315
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:350
 msgid "West"
 msgstr "Ouest"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:320
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:355
 msgid "State"
 msgstr "État"
 
-#: /Users/michael/proj/o5/ui/app/js/roadevent.js:324
+#: /Users/michael/proj/o5/ui/app/js/roadevent.js:359
 msgid "All lanes open"
 msgstr "Toutes les voies sont ouvertes"
 
@@ -407,8 +449,8 @@ msgid "not in effect"
 msgstr "non actif"
 
 #: /Users/michael/proj/o5/ui/app/js/views.js:23
-msgid "Welcome to Open511"
-msgstr "Bienvenue sur 511Ouvert"
+msgid "Welcome to Open511 Roadcast"
+msgstr "Bienvenue sur Roadcast 511Ouvert"
 
 #: /Users/michael/proj/o5/ui/app/js/views.js:24
 msgid ""
@@ -420,6 +462,7 @@ msgstr ""
 "www.open511.org/\">open511.org</a>."
 
 #: /Users/michael/proj/o5/ui/app/js/widgets.js:21
+#: /Users/michael/proj/o5/ui/app/js/editor/fieldgroup.js:304
 msgid "This field is required"
 msgstr "Ce champ est obligatoire"
 
@@ -427,7 +470,7 @@ msgstr "Ce champ est obligatoire"
 msgid "Validation error. Please verify: "
 msgstr "Erreur de validation. Merci de vérifier: "
 
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:187
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:189
 msgid ""
 "The event you're currently editing has changes. Are you sure you want to "
 "discard them?"
@@ -435,15 +478,23 @@ msgstr ""
 "L'événement en cours d'édition a subit des modifications. Êtes-vous certain "
 "de vouloir les abandonner?"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:194
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:196
 msgid "Discard"
 msgstr "Abandonner"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:225
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:227
 msgid "Deleted"
 msgstr "Supprimé"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:288
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:236
+msgid ""
+"In general, you should set road events to archived status rather than "
+"deleting them. Are you sure you want to delete this?"
+msgstr ""
+"Plutôt que de supprimer un événement, il est préférable de le mettre à "
+"l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
+
+#: /Users/michael/proj/o5/ui/app/js/editor/editor.js:290
 msgid "Edit"
 msgstr "Modifier"
 
@@ -461,13 +512,18 @@ msgid "Please try again when all files have finished uploading."
 msgstr ""
 "Merci d'essayer de nouveau lorsque tous les fichiers auront été téléversés."
 
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:47
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:87
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:104
+msgid "+ Interval"
+msgstr "+ Interval"
+
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:93
 msgid "+ Recurring"
 msgstr "+ Reccurrent"
 
-#: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:51
-msgid "+ Specific Date"
-msgstr "+ Date spéciale"
+#: /Users/michael/proj/o5/ui/app/js/editor/widgets/schedule.js:98
+msgid "+ Exception"
+msgstr "+ Exception"
 
 #: /Users/michael/proj/o5/ui/app/js/editor/widgets/timerange.js:32
 msgid "Both start and end times must be provided"
@@ -535,48 +591,47 @@ msgstr "Envoyer"
 msgid "Your message has been sent. Thank you!"
 msgstr "Votre message a été envoyé. Merci !"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:17
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:18
 msgid "Publish on"
 msgstr "Date de publication"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:19
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:20
 msgid "Publish now"
 msgstr "Publier maintenant"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:26
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:31
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:54
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:27
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:32
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:55
 msgid "Now"
 msgstr "Maintenant"
 
-#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:32
+#: /Users/michael/proj/o5/ui/app/js/plugins/publish-events.js:33
 msgid "Publish?"
 msgstr "Publier?"
 
-#: /Users/michael/proj/o5/ui/app/js/utils/utils.js:88
+#: /Users/michael/proj/o5/ui/app/js/utils/external-safe.js:52
 msgid "ddd, MMM D"
 msgstr "ddd, D MMM"
 
-#: /Users/michael/proj/o5/ui/app/js/utils/utils.js:182
+#: /Users/michael/proj/o5/ui/app/js/utils/internal.js:140
 msgid "Yes"
 msgstr "Oui"
 
-#: /Users/michael/proj/o5/ui/app/js/utils/utils.js:183
+#: /Users/michael/proj/o5/ui/app/js/utils/internal.js:141
 msgid "No"
 msgstr "Non"
+
+#~ msgid "Specific date"
+#~ msgstr "Date spéciale"
+
+#~ msgid "+ Specific Date"
+#~ msgstr "+ Date spéciale"
 
 #~ msgid "Incident (accident, unplanned roadwork...)"
 #~ msgstr "Incident (accident, entrave non planifiée...)"
 
 #~ msgid "Undefined"
 #~ msgstr "Non défini"
-
-#~ msgid ""
-#~ "In general, you should set road events to archived status rather than "
-#~ "deleting them. Are you sure you want to delete this?"
-#~ msgstr ""
-#~ "Plutôt que de supprimer un événement, il est préférable de le mettre à "
-#~ "l'état \"archivé\". Êtes-vous certain de vouloir supprimer cet élément?"
 
 #~ msgid "Drag files here, or click to select."
 #~ msgstr ""
