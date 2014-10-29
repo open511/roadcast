@@ -1,6 +1,6 @@
 (function() {
 
-	var SpecificDatesWidget = O5.editor.FieldGroup.extend({
+	var ExceptionWidget = O5.editor.FieldGroup.extend({
 
 		getVal: function() {
 			var orig = O5.editor.FieldGroup.prototype.getVal.call(this);
@@ -11,7 +11,7 @@
 					val += ' ' + times.start_time + '-' + times.end_time;
 				}
 			});
-			return { specific_date: val};
+			return { exception: val};
 		},
 
 		setVal: function(val) {
@@ -33,63 +33,158 @@
 
 	});
 
+	var IntervalWidget = O5.editor.FieldGroup.extend({
+
+		getVal: function() {
+			var orig = O5.editor.FieldGroup.prototype.getVal.call(this);
+			if (!(orig.start_date && orig.start_time)) return null;
+			var val = orig.start_date + 'T' + orig.start_time + '/';
+			if (orig.end_date && orig.end_time)
+				val += orig.end_date + 'T' + orig.end_time;
+			return val
+		},
+
+		setVal: function(val) {
+			var val_bits = val.split('/');
+			if (!val_bits.length) return;
+			var dt_bits = val_bits[0].split('T');
+			var val_obj = {
+				start_date: dt_bits[0],
+				start_time: dt_bits[1]
+			};
+			if (val_bits[1]) {
+				dt_bits = val_bits[1].split('T');
+				val_obj.end_date = dt_bits[0];
+				val_obj.end_time = dt_bits[1];
+			}
+			O5.editor.FieldGroup.prototype.setVal.call(this, val_obj);
+		}
+
+	});
+
 	O5.widgets.schedule = O5.editor.RepeatingFieldGroup.extend({
 
 		initialize: function() {
 			delete this.options['widget'];
 			O5.editor.RepeatingFieldGroup.prototype.initialize.call(this);
+			var initialVal = this.getVal();
+			if (initialVal && initialVal.intervals) {
+				this.schedType = 'INTERVALS';
+			}
+			else if (initialVal && initialVal.recurring_schedules) {
+				this.schedType = 'RECURRING';
+			}
+			else {
+				this.schedType = 'NONE';
+			}
 		},
 
 		renderAddRow: function() {
 			var $row = $(document.createElement('div')).addClass('add-row');
 			var self = this;
-			$('<a class="button add-recurring" style="float:left"></a>')
-				.text(O5._t('+ Recurring'))
-				.on('click', function() { self.addRow(); })
-				.appendTo($row);
-			$('<a class="button add-specific-date" style="float:right"></a>')
-				.text(O5._t('+ Specific Date'))
-				.on('click', function() { self.addSpecificDatesRow(); })
-				.appendTo($row);
+			if (this.schedType == 'INTERVALS') {
+				$('<a class="button add-intervals"></a>')
+					.text(O5._t('+ Interval'))
+					.on('click', function() { self.addIntervalRow(); })
+					.appendTo($row);
+			}
+			else {
+				$('<a class="button add-recurring" style="float:left"></a>')
+					.text(O5._t('+ Recurring'))
+					.on('click', function() { self.addRecurringRow(); })
+					.appendTo($row);
+				if (this.schedType == 'RECURRING') {
+					$('<a class="button add-exception" style="float:right"></a>')
+						.text(O5._t('+ Exception'))
+						.on('click', function() { self.addExceptionRow(); })
+						.appendTo($row);
+				}
+				else {
+					$('<a class="button add-intervals" style="float: right"></a>')
+						.text(O5._t('+ Interval'))
+						.on('click', function() { self.addIntervalRow(); })
+						.appendTo($row);
+				}
+			}
+			if (this.$el.find('.add-row').length) {
+				return this.$el.find('.add-row').replaceWith($row);
+			}
 			this.$el.append($row);
 		},
 
-		addSpecificDatesRow: function() {
+		addRecurringRow: function() {
+			if (this.schedType !== 'RECURRING') {
+				this.schedType = 'RECURRING';
+				this.renderAddRow();
+			}
 			return this.addRow(_.extend({}, this.options, {
-				fields: this.options.specificDatesFields,
+				fields: this.options.recurringFields
+			}));			
+		},
+
+		addExceptionRow: function() {
+			return this.addRow(_.extend({}, this.options, {
+				fields: this.options.exceptionFields,
 				repeating: false,
-				widget: SpecificDatesWidget
+				widget: ExceptionWidget
 			}));
+		},
+
+		addIntervalRow: function() {
+			if (this.schedType !== 'INTERVALS') {
+				this.schedType = 'INTERVALS';
+				this.renderAddRow();
+			}
+			return this.addRow(_.extend({}, this.options, {
+				fields: this.options.intervalFields,
+				repeating: false,
+				widget: IntervalWidget
+			}));			
 		},
 
 		getVal: function() {
 			var orig = O5.editor.RepeatingFieldGroup.prototype.getVal.call(this);
 			if (!orig) return orig;
-			var val = [];
-			var specific = [];
-			_.each(orig, function(v) {
-				if (v.specific_date) {
-					specific.push(v.specific_date);
+			if (this.schedType == 'RECURRING') {
+				var val = {
+					recurring_schedules: [],
+					exceptions: []
 				}
-				else {
-					val.push(v);
-				}
-			});
-			if (specific.length) val.push({specific_dates: specific});
-			return val;
+				_.each(orig, function(item) {
+					if (item.exception) {
+						val.exceptions.push(item.exception)
+					}
+					else {
+						val.recurring_schedules.push(item)
+					}
+				});
+				return val;
+			}
+			else if (this.schedType == 'INTERVALS') {
+				return {
+					intervals: orig
+				};
+			}
 		},
 
 		setVal: function(val) {
+			this.renderRows(0);
 			if (!val) return;
-			val = _.clone(val);
-			var specific = _.remove(val, function(x) { return x.specific_dates; });
-			O5.editor.RepeatingFieldGroup.prototype.setVal.call(this, val);
-			if (specific.length) {
-				specific = specific[0].specific_dates;
-				for (var i = 0; i < specific.length; i++) {
-					this.addSpecificDatesRow().setVal(specific[i]);
+			if (val.intervals) {
+				this.schedType = 'INTERVALS';
+				for (var i = 0; i < val.intervals.length; i++)
+					this.addIntervalRow().setVal(val.intervals[i]);
+			}
+			else if (val.recurring_schedules) {
+				this.schedType = 'RECURRING';
+				for (var i = 0; i < val.recurring_schedules.length; i++)
+					this.addRecurringRow().setVal(val.recurring_schedules[i])
+				if (val.exceptions && val.exceptions.length) {
+					for (var i = 0; i < val.exceptions.length; i++)
+						this.addExceptionRow().setVal(val.exceptions[i])
 				}
 			}
+			this.renderAddRow()
 		}
 
 	});

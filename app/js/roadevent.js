@@ -6,7 +6,7 @@
 
 		initialize: function() {
 			if (!this.internal) this.internal = { visible: true };
-			this.on('change:schedules', function(me) { me._schedule = null; });
+			this.on('change:schedule', function(me) { me._schedule = null; });
 		},
 
 		select: function(opts) {
@@ -85,7 +85,7 @@
 
 		parseSchedule: function() {
 			if (!this._schedule)
-				this._schedule = new O5.prototypes.Schedule(this.get('schedules'));
+				this._schedule = new O5.prototypes.Schedule(this.get('schedule'));
 			return this._schedule;
 		}
 
@@ -185,13 +185,15 @@
 				required: true
 			},
 			{
-				name: 'schedules',
+				name: 'schedule',
 				type: 'group',
 				widget: 'schedule',
 				tab: 'schedule',
 				label: _t('Schedule'),
 				displayLabel: false,
 				validate: function(val, opts) {
+					// FIXME
+					return true;
 					if (val.end_date && !moment(val.start_date).isBefore(val.end_date)) {
 						return {
 							field: 'end_date',
@@ -217,12 +219,14 @@
 				},
 				required: true,
 				initialEmptyRows: 0,
-				fields: [
+				recurringFields: [
 					{
 						name: 'start_date',
-						label: _t('Start date'),
+						label: _t('Start date (Recurring schedule)'),
 						required: true,
-						type: 'date'
+						type: 'date',
+						help_text: _t("Recurring schedules represent a pattern that repeats, e.g. every Monday until Dec. 1")
+
 					},
 					{
 						name: 'end_date',
@@ -230,13 +234,13 @@
 						type: 'date'
 					},
 					{
-						name: 'start_time',
-						label: _t('Start time'),
+						name: 'daily_start_time',
+						label: _t('Daily start time'),
 						type: 'time'
 					},
 					{
-						name: 'end_time',
-						label: _t('End time'),
+						name: 'daily_end_time',
+						label: _t('Daily end time'),
 						type: 'time'
 					},
 					{
@@ -255,10 +259,10 @@
 						]
 					}
 				],
-				specificDatesFields: [
+				exceptionFields: [
 					{
 						name: 'date',
-						label: _t('Specific date'),
+						label: _t('Exception date'),
 						type: 'date',
 						placeholder: _t('Date'),
 						required: true,
@@ -271,6 +275,31 @@
 						repeating: true,
 						autoAddRows: true,
 						addSeparators: false
+					}
+				],
+				intervalFields: [
+					{
+						name: 'start_date',
+						label: _t('Start date (Interval)'),
+						required: true,
+						type: 'date',
+						help_text: _t("Interval schedules represent a continuous period of time, for example the period from Oct. 1 at noon until Oct. 10 at noon. The end date & time are optional.")
+					},
+					{
+						name: 'start_time',
+						label: _t('Start time'),
+						required: true,
+						type: 'time'
+					},
+					{
+						name: 'end_date',
+						label: _t('End date'),
+						type: 'date'
+					},
+					{
+						name: 'end_time',
+						label: _t('End time'),
+						type: 'time'
 					}
 				]
 			},
