@@ -1,5 +1,5 @@
 # Requires that 'po2json' be installed and in $PATH
-# http://search.cpan.org/~getty/Locale-Simple-0.011/bin/po2json
+# https://github.com/Getty/p5-locale-simple/blob/master/bin/po2json
 
 from glob import glob
 import os

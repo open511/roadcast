@@ -59,7 +59,7 @@ class IntegrationTests(BrowserTestCase):
             'severity': 'UNKNOWN',
             'status': 'ACTIVE',
             'jurisdiction_url': 'http://test/api/jurisdictions/test.open511.org/',
-            'schedules': [{'start_date': unicode(datetime.date.today())}]
+            'schedule': {'recurring_schedules': [{'start_date': unicode(datetime.date.today())}]}
         })
 
     def test_published(self):
