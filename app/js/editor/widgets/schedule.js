@@ -147,11 +147,11 @@
 			if (!orig) return orig;
 			if (this.schedType == 'RECURRING') {
 				var val = {
-					recurring_schedules: [],
-					exceptions: []
+					recurring_schedules: []
 				}
 				_.each(orig, function(item) {
 					if (item.exception) {
+						if (!val.exceptions) val.exceptions = [];
 						val.exceptions.push(item.exception)
 					}
 					else {
