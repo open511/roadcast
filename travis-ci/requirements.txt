@@ -1,6 +1,6 @@
 psycopg2
--e git+https://github.com/opennorth/open511.git#egg=open511
--e git+https://github.com/opennorth/open511-server.git#egg=open511-server
--e git+https://github.com/opennorth/open511-api-tests.git#egg=open511-api-tests
+-e git+https://github.com/open511/open511.git#egg=open511
+-e git+https://github.com/open511/open511-server.git#egg=open511-server
+-e git+https://github.com/open511/open511-api-tests.git#egg=open511-api-tests
 django-extensions
 selenium==2.35.0
