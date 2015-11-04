@@ -94,6 +94,20 @@
 						marker: marker,
 						vector: line
 					}
+				case 'MultiLineString':
+					var line = this.geoJSONToVector(gj);
+
+					var points = [];
+					_.each(coords, function(c) {
+						points = points.concat(c);
+					});
+					// Put a marker at the middle coordinate
+					var midpoint = points[Math.floor(points.length / 2)];
+					var marker = this.getMarker(midpoint, rdev);
+					return {
+						marker: marker,
+						vector: line
+					};
 				case 'Polygon':
 					var gon = this.geoJSONToVector(gj);
 					var marker = this.getMarker(coords[0], rdev);
