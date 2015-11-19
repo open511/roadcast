@@ -1,10 +1,13 @@
+from copy import deepcopy
 import json
-from urlparse import urljoin
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
 
 from django_open511_ui.conf import settings
 from django.core import urlresolvers
-from django.test import LiveServerTestCase
-from django.test.utils import override_settings
+from django.test import LiveServerTestCase, override_settings
 from django.utils.safestring import mark_safe
 
 
@@ -19,13 +22,14 @@ def get_driver():
     driver.set_window_size(1000, 700)
     return driver
 
+_template_settings = deepcopy(settings.TEMPLATES)
+_template_settings[0]['OPTIONS']['context_processors'].append('django_open511_ui.test_utils.context_processor')
 @override_settings(STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage',
     OPEN511_BASE_URL='http://test',
     OPEN511_UI_SHOW_LOGIN_BUTTON=True,
     LANGUAGE_CODE='en',
     DEBUG=True,
-    TEMPLATE_CONTEXT_PROCESSORS=settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'django_open511_ui.test_utils.context_processor',))
+    TEMPLATES=_template_settings)
 class BrowserTestCase(LiveServerTestCase):
 
     @classmethod
@@ -74,7 +78,7 @@ class BrowserTestCase(LiveServerTestCase):
     def get_all_events(self):
         url = urlresolvers.reverse('open511_roadevent_list')
         resp = self.client.get(url, {'format': 'json'})
-        return json.loads(resp.content)
+        return json.loads(resp.content.decode('utf8'))
 
 
 def context_processor(request):

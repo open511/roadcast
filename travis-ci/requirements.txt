@@ -3,4 +3,4 @@ psycopg2
 -e git+https://github.com/open511/open511-server.git#egg=open511-server
 -e git+https://github.com/open511/open511-api-tests.git#egg=open511-api-tests
 django-extensions
-selenium==2.35.0
+selenium==2.48.0

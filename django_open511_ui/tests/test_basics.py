@@ -1,5 +1,10 @@
 from __future__ import unicode_literals
 
+try:
+    unicode
+except NameError:
+    unicode = str
+
 import datetime
 import time
 
@@ -33,6 +38,7 @@ class IntegrationTests(BrowserTestCase):
         self.css('li[data-tab=schedule] a').click()
         time.sleep(0.2)
         self.css('[data-tab="schedule"] .add-recurring').click()
+        time.sleep(0.1)
         self.css('[data-fieldname="start_date"] input').click()
         self.css('.datepicker .active').click()
         self.css('li[data-tab=basics] a').click()

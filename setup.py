@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 cwd = os.path.dirname(os.path.realpath(__file__))
 
 def check_version(v):
-    bits = [int(x) for x in v.lstrip('v').strip().split('.')]
+    bits = [int(x) for x in v.decode('ascii').lstrip('v').strip().split('.')]
     return (bits[0] > 0 or bits[1] >= 8)
 
 def run_grunt_build():
@@ -47,7 +47,7 @@ setup(
     packages = find_packages(),
     include_package_data = True,
     install_requires = [
-        'django-appconf==0.5',
+        'django-appconf==1.0.1',
     ],
     cmdclass = {
         'install': CustomInstall,

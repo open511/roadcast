@@ -1,3 +1,8 @@
+try:
+    unicode
+except NameError:
+    unicode = str
+
 from base64 import b64encode
 from copy import deepcopy
 import datetime

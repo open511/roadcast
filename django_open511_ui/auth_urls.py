@@ -1,6 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url
+from django.contrib.auth.views import login, logout_then_login
 
-urlpatterns = patterns('',
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'o5ui/registration/login.html'}, name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
-)
+urlpatterns = [
+    url(r'^login/$', login,
+        {'template_name': 'o5ui/registration/login.html'}, name='login'),
+    url(r'^logout/$', logout_then_login, name='logout'),
+]
