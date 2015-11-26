@@ -74,12 +74,15 @@ def main(request, event_slug=None):
     js_files = ['o5ui/js/' + f + ext for f in js_files]
 
     if request.user.is_authenticated():
-        opts['auth'] = {
-            'logoutURL': urlresolvers.reverse('logout'),
-            'displayName': (request.user.get_full_name()
-                if request.user.get_full_name() else request.user.username),
-            'email': request.user.email
-        }
+        try:
+            opts['auth'] = {
+                'logoutURL': urlresolvers.reverse('logout'),
+                'displayName': (request.user.get_full_name()
+                    if request.user.get_full_name() else request.user.username),
+                'email': request.user.email
+            }
+        except urlresolvers.NoReverseMatch:
+            pass
     elif settings.OPEN511_UI_SHOW_LOGIN_BUTTON:
         opts['auth'] = {
             'loginURL': urlresolvers.reverse('login'),
