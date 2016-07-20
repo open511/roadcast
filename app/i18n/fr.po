@@ -555,11 +555,11 @@ msgstr "Relacher la sourie pour terminer le dessin."
 
 #: /Users/michael/proj/o5/ui/app/js/map/map-leaflet.js:41
 msgid ""
-"Tiles from <a href=\"http://open.mapquest.com/\" target=\"_blank\">MapQuest</"
+"Tiles from <a href=\"https://cartodb.com/attributions\" target=\"_blank\">CartoDB</"
 "a>, data from <a href=\"http://www.openstreetmap.org/copyright\" target="
 "\"_blank\">OpenStreetMap</a>"
 msgstr ""
-"Tuiles: <a href=\"http://open.mapquest.com/\" target=\"_blank\">MapQuest</"
+"Tuiles: <a href=\"https://cartodb.com/attributions\" target=\"_blank\">CartoDB</"
 "a>, données: <a href=\"http://www.openstreetmap.org/copyright\" target="
 "\"_blank\">OpenStreetMap</a>"
 

@@ -36,9 +36,9 @@
 			}).addTo(lmap);
 
 			var defaultTiles = {
-				url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg',
-				subdomains: '1234',
-				attribution: O5._t('Tiles from <a href="http://open.mapquest.com/" target="_blank">MapQuest</a>, data from <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>')
+				url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+				subdomains: 'abcd',
+				attribution: O5._t('Tiles from <a href="https://cartodb.com/attributions" target="_blank">CartoDB</a>, data from <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>')
 			};
 
 			var tiles = this.app.settings.mapTiles || defaultTiles;
