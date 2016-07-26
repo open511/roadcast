@@ -123,7 +123,7 @@ def s3_file_upload_helper(request):
 
     def sign_policy(policy):
         return b64encode(hmac.new(settings.OPEN511_UI_AWS_SECRET_KEY.encode('ascii'),
-            policy.encode('ascii'), sha1).digest())
+            policy.encode('ascii'), sha1).digest()).decode('ascii')
 
     key = "attachments/" + uuid4().hex + "/" + request.GET.get('filename', 'f')
     policy = make_policy(key)
