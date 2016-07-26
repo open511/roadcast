@@ -110,18 +110,20 @@ def s3_file_upload_helper(request):
         policy_object = {
             "expiration": (datetime.datetime.now() + datetime.timedelta(hours=24)).strftime('%Y-%m-%dT%H:%M:%S.000Z'),
             "conditions": [
-                { "bucket": settings.OPEN511_UI_FILE_UPLOAD_S3_BUCKET },
-                { "acl": "public-read" },
-                { "key": key},
-                { "success_action_status": "201" },
+                {"bucket": settings.OPEN511_UI_FILE_UPLOAD_S3_BUCKET},
+                {"acl": "public-read"},
+                {"key": key},
+                {"success_action_status": "201"},
                 ["starts-with", "$Content-Type", ""],
                 ["content-length-range", 0, 10048576], # 10 MB
             ]
         }
-        return b64encode(json.dumps(policy_object).replace('\n', '').replace('\r', ''))
+        return b64encode(json.dumps(policy_object).replace('\n', '').replace('\r', '').encode('utf8')
+            ).decode('ascii')
 
     def sign_policy(policy):
-        return b64encode(hmac.new(settings.OPEN511_UI_AWS_SECRET_KEY, policy, sha1).digest())
+        return b64encode(hmac.new(settings.OPEN511_UI_AWS_SECRET_KEY.encode('ascii'),
+            policy.encode('ascii'), sha1).digest())
 
     key = "attachments/" + uuid4().hex + "/" + request.GET.get('filename', 'f')
     policy = make_policy(key)
