@@ -12,7 +12,7 @@
 <tr>
 	<td></td>
 	<td><input type="submit" class="btn" value="{% trans "Log in" %}" />
-<input type="hidden" name="next" value="{{ next }}" /></td>
+<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url 'o5ui_home' %}{% endif %}" /></td>
 </table>
 
 </form>
