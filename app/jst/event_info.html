@@ -1,3 +1,23 @@
+<%
+var directions = {
+	// 'BOTH': O5._t('both directions'),
+	'S': O5._t('southbound'),
+	'N': O5._t('northbound'),
+	'E': O5._t('eastbound'),
+	'W': O5._t('westbound')
+};
+var states = { // FIXME not very dry
+	'SOME_LANES_CLOSED': O5._t('Some lanes closed'),
+	'SINGLE_LANE_ALTERNATING': O5._t('Single lane alternating'),
+	'CLOSED': O5._t('All lanes closed')
+};
+var severities = {
+	'MINOR': O5._t('Minor'),
+	'MODERATE': O5._t('Moderate'),
+	'MAJOR': O5._t('Major'),
+	'UNKNOWN': O5._t('Unknown')
+};
+%>
 <div class="header container">
 	<% if (r.headline) { %><h2 class="headline"><%- r.headline %></h2><% } %>
 	<div class="date">
@@ -11,18 +31,6 @@
 	<h4><%- O5._t('Roads') %></h4>
 	<% _.each(r.roads, function(road) { %>
 		<p><strong><%- road.name %><% 
-			var directions = {
-				// 'BOTH': O5._t('both directions'),
-				'S': O5._t('southbound'),
-				'N': O5._t('northbound'),
-				'E': O5._t('eastbound'),
-				'W': O5._t('westbound')
-			};
-			var states = { // FIXME not very dry
-				'SOME_LANES_CLOSED': O5._t('Some lanes closed'),
-				'SINGLE_LANE_ALTERNATING': O5._t('Single lane alternating'),
-				'CLOSED': O5._t('All lanes closed')
-			};
 			if (road.direction && directions[road.direction]) {
 				print(' (' + directions[road.direction] + ')');
 			}
@@ -44,6 +52,9 @@
 		%></p>
 	<% });
 } %>
+<% if (r.severity && r.severity !== "UNKNOWN") {%><h4><%- O5._t('Severity') %></h4>
+<div class="map-marker severity-<%- r.severity.toLowerCase() %>"></div>
+<span><%- severities[r.severity] %><% } %></span>
 <% if (r.description) { %><h4><%- O5._t('Details') %></h4><%= O5.utils.nlToBR(r.description) %><% } %>
 
 <h4><%- O5._t('Schedule') %></h4><%= O5.utils.nlToBR(schedule.toStrings().join('\n')) %>
