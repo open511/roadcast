@@ -69,7 +69,8 @@ def main(request, event_slug=None):
         js_files.append('plugins/feedback')
         opts['feedbackURL'] = urlresolvers.reverse('o5ui_feedback')
 
-    if len(settings.LANGUAGES) > 1 and any('LocaleMiddleware' in m for m in settings.MIDDLEWARE):
+    if len(settings.LANGUAGES) > 1 and \
+            any('LocaleMiddleware' in m for m in getattr(settings, 'MIDDLEWARE', [])):
         opts['languagesAvailable'] = settings.LANGUAGES
         js_files.append('plugins/lang-switcher')
 
