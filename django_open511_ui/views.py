@@ -69,6 +69,9 @@ def main(request, event_slug=None):
         js_files.append('plugins/feedback')
         opts['feedbackURL'] = urlresolvers.reverse('o5ui_feedback')
 
+    if len(settings.LANGUAGES) > 1 and any('LocaleMiddleware' in m for m in settings.MIDDLEWARE):
+        opts['languagesAvailable'] = settings.LANGUAGES
+        js_files.append('plugins/lang-switcher')
 
     ext = '.js' if settings.DEBUG else '.min.js'
     js_files = ['o5ui/js/' + f + ext for f in js_files]

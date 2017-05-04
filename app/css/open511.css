@@ -168,12 +168,13 @@
 	display: inline-block;
 }
 .o5 .navbar .auth {
-	position: absolute;
-	right: 20px;
+	position: relative;
+	float: right;
 	top: 12px;
 }
-.o5 .navbar .auth a {
-	padding-left: 5px;
+.o5 .navbar .auth span {
+	padding-right: 1rem;
+	padding-left: .5rem;
 }
 
 .o5 .navbar a.nav-button {
