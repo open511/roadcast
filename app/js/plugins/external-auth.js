@@ -2,8 +2,8 @@ O5.plugins.register(function(app) {
 	if (app.settings.auth) {
 		var html;
 		if (app.settings.auth.displayName && app.settings.auth.logoutURL) {
-			html = _.escape(app.settings.auth.displayName) +
-				'<span><a href="' + app.settings.auth.logoutURL + '" class="log-out">' +
+			html = '<span>' + _.escape(app.settings.auth.displayName) +
+				' &nbsp;<a href="' + app.settings.auth.logoutURL + '" class="log-out">' +
 				O5._t('Sign out') + '</a></span>';
 		}
 		else if (app.settings.auth.loginURL) {
